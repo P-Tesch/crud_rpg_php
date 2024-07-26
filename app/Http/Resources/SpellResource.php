@@ -17,6 +17,7 @@ class SpellResource extends JsonResource
         return [
             "name" => $this->name,
             "description" => $this->description,
+            "type" => $this->type
         ];
     }
 }

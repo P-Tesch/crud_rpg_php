@@ -28,7 +28,7 @@ class RollController extends Controller {
         $sheet = SheetEntity::buildFromModel($sheetController->showAsModel($request));
         $recoilRoll = $this->rollRecoil($sheet, $cost);
 
-        $spell = $sheet->schools[$schoolString][$spellString];
+        $spell = $sheet->schools[$schoolString]["spells"][$spellString];
 
         switch ($spell["type"]) {
             case SpellTypes::PROJECTILE:
@@ -47,7 +47,7 @@ class RollController extends Controller {
 
         $sheet->update($sheetController->showFromId($sheet->id));
 
-        return ["subject" => $spellString, "name" => $sheet->name,"rolls" => ["recoil" => $recoilRoll, "success" => $spellRoll, "specific" => $specificRoll ?? null]];
+        return ["recoilDamage" => $recoilRoll["recoil"], "cost" => $cost, "subject" => $spellString, "name" => $sheet->name,"rolls" => ["recoil" => $recoilRoll["roll"], "success" => $spellRoll, "specific" => $specificRoll ?? null]];
     }
 
     public function rollItem(Request $request, SheetController $sheetController) : array {
@@ -76,6 +76,6 @@ class RollController extends Controller {
             $sheet->attributes["health"] -= $recoil;
         }
 
-        return $recoilRoll;
+        return ["recoil" => $recoil, "roll" => $recoilRoll];
     }
 }

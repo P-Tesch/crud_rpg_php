@@ -251,6 +251,10 @@ class SheetController extends Controller
         return SheetEntity::buildFromModel($this->showAsModel($request));
     }
 
+    public function showEntityAsJson(Request $request) {
+        return json_encode(SheetEntity::buildFromModel($this->showAsModel($request)));
+    }
+
     /**
      * Update the specified resource in storage.
      */

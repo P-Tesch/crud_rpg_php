@@ -15,6 +15,7 @@ defineProps({ sheet: Object })
 const csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 const points = ref(null);
 const rolls = ref(null);
+const schoolsModal = ref(null);
 
 async function persist(sheet) {
     if (points.value.remainingPoints < 0) {
@@ -30,7 +31,7 @@ async function persist(sheet) {
                 "X-CSRF-Token": csrf,
                 "Content-Type": "application/json"
             },
-            creadentials: "same-origin",
+            credentials: "same-origin",
             body: JSON.stringify(sheet)
         });
         if (!response.ok) {
@@ -38,14 +39,28 @@ async function persist(sheet) {
         }
 
         alert("success");
-        window.location.reload();
     } catch (error) {
         window.open().document.body.innerHTML = error.message;
     }
 }
 
-function addSchool() {
-    console.log("add");
+async function updateSheet(sheet) {
+    const url = "api/sheets";
+    try {
+        const response = await fetch(url, {
+            method: "GET"
+        });
+
+        if (!response.ok) {
+            throw new Error(await response.text());
+        }
+
+        const obj = JSON.parse(await response.text());
+        sheet.attributes = obj.attributes;
+
+    } catch (error) {
+        window.open().document.body.innerHTML = error.message;
+    }
 }
 
 </script>
@@ -58,7 +73,7 @@ function addSchool() {
         <AttributesTable :sheet />
         <StatsTable :sheet />
         <SkillsTable :sheet :rolls />
-        <SchoolsTable :sheet :rolls @add="addSchool()"/>
+        <SchoolsTable :sheet :rolls @add="schoolsModal.modalRef.showModal()" @sync="updateSheet(sheet)" />
         <ItemsTable :sheet />
         <MysticEyesTable :sheet />
         <RollHistory class="col-start-3 row-start-1" ref="rolls" :sheet />
@@ -73,5 +88,8 @@ function addSchool() {
             <input type="hidden" name="_token" :value="csrf">
         </div>
     </div>
+    <Teleport to="body">
+        <SchoolsShop :sheet ref="schoolsModal"/>
+    </Teleport>
   </Layout>
 </template>

@@ -45,9 +45,11 @@ defineExpose({rolls});
                 </div>
             </div>
             <div class="w-full" v-if="roll.type == 'spell'">
-                <div class="chat-header">{{ roll["json"]["name"] }} rolou {{ roll["json"]["subject"] }}</div>
+                <div class="chat-header">{{ roll["json"]["name"] }} rolou {{ roll["json"]["subject"] }} com custo {{ roll["json"]["cost"] }}</div>
                 <div class="chat-bubble chat-bubble-primary">
-                    <span>Coice: </span>
+                    <p>Coice: </p>
+                    <p>Dano Recebido: {{ roll["json"]["recoilDamage"] }}</p>
+                    <span>Rolagem: </span>
                     <span v-for="rollResult in roll['json']['rolls']['recoil']['rolls']">{{ rollResult }}&nbsp;</span>
                     <p class="chat-footer">Total: {{ roll["json"]["rolls"]["recoil"]["hits"] }} Acertos</p>
                 </div>

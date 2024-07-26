@@ -7,6 +7,8 @@ const props = defineProps({
     rolls : Object
 })
 
+const emit = defineEmits(["sync"]);
+
 const types = {
     "PROJECTILE": "Projétil",
     "DIRECT": "Direto",
@@ -14,8 +16,12 @@ const types = {
 }
 
 async function rollSpell(school, spell) {
-    /// TODO formatar resposta
     let cost = window.prompt("Insira o custo");
+    if (props.sheet.attributes.mana < cost) {
+        alert("Mana insuficiente");
+        return;
+    }
+
     const url = /*window.location.host + */"/api/roll/spell?school=" + school + "&spell=" + spell + "&cost=" + cost + "&modifier=0";
     try {
         const response = await fetch(url);
@@ -25,6 +31,8 @@ async function rollSpell(school, spell) {
 
         const json = JSON.parse(await response.text());
         props.rolls.rolls.push({"type": "spell", "json": json});
+        emit("sync");
+
     } catch (error) {
         window.open().document.body.innerHTML = error.message;
     }
@@ -36,9 +44,9 @@ async function rollSpell(school, spell) {
     <div class="overflow-x-auto border border-1 rounded-md border-primary p-3">
         <div v-for="value, key in sheet.schools" class="collapse collapse-arrow bg-base-100">
             <input type="checkbox" name="schools-collapse" />
-            <div class="collapse-title text-xl font-medium">{{ key }}</div>
+            <div class="collapse-title text-xl font-medium">{{ key }} [{{ value.level }}]</div>
             <div class="collapse-content">
-                <div v-for="v, k in value" class="collapse collapse-arrow bg-base-100">
+                <div v-for="v, k in value.spells" class="collapse collapse-arrow bg-base-100">
                     <input type="checkbox" name="spells-collapse" />
                     <div class="collapse-title text-xl font-medium">{{ k }}</div>
                     <div class="collapse-content">

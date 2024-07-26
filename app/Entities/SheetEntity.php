@@ -2,6 +2,7 @@
 
 namespace App\Entities;
 
+use App\Http\Controllers\SchoolController;
 use App\Models\Advantage;
 use App\Models\Item;
 use App\Models\Miracle;
@@ -86,9 +87,17 @@ class SheetEntity {
             $this->miracles[] = $miracleModel;
         }
 
-        foreach ($args["schools"] as $school) {
-            $schoolModel = new School($school);
-            $this->schools[] = $schoolModel;
+        foreach ($args["schools"] as $name => $school) {
+            $schoolModel = SchoolController::findByNameAndLevel($name, $school["level"]);
+            $spells = [];
+            foreach ($schoolModel->spells as $spell) {
+                $spells[$spell->name] = [
+                    "type" => SpellTypes::tryFrom($spell->type),
+                    "description" => $spell->description,
+                    "strategy" => $spell->strategy
+                ];
+            }
+            $this->schools[$schoolModel->name] = ["id" => $schoolModel->id, "level" => $schoolModel->level, "spells" => $spells];
         }
 
         foreach ($args["sonatas"] as $sonata) {
@@ -145,7 +154,7 @@ class SheetEntity {
                     "strategy" => $spell->strategy
                 ];
             }
-            $this->schools[$school->name] = $spells;
+            $this->schools[$school->name] = ["id" => $school->id, "level" => $school->level, "spells" => $spells];
         }
 
         return $this;
@@ -197,19 +206,26 @@ class SheetEntity {
             }
         }
 
+        $schools = [];
+        foreach ($this->schools as $school) {
+            $schools[] = $school["id"];
+        }
+
+        $model->schools()->sync($schools, true);
+
+        /*
         foreach ($this->advantages as $advantage) {
         $advantageModel = ($index = array_search($advantage["id"], $model->advantages->map(function ($adv) {return $adv->id;})->toArray()) != null)
             ? $model->advantages->toArray($index)
             : new Advantage();
         }
+        */
 
         //$model->blood = $this->blood;
         //$model->items = $this->items;
         //$model->miracles = $this->miracles;
-        //$model->schools = $this->schools;
         //$model->scripture = $this->scripture;
         //$model->sonatas = $this->sonatas;
-
         $model->save();
     }
 }
