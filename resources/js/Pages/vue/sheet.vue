@@ -9,7 +9,7 @@ import ItemsTable from './components/items.vue'
 import MysticEyesTable from './components/mysticEyes.vue'
 import RollHistory from './components/rollHistory.vue'
 import CharacterInfo from './components/info.vue'
-import SchoolsShop from './components/schoolsShop.vue'
+import SchoolsShop from './components/modals/schoolsShop.vue'
 
 defineProps({ sheet: Object })
 const csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
@@ -74,7 +74,7 @@ async function updateSheet(sheet) {
         <StatsTable :sheet />
         <SkillsTable :sheet :rolls />
         <SchoolsTable :sheet :rolls @add="schoolsModal.modalRef.showModal()" @sync="updateSheet(sheet)" />
-        <ItemsTable :sheet />
+        <ItemsTable :sheet @sync="updateSheet(sheet)" />
         <MysticEyesTable :sheet />
         <RollHistory class="col-start-3 row-start-1" ref="rolls" :sheet />
     <!--

@@ -2,10 +2,10 @@
 import { Head, router } from '@inertiajs/vue3'
 import { ref, reactive } from "vue"
 
-defineProps({ sheet: Object })
+defineProps({ sheet: Object });
+const emit = defineEmits(["sync"]);
 
 async function rollItem(item) {
-    /// TODO formatar resposta
     const url = /*window.location.host + */"/api/roll/item?item=" + item.id;
     try {
         const response = await fetch(url);
@@ -15,7 +15,7 @@ async function rollItem(item) {
 
         const json = JSON.parse(await response.text());
         alert(JSON.stringify(json["rolls"]));
-        window.location.reload();
+        emit("sync");
     } catch (error) {
         window.open().document.body.innerHTML = error.message;
     }
