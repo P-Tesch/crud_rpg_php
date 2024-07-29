@@ -47,7 +47,7 @@ class SheetController extends Controller
         $sheet->description = $request->get("description");
         $sheet->background = $request->get("background");
         $sheet->creation_points = $request->get("creation_points");
-        $sheet->alignment = $request->get("alignments");
+        $sheet->alignment = $request->get("alignment");
         $sheet->organization = $request->get("organization");
 
         $sheet->save();
@@ -218,7 +218,7 @@ class SheetController extends Controller
             }
         }
 
-        return new SheetResource(Sheet::find($sheet->id));
+        return $sheet->id;
     }
 
     /**

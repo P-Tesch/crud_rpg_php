@@ -1,6 +1,7 @@
 <script setup>
 import { Head, router } from '@inertiajs/vue3'
 import { ref, reactive } from "vue"
+import RegisterModal from './components/modals/registerModal.vue';
 
 const form = reactive({
     login: null,
@@ -8,11 +9,15 @@ const form = reactive({
     remember_me: null
 })
 
+const registerModal = ref(null);
+
 const auth = () => {
     router.get("/api/login", form)
 }
 
-const register = () => {}
+function register(user, sheet) {
+
+}
 
 </script>
 
@@ -58,9 +63,12 @@ const register = () => {}
             </form>
             <div class="flex flex-row">
                 <button class="btn btn-outline btn-accent mx-auto" v-on:click="auth">Entrar</button>
-                <button class="btn btn-outline btn-secondary mx-auto" v-on:click="register">Registrar</button>
+                <button class="btn btn-outline btn-secondary mx-auto" v-on:click="registerModal.modalRef.showModal()">Registrar</button>
             </div>
         </div>
     </div>
+    <Teleport to="body">
+        <RegisterModal @end="(user, sheet) => register(user, sheet)" ref="registerModal"/>
+    </Teleport>
   </Layout>
 </template>
