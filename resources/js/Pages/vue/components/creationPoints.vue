@@ -11,7 +11,7 @@ watch(props.sheet, () => calculatePoints());
 defineExpose({remainingPoints})
 
 function calculatePoints() {
-    remainingPoints.value = props.sheet.creationPoints - totalSkillsCost() - totalStatsCost();
+    remainingPoints.value = props.sheet.creationPoints - totalSkillsCost() - totalStatsCost() - totalSchoolsCost() - totalMysticEyesCost() - totalAdvantagesCost();
 }
 
 function totalStatsCost() {
@@ -42,6 +42,39 @@ function totalSkillsCost() {
         .reduce(
             function (total, item) {
                 return total + summation(item)
+            },
+            0
+        );
+}
+
+function totalSchoolsCost() {
+    return Object
+        .values(props.sheet.schools)
+        .reduce(
+            function (total, item) {
+                return total + item.cost
+            },
+            0
+        );
+}
+
+function totalMysticEyesCost() {
+    return Object
+        .values(props.sheet.mysticEyes)
+        .reduce(
+            function (total, item) {
+                return total + item.cost
+            },
+            0
+        );
+}
+
+function totalAdvantagesCost() {
+    return Object
+        .values(props.sheet.advantages)
+        .reduce(
+            function (total, item) {
+                return total + item.cost
             },
             0
         );

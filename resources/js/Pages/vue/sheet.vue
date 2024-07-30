@@ -74,8 +74,8 @@ async function updateSheet(sheet) {
     }
 }
 
-function endTurn() {
-    console.log("test");
+function endTurn(sheet) {
+    console.log(sheet);
 }
 
 </script>
@@ -100,7 +100,7 @@ function endTurn() {
     -->
         <div class="fixed bottom-10 right-10 space-x-5">
             <button class="btn btn-outline btn-accent" id="save" @click="persist(sheet)">Salvar</button>
-            <button class="btn btn-outline btn-secondary" @click="endTurn()">Terminar turno</button>
+            <button class="btn btn-outline btn-secondary" @click="endTurn(sheet)">Terminar turno</button>
             <input type="hidden" name="_token" :value="csrf">
         </div>
     </div>

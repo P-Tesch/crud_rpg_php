@@ -32,11 +32,19 @@ function addToSheet(index) {
     if (original.length >= 2) {
         return;
     }
+
+    let exists = false;
     original.forEach(eye => {
         if (eye.name == toAdd.name) {
-            return;
+            exists = true;
         }
     });
+
+    if (exists) {
+        return;
+    }
+
+    toAdd.pivot = {"current_cooldown": toAdd.cooldown};
 
     props.sheet.mysticEyes.push(toAdd);
 }
@@ -73,6 +81,7 @@ function addToSheet(index) {
                             </div>
                         </div>
                     </div>
+                    <p class="p-5">Custo: {{ value.cost }}</p>
                     <button class="btn btn-outline btn-accent btn-md self-end"
                         @click="addToSheet(key)">Adicionar</button>
                 </div>

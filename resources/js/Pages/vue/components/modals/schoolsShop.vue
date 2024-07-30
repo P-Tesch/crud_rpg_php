@@ -44,7 +44,7 @@ function addToSheet(index) {
         original.spells = spells;
     }
     else {
-        props.sheet.schools[toAdd["name"]] = {"level": toAdd["level"], "spells": spells};
+        props.sheet.schools[toAdd["name"]] = {"level": toAdd["level"], "cost": toAdd["cost"], "spells": spells};
     }
 }
 
@@ -70,6 +70,7 @@ function addToSheet(index) {
                         <p>Descrição: {{ v.description }}</p>
                     </div>
                 </div>
+                <p>Custo: {{ value.cost }}</p>
                 <button class="btn btn-outline btn-accent btn-md self-end" @click="addToSheet(key)">Adicionar</button>
             </div>
         </div>

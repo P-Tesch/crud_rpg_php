@@ -99,7 +99,7 @@ class SheetEntity {
                     "strategy" => $spell->strategy
                 ];
             }
-            $this->schools[$schoolModel->name] = ["id" => $schoolModel->id, "level" => $schoolModel->level, "spells" => $spells];
+            $this->schools[$schoolModel->name] = ["id" => $schoolModel->id, "level" => $schoolModel->level, "cost" => $schoolModel->cost, "spells" => $spells];
         }
 
         $mysticEyes = [];

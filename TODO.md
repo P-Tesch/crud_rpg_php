@@ -13,3 +13,4 @@
 12. Schools shop filtering
 13. Scholls cost
 14. Spell roll prompt styling
+15. Fix spell buying
