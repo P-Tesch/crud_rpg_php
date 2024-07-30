@@ -1,6 +1,7 @@
 <script setup>
 import { Head, router } from '@inertiajs/vue3'
 import { ref, reactive } from "vue"
+import FailToast from './alerts/failToast.vue';
 
 const props = defineProps({
     sheet: Object,
@@ -8,6 +9,7 @@ const props = defineProps({
 })
 
 const emit = defineEmits(["sync"]);
+const failToast = ref(null);
 
 const types = {
     "PROJECTILE": "Projétil",
@@ -18,7 +20,8 @@ const types = {
 async function rollSpell(school, spell) {
     let cost = window.prompt("Insira o custo");
     if (props.sheet.attributes.mana < cost) {
-        alert("Mana insuficiente");
+        this.failToast.toastRef = true;
+        setTimeout(() => this.failToast.toastRef = false, 2500);
         return;
     }
 
@@ -41,18 +44,20 @@ async function rollSpell(school, spell) {
 </script>
 
 <template>
-    <div class="overflow-x-auto border border-1 rounded-md border-primary p-3">
-        <div v-for="value, key in sheet.schools" class="collapse collapse-arrow bg-base-100">
-            <input type="checkbox" name="schools-collapse" />
-            <div class="collapse-title text-xl font-medium">{{ key }} [{{ value.level }}]</div>
-            <div class="collapse-content">
-                <div v-for="v, k in value.spells" class="collapse collapse-arrow bg-base-100">
-                    <input type="checkbox" name="spells-collapse" />
-                    <div class="collapse-title text-xl font-medium">{{ k }}</div>
-                    <div class="collapse-content">
-                        <p>Tipo: {{ types[v.type] }}</p>
-                        <p>Descrição: {{ v.description }}</p>
-                        <button class="btn btn-outline btn-secondary btn-sm" @click="rollSpell(key, k)">Roll</button>
+    <div class="border border-1 rounded-md border-primary p-3 flex flex-col justify-between">
+        <div class="overflow-auto">
+            <div v-for="value, key in sheet.schools" class="collapse collapse-arrow bg-base-100">
+                <input type="checkbox" name="schools-collapse" />
+                <div class="collapse-title text-xl font-medium">{{ key }} [{{ value.level }}]</div>
+                <div class="collapse-content">
+                    <div v-for="v, k in value.spells" class="collapse collapse-arrow bg-base-100">
+                        <input type="checkbox" name="spells-collapse" />
+                        <div class="collapse-title text-xl font-medium">{{ k }}</div>
+                        <div class="collapse-content">
+                            <p>Tipo: {{ types[v.type] }}</p>
+                            <p>Descrição: {{ v.description }}</p>
+                            <button class="btn btn-outline btn-secondary btn-sm" @click="rollSpell(key, k)">Roll</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -61,4 +66,5 @@ async function rollSpell(school, spell) {
             <button class="btn btn-outline btn-accent w-full" @click="this.$emit('add')">Adicionar</button>
         </div>
     </div>
+    <FailToast class="z-10" ref="failToast" :message="'Mana insuficiente'" />
 </template>

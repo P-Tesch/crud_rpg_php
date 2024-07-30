@@ -10,16 +10,21 @@ import MysticEyesTable from './components/mysticEyes.vue'
 import RollHistory from './components/rollHistory.vue'
 import CharacterInfo from './components/info.vue'
 import SchoolsShop from './components/modals/schoolsShop.vue'
+import SuccessToast from './components/alerts/successToast.vue'
+import FailToast from './components/alerts/failToast.vue'
 
 defineProps({ sheet: Object })
 const csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 const points = ref(null);
 const rolls = ref(null);
 const schoolsModal = ref(null);
+const successToast = ref(null);
+const failToast = ref(null);
 
 async function persist(sheet) {
-    if (points.value.remainingPoints < 0) {
-        alert("Pontos de criação insuficientes");
+    if (this.points.points.remainingPoints < 0) {
+        this.failToast.toastRef = true;
+        setTimeout(() => this.failToast.toastRef = false, 2500);
         return;
     }
 
@@ -38,7 +43,8 @@ async function persist(sheet) {
             throw new Error(await response.text());
         }
 
-        alert("success");
+        this.successToast.toastRef = true;
+        setTimeout(() => this.successToast.toastRef = false, 2500);
     } catch (error) {
         window.open().document.body.innerHTML = error.message;
     }
@@ -63,6 +69,10 @@ async function updateSheet(sheet) {
     }
 }
 
+function endTurn() {
+    console.log("test");
+}
+
 </script>
 
 <template>
@@ -84,12 +94,14 @@ async function updateSheet(sheet) {
     -->
         <div class="fixed bottom-10 right-10 space-x-5">
             <button class="btn btn-outline btn-accent" id="save" @click="persist(sheet)">Salvar</button>
-            <button class="btn btn-outline btn-secondary">Terminar turno</button>
+            <button class="btn btn-outline btn-secondary" @click="endTurn()">Terminar turno</button>
             <input type="hidden" name="_token" :value="csrf">
         </div>
     </div>
     <Teleport to="body">
         <SchoolsShop :sheet ref="schoolsModal"/>
     </Teleport>
+    <SuccessToast class="z-10" ref="successToast" :message="'Ficha salva com sucesso'" />
+    <FailToast class="z-10" ref="failToast" :message="'Pontos de criação insuficientes'" />
   </Layout>
 </template>
