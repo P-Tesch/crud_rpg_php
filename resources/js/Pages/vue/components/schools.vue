@@ -8,7 +8,7 @@ const props = defineProps({
     rolls : Object
 })
 
-const emit = defineEmits(["sync"]);
+const emit = defineEmits(["sync", "add"]);
 const failToast = ref(null);
 
 const types = {

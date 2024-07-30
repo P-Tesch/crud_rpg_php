@@ -53,6 +53,8 @@ class SheetController extends Controller
         $sheet->save();
 
         $sheet->schools()->attach($request->get("schools"));
+        $sheet->mysticEyes()->attach($request->get("mystic_eyes"));
+        $sheet->advantages()->attach($request->get("advantages"));
 
         foreach ($request->get("stats") as $statArray) {
             $stat = new Stat();
@@ -77,19 +79,6 @@ class SheetController extends Controller
             $attributes->value = $attributesArray["value"];
             $attributes->sheet_id = $sheet->id;
             $attributes->save();
-        }
-
-        $advantages = $request->get("advantages");
-        if (isset($advantages)) {
-            foreach ($advantages as $advantageArray) {
-                $advantage = new Advantage();
-                $advantage->name = $advantageArray["name"];
-                $advantage->description = $advantageArray["description"];
-                $advantage->level = $advantageArray["level"];
-                $advantage->strategy = $advantageArray["strategy"];
-                $advantage->sheet_id = $sheet->id;
-                $advantage->save();
-            }
         }
 
         $bloodArray = $request->get("blood");
@@ -160,21 +149,6 @@ class SheetController extends Controller
                 $miracle->strategy = $miracleArray["strategy"];
                 $miracle->sheet_id = $sheet->id;
                 $miracle->save();
-            }
-        }
-
-        $mysticEyes = $request->get("mystic_eyes");
-        if(isset($mysticEyes)) {
-            foreach ($mysticEyes as $meArray) {
-                $me = new MysticEye;
-                $me->name = $meArray["name"];
-                $me->passive = $meArray["passive"];
-                $me->active = $meArray["active"];
-                $me->cooldown = $meArray["cooldown"];
-                $me->passive_strategy = $meArray["passive_strategy"];
-                $me->active_strategy = $meArray["passive_strategy"];
-                $me->sheet_id = $sheet->id;
-                $me->save();
             }
         }
 

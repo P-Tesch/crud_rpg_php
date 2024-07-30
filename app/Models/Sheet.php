@@ -40,16 +40,16 @@ class Sheet extends Model
         return $this->hasOne(Blood::class);
     }
 
-    public function advantages() : HasMany {
-        return $this->hasMany(Advantage::class);
+    public function advantages() : BelongsToMany {
+        return $this->belongsToMany(Advantage::class);
     }
 
     public function items() : HasMany {
         return $this->hasMany(Item::class);
     }
 
-    public function mysticEyes() : HasMany {
-        return $this->hasMany(MysticEye::class);
+    public function mysticEyes() : BelongsToMany {
+        return $this->belongsToMany(MysticEye::class)->withPivot("current_cooldown");
     }
 
     public function schools() : BelongsToMany {

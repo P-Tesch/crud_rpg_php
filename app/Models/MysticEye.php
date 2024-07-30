@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class MysticEye extends Model
 {
@@ -16,7 +16,9 @@ class MysticEye extends Model
         "name",
         "passive",
         "active",
-        "cooldown"
+        "cooldown",
+        "pivot_current_cooldown",
+        "cost"
     ];
 
     protected $hidden = [
@@ -24,7 +26,7 @@ class MysticEye extends Model
         "passive_strategy"
     ];
 
-    public function sheet() : HasOne {
-        return $this->hasOne(Sheet::class);
+    public function sheet() : BelongsToMany {
+        return $this->belongsToMany(Sheet::class)->withPivot("current_cooldown");
     }
 }

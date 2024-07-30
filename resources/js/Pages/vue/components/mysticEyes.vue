@@ -2,23 +2,12 @@
 import { Head, router } from '@inertiajs/vue3'
 import { ref, reactive } from "vue"
 
-defineProps({ sheet: Object })
+defineProps({ sheet: Object });
 
-async function rollItem(item) {
-    /// TODO formatar resposta
-    const url = /*window.location.host + */"/api/roll/item?item=" + item.id;
-    try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(await response.text());
-        }
+const emit = defineEmits("add");
 
-        const json = JSON.parse(await response.text());
-        alert(JSON.stringify(json["rolls"]));
-        window.location.reload();
-    } catch (error) {
-        window.open().document.body.innerHTML = error.message;
-    }
+async function rollMysticEye(item) {
+    /// TODO
 }
 
 </script>
@@ -41,11 +30,14 @@ async function rollItem(item) {
                     <div class="collapse-title text-xl font-medium">Ativo</div>
                     <div class="collapse-content grid grid-flow-row grid-cols-2">
                         <p class="col-start-1 row-start-1" >{{ value.active }}</p>
-                        <p class="col-start-1 row-start-2">Cooldown: {{ value.cooldown }}</p>
-                        <button class="btn btn-outline btn-secondary btn-sm grid-rows-1 col-start-2 row-span-full w-4/12 ml-auto my-auto mr-5" @click="rollItem(value)">Roll</button>
+                        <p class="col-start-1 row-start-2">Cooldown: {{ value.pivot.current_cooldown }} / {{ value.cooldown }}</p>
+                        <button class="btn btn-outline btn-secondary btn-sm grid-rows-1 col-start-2 row-span-full w-4/12 ml-auto my-auto mr-5" @click="rollMysticEye(value)">Roll</button>
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="w-full text-center">
+            <button class="btn btn-outline btn-accent w-full" @click="this.$emit('add')">Adicionar</button>
         </div>
     </div>
 </template>

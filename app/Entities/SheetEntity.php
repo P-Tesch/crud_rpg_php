@@ -2,10 +2,13 @@
 
 namespace App\Entities;
 
+use App\Http\Controllers\AdvantagesController;
+use App\Http\Controllers\MysticEyesController;
 use App\Http\Controllers\SchoolController;
 use App\Models\Advantage;
 use App\Models\Item;
 use App\Models\Miracle;
+use App\Models\MysticEye;
 use App\Models\Sonata;
 use App\Models\Stat;
 use App\Models\Blood;
@@ -60,8 +63,6 @@ class SheetEntity {
         $this->stats = $args["stats"];
         $this->attributes = $args["attributes"];
         $this->skills = $args["skills"];
-        $this->advantages = $args["advantages"];
-        $this->mysticEyes = $args["mysticEyes"];
 
         $blood = $args["blood"];
         if (isset($args["blood"])) {
@@ -87,6 +88,7 @@ class SheetEntity {
             $this->miracles[] = $miracleModel;
         }
 
+        $this->schools = [];
         foreach ($args["schools"] as $name => $school) {
             $schoolModel = SchoolController::findByNameAndLevel($name, $school["level"]);
             $spells = [];
@@ -99,6 +101,18 @@ class SheetEntity {
             }
             $this->schools[$schoolModel->name] = ["id" => $schoolModel->id, "level" => $schoolModel->level, "spells" => $spells];
         }
+
+        $mysticEyes = [];
+        foreach ($args["mysticEyes"] as $mysticEye) {
+            $mysticEyes[] = MysticEyesController::findByName($mysticEye["name"]);
+        }
+        $this->mysticEyes = $mysticEyes;
+
+        $advantages = [];
+        foreach ($args["advantages"] as $advantage) {
+            $advantages[] = AdvantagesController::findByNameAndLevel($advantage["name"], $advantage["level"]);
+        }
+        $this->advantages = $advantages;
 
         foreach ($args["sonatas"] as $sonata) {
             $sonataModel = new Sonata($sonata);
@@ -213,13 +227,19 @@ class SheetEntity {
 
         $model->schools()->sync($schools, true);
 
-        /*
-        foreach ($this->advantages as $advantage) {
-        $advantageModel = ($index = array_search($advantage["id"], $model->advantages->map(function ($adv) {return $adv->id;})->toArray()) != null)
-            ? $model->advantages->toArray($index)
-            : new Advantage();
+        $mysticEyes = [];
+        foreach ($this->mysticEyes as $mysticEye) {
+            $mysticEyes[$mysticEye->id] = ["current_cooldown" => $mysticEye->pivot?->current_cooldown ?: $mysticEye->cooldown];
         }
-        */
+
+        $model->mysticEyes()->sync($mysticEyes, true);
+
+        $advantages = [];
+        foreach ($this->advantages as $advantage) {
+            $advantages[] = $advantage->id;
+        }
+
+        $model->advantages()->sync($advantages, true);
 
         //$model->blood = $this->blood;
         //$model->items = $this->items;

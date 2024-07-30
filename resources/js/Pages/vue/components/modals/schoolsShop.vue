@@ -14,7 +14,7 @@ const types = {
     null: "Outro"
 }
 
-onBeforeMount(() => {schools.value = getSchools()})
+onBeforeMount(() => {getSchools()})
 
 defineExpose({modalRef});
 

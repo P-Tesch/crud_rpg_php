@@ -1,0 +1,25 @@
+<script setup>
+import { Head, router } from '@inertiajs/vue3'
+import { ref, reactive } from "vue"
+
+defineProps({ sheet: Object });
+
+const emit = defineEmits("add");
+
+</script>
+
+<template>
+    <div class="overflow-x-auto border border-1 rounded-md border-primary p-3">
+        <div v-for="value, key in sheet.advantages" class="collapse collapse-arrow bg-base-100">
+            <input type="checkbox" name="advantages-collapse" />
+            <div class="collapse-title text-xl font-medium">{{ value.name }}</div>
+            <div class="collapse-content">
+                <p>{{ value.description }}</p>
+                <p>Level: {{ value.level }}</p>
+            </div>
+        </div>
+        <div class="w-full text-center">
+            <button class="btn btn-outline btn-accent w-full" @click="this.$emit('add')">Adicionar</button>
+        </div>
+    </div>
+</template>

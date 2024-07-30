@@ -15,7 +15,8 @@ class School extends Model
     protected $fillable = [
         "name",
         "description",
-        "level"
+        "level",
+        "cost"
     ];
 
     public function sheet() : BelongsToMany {

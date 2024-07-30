@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('advantages', function (Blueprint $table) {
+        Schema::create('advantage_sheet', function (Blueprint $table) {
             $table->id();
-            $table->string("name", 63);
-            $table->string("description", 511);
-            $table->integer("level");
-            $table->string("strategy")->nullable();
-            $table->integer("cost");
 
+            $table->unsignedBigInteger("advantage_id");
+            $table->foreign("advantage_id")->references("id")->on("advantages");
+
+            $table->unsignedBigInteger("sheet_id");
+            $table->foreign("sheet_id")->references("id")->on("sheets");
         });
     }
 
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('advantages');
+        Schema::dropIfExists('advantages_sheets');
     }
 };

@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\School>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Advantage>
  */
-class SchoolFactory extends Factory
+class AdvantageFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,8 +18,8 @@ class SchoolFactory extends Factory
     {
         return [
             "name" => fake()->word(),
-            "description" => fake()->sentence(),
-            "level" => fake()->numberBetween(1, 3),
+            "description" => fake()->paragraph(),
+            "level" => fake()->numberBetween(1, 5),
             "cost" => fake()->numberBetween(5, 30)
         ];
     }

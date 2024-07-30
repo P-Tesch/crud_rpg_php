@@ -13,15 +13,14 @@ return new class extends Migration
     {
         Schema::create('mystic_eyes', function (Blueprint $table) {
             $table->id();
-            $table->string("name", 63);
+            $table->string("name", 63)->unique();
             $table->string("passive", 511)->nullable();
             $table->string("active", 511)->nullable();
             $table->integer("cooldown")->nullable();
             $table->string("active_strategy")->nullable();
             $table->string("passive_strategy")->nullable();
+            $table->integer("cost");
 
-            $table->unsignedBigInteger("sheet_id");
-            $table->foreign("sheet_id")->references("id")->on("sheets");
         });
     }
 

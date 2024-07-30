@@ -12,12 +12,17 @@ import CharacterInfo from './components/info.vue'
 import SchoolsShop from './components/modals/schoolsShop.vue'
 import SuccessToast from './components/alerts/successToast.vue'
 import FailToast from './components/alerts/failToast.vue'
+import MysticEyesShop from './components/modals/mysticEyesShop.vue'
+import Advantages from './components/advantages.vue'
+import AdvantagesShop from './components/modals/advantagesShop.vue'
 
 defineProps({ sheet: Object })
 const csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 const points = ref(null);
 const rolls = ref(null);
 const schoolsModal = ref(null);
+const eyesModal = ref(null);
+const advantagesModal = ref(null);
 const successToast = ref(null);
 const failToast = ref(null);
 
@@ -85,8 +90,9 @@ function endTurn() {
         <SkillsTable :sheet :rolls />
         <SchoolsTable :sheet :rolls @add="schoolsModal.modalRef.showModal()" @sync="updateSheet(sheet)" />
         <ItemsTable :sheet @sync="updateSheet(sheet)" />
-        <MysticEyesTable :sheet />
+        <MysticEyesTable :sheet @add="eyesModal.modalRef.showModal()" />
         <RollHistory class="col-start-3 row-start-1" ref="rolls" :sheet />
+        <Advantages :sheet @add="advantagesModal.modalRef.showModal()" />
     <!--
         <div>
             <h3>{{ sheet }}</h3>
@@ -99,7 +105,13 @@ function endTurn() {
         </div>
     </div>
     <Teleport to="body">
-        <SchoolsShop :sheet ref="schoolsModal"/>
+        <SchoolsShop :sheet ref="schoolsModal" />
+    </Teleport>
+    <Teleport to="body">
+        <MysticEyesShop :sheet ref="eyesModal" />
+    </Teleport>
+    <Teleport to="body">
+        <AdvantagesShop :sheet ref="advantagesModal" />
     </Teleport>
     <SuccessToast class="z-10" ref="successToast" :message="'Ficha salva com sucesso'" />
     <FailToast class="z-10" ref="failToast" :message="'Pontos de criação insuficientes'" />

@@ -5,6 +5,8 @@ use App\Http\Controllers\RollController;
 use App\Http\Controllers\SheetController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SchoolController;
+use App\Http\Controllers\MysticEyesController;
+use App\Http\Controllers\AdvantagesController;
 use Illuminate\Support\Facades\Route;
 
 Route::post("/users", [UserController::class, "store"]);
@@ -27,4 +29,8 @@ Route::group(["middleware" => ["web"]], function () {
     Route::get("roll/item", [RollController::class,"rollItem"]);
 
     Route::get("/schools", [SchoolController::class, "index"]);
+
+    Route::get("/mystic_eyes", [MysticEyesController::class, "index"]);
+
+    Route::get("/advantages", [AdvantagesController::class, "index"]);
 });
