@@ -33,6 +33,9 @@ async function getSchools() {
 }
 
 function addToSheet(index) {
+    if (props.sheet.schools.length == 0) {
+        props.sheet.schools = {}
+    }
     let toAdd = schools.value[index];
     let original = props.sheet.schools[toAdd["name"]];
     let spells = {};
