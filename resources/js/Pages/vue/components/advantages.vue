@@ -9,7 +9,11 @@ const emit = defineEmits("add");
 </script>
 
 <template>
-    <div class="overflow-x-auto border border-1 rounded-md border-primary p-3">
+    <div class="overflow-x-auto border border-1 rounded-md border-primary px-3">
+        <div class="border border-1 rounded-md border-primary border-t-0 border-x-0 text-center -mx-3">
+            <h1 class="font-semibold text-2xl">Vantagens</h1>
+        </div>
+
         <div v-for="value, key in sheet.advantages" class="collapse collapse-arrow bg-base-100">
             <input type="checkbox" name="advantages-collapse" />
             <div class="collapse-title text-xl font-medium">{{ value.name }}</div>

@@ -44,19 +44,24 @@ async function rollSpell(school, spell) {
 </script>
 
 <template>
-    <div class="border border-1 rounded-md border-primary p-3 flex flex-col justify-between">
-        <div class="overflow-auto">
-            <div v-for="value, key in sheet.schools" class="collapse collapse-arrow bg-base-100">
-                <input type="checkbox" name="schools-collapse" />
-                <div class="collapse-title text-xl font-medium">{{ key }} [{{ value.level }}]</div>
-                <div class="collapse-content">
-                    <div v-for="v, k in value.spells" class="collapse collapse-arrow bg-base-100">
-                        <input type="checkbox" name="spells-collapse" />
-                        <div class="collapse-title text-xl font-medium">{{ k }}</div>
-                        <div class="collapse-content">
-                            <p>Tipo: {{ types[v.type] }}</p>
-                            <p>Descrição: {{ v.description }}</p>
-                            <button class="btn btn-outline btn-secondary btn-sm" @click="rollSpell(key, k)">Roll</button>
+    <div class="border border-1 rounded-md border-primary px-3 flex flex-col justify-between">
+        <div>
+            <div class="border border-1 rounded-md border-primary border-t-0 border-x-0 text-center -mx-3">
+                <h1 class="font-semibold text-2xl">Escolas</h1>
+            </div>
+            <div class="overflow-auto">
+                <div v-for="value, key in sheet.schools" class="collapse collapse-arrow bg-base-100">
+                    <input type="checkbox" name="schools-collapse" />
+                    <div class="collapse-title text-xl font-medium">{{ key }} [{{ value.level }}]</div>
+                    <div class="collapse-content">
+                        <div v-for="v, k in value.spells" class="collapse collapse-arrow bg-base-100">
+                            <input type="checkbox" name="spells-collapse" />
+                            <div class="collapse-title text-xl font-medium">{{ k }}</div>
+                            <div class="collapse-content">
+                                <p>Tipo: {{ types[v.type] }}</p>
+                                <p>Descrição: {{ v.description }}</p>
+                                <button class="btn btn-outline btn-secondary btn-sm" @click="rollSpell(key, k)">Roll</button>
+                            </div>
                         </div>
                     </div>
                 </div>

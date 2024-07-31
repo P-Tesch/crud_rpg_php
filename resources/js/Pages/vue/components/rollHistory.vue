@@ -28,7 +28,11 @@ defineExpose({rolls});
 </script>
 
 <template>
-    <div id="rollHistoryChat" class="border border-1 rounded-md border-primary p-3 overflow-auto max-h-72 w-full">
+    <div id="rollHistoryChat" class="border border-1 rounded-md border-primary px-3 overflow-auto max-h-72 w-full">
+        <div class="border border-1 rounded-md border-primary border-t-0 border-x-0 text-center -mx-3">
+            <h1 class="font-semibold text-2xl">Rolagens</h1>
+        </div>
+
         <div class="chat chat-start w-full" v-for="roll in rolls">
             <div class="chat-image avatar">
                 <div class="w-10 rounded-full">

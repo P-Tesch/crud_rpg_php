@@ -55,6 +55,9 @@ function editBackground(background) {
 
 <template>
     <div class="border border-1 rounded-md border-primary px-3 h-72 max-h-72 overflow-auto">
+        <div class="border border-1 rounded-md border-primary border-t-0 border-x-0 text-center -mx-3">
+        <h1 class="font-semibold text-2xl">Informações</h1>
+        </div>
 
         <div>
             <div class="collapse collapse-arrow bg-base-100">

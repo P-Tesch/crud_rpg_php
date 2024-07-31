@@ -25,7 +25,11 @@ async function rollItem(item) {
 
 
 <template>
-    <div class="overflow-x-auto border border-1 rounded-md border-primary p-3">
+    <div class="overflow-x-auto border border-1 rounded-md border-primary px-3">
+        <div class="border border-1 rounded-md border-primary border-t-0 border-x-0 text-center -mx-3">
+            <h1 class="font-semibold text-2xl">Inventário</h1>
+        </div>
+
         <div v-for="value, key in sheet.items" class="collapse collapse-arrow bg-base-100">
             <input type="checkbox" name="items-collapse" />
             <div class="collapse-title text-xl font-medium">{{ value.name }}</div>

@@ -69,7 +69,11 @@ async function rollSkill(sheet, key) {
 </script>
 
 <template>
-    <div class="overflow-x-auto border border-1 rounded-md border-primary p-3">
+    <div class="overflow-x-auto border border-1 rounded-md border-primary px-3">
+        <div class="border border-1 rounded-md border-primary border-t-0 border-x-0 text-center -mx-3">
+            <h1 class="font-semibold text-2xl">Habilidades</h1>
+        </div>
+
         <table class="table">
             <thead>
                 <tr>
