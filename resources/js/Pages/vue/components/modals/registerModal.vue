@@ -3,6 +3,7 @@ import { Head, router } from '@inertiajs/vue3'
 import { ref, reactive } from "vue"
 
 const props = defineProps({defaultValue: String, title: String});
+const emit = defineEmits(["success"]);
 
 const modalRef = ref(null);
 const login = defineModel("login");
@@ -213,7 +214,7 @@ async function register() {
             throw new Error(await responseUser.text());
         }
 
-        alert("Registrado com sucesso")
+        emit("success");
 
     } catch (error) {
         window.open().document.body.innerHTML = error.message;

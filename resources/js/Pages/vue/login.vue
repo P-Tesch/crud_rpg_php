@@ -2,6 +2,7 @@
 import { Head, router } from '@inertiajs/vue3'
 import { ref, reactive } from "vue"
 import RegisterModal from './components/modals/registerModal.vue';
+import SuccessToast from './components/alerts/successToast.vue';
 
 const form = reactive({
     login: null,
@@ -10,13 +11,15 @@ const form = reactive({
 })
 
 const registerModal = ref(null);
+const successToast = ref(null);
 
 const auth = () => {
     router.get("/api/login", form)
 }
 
-function register(user, sheet) {
-
+function success() {
+    this.successToast.toastRef = true;
+    setTimeout(() => this.successToast.toastRef = false, 2500);
 }
 
 </script>
@@ -68,7 +71,8 @@ function register(user, sheet) {
         </div>
     </div>
     <Teleport to="body">
-        <RegisterModal @end="(user, sheet) => register(user, sheet)" ref="registerModal"/>
+        <RegisterModal @success="success()" ref="registerModal"/>
     </Teleport>
+    <SuccessToast class="z-10" ref="successToast" :message="'Registrado com sucesso'" />
   </Layout>
 </template>
