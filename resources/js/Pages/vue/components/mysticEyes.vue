@@ -41,7 +41,7 @@ async function rollMysticEye(item) {
             </div>
         </div>
         <div class="w-full text-center">
-            <button class="btn btn-outline btn-accent w-full" @click="this.$emit('add')">Adicionar</button>
+            <button class="btn btn-outline btn-accent w-full my-3" @click="this.$emit('add')">Adicionar</button>
         </div>
     </div>
 </template>
