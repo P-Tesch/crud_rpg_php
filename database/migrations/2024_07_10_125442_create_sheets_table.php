@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('sheets', function (Blueprint $table) {
             $table->id();
             $table->string("name", 63);
-            $table->binary("portrait");
+            $table->binary("portrait")->nullable();
             $table->string("description", 511);
             $table->text("background");
             $table->integer("creation_points");

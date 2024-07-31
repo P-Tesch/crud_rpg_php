@@ -48,6 +48,8 @@ async function persist(sheet) {
             throw new Error(await response.text());
         }
 
+        updateSheet(sheet);
+
         this.successToast.toastRef = true;
         setTimeout(() => this.successToast.toastRef = false, 2500);
     } catch (error) {
@@ -68,6 +70,7 @@ async function updateSheet(sheet) {
 
         const obj = JSON.parse(await response.text());
         sheet.attributes = obj.attributes;
+        sheet.portrait = obj.portrait;
 
     } catch (error) {
         window.open().document.body.innerHTML = error.message;
@@ -75,7 +78,7 @@ async function updateSheet(sheet) {
 }
 
 function endTurn(sheet) {
-    console.log(sheet);
+    console.log(sheet.portrait);
 }
 
 </script>

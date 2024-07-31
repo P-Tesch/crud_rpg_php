@@ -79,7 +79,7 @@ function buildSheet() {
         "description": "Insira a descrição física do personagem",
         "background": "Insira a história do personagem",
         "creation_points": 150,
-        "portrait": "placeholderPortrait",
+        "portrait": "/storage/portraits/defaultPortrait.png",
         "alignment": alignment,
         "organization": null,
         "stats": stats,

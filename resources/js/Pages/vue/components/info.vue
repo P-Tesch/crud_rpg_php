@@ -16,6 +16,7 @@ const points = ref(null);
 const nameModal = ref(null);
 const descriptionModal = ref(null);
 const backgroundModal = ref(null);
+const portraitInput = ref(null);
 defineExpose({ points });
 
 const alignments = {
@@ -51,12 +52,18 @@ function editBackground(background) {
     }
 }
 
+function updatePortrait() {
+    let fr = new FileReader();
+    fr.readAsDataURL(portraitInput.value.files[0]);
+    fr.onloadend = () => props.sheet.portrait = fr.result;
+}
+
 </script>
 
 <template>
     <div class="border border-1 rounded-md border-primary px-3 h-72 max-h-72 overflow-auto">
         <div class="border border-1 rounded-md border-primary border-t-0 border-x-0 text-center -mx-3">
-        <h1 class="font-semibold text-2xl">Informações</h1>
+            <h1 class="font-semibold text-2xl">Informações</h1>
         </div>
 
         <div>
@@ -68,8 +75,12 @@ function editBackground(background) {
                     <polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon>
                     </svg>
                 </div>
-                <div class="collapse-content overflow-auto">
-                    <!--img src={{ sheet.data.portrait }} alt="Retrato"-->
+                <div class="collapse-content overflow-auto text-center">
+                    <label for="portrait-input">
+                        <img :src="sheet.portrait" class=" rounded-badge outline outline-primary max-w-32 max-h-32 mx-auto"/>
+                    </label>
+
+                    <input id="portrait-input" type="file" class="hidden h-0 w-0" @change="updatePortrait()" ref="portraitInput" accept="image/*" />
                 </div>
             </div>
         </div>

@@ -22,12 +22,13 @@ use App\Enums\Organization;
 use App\Http\Controllers\SheetController;
 use App\Models\RpgAttribute;
 use App\Models\School;
+use Illuminate\Support\Facades\Storage;
 
 class SheetEntity {
 
     public int $id;
     public string $name;
-    public string $portraitPath;
+    public ?string $portrait;
     public string $description;
     public string $background;
     public int $creationPoints;
@@ -54,7 +55,7 @@ class SheetEntity {
 
         $this->id = $args["id"];
         $this->name = $args["name"];
-        $this->portraitPath = $args["portraitPath"];
+        $this->portrait = $args["portrait"];
         $this->description = $args["description"];
         $this->background = $args["background"];
         $this->creationPoints = $args["creationPoints"];
@@ -129,7 +130,7 @@ class SheetEntity {
     private function build(Sheet $sheet) : SheetEntity {
         $this->id = $sheet->id;
         $this->name = $sheet->name;
-        $this->portraitPath = $sheet->portrait;
+        $this->portrait = $sheet->portrait;
         $this->description = $sheet->description;
         $this->background = $sheet->background;
         $this->creationPoints = $sheet->creation_points;
@@ -192,12 +193,20 @@ class SheetEntity {
 
     public function update(Sheet $model) {
         $model->name = $this->name;
-        $model->portrait = $this->portraitPath;
         $model->description = $this->description;
         $model->background = $this->background;
         $model->creation_points = $this->creationPoints;
         $model->alignment = $this->alignment == null ? null : $this->alignment->value;
         $model->organization = $this->organization == null ? null : $this->organization->value;
+
+        if ($this->portrait != $model->portrait) {
+            $separated = explode(";base64,", $this->portrait);
+            $base64 = $separated[1];
+            $extension = explode("image/", $separated[0])[1];
+            $portraitPath = "/portraits/" . time() . "." . $extension;
+            Storage::put("/public" . $portraitPath, base64_decode($base64));
+            $model->portrait = "/storage" . $portraitPath;
+        }
 
         foreach ($this->stats as $key => $value) {
             foreach ($model->stats as &$stat) {
