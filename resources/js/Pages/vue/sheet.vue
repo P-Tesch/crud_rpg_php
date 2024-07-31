@@ -9,12 +9,12 @@ import ItemsTable from './components/items.vue'
 import MysticEyesTable from './components/mysticEyes.vue'
 import RollHistory from './components/rollHistory.vue'
 import CharacterInfo from './components/info.vue'
-import SchoolsShop from './components/modals/schoolsShop.vue'
+import SchoolsShop from './components/modals/shops/schoolsShop.vue'
 import SuccessToast from './components/alerts/successToast.vue'
 import FailToast from './components/alerts/failToast.vue'
-import MysticEyesShop from './components/modals/mysticEyesShop.vue'
+import MysticEyesShop from './components/modals/shops/mysticEyesShop.vue'
 import Advantages from './components/advantages.vue'
-import AdvantagesShop from './components/modals/advantagesShop.vue'
+import AdvantagesShop from './components/modals/shops/advantagesShop.vue'
 
 defineProps({ sheet: Object })
 const csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');

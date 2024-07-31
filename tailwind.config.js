@@ -4,6 +4,7 @@ export default {
     "./resources/js/Pages/vue/*.vue",
     "./resources/js/Pages/vue/components/*.vue",
     "./resources/js/Pages/vue/components/modals/*.vue",
+    "./resources/js/Pages/vue/components/modals/shops/*.vue",
     "./resources/js/Pages/vue/components/alerts/*.vue",
     "./resources/js/*.js",
     "./resources/views/*.blade.php",
