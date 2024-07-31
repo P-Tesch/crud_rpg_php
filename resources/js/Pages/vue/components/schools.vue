@@ -2,6 +2,7 @@
 import { Head, router } from '@inertiajs/vue3'
 import { ref, reactive } from "vue"
 import FailToast from './alerts/failToast.vue';
+import NumberInputModal from './modals/numberInputModal.vue';
 
 const props = defineProps({
     sheet: Object,
@@ -10,6 +11,9 @@ const props = defineProps({
 
 const emit = defineEmits(["sync", "add"]);
 const failToast = ref(null);
+const costModal = ref(null);
+var school = null;
+var spell = null;
 
 const types = {
     "PROJECTILE": "Projétil",
@@ -18,14 +22,19 @@ const types = {
 }
 
 async function rollSpell(school, spell) {
-    let cost = window.prompt("Insira o custo");
-    if (props.sheet.attributes.mana < cost) {
+    this.costModal.modalRef.showModal();
+    this.school = school;
+    this.spell = spell;
+}
+
+async function roll(cost) {
+    if (props.sheet.attributes.mana < cost || cost == null) {
         this.failToast.toastRef = true;
         setTimeout(() => this.failToast.toastRef = false, 2500);
         return;
     }
 
-    const url = "/api/roll/spell?school=" + school + "&spell=" + spell + "&cost=" + cost + "&modifier=0";
+    const url = "/api/roll/spell?school=" + this.school + "&spell=" + this.spell + "&cost=" + cost + "&modifier=0";
     try {
         const response = await fetch(url);
         if (!response.ok) {
@@ -72,4 +81,7 @@ async function rollSpell(school, spell) {
         </div>
     </div>
     <FailToast class="z-10" ref="failToast" :message="'Mana insuficiente'" />
+    <Teleport to="body">
+        <NumberInputModal :title="'Insira o custo da magia'" @end="(cost) => roll(cost)" ref="costModal"/>
+    </Teleport>
 </template>
