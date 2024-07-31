@@ -19,7 +19,7 @@ onBeforeMount(() => {getSchools()})
 defineExpose({modalRef});
 
 async function getSchools() {
-    const url = /*window.location.host + */"/api/schools";
+    const url = "/api/schools";
     try {
         const response = await fetch(url);
         if (!response.ok) {

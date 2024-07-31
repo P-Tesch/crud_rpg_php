@@ -25,7 +25,7 @@ async function rollSpell(school, spell) {
         return;
     }
 
-    const url = /*window.location.host + */"/api/roll/spell?school=" + school + "&spell=" + spell + "&cost=" + cost + "&modifier=0";
+    const url = "/api/roll/spell?school=" + school + "&spell=" + spell + "&cost=" + cost + "&modifier=0";
     try {
         const response = await fetch(url);
         if (!response.ok) {

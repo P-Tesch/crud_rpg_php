@@ -186,7 +186,7 @@ function buildUser(sheetId) {
 async function register() {
     let sheet = this.buildSheet();
 
-    const url = /*window.location.host + */"/api/sheets";
+    const url = "/api/sheets";
     const urlUser = "/api/users"
     try {
         const response = await fetch(url, {

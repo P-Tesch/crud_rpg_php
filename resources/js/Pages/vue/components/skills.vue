@@ -52,8 +52,7 @@ function canDecrease(key, value) {
 }
 
 async function rollSkill(sheet, key) {
-    // TODO formatar resposta
-    const url = /*window.location.host + */"/api/roll/skill?skill=" + key + "&modifier=0";
+    const url = "/api/roll/skill?skill=" + key + "&modifier=0";
     try {
       const response = await fetch(url);
       if (!response.ok) {

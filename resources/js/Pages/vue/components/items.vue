@@ -6,7 +6,7 @@ defineProps({ sheet: Object });
 const emit = defineEmits(["sync"]);
 
 async function rollItem(item) {
-    const url = /*window.location.host + */"/api/roll/item?item=" + item.id;
+    const url = "/api/roll/item?item=" + item.id;
     try {
         const response = await fetch(url);
         if (!response.ok) {

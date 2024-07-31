@@ -13,7 +13,7 @@ onBeforeMount(() => { getEyes() })
 defineExpose({ modalRef });
 
 async function getEyes() {
-    const url = /*window.location.host + */"/api/mystic_eyes";
+    const url = "/api/mystic_eyes";
     try {
         const response = await fetch(url);
         if (!response.ok) {

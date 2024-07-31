@@ -13,7 +13,7 @@ onBeforeMount(() => { getAdvantages() })
 defineExpose({ modalRef });
 
 async function getAdvantages() {
-    const url = /*window.location.host + */"/api/advantages";
+    const url = "/api/advantages";
     try {
         const response = await fetch(url);
         if (!response.ok) {

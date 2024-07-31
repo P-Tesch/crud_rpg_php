@@ -33,7 +33,7 @@ async function persist(sheet) {
         return;
     }
 
-    const url = /*window.location.host + */"/api/sheets";
+    const url = "/api/sheets";
     try {
         const response = await fetch(url, {
             method: "PUT",
