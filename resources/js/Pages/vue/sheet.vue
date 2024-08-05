@@ -101,7 +101,7 @@ function endTurn(sheet) {
             <h3>{{ sheet }}</h3>
         </div>
     -->
-        <div class="fixed bottom-10 right-10 space-x-5">
+        <div class="fixed bottom-10 right-10 space-x-5 z-10">
             <button class="btn btn-outline btn-accent" id="save" @click="persist(sheet)">Salvar</button>
             <button class="btn btn-outline btn-secondary" @click="endTurn(sheet)">Terminar turno</button>
             <input type="hidden" name="_token" :value="csrf">

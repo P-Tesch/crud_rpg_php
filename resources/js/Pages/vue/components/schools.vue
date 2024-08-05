@@ -41,8 +41,6 @@ async function roll(cost) {
             throw new Error(await response.text());
         }
 
-        const json = JSON.parse(await response.text());
-        props.rolls.rolls.push({"type": "spell", "json": json});
         emit("sync");
 
     } catch (error) {

@@ -2,25 +2,40 @@
 
 namespace App\Http\Controllers;
 
-use App\Entities\SheetEntity;
+use App\Models\Item;
 use App\Enums\SpellTypes;
 use App\Helpers\RollHelper;
-use App\Models\Item;
 use Illuminate\Http\Request;
+use App\Entities\SheetEntity;
+use App\Entities\RollHistory;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Broadcast;
 
 class RollController extends Controller {
 
-    public function rollSkill(Request $request, SheetController $sheetController) {
+    private $rollHistory;
+
+    public function __construct() {
+        $this->rollHistory = Cache::get("rollsTable", new RollHistory());
+    }
+
+    public function index(Request $request) {
+        return $this->rollHistory->getRolls();
+    }
+
+    public function rollSkill(Request $request, SheetController $sheetController) : null {
         $skill = $request->input("skill");
         $modifiers = (int) $request->input("modifier");
 
         $sheet = SheetEntity::buildFromModel($sheetController->showAsModel($request));
         $stat = $sheet->skillsRelations[$skill];
 
-        return ["subject" => $skill, "name" => $sheet->name, "rolls" => RollHelper::roll([$sheet->skills[$skill], $sheet->stats[$stat], $modifiers])];
+        $this->broadcastAndStore(["portrait" => $sheet->portrait, "type" => "skill", "id" => $sheet->id, "subject" => $skill, "name" => $sheet->name, "rolls" => RollHelper::roll([$sheet->skills[$skill], $sheet->stats[$stat], $modifiers])]);
+
+        return null;
     }
 
-    public function rollSpell(Request $request, SheetController $sheetController) {
+    public function rollSpell(Request $request, SheetController $sheetController) : null {
         $cost = (int) $request->input("cost");
         $spellString = $request->input("spell");
         $schoolString = $request->input("school");
@@ -47,10 +62,12 @@ class RollController extends Controller {
 
         $sheet->update($sheetController->showFromId($sheet->id));
 
-        return ["recoilDamage" => $recoilRoll["recoil"], "cost" => $cost, "subject" => $spellString, "name" => $sheet->name,"rolls" => ["recoil" => $recoilRoll["roll"], "success" => $spellRoll, "specific" => $specificRoll ?? null]];
+        $this->broadcastAndStore(["portrait" => $sheet->portrait, "type" => "spell", "id" => $sheet->id, "recoilDamage" => $recoilRoll["recoil"], "cost" => $cost, "subject" => $spellString, "name" => $sheet->name,"rolls" => ["recoil" => $recoilRoll["roll"], "success" => $spellRoll, "specific" => $specificRoll ?? null]]);
+
+        return null;
     }
 
-    public function rollItem(Request $request, SheetController $sheetController) : array {
+    public function rollItem(Request $request, SheetController $sheetController) : null {
         $itemId = (int) $request->input("item");
 
         $item = Item::find($itemId);
@@ -58,13 +75,19 @@ class RollController extends Controller {
 
         $roll = $item->strategy != null ? RollHelper::roll($item->strategy) : null;
 
-        return ["subject" => $item->name, "name" => $sheet->name, "rolls" => $roll];
+        $this->broadcastAndStore(["portrait" => $sheet->portrait, "type" => "item", "subject" => $item->name, "name" => $sheet->name, "rolls" => $roll]);
+
+        return null;
     }
 
-    public function rollGeneric(Request $request) : array {
+    public function rollGeneric(Request $request, SheetController $sheetController) : null {
         $modifier = $request->get("modifier");
 
-        return RollHelper::roll([$modifier]);
+        $sheet = SheetEntity::buildFromModel($sheetController->showAsModel($request));
+
+        $this->broadcastAndStore(["portrait" => $sheet->portrait, "type" => "generic", "name" => $sheet->name, "rolls" => RollHelper::roll([$modifier])]);
+
+        return null;
     }
 
     private function rollRecoil(SheetEntity &$sheet, int $cost) : array {
@@ -77,5 +100,16 @@ class RollController extends Controller {
         }
 
         return ["recoil" => $recoil, "roll" => $recoilRoll];
+    }
+
+    private function broadcastAndStore(array $rolls) {
+        $this->rollHistory->addRoll($rolls);
+
+        Broadcast::on("rolls")
+        ->as("rollsTableUpdated")
+        ->with($this->rollHistory->getRolls())
+        ->sendNow();
+
+        Cache::put("rollsTable", $this->rollHistory);
     }
 }

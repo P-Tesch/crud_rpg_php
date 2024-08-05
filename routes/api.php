@@ -23,10 +23,11 @@ Route::group(["middleware" => ["web"]], function () {
     Route::put("/sheets", [SheetController::class, "update"]);
     Route::delete("/sheets/{id}", [SheetController::class, "destroy"]);
 
-    Route::get("/roll", [RollController::class, "rollGeneric"]);
+    Route::get("/roll/generic", [RollController::class, "rollGeneric"]);
     Route::get("/roll/skill", [RollController::class, "rollSkill"]);
     Route::get("/roll/spell", [RollController::class, "rollSpell"]);
-    Route::get("roll/item", [RollController::class,"rollItem"]);
+    Route::get("/roll/item", [RollController::class,"rollItem"]);
+    Route::get("/roll", [RollController::class, "index"]);
 
     Route::get("/schools", [SchoolController::class, "index"]);
 

@@ -58,9 +58,6 @@ async function rollSkill(sheet, key) {
       if (!response.ok) {
         throw new Error(await response.text());
       }
-
-      const json = JSON.parse(await response.text());
-      props.rolls.rolls.push({"type": "skill", "json": json});
     } catch (error) {
         window.open().document.body.innerHTML = error.message;
     }
