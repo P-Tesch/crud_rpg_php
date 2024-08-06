@@ -7,10 +7,11 @@
 5. Hybrid class components
 6. Effects component
 7. End turn button
-8. XSRF token after login
-9. Schools shop filtering
-10. Vertical Layout
-11. Items
+8. Schools shop filtering
+9. Vertical Layout
+10. Items
     1. Roll item
     2. Add item
-12. Inertia instead of fetch
+11. Inertia instead of fetch
+12. Fix and improve schools and advantages removal logic
+13. Fix advantages add

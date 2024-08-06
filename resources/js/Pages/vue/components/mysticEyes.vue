@@ -2,12 +2,28 @@
 import { Head, router } from '@inertiajs/vue3'
 import { ref, reactive } from "vue"
 
-defineProps({ sheet: Object });
+const props = defineProps({ sheet: Object });
+
+const originalMysticEyes = Object.assign({}, props.sheet.mysticEyes);
 
 const emit = defineEmits("add");
 
 async function rollMysticEye(item) {
     /// TODO
+}
+
+function isOriginal(value) {
+    let mysticEyesArray = Object.values(originalMysticEyes);
+    let isOriginal = false;
+    mysticEyesArray.forEach(
+        (v) => {
+            if (v.name == value.name) {
+                isOriginal = true;
+            }
+        }
+    );
+
+    return !isOriginal;
 }
 
 </script>
@@ -19,6 +35,7 @@ async function rollMysticEye(item) {
         </div>
 
         <div v-for="value, key in sheet.mysticEyes" class="collapse collapse-arrow bg-base-100">
+            <button v-if="isOriginal(value)" class="btn btn-sm btn-circle btn-ghost absolute right-10 top-3.5 z-10 overflow-visible" @click="sheet.mysticEyes.splice(key, 1)">✕</button>
             <input type="checkbox" name="mystic-eyes-collapse" />
             <div class="collapse-title text-xl font-medium">{{ value.name }}</div>
             <div class="collapse-content">

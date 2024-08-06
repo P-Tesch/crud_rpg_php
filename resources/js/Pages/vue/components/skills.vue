@@ -2,10 +2,7 @@
 import { Head, router } from '@inertiajs/vue3'
 import { ref, reactive, watch } from "vue"
 
-const props = defineProps({
-    sheet: Object,
-    rolls: Object
-});
+const props = defineProps({ sheet: Object });
 const originalSkills = Object.assign({}, props.sheet.skills);
 watch(props.sheet.stats, () => {
     Object.entries(props.sheet.skillsRelations).forEach((keys) => {

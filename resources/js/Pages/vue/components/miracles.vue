@@ -2,9 +2,25 @@
 import { Head, router } from '@inertiajs/vue3'
 import { ref, reactive } from "vue"
 
-defineProps({ sheet: Object });
+const props = defineProps({ sheet: Object });
+
+const originalMiracles = Object.assign({}, props.sheet.miracles);
 
 const emit = defineEmits("add");
+
+function isOriginal(value) {
+    let miraclesArray = Object.values(originalMiracles);
+    let isOriginal = false;
+    miraclesArray.forEach(
+        (v) => {
+            if (v.name == value.name) {
+                isOriginal = true;
+            }
+        }
+    );
+
+    return !isOriginal;
+}
 
 </script>
 
@@ -15,6 +31,7 @@ const emit = defineEmits("add");
         </div>
 
         <div v-for="value, key in sheet.miracles" class="collapse collapse-arrow bg-base-100">
+            <button v-if="isOriginal(value)" class="btn btn-sm btn-circle btn-ghost absolute right-10 top-3.5 z-10 overflow-visible" @click="sheet.miracles.splice(key, 1)">✕</button>
             <input type="checkbox" name="miracles-collapse" />
             <div class="collapse-title text-xl font-medium">{{ value.name }}</div>
             <div class="collapse-content">

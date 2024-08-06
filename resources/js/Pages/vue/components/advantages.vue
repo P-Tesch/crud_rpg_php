@@ -2,9 +2,25 @@
 import { Head, router } from '@inertiajs/vue3'
 import { ref, reactive } from "vue"
 
-defineProps({ sheet: Object });
+const props = defineProps({ sheet: Object });
+
+const originalAdvantages = Object.assign({}, props.sheet.advantages);
 
 const emit = defineEmits("add");
+
+function isOriginal(value) {
+    let advantagesArray = Object.values(originalAdvantages);
+    let isOriginal = false;
+    advantagesArray.forEach(
+        (v) => {
+            if (v.name == value.name) {
+                isOriginal = true;
+            }
+        }
+    );
+
+    return !isOriginal;
+}
 
 </script>
 
@@ -15,6 +31,7 @@ const emit = defineEmits("add");
         </div>
 
         <div v-for="value, key in sheet.advantages" class="collapse collapse-arrow bg-base-100">
+            <button v-if="isOriginal(value)" class="btn btn-sm btn-circle btn-ghost absolute right-10 top-3.5 z-10 overflow-visible" @click="sheet.advantages.splice(key, 1)">✕</button>
             <input type="checkbox" name="advantages-collapse" />
             <div class="collapse-title text-xl font-medium">{{ value.name }}</div>
             <div class="collapse-content">

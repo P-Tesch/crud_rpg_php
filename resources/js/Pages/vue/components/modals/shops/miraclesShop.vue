@@ -29,28 +29,19 @@ async function getMiracles() {
 function addToSheet(index) {
     let toAdd = miracles.value[index];
     let original = props.sheet.miracles;
-    let added = false;
-    let newMiracles = [];
-    original.forEach(miracle => {
-        if (miracle.name == toAdd.name) {
-            if (toAdd.level <= miracle.level) {
-                newMiracles.push(miracle);
-            }
-            else {
-                newMiracles.push(toAdd);
-            }
-            added = true;
-        }
-        else {
-            newMiracles.push(miracle);
-        }
-    });
 
-    if (!added) {
-        newMiracles.push(toAdd);
+    let shouldAdd = true;
+    original.forEach(
+        (value) => {
+            if (value.name == toAdd.name) {
+                shouldAdd = false;
+            }
+        }
+    );
+
+    if (shouldAdd) {
+        props.sheet.miracles.push(toAdd);
     }
-
-    props.sheet.miracles = newMiracles;
 }
 
 </script>

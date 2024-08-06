@@ -2,7 +2,7 @@
 import { Head, router } from '@inertiajs/vue3'
 import { ref, reactive } from "vue"
 
-const props = defineProps({ sheet: Object })
+const props = defineProps({ sheet: Object });
 const originalStats = Object.assign({}, props.sheet.stats);
 
 const stats = {

@@ -23,7 +23,7 @@ function confirm() {
             <div class="h-5"></div>
             <form method="dialog" class="flex gap-5">
                 <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-                <input v-model="input" type="text" class="input input-bordered input-primary w-full" />
+                <input v-model="input" type="text" class="input input-bordered input-primary w-full" id="textInput" />
                 <button class="btn btn-outline btn-secondary" @click="confirm()">Confirmar</button>
             </form>
         </div>

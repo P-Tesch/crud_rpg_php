@@ -43,7 +43,7 @@ class SheetEntity {
     public array $mysticEyes;
     public ?Blood $blood;
     public array $items;
-    public ?array $miracles;
+    public array $miracles;
     public ?array $schools;
     public ?Scripture $scripture;
     public ?array $sonatas;
@@ -85,6 +85,7 @@ class SheetEntity {
             $this->items[] = $itemModel;
         }
 
+        $this->miracles = [];
         foreach ($args["miracles"] as $miracle) {
             $this->miracles[] = MiraclesController::findByName($miracle["name"]);
         }

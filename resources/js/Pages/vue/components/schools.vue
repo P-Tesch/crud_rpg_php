@@ -4,16 +4,13 @@ import { ref, reactive } from "vue"
 import FailToast from './alerts/failToast.vue';
 import NumberInputModal from './modals/numberInputModal.vue';
 
-const props = defineProps({
-    sheet: Object,
-    rolls : Object
-})
+const props = defineProps({ sheet: Object })
+
+const originalSchools = Object.assign({}, props.sheet.schools);
 
 const emit = defineEmits(["sync", "add"]);
 const failToast = ref(null);
 const costModal = ref(null);
-var school = null;
-var spell = null;
 
 const types = {
     "PROJECTILE": "Projétil",
@@ -48,6 +45,20 @@ async function roll(cost) {
     }
 }
 
+function isOriginal(value) {
+    let schoolsArray = Object.values(originalSchools);
+    let isOriginal = false;
+    schoolsArray.forEach(
+        (v) => {
+            if (v.id == value.id) {
+                isOriginal = true;
+            }
+        }
+    );
+
+    return !isOriginal;
+}
+
 </script>
 
 <template>
@@ -58,6 +69,7 @@ async function roll(cost) {
             </div>
             <div class="overflow-auto">
                 <div v-for="value, key in sheet.schools" class="collapse collapse-arrow bg-base-100">
+                    <button v-if="isOriginal(value)" class="btn btn-sm btn-circle btn-ghost absolute right-10 top-3.5 z-10 overflow-visible" @click="delete sheet.schools[key]">✕</button>
                     <input type="checkbox" name="schools-collapse" />
                     <div class="collapse-title text-xl font-medium">{{ key }} [{{ value.level }}]</div>
                     <div class="collapse-content">
