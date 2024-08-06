@@ -8,11 +8,12 @@
 6. Effects component
 7. End turn button
 8. Schools shop filtering
-9. Vertical Layout
-10. Items
+9. Advantages shop filtering
+10. Vertical Layout
+11. Items
     1. Roll item
     2. Add item
-11. Inertia instead of fetch
-12. Fix and improve schools removal logic
-13. Auto add first school
-14. Database seeding
+12. Inertia instead of fetch
+13. Fix and improve schools removal logic
+14. Auto add first school
+15. Database seeding

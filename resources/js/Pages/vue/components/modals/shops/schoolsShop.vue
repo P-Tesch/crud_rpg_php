@@ -55,28 +55,31 @@ function addToSheet(index) {
 
 <template>
     <dialog id="schools_modal" class="modal" ref="modalRef">
-    <div class="modal-box w-11/12 max-w-5xl outline outline-primary overflow-auto">
-        <form method="dialog">
-        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-        </form>
-        <h3 class="text-3xl font-bold text-center">Escolas</h3>
-        <div class="flex flex-col gap-5">
-            <div class="flex flex-col outline outline-primary p-2 rounded-box" v-for="value, key in schools">
-                <h4 class="text-xl font-semibold">{{ value["name"] }}</h4>
-                <p>{{ value["description"] }}</p>
-                <p>Level: {{ value["level"] }}</p>
-                <div v-for="v, k in value['spells']" class="collapse collapse-arrow bg-base-100">
-                    <input type="checkbox" name="spells-collapse" />
-                    <div class="collapse-title text-xl font-medium">{{ v["name"] }}</div>
-                    <div class="collapse-content">
-                        <p>Tipo: {{ types[v.type] }}</p>
-                        <p>Descrição: {{ v.description }}</p>
+        <div class="modal-box w-11/12 max-w-5xl outline outline-primary overflow-auto">
+            <form method="dialog">
+            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+            </form>
+            <h3 class="text-3xl font-bold text-center">Escolas</h3>
+            <div class="flex flex-col gap-5">
+                <div class="flex flex-col outline outline-primary p-2 rounded-box" v-for="value, key in schools">
+                    <h4 class="text-xl font-semibold">{{ value["name"] }}</h4>
+                    <p>{{ value["description"] }}</p>
+                    <p>Level: {{ value["level"] }}</p>
+                    <div v-for="v, k in value['spells']" class="collapse collapse-arrow bg-base-100">
+                        <input type="checkbox" name="spells-collapse" />
+                        <div class="collapse-title text-xl font-medium">{{ v["name"] }}</div>
+                        <div class="collapse-content">
+                            <p>Tipo: {{ types[v.type] }}</p>
+                            <p>Descrição: {{ v.description }}</p>
+                        </div>
                     </div>
+                    <p>Custo: {{ value.cost }}</p>
+                    <button class="btn btn-outline btn-accent btn-md self-end" @click="addToSheet(key)">Adicionar</button>
                 </div>
-                <p>Custo: {{ value.cost }}</p>
-                <button class="btn btn-outline btn-accent btn-md self-end" @click="addToSheet(key)">Adicionar</button>
             </div>
         </div>
-    </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
     </dialog>
 </template>

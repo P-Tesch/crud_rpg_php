@@ -27,5 +27,8 @@ function confirm() {
                 <button class="btn btn-outline btn-secondary self-end" @click="confirm()">Confirmar</button>
             </form>
         </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
     </dialog>
 </template>
