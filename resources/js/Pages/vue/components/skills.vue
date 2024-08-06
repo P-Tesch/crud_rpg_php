@@ -84,7 +84,7 @@ async function rollSkill(sheet, key) {
                         <button class="btn btn-outline btn-accent btn-xs" id="{{ key }}DecreaseButton" v-if="canDecrease(key, value)" @click="decrease(sheet, key)">-</button>
                     </th>
                     <th>
-                        <button class="btn btn-outline btn-secondary btn-sm" id="{{ key }}RollButton" @click="rollSkill(sheet, key)">Roll</button>
+                        <button class="btn btn-outline btn-secondary btn-sm" id="{{ key }}RollButton" @click="rollSkill(sheet, key)">Rolar</button>
                     </th>
                 </tr>
             </tbody>

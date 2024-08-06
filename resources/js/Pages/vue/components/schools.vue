@@ -79,7 +79,7 @@ function isOriginal(value) {
                             <div class="collapse-content">
                                 <p>Tipo: {{ types[v.type] }}</p>
                                 <p>Descrição: {{ v.description }}</p>
-                                <button class="btn btn-outline btn-secondary btn-sm" @click="rollSpell(key, k)">Roll</button>
+                                <button class="btn btn-outline btn-secondary btn-sm" @click="rollSpell(key, k)">Rolar</button>
                             </div>
                         </div>
                     </div>

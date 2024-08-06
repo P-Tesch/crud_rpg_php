@@ -36,7 +36,7 @@ async function rollItem(item) {
             <div class="collapse-content grid grid-flow-row grid-cols-2">
                 <p class="col-start-1 row-start-1" >{{ value.description }}</p>
                 <p class="col-start-1 row-start-2" v-if="value.damage != null">Damage: {{ value.damage }}</p>
-                <button class="btn btn-outline btn-secondary btn-sm grid-rows-1 col-start-2 row-span-full w-4/12 ml-auto my-auto mr-5" @click="rollItem(value)">Roll</button>
+                <button class="btn btn-outline btn-secondary btn-sm grid-rows-1 col-start-2 row-span-full w-4/12 ml-auto my-auto mr-5" @click="rollItem(value)">Rolar</button>
             </div>
         </div>
     </div>
