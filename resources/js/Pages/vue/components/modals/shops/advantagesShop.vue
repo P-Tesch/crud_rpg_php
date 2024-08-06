@@ -29,28 +29,23 @@ async function getAdvantages() {
 function addToSheet(index) {
     let toAdd = advantages.value[index];
     let original = props.sheet.advantages;
-    let added = false;
-    let newAdvantages = [];
-    original.forEach(advantage => {
-        if (advantage.name == toAdd.name) {
-            if (toAdd.level <= advantage.level) {
-                newAdvantages.push(advantage);
-            }
-            else {
-                newAdvantages.push(toAdd);
-            }
-            added = true;
-        }
-        else {
-            newAdvantages.push(advantage);
-        }
-    });
 
-    if (!added) {
-        newAdvantages.push(toAdd);
+    let shouldAdd = true;
+    original.forEach(
+        (value) => {
+            if (value.name == toAdd.name) {
+                if (value.level >= toAdd.level) {
+                    shouldAdd = false;
+                } else {
+                    props.sheet.advantages.splice(props.sheet.advantages.indexOf(value), 1);
+                }
+            }
+        }
+    );
+
+    if (shouldAdd) {
+        props.sheet.advantages.push(toAdd);
     }
-
-    props.sheet.advantages = newAdvantages;
 }
 
 </script>

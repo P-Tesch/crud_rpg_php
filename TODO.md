@@ -13,5 +13,6 @@
     1. Roll item
     2. Add item
 11. Inertia instead of fetch
-12. Fix and improve schools and advantages removal logic
-13. Fix advantages add
+12. Fix and improve schools removal logic
+13. Auto add first school
+14. Database seeding

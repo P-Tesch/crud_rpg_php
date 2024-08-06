@@ -13,13 +13,27 @@ function isOriginal(value) {
     let isOriginal = false;
     advantagesArray.forEach(
         (v) => {
-            if (v.name == value.name) {
+            if (v.name == value.name && v.level == value.level) {
                 isOriginal = true;
             }
         }
     );
 
     return !isOriginal;
+}
+
+function remove(key, toRemove) {
+    let isPresent = false;
+    Object.values(originalAdvantages).forEach(original => {
+        if (toRemove.name == original.name) {
+            isPresent = true;
+            props.sheet.advantages[key] = original;
+        }
+    });
+
+    if (!isPresent) {
+        props.sheet.advantages.splice(key, 1);
+    }
 }
 
 </script>
@@ -31,7 +45,7 @@ function isOriginal(value) {
         </div>
 
         <div v-for="value, key in sheet.advantages" class="collapse collapse-arrow bg-base-100">
-            <button v-if="isOriginal(value)" class="btn btn-sm btn-circle btn-ghost absolute right-10 top-3.5 z-10 overflow-visible" @click="sheet.advantages.splice(key, 1)">✕</button>
+            <button v-if="isOriginal(value)" class="btn btn-sm btn-circle btn-ghost absolute right-10 top-3.5 z-10 overflow-visible" @click="remove(key, value)">✕</button>
             <input type="checkbox" name="advantages-collapse" />
             <div class="collapse-title text-xl font-medium">{{ value.name }}</div>
             <div class="collapse-content">
