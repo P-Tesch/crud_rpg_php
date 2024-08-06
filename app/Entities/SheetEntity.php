@@ -267,10 +267,14 @@ class SheetEntity {
 
         $model->miracles()->sync($miracles, true);
 
-        //$model->blood = $this->blood;
-        //$model->items = $this->items;
-        //$model->scripture = $this->scripture;
-        //$model->sonatas = $this->sonatas;
+        $model->scripture->name = $this->scripture->name;
+        $model->scripture->description = $this->scripture->description;
+        $model->scripture->damage = $this->scripture->damage;
+        $model->scripture->range = $this->scripture->range;
+        $model->scripture->sharpness = $this->scripture->sharpness;
+        $model->scripture->double = $this->scripture->double;
+
+        $model->scripture->save();
 
         $this->setClasses();
         $model->save();

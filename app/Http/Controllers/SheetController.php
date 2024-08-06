@@ -155,6 +155,8 @@ class SheetController extends Controller
         $scriptureArray = $request->get("scripture");
         if (isset($scriptureArray)) {
             $scripture = new Scripture;
+            $scripture->name = $scriptureArray["name"];
+            $scripture->description = $scriptureArray["description"];
             $scripture->creation_points = $scriptureArray["creation_points"];
             $scripture->remaining_scripture_points = $scriptureArray["remaining_scripture_points"];
             $scripture->damage = $scriptureArray["damage"];
@@ -173,22 +175,22 @@ class SheetController extends Controller
                 $sa->scripture_id = $scripture->id;
                 $sa->save();
             }
+        }
 
-            foreach ($request->get("sonatas") as $sonataArray) {
-                $sonata = new Sonata;
-                $sonata->name = $sonataArray["name"];
-                $sonata->description = $sonataArray["description"];
-                $sonata->sheet_id = $sheet->id;
-                $sonata->save();
-                foreach ($sonataArray["sonata_abilities"] as $saArray) {
-                    $sa = new SonataAbility;
-                    $sa->name = $saArray["name"];
-                    $sa->description = $saArray["description"];
-                    $sa->level = $saArray["level"];
-                    $sa->strategy = $saArray["strategy"];
-                    $sa->sonata_id = $sonata->id;
-                    $sa->save();
-                }
+        foreach ($request->get("sonatas") as $sonataArray) {
+            $sonata = new Sonata;
+            $sonata->name = $sonataArray["name"];
+            $sonata->description = $sonataArray["description"];
+            $sonata->sheet_id = $sheet->id;
+            $sonata->save();
+            foreach ($sonataArray["sonata_abilities"] as $saArray) {
+                $sa = new SonataAbility;
+                $sa->name = $saArray["name"];
+                $sa->description = $saArray["description"];
+                $sa->level = $saArray["level"];
+                $sa->strategy = $saArray["strategy"];
+                $sa->sonata_id = $sonata->id;
+                $sa->save();
             }
         }
 

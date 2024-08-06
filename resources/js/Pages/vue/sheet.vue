@@ -17,6 +17,7 @@ import Advantages from './components/advantages.vue'
 import AdvantagesShop from './components/modals/shops/advantagesShop.vue'
 import MiraclesTable from './components/miracles.vue'
 import MiraclesShop from './components/modals/shops/miraclesShop.vue'
+import Scripture from './components/scripture.vue'
 
 defineProps({ sheet: Object })
 const csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
@@ -36,6 +37,7 @@ const miraclesKey = ref(0);
 const schoolsKey = ref(0);
 const mysticEyesKey = ref(0);
 const advantagesKey = ref(0);
+const scriptureKey = ref(0);
 
 async function persist(sheet) {
     if (this.points.points.remainingPoints < 0) {
@@ -53,6 +55,7 @@ async function persist(sheet) {
     this.schoolsKey++;
     this.mysticEyesKey++;
     this.advantagesKey++;
+    this.scriptureKey++;
 
     this.successToast.toastRef = true;
     setTimeout(() => this.successToast.toastRef = false, 2500);
@@ -92,11 +95,12 @@ function endTurn(sheet) {
         <StatsTable :sheet :key="statsKey" />
         <SkillsTable :sheet :key="skillsKey" />
         <SchoolsTable :sheet @add="schoolsModal.modalRef.showModal()" @sync="updateSheet(sheet)" v-if="sheet.classes['isMage']" :key="schoolsKey"/>
-        <MiraclesTable :sheet @add="miraclesModal.modalRef.showModal()" v-if="sheet.classes['isCleric']" :key="miraclesKey" />
+        <Scripture :sheet :key="scriptureKey" />
         <ItemsTable :sheet @sync="updateSheet(sheet)" />
         <MysticEyesTable :sheet @add="eyesModal.modalRef.showModal()" :key="mysticEyesKey" />
         <RollHistory class="col-start-3 row-start-1" :sheet />
         <Advantages :sheet @add="advantagesModal.modalRef.showModal()" :key="advantagesKey" />
+        <MiraclesTable :sheet @add="miraclesModal.modalRef.showModal()" v-if="sheet.classes['isCleric']" :key="miraclesKey" />
 
         <div class="fixed bottom-10 right-10 space-x-5 z-10">
             <button class="btn btn-outline btn-accent" id="save" @click="persist(sheet)">Salvar</button>

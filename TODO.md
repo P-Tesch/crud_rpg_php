@@ -1,6 +1,6 @@
 1. Mystic eyes roll
 2. Cleric class components
-   1. Scripture
+   1. Scripture Abilities
    2. Organization item
 3. Vampire class components
 4. Magiteck class components

@@ -1,0 +1,118 @@
+<script setup>
+import { Head, router } from '@inertiajs/vue3'
+import { ref, reactive } from "vue"
+import TextInputModal from './modals/textInputModal.vue'
+import TextAreaModal from './modals/textAreaModal.vue'
+
+const props = defineProps({ sheet: Object });
+const emit = defineEmits(["sync"]);
+
+const yesNo = {
+    true: "Sim",
+    false: "Não",
+    0: "Não",
+    1: "Sim"
+}
+
+const originalScripture = Object.assign({}, props.sheet.scripture);
+
+const nameModal = ref(null);
+const descriptionModal = ref(null);
+
+function editName(name) {
+    if (name != null) {
+        props.sheet.scripture.name = name;
+    }
+}
+
+function editDescription(description) {
+    if (description != null) {
+        props.sheet.scripture.description = description;
+    }
+}
+
+function increase(sheet, key) {
+    sheet.scripture[key]++;
+}
+
+function decrease(sheet, key) {
+    sheet.scripture[key]--;
+}
+
+function canDecrease(key) {
+    return originalScripture[key] < props.sheet.scripture[key];
+}
+
+function invertDouble(sheet) {
+    sheet.scripture.double = !sheet.scripture.double;
+}
+
+</script>
+
+
+<template>
+    <div class="overflow-x-auto border border-1 rounded-md border-primary px-3 justify-between flex flex-col">
+        <div>
+            <div class="border border-1 rounded-md border-primary border-t-0 border-x-0 text-center -mx-3">
+                <h1 class="font-semibold text-2xl">Escritura</h1>
+            </div>
+
+            <div class="collapse collapse-arrow bg-base-100">
+                <input type="checkbox" name="info-collapse" />
+                <div class="collapse-title text-md font-medium flex gap-5">{{ sheet.scripture.name }}
+                    <svg class="stroke-neutral-content h-5 w-5 z-10" @click="nameModal.modalRef.showModal(); nameModal.input = sheet.scripture.name;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path>
+                        <polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon>
+                    </svg>
+                </div>
+                <div class="collapse-content overflow-auto">
+                    <p>{{ sheet.scripture.description }}</p>
+                    <svg class="stroke-neutral-content h-5 w-5 z-10" @click="descriptionModal.modalRef.showModal(); descriptionModal.input = sheet.scripture.description;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path>
+                        <polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="collapse collapse-arrow bg-base-100">
+                <input type="checkbox" name="info-collapse" />
+                <div class="collapse-title text-md font-medium flex gap-5">Atributos</div>
+                <div class="collapse-content overflow-auto flex flex-col gap-3">
+                    <div class="w-full">
+                        <span>Dano: {{ sheet.scripture.damage }}</span>
+                            <button class="btn btn-outline btn-accent btn-xs float-right" v-if="canDecrease('damage')" @click="decrease(sheet, 'damage')">-</button>
+                            <div class="float-right w-1 h-1"></div>
+                            <button class="btn btn-outline btn-primary btn-xs float-right" v-if="sheet.scripture.damage < 5" @click="increase(sheet, 'damage')">+</button>
+                    </div>
+                    <div class="w-full">
+                        <span>Alcance: {{ sheet.scripture.range }}</span>
+                            <button class="btn btn-outline btn-accent btn-xs float-right" v-if="canDecrease('range')" @click="decrease(sheet, 'range')">-</button>
+                            <div class="float-right w-1 h-1"></div>
+                            <button class="btn btn-outline btn-primary btn-xs float-right" v-if="sheet.scripture.range < 15" @click="increase(sheet, 'range')">+</button>
+                    </div>
+                    <div class="w-full">
+                        <span>Afiação: {{ sheet.scripture.sharpness }}</span>
+                            <button class="btn btn-outline btn-accent btn-xs float-right" v-if="canDecrease('sharpness')" @click="decrease(sheet, 'sharpness')">-</button>
+                            <div class="float-right w-1 h-1"></div>
+                            <button class="btn btn-outline btn-primary btn-xs float-right" v-if="sheet.scripture.sharpness < 5" @click="increase(sheet, 'sharpness')">+</button>
+                    </div>
+                    <div class="w-full">
+                        <span>Dupla: {{ yesNo[sheet.scripture.double] }}</span>
+                            <input type="checkbox" class="checkbox checkbox-primary float-right mr-1" v-if="!originalScripture.double" @click="invertDouble(sheet)"></input>
+                            <input type="checkbox" disabled class="checkbox checkbox-primary float-right mr-1" v-if="originalScripture.double"></input>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="w-full text-center">
+            <button class="btn btn-outline btn-accent w-full my-3" @click="$emit('add')">Adicionar</button>
+        </div>
+    </div>
+
+    <Teleport to="body">
+        <TextInputModal :title="'Insira o nome da escritura'" @end="(name) => editName(name)" ref="nameModal"/>
+    </Teleport>
+    <Teleport to="body">
+        <TextAreaModal :title="'Insira a descrição da escritura'" @end="(description) => editDescription(description)" ref="descriptionModal"/>
+    </Teleport>
+</template>

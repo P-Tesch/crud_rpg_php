@@ -13,6 +13,7 @@ class Scripture extends Model
     public $timestamps = false;
 
     protected $fillable = [
+        "name",
         "creation_points",
         "remaining_scripture_points",
         "damage",

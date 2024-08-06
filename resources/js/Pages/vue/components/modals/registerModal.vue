@@ -180,8 +180,19 @@ function buildSheet() {
     "miracles": [],
     "mystic_eyes": [],
     "schools": [],
-    "scripture": null,
-    "sonatas": null
+    "scripture": {
+        "name": "Insira o nome da escritura",
+        "creation_points": 0,
+        "remaining_scripture_points": 0,
+        "damage": 0,
+        "range": 0,
+        "sharpness": 0,
+        "double": false,
+        "strategy": null,
+        "description": "Insira a descrição da escritura",
+        "scripture_abilities": []
+    },
+    "sonatas": []
     }
 
     return sheet;

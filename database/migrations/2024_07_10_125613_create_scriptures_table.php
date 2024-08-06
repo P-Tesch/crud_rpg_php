@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('scriptures', function (Blueprint $table) {
             $table->id();
+            $table->string("name");
             $table->integer("creation_points");
             $table->integer("remaining_scripture_points");
             $table->integer("damage");
