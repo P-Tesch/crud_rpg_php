@@ -6,7 +6,7 @@ const props = defineProps({ sheet: Object });
 
 const originalMysticEyes = Object.assign({}, props.sheet.mysticEyes);
 
-const emit = defineEmits("add");
+const emit = defineEmits(["add"]);
 
 async function rollMysticEye(item) {
     /// TODO
@@ -58,7 +58,7 @@ function isOriginal(value) {
             </div>
         </div>
         <div class="w-full text-center">
-            <button class="btn btn-outline btn-accent w-full my-3" @click="this.$emit('add')">Adicionar</button>
+            <button class="btn btn-outline btn-accent w-full my-3" @click="$emit('add')">Adicionar</button>
         </div>
     </div>
 </template>

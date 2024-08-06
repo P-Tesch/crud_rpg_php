@@ -87,7 +87,7 @@ function isOriginal(value) {
             </div>
         </div>
         <div class="w-full text-center">
-            <button class="btn btn-outline btn-accent w-full my-3" @click="this.$emit('add')">Adicionar</button>
+            <button class="btn btn-outline btn-accent w-full my-3" @click="$emit('add')">Adicionar</button>
         </div>
     </div>
     <FailToast class="z-10" ref="failToast" :message="'Mana insuficiente'" />

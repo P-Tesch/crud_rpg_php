@@ -6,7 +6,7 @@ const props = defineProps({ sheet: Object });
 
 const originalMiracles = Object.assign({}, props.sheet.miracles);
 
-const emit = defineEmits("add");
+const emit = defineEmits(["add"]);
 
 function isOriginal(value) {
     let miraclesArray = Object.values(originalMiracles);
@@ -39,7 +39,7 @@ function isOriginal(value) {
             </div>
         </div>
         <div class="w-full text-center">
-            <button class="btn btn-outline btn-accent w-full my-3" @click="this.$emit('add')">Adicionar</button>
+            <button class="btn btn-outline btn-accent w-full my-3" @click="$emit('add')">Adicionar</button>
         </div>
     </div>
 </template>
