@@ -15,6 +15,8 @@ import FailToast from './components/alerts/failToast.vue'
 import MysticEyesShop from './components/modals/shops/mysticEyesShop.vue'
 import Advantages from './components/advantages.vue'
 import AdvantagesShop from './components/modals/shops/advantagesShop.vue'
+import MiraclesTable from './components/miracles.vue'
+import MiraclesShop from './components/modals/shops/miraclesShop.vue'
 
 defineProps({ sheet: Object })
 const csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
@@ -25,6 +27,7 @@ const eyesModal = ref(null);
 const advantagesModal = ref(null);
 const successToast = ref(null);
 const failToast = ref(null);
+const miraclesModal = ref(null);
 
 async function persist(sheet) {
     if (this.points.points.remainingPoints < 0) {
@@ -84,23 +87,19 @@ function endTurn(sheet) {
 </script>
 
 <template>
-  <Layout>
     <Head title="Ficha" />
     <div class="p-5 grid grid-cols-3 gap-5">
         <CharacterInfo :sheet ref="points" />
         <AttributesTable :sheet />
         <StatsTable :sheet />
         <SkillsTable :sheet :rolls />
-        <SchoolsTable :sheet :rolls @add="schoolsModal.modalRef.showModal()" @sync="updateSheet(sheet)" />
+        <SchoolsTable :sheet :rolls @add="schoolsModal.modalRef.showModal()" @sync="updateSheet(sheet)" v-if="sheet.classes['isMage']"/>
+        <MiraclesTable :sheet @add="miraclesModal.modalRef.showModal()" v-if="sheet.classes['isCleric']"/>
         <ItemsTable :sheet @sync="updateSheet(sheet)" />
         <MysticEyesTable :sheet @add="eyesModal.modalRef.showModal()" />
         <RollHistory class="col-start-3 row-start-1" ref="rolls" :sheet />
         <Advantages :sheet @add="advantagesModal.modalRef.showModal()" />
-    <!--
-        <div>
-            <h3>{{ sheet }}</h3>
-        </div>
-    -->
+
         <div class="fixed bottom-10 right-10 space-x-5 z-10">
             <button class="btn btn-outline btn-accent" id="save" @click="persist(sheet)">Salvar</button>
             <button class="btn btn-outline btn-secondary" @click="endTurn(sheet)">Terminar turno</button>
@@ -116,7 +115,9 @@ function endTurn(sheet) {
     <Teleport to="body">
         <AdvantagesShop :sheet ref="advantagesModal" />
     </Teleport>
+    <Teleport to="body">
+        <MiraclesShop :sheet ref="miraclesModal" />
+    </Teleport>
     <SuccessToast class="z-10" ref="successToast" :message="'Ficha salva com sucesso'" />
     <FailToast class="z-10" ref="failToast" :message="'Pontos de criação insuficientes'" />
-  </Layout>
 </template>

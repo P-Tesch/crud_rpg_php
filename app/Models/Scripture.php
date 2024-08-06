@@ -4,8 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Scripture extends Model
 {
@@ -20,17 +19,18 @@ class Scripture extends Model
         "range",
         "sharpness",
         "double",
+        "description"
     ];
 
     protected $hidden = [
         "strategy"
     ];
 
-    public function scriptureAbilities() : HasMany {
-        return $this->hasMany(ScriptureAbility::class);
+    public function scriptureAbilities() : BelongsToMany {
+        return $this->belongsToMany(ScriptureAbility::class);
     }
 
-    public function sheet() : BelongsTo {
-        return $this->belongsTo(Sheet::class);
+    public function sheet() : BelongsToMany {
+        return $this->belongsToMany(Sheet::class);
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Entities;
 
 use App\Http\Controllers\AdvantagesController;
+use App\Http\Controllers\MiraclesController;
 use App\Http\Controllers\MysticEyesController;
 use App\Http\Controllers\SchoolController;
 use App\Models\Advantage;
@@ -47,6 +48,7 @@ class SheetEntity {
     public ?Scripture $scripture;
     public ?array $sonatas;
     public array $skillsRelations;
+    public array $classes;
 
     public function __construct(array $args) {
         if (count($args) == 0) {
@@ -84,9 +86,7 @@ class SheetEntity {
         }
 
         foreach ($args["miracles"] as $miracle) {
-            $miracleModel = new Miracle($miracle);
-            $miracleModel->id = $miracle["id"];
-            $this->miracles[] = $miracleModel;
+            $this->miracles[] = MiraclesController::findByName($miracle["name"]);
         }
 
         $this->schools = [];
@@ -119,6 +119,8 @@ class SheetEntity {
             $sonataModel = new Sonata($sonata);
             $this->sonatas[] = $sonataModel;
         }
+
+        $this->setClasses();
 
     }
 
@@ -171,6 +173,13 @@ class SheetEntity {
             }
             $this->schools[$school->name] = ["id" => $school->id, "level" => $school->level, "spells" => $spells];
         }
+
+        $this->miracles = [];
+        foreach ($sheet->miracles as $miracle) {
+            $this->miracles[] = MiraclesController::findByName($miracle["name"]);
+        }
+
+        $this->setClasses();
 
         return $this;
     }
@@ -250,11 +259,25 @@ class SheetEntity {
 
         $model->advantages()->sync($advantages, true);
 
+        $miracles = [];
+        foreach($this->miracles as $miracle) {
+            $miracles[] = $miracle["id"];
+        }
+
+        $model->miracles()->sync($miracles, true);
+
         //$model->blood = $this->blood;
         //$model->items = $this->items;
-        //$model->miracles = $this->miracles;
         //$model->scripture = $this->scripture;
         //$model->sonatas = $this->sonatas;
+
+        $this->setClasses();
         $model->save();
+    }
+
+    private function setClasses() {
+        $this->classes = [];
+        $this->classes["isMage"] = $this->alignment != null;
+        $this->classes["isCleric"] = $this->organization != null;
     }
 }

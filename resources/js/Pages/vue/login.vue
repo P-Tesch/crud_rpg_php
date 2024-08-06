@@ -25,7 +25,6 @@ function success() {
 </script>
 
 <template>
-  <Layout>
     <Head title="Login" />
     <div class="flex h-screen">
         <div class="flex flex-col border border-1 rounded-md border-primary p-5 w-4/12 h-4/12 m-auto gap-2">
@@ -74,5 +73,4 @@ function success() {
         <RegisterModal @success="success()" ref="registerModal"/>
     </Teleport>
     <SuccessToast class="z-10" ref="successToast" :message="'Registrado com sucesso'" />
-  </Layout>
 </template>

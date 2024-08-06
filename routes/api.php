@@ -1,13 +1,14 @@
 <?php
 
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\RollController;
-use App\Http\Controllers\SheetController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\SchoolController;
-use App\Http\Controllers\MysticEyesController;
-use App\Http\Controllers\AdvantagesController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RollController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\SheetController;
+use App\Http\Controllers\SchoolController;
+use App\Http\Controllers\MiraclesController;
+use App\Http\Controllers\AdvantagesController;
+use App\Http\Controllers\MysticEyesController;
 
 Route::post("/users", [UserController::class, "store"]);
 Route::post("/sheets", [SheetController::class, "store"]);
@@ -34,4 +35,6 @@ Route::group(["middleware" => ["web"]], function () {
     Route::get("/mystic_eyes", [MysticEyesController::class, "index"]);
 
     Route::get("/advantages", [AdvantagesController::class, "index"]);
+
+    Route::get("/miracles", [MiraclesController::class, "index"]);
 });

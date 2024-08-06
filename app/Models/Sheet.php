@@ -60,8 +60,8 @@ class Sheet extends Model
         return $this->hasMany(Effect::class);
     }
 
-    public function miracles() : HasMany {
-        return $this->hasMany(Miracle::class);
+    public function miracles() : BelongsToMany {
+        return $this->belongsToMany(Miracle::class);
     }
 
     public function scripture() : HasOne {

@@ -2,10 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Models\School;
+use App\Models\Miracle;
 use App\Models\Advantage;
 use App\Models\MysticEye;
-use App\Models\School;
 use Illuminate\Database\Seeder;
+use App\Models\ScriptureAbility;
 
 class DatabaseSeeder extends Seeder
 {
@@ -24,6 +26,14 @@ class DatabaseSeeder extends Seeder
             ->create();
 
         Advantage::factory()
+            ->count(10)
+            ->create();
+
+        ScriptureAbility::factory()
+            ->count(10)
+            ->create();
+
+        Miracle::factory()
             ->count(10)
             ->create();
     }

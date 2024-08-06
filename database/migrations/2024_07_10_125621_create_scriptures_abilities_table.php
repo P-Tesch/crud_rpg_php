@@ -16,10 +16,8 @@ return new class extends Migration
             $table->string("name", 63);
             $table->string("description", 511);
             $table->integer("level");
+            $table->integer("cost");
             $table->string("strategy")->nullable();
-
-            $table->unsignedBigInteger("scripture_id");
-            $table->foreign("scripture_id")->references("id")->on("scriptures");
         });
     }
 

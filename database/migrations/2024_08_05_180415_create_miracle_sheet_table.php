@@ -11,16 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('scriptures', function (Blueprint $table) {
+        Schema::create('miracle_sheet', function (Blueprint $table) {
             $table->id();
-            $table->integer("creation_points");
-            $table->integer("remaining_scripture_points");
-            $table->integer("damage");
-            $table->integer("range");
-            $table->integer("sharpness");
-            $table->boolean("double");
-            $table->string("strategy")->nullable();
-            $table->string("description");
+
+            $table->unsignedBigInteger("miracle_id");
+            $table->foreign("miracle_id")->references("id")->on("miracles");
 
             $table->unsignedBigInteger("sheet_id");
             $table->foreign("sheet_id")->references("id")->on("sheets");
@@ -32,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('scriptures');
+        Schema::dropIfExists('miracle_sheet');
     }
 };

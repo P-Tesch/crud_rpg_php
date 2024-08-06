@@ -16,9 +16,7 @@ return new class extends Migration
             $table->string("name", 63);
             $table->string("description", 511);
             $table->string("strategy")->nullable();
-
-            $table->unsignedBigInteger("sheet_id");
-            $table->foreign("sheet_id")->references("id")->on("sheets");
+            $table->integer("cost");
         });
     }
 

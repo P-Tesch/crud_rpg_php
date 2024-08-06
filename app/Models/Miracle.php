@@ -4,8 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Miracle extends Model
 {
@@ -15,14 +14,15 @@ class Miracle extends Model
 
     protected $fillable = [
         "name",
-        "description"
+        "description",
+        "cost"
     ];
 
     protected $hidden = [
         "strategy"
     ];
 
-    public function sheet() : BelongsTo {
-        return $this->belongsTo(Sheet::class);
+    public function sheet() : BelongsToMany {
+        return $this->belongsToMany(Sheet::class);
     }
 }

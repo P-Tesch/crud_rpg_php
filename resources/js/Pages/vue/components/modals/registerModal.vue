@@ -10,6 +10,7 @@ const login = defineModel("login");
 const password = defineModel("password");
 const charClass = defineModel("charClass");
 const alignment = defineModel("alignment");
+const organization = defineModel("organization");
 
 defineExpose({modalRef});
 
@@ -58,6 +59,8 @@ function buildSheet() {
             "value": 1
         }
     ];
+    let items = [];
+    let organization = null;
     let alignment = null;
     if (this.charClass == "mage") {
         alignment = this.alignment;
@@ -74,6 +77,15 @@ function buildSheet() {
             }
         );
     }
+    if (this.charClass == "cleric") {
+        organization = this.organization;
+        stats.push(
+            {
+                "key": "faith",
+                "value": 1
+            }
+        )
+    }
     let sheet = {
         "name": "Insira o nome do personagem",
         "description": "Insira a descrição física do personagem",
@@ -81,7 +93,7 @@ function buildSheet() {
         "creation_points": 150,
         "portrait": "/storage/portraits/defaultPortrait.png",
         "alignment": alignment,
-        "organization": null,
+        "organization": organization,
         "stats": stats,
     "attributes": attributes,
     "skills": [
@@ -164,8 +176,8 @@ function buildSheet() {
     "advantages": [],
     "blood": null,
     "effects": [],
-    "items": [],
-    "miracles": null,
+    "items": items,
+    "miracles": [],
     "mystic_eyes": [],
     "schools": [],
     "scripture": null,
@@ -324,6 +336,25 @@ async function register() {
                     </div>
                 </div>
                 <div v-if="charClass == 'cleric'" class="outline outline-primary flex flex-col gap-5 p-5 rounded-xl">
+                    <h1 class="text-center font-semibold text-xl">Organização</h1>
+                    <div class="flex flex-row gap-20 justify-center form-control">
+                        <label class="label flex flex-col gap-3">
+                            <span class="label-text">Executores</span>
+                            <input v-model="organization" :value="'executors'" type="radio" name="alignment-radio" class="radio radio-accent" />
+                        </label>
+                        <label class="label flex flex-col gap-3">
+                            <span class="label-text">Cavaleiros</span>
+                            <input v-model="organization" :value="'chivalry'" type="radio" name="alignment-radio" class="radio radio-accent" />
+                        </label>
+                        <label class="label flex flex-col gap-3">
+                            <span class="label-text">Irmandade</span>
+                            <input v-model="organization" :value="'brotherhood'" type="radio" name="alignment-radio" class="radio radio-accent" />
+                        </label>
+                        <label class="label flex flex-col gap-3">
+                            <span class="label-text">Exorcistas</span>
+                            <input v-model="organization" :value="'exorcists'" type="radio" name="alignment-radio" class="radio radio-accent" />
+                        </label>
+                    </div>
 
                 </div>
                 <div v-if="charClass == 'vampire'" class="outline outline-primary flex flex-col gap-5 p-5 rounded-xl">

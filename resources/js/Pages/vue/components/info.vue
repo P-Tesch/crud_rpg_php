@@ -31,7 +31,10 @@ const alignments = {
 }
 
 const organizations = {
-    "": ""
+    "executors": "Executores",
+    "brotherhood": "Irmandade",
+    "chivalry": "Cavaleiros",
+    "exorcists": "Exorcistas"
 }
 
 function editName(name) {
