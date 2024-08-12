@@ -38,6 +38,10 @@ function addToSheet(index) {
     }
     let toAdd = schools.value[index];
     let original = props.sheet.schools[toAdd["name"]];
+    if (original != null && original.level >= toAdd["level"]) {
+        return;
+    }
+
     let spells = {};
     toAdd["spells"].forEach(spell => {
         spells[spell["name"]] = {"type": spell["type"], "description": spell["description"]}

@@ -95,7 +95,7 @@ function endTurn(sheet) {
         <StatsTable :sheet :key="statsKey" />
         <SkillsTable :sheet :key="skillsKey" />
         <SchoolsTable :sheet @add="schoolsModal.modalRef.showModal()" @sync="updateSheet(sheet)" v-if="sheet.classes['isMage']" :key="schoolsKey"/>
-        <Scripture :sheet :key="scriptureKey" />
+        <Scripture :sheet :key="scriptureKey" v-if="sheet.classes['isCleric']" />
         <ItemsTable :sheet @sync="updateSheet(sheet)" />
         <MysticEyesTable :sheet @add="eyesModal.modalRef.showModal()" :key="mysticEyesKey" />
         <RollHistory class="col-start-3 row-start-1" :sheet />

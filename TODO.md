@@ -14,6 +14,8 @@
     1. Roll item
     2. Add item
 12. Inertia instead of fetch
-13. Fix and improve schools removal logic
-14. Auto add first school
-15. Database seeding
+13. Auto add first school
+14. Database seeding
+15. Not autheticated frontend message
+16. Username already registeres frontend message
+17. Username and password constraints

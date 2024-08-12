@@ -1,12 +1,12 @@
 <script setup>
 import { Head, router } from '@inertiajs/vue3'
-import { ref, reactive } from "vue"
+import { ref, reactive, toRaw } from "vue"
 import FailToast from './alerts/failToast.vue';
 import NumberInputModal from './modals/numberInputModal.vue';
 
 const props = defineProps({ sheet: Object })
 
-const originalSchools = Object.assign({}, props.sheet.schools);
+const originalSchools = structuredClone(toRaw(props.sheet.schools));
 
 const emit = defineEmits(["sync", "add"]);
 const failToast = ref(null);
@@ -45,18 +45,24 @@ async function roll(cost) {
     }
 }
 
-function isOriginal(value) {
-    let schoolsArray = Object.values(originalSchools);
+function isOriginal(value, key) {
     let isOriginal = false;
-    schoolsArray.forEach(
-        (v) => {
-            if (v.id == value.id) {
-                isOriginal = true;
-            }
-        }
-    );
+    if (originalSchools.hasOwnProperty(key)) {
+        isOriginal = originalSchools[key]["level"] >= value["level"];
+    }
 
     return !isOriginal;
+}
+
+function remove(key) {
+    let isPresent = originalSchools.hasOwnProperty(key);
+
+    if (!isPresent) {
+        delete props.sheet.schools[key];
+    } else
+    {
+        props.sheet.schools[key] = structuredClone(originalSchools[key]);
+    }
 }
 
 </script>
@@ -69,7 +75,7 @@ function isOriginal(value) {
             </div>
             <div class="overflow-auto">
                 <div v-for="value, key in sheet.schools" class="collapse collapse-arrow bg-base-100">
-                    <button v-if="isOriginal(value)" class="btn btn-sm btn-circle btn-ghost absolute right-10 top-3.5 z-10 overflow-visible" @click="delete sheet.schools[key]">✕</button>
+                    <button v-if="isOriginal(value, key)" class="btn btn-sm btn-circle btn-ghost absolute right-10 top-3.5 z-10 overflow-visible" @click="remove(key, value)">✕</button>
                     <input type="checkbox" name="schools-collapse" />
                     <div class="collapse-title text-xl font-medium">{{ key }} [{{ value.level }}]</div>
                     <div class="collapse-content">
