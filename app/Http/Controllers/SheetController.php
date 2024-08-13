@@ -16,6 +16,7 @@ use App\Models\Advantage;
 use App\Models\MysticEye;
 use App\Models\Scripture;
 use App\Models\BloodAbility;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Models\SonataAbility;
 use App\Models\ScriptureAbility;
@@ -202,19 +203,11 @@ class SheetController extends Controller
      */
     public function show(Request $request)
     {
-        if (!Auth::check()) {
-            return "{\"error\":\"Not autheticated\"}"; //redirect()->back()->with("error", "Not logged in");
-        }
-
         $id = Auth::user()->sheet_id;
         return new SheetResource(Sheet::find($id));
     }
 
-    public function showAsModel(Request $request) : Sheet{
-        if (!Auth::check()) {
-            throw new \Exception("Not Autheticated"); //redirect()->back()->with("error", "Not logged in");
-        }
-
+    public function showAsModel(Request $request) : Sheet {
         $id = Auth::user()->sheet_id;
         return Sheet::find($id);
     }

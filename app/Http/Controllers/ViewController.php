@@ -13,6 +13,10 @@ class ViewController extends Controller {
     }
 
     public function sheet(Request $request, SheetController $sheetController) {
+        if (!Auth::check()) {
+            return redirect("/login");
+        }
+
         return Inertia::render("vue/sheet", ["sheet" => $sheetController->showAsEntity($request)]);
     }
 }

@@ -98,8 +98,8 @@ function invertDouble(sheet) {
                     </div>
                     <div class="w-full">
                         <span>Dupla: {{ yesNo[sheet.scripture.double] }}</span>
-                            <input type="checkbox" class="checkbox checkbox-primary float-right mr-1" v-if="!originalScripture.double" @click="invertDouble(sheet)"></input>
-                            <input type="checkbox" disabled class="checkbox checkbox-primary float-right mr-1" v-if="originalScripture.double"></input>
+                        <input id="checkbox-double" type="checkbox" class="checkbox checkbox-primary float-right mr-1" v-if="!originalScripture.double" @click="invertDouble(sheet)"></input>
+                        <input id="checkbox-double-disabled" type="checkbox" disabled class="checkbox checkbox-primary float-right mr-1" v-if="originalScripture.double"></input>
                     </div>
                 </div>
             </div>
