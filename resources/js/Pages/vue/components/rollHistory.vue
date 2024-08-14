@@ -109,6 +109,13 @@ function scrollToBottom() {
                     <p class="chat-footer">Total: {{ roll["rolls"]["specific"]["hits"] }} Acertos</p>
                 </div>
             </div>
+            <div class="w-full" v-if="roll['type'] == 'mystic_eye'">
+                <div class="chat-header">{{ roll["name"] }} rolou {{ roll["subject"] }} alvejando {{ roll["target"] }}</div>
+                <div :class="getBubbleStyle(roll)">
+                <span v-for="rollResult in roll['rolls']['rolls']">{{ rollResult }}&nbsp;</span>
+                <p class="chat-footer">Total: {{ roll["rolls"]["hits"] }} Acertos</p>
+                </div>
+            </div>
         </div>
         <div ref="endOfHistory"></div>
     </div>

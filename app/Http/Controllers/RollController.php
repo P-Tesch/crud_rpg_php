@@ -23,7 +23,7 @@ class RollController extends Controller {
         return $this->rollHistory->getRolls();
     }
 
-    public function rollSkill(Request $request, SheetController $sheetController) : null {
+    public function rollSkill(Request $request, SheetController $sheetController) : void {
         $skill = $request->input("skill");
         $modifiers = (int) $request->input("modifier");
 
@@ -31,11 +31,9 @@ class RollController extends Controller {
         $stat = $sheet->skillsRelations[$skill];
 
         $this->broadcastAndStore(["portrait" => $sheet->portrait, "type" => "skill", "id" => $sheet->id, "subject" => $skill, "name" => $sheet->name, "rolls" => RollHelper::roll([$sheet->skills[$skill], $sheet->stats[$stat], $modifiers])]);
-
-        return null;
     }
 
-    public function rollSpell(Request $request, SheetController $sheetController) : null {
+    public function rollSpell(Request $request, SheetController $sheetController) : void {
         $cost = (int) $request->input("cost");
         $spellString = $request->input("spell");
         $schoolString = $request->input("school");
@@ -63,11 +61,9 @@ class RollController extends Controller {
         $sheet->update($sheetController->showFromId($sheet->id));
 
         $this->broadcastAndStore(["portrait" => $sheet->portrait, "type" => "spell", "id" => $sheet->id, "recoilDamage" => $recoilRoll["recoil"], "cost" => $cost, "subject" => $spellString, "name" => $sheet->name,"rolls" => ["recoil" => $recoilRoll["roll"], "success" => $spellRoll, "specific" => $specificRoll ?? null]]);
-
-        return null;
     }
 
-    public function rollItem(Request $request, SheetController $sheetController) : null {
+    public function rollItem(Request $request, SheetController $sheetController) : void {
         $itemId = (int) $request->input("item");
 
         $item = Item::find($itemId);
@@ -75,19 +71,30 @@ class RollController extends Controller {
 
         $roll = $item->strategy != null ? RollHelper::roll($item->strategy) : null;
 
-        $this->broadcastAndStore(["portrait" => $sheet->portrait, "type" => "item", "subject" => $item->name, "name" => $sheet->name, "rolls" => $roll]);
-
-        return null;
+        $this->broadcastAndStore(["portrait" => $sheet->portrait, "type" => "item", "subject" => $item->name, "name" => $sheet->name, "id" => $sheet->id, "rolls" => $roll]);
     }
 
-    public function rollGeneric(Request $request, SheetController $sheetController) : null {
+    public function rollMysticEye(Request $request, SheetController $sheetController, MysticEyesController $mysticEyesController) : void {
+        $eyeId = (int) $request->input("eye");
+        $targetId = (int) $request->input("target");
+
+        $eye = $mysticEyesController->show($eyeId);
+
+        $sheet = SheetEntity::buildFromModel($sheetController->showAsModel($request));
+        $target = SheetEntity::buildFromModel($sheetController->showFromId($targetId));
+
+        // TODO: #13 Roll from strategy and apply effects to $target
+        $roll = RollHelper::roll([5]); // Placeholder
+
+        $this->broadcastAndStore(["portrait" => $sheet->portrait, "id" => $sheet->id, "type" => "mystic_eye", "subject" => $eye->name, "name" => $sheet->name, "target" => $target->name, "rolls" => $roll]);
+    }
+
+    public function rollGeneric(Request $request, SheetController $sheetController) : void {
         $modifier = $request->get("modifier");
 
         $sheet = SheetEntity::buildFromModel($sheetController->showAsModel($request));
 
         $this->broadcastAndStore(["portrait" => $sheet->portrait, "type" => "generic", "name" => $sheet->name, "rolls" => RollHelper::roll([$modifier])]);
-
-        return null;
     }
 
     private function rollRecoil(SheetEntity &$sheet, int $cost) : array {

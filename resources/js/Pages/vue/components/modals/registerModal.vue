@@ -84,7 +84,31 @@ function buildSheet() {
                 "key": "faith",
                 "value": 1
             }
-        )
+        );
+    }
+    if (this.charClass == "magiteck") {
+        stats.push(
+            {
+                "key": "tech",
+                "value": 1
+            }
+        );
+    }
+    if (this.charClass == "vampire") {
+        stats.push(
+            {
+                "key": "lineage",
+                "value": 1
+            }
+        );
+    }
+    if (this.charClass == "mixed") {
+        stats.push(
+            {
+                "key": "blood",
+                "value": 1
+            }
+        );
     }
     let sheet = {
         "name": "Insira o nome do personagem",

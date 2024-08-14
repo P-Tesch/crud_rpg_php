@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LiveController;
 use App\Http\Controllers\RollController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
@@ -28,6 +29,7 @@ Route::group(["middleware" => ["web"]], function () {
     Route::get("/roll/skill", [RollController::class, "rollSkill"]);
     Route::get("/roll/spell", [RollController::class, "rollSpell"]);
     Route::get("/roll/item", [RollController::class,"rollItem"]);
+    Route::get("/roll/mystic_eyes", [RollController::class, "rollMysticEye"]);
     Route::get("/roll", [RollController::class, "index"]);
 
     Route::get("/schools", [SchoolController::class, "index"]);
@@ -37,4 +39,7 @@ Route::group(["middleware" => ["web"]], function () {
     Route::get("/advantages", [AdvantagesController::class, "index"]);
 
     Route::get("/miracles", [MiraclesController::class, "index"]);
+
+    Route::post("/live", [LiveController::class, "heartbeat"]);
+    Route::get("/live", [LiveController::class, "alive"]);
 });

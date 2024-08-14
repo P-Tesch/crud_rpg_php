@@ -212,7 +212,7 @@ class SheetController extends Controller
         return Sheet::find($id);
     }
 
-    public function showFromId(int $id) {
+    public function showFromId(int $id) : Sheet {
         return Sheet::find($id);
     }
 

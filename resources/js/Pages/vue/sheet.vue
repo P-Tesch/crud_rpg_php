@@ -18,15 +18,19 @@ import AdvantagesShop from './components/modals/shops/advantagesShop.vue'
 import MiraclesTable from './components/miracles.vue'
 import MiraclesShop from './components/modals/shops/miraclesShop.vue'
 import Scripture from './components/scripture.vue'
+import TargetSelectModal from './components/modals/targetSelectModal.vue'
 
 defineProps({ sheet: Object })
 const csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 const points = ref(null);
 
+const mysticEyesTable = ref(null);
+
 const schoolsModal = ref(null);
 const eyesModal = ref(null);
 const advantagesModal = ref(null);
 const miraclesModal = ref(null);
+const targetModal = ref(null);
 
 const successToast = ref(null);
 const failToast = ref(null);
@@ -97,7 +101,7 @@ function endTurn(sheet) {
         <SchoolsTable :sheet @add="schoolsModal.modalRef.showModal()" @sync="updateSheet(sheet)" v-if="sheet.classes['isMage']" :key="schoolsKey"/>
         <Scripture :sheet :key="scriptureKey" v-if="sheet.classes['isCleric']" />
         <ItemsTable :sheet @sync="updateSheet(sheet)" />
-        <MysticEyesTable :sheet @add="eyesModal.modalRef.showModal()" :key="mysticEyesKey" />
+        <MysticEyesTable :sheet @add="eyesModal.modalRef.showModal()" @target="targetModal.updateCharacters(); targetModal.modalRef.showModal()" :key="mysticEyesKey" ref="mysticEyesTable" />
         <RollHistory class="col-start-3 row-start-1" :sheet />
         <Advantages :sheet @add="advantagesModal.modalRef.showModal()" :key="advantagesKey" />
         <MiraclesTable :sheet @add="miraclesModal.modalRef.showModal()" v-if="sheet.classes['isCleric']" :key="miraclesKey" />
@@ -108,6 +112,7 @@ function endTurn(sheet) {
             <input type="hidden" name="_token" :value="csrf">
         </div>
     </div>
+
     <Teleport to="body">
         <SchoolsShop :sheet ref="schoolsModal" />
     </Teleport>
@@ -120,6 +125,10 @@ function endTurn(sheet) {
     <Teleport to="body">
         <MiraclesShop :sheet ref="miraclesModal" />
     </Teleport>
+    <Teleport to="body">
+        <TargetSelectModal :sheet :csrf ref="targetModal" @end="(id) => mysticEyesTable.rollMysticEye(id)"/>
+    </Teleport>
+
     <SuccessToast class="z-10" ref="successToast" :message="'Ficha salva com sucesso'" />
     <FailToast class="z-10" ref="failToast" :message="'Pontos de criação insuficientes'" />
 </template>

@@ -5,11 +5,30 @@ import { ref, reactive } from "vue"
 const props = defineProps({ sheet: Object });
 
 const originalMysticEyes = Object.assign({}, props.sheet.mysticEyes);
+const selectedEye = ref(null);
 
-const emit = defineEmits(["add"]);
+const rollMysticEye = async (target) => {
+    const url = "/api/roll/mystic_eyes?eye=" + selectedEye.value + "&target=" + target + "&modifier=0";
 
-async function rollMysticEye(item) {
-    /// TODO
+    try {
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        throw new Error(await response.text());
+      }
+
+    } catch (error) {
+        window.open().document.body.innerHTML = error.message;
+    }
+};
+
+defineExpose({rollMysticEye});
+
+const emit = defineEmits(["add", "target"]);
+
+async function selectTarget(eyeId) {
+    selectedEye.value = eyeId;
+    emit("target");
 }
 
 function isOriginal(value) {
@@ -52,7 +71,7 @@ function isOriginal(value) {
                     <div class="collapse-content grid grid-flow-row grid-cols-2">
                         <p class="col-start-1 row-start-1" >{{ value.active }}</p>
                         <p class="col-start-1 row-start-2">Cooldown: {{ value.pivot.current_cooldown }} / {{ value.cooldown }}</p>
-                        <button class="btn btn-outline btn-secondary btn-sm grid-rows-1 col-start-2 row-span-full w-4/12 ml-auto my-auto mr-5" @click="rollMysticEye(value)">Rolar</button>
+                        <button class="btn btn-outline btn-secondary btn-sm grid-rows-1 col-start-2 row-span-full w-4/12 ml-auto my-auto mr-5" @click="selectTarget(value.id)">Rolar</button>
                     </div>
                 </div>
             </div>
