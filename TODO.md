@@ -3,8 +3,6 @@
 2. Cleric class components
    1. Scripture
       1. Roll #13
-      2. Creation points
-      3. Scripture points
    2. Organization item #13
 3. Vampire class components
 4. Magiteck class components

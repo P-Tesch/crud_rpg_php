@@ -275,6 +275,7 @@ class SheetEntity {
         $model->scripture->sharpness = $this->scripture->sharpness;
         $model->scripture->double = $this->scripture->double;
         $model->scripture->remaining_scripture_points = $this->scripture->remaining_scripture_points;
+        $model->scripture->creation_points = $this->scripture->creation_points;
 
         $model->scripture->save();
 

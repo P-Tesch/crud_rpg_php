@@ -18,7 +18,8 @@ function calculatePoints() {
             - totalSchoolsCost()
             - totalMysticEyesCost()
             - totalAdvantagesCost()
-            - totalMiraclesCost();
+            - totalMiraclesCost()
+            - totalScriptureCost();
 }
 
 function totalStatsCost() {
@@ -96,6 +97,10 @@ function totalAdvantagesCost() {
             },
             0
         );
+}
+
+function totalScriptureCost() {
+    return summation(props.sheet.scripture.creation_points / 50) * 4;
 }
 
 function summation(number) {

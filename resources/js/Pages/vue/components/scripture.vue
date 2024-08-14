@@ -1,6 +1,6 @@
 <script setup>
 import { Head, router } from '@inertiajs/vue3'
-import { ref, reactive } from "vue"
+import { ref, reactive, watch } from "vue"
 import TextInputModal from './modals/textInputModal.vue'
 import TextAreaModal from './modals/textAreaModal.vue'
 
@@ -18,6 +18,29 @@ const originalScripture = Object.assign({}, props.sheet.scripture);
 
 const nameModal = ref(null);
 const descriptionModal = ref(null);
+
+const remainingPoints = ref(0);
+calculatePoints();
+watch(props.sheet.scripture, () => calculatePoints());
+
+defineExpose({remainingPoints});
+
+function calculatePoints() {
+    let totalAttributes = 0;
+    let totalAbilities = 0;
+    let scripture = props.sheet.scripture;
+
+    totalAttributes += scripture.damage * 15;
+    totalAttributes += scripture.range * 5;
+    totalAttributes += scripture.sharpness * 20;
+    totalAttributes += scripture.double * 30;
+
+    props.sheet.scripture.scriptureAbilities.forEach(ability => {
+        totalAbilities += ability.cost;
+    });
+
+    remainingPoints.value = props.sheet.scripture.creation_points - totalAbilities - totalAttributes;
+}
 
 function editName(name) {
     if (name != null) {
@@ -82,6 +105,13 @@ function rollScriptureAbility(scriptureAbility) {
                 <input type="checkbox" name="info-collapse" />
                 <div class="collapse-title text-md font-medium flex gap-5">Atributos</div>
                 <div class="collapse-content overflow-auto flex flex-col gap-3">
+
+                    <div class="w-full">
+                        <span>Pontos de criação: {{ remainingPoints }} / {{ sheet.scripture.creation_points }}</span>
+                            <button class="btn btn-outline btn-accent btn-xs float-right" v-if="canDecrease('creation_points')" @click="sheet.scripture.creation_points -= 50">-</button>
+                            <div class="float-right w-1 h-1"></div>
+                            <button class="btn btn-outline btn-primary btn-xs float-right" v-if="sheet.scripture.creation_points < sheet.stats.faith * 50" @click="sheet.scripture.creation_points += 50">+</button>
+                    </div>
 
                     <div class="w-full">
                         <span>Dano: {{ sheet.scripture.damage }}</span>
