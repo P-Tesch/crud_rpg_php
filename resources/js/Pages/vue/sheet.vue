@@ -18,6 +18,7 @@ import AdvantagesShop from './components/modals/shops/advantagesShop.vue'
 import MiraclesTable from './components/miracles.vue'
 import MiraclesShop from './components/modals/shops/miraclesShop.vue'
 import Scripture from './components/scripture.vue'
+import ScriptureAbilitiesShop from './components/modals/shops/scriptureAbilitiesShop.vue'
 import TargetSelectModal from './components/modals/targetSelectModal.vue'
 
 defineProps({ sheet: Object })
@@ -30,6 +31,7 @@ const schoolsModal = ref(null);
 const eyesModal = ref(null);
 const advantagesModal = ref(null);
 const miraclesModal = ref(null);
+const scriptureAbilitiesModal = ref(null);
 const targetModal = ref(null);
 
 const successToast = ref(null);
@@ -99,7 +101,7 @@ function endTurn(sheet) {
         <StatsTable :sheet :key="statsKey" />
         <SkillsTable :sheet :key="skillsKey" />
         <SchoolsTable :sheet @add="schoolsModal.modalRef.showModal()" @sync="updateSheet(sheet)" v-if="sheet.classes['isMage']" :key="schoolsKey"/>
-        <Scripture :sheet :key="scriptureKey" v-if="sheet.classes['isCleric']" />
+        <Scripture :sheet :key="scriptureKey" v-if="sheet.classes['isCleric']" @add="scriptureAbilitiesModal.modalRef.showModal()" />
         <ItemsTable :sheet @sync="updateSheet(sheet)" />
         <MysticEyesTable :sheet @add="eyesModal.modalRef.showModal()" @target="targetModal.updateCharacters(); targetModal.modalRef.showModal()" :key="mysticEyesKey" ref="mysticEyesTable" />
         <RollHistory class="col-start-3 row-start-1" :sheet />
@@ -124,6 +126,9 @@ function endTurn(sheet) {
     </Teleport>
     <Teleport to="body">
         <MiraclesShop :sheet ref="miraclesModal" />
+    </Teleport>
+    <Teleport to="body">
+        <ScriptureAbilitiesShop :sheet ref="scriptureAbilitiesModal" />
     </Teleport>
     <Teleport to="body">
         <TargetSelectModal :sheet :csrf ref="targetModal" @end="(id) => mysticEyesTable.rollMysticEye(id)"/>

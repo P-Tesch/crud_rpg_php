@@ -10,6 +10,7 @@ use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\MiraclesController;
 use App\Http\Controllers\AdvantagesController;
 use App\Http\Controllers\MysticEyesController;
+use App\Http\Controllers\ScriptureAbilitiesController;
 
 Route::post("/users", [UserController::class, "store"]);
 Route::post("/sheets", [SheetController::class, "store"]);
@@ -39,6 +40,8 @@ Route::group(["middleware" => ["web"]], function () {
     Route::get("/advantages", [AdvantagesController::class, "index"]);
 
     Route::get("/miracles", [MiraclesController::class, "index"]);
+
+    Route::get("/scripture_abilities", [ScriptureAbilitiesController::class, "index"]);
 
     Route::post("/live", [LiveController::class, "heartbeat"]);
     Route::get("/live", [LiveController::class, "alive"]);

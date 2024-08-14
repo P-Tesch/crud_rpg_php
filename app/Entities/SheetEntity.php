@@ -6,23 +6,15 @@ use App\Http\Controllers\AdvantagesController;
 use App\Http\Controllers\MiraclesController;
 use App\Http\Controllers\MysticEyesController;
 use App\Http\Controllers\SchoolController;
-use App\Models\Advantage;
+use App\Http\Controllers\ScriptureAbilitiesController;
 use App\Models\Item;
-use App\Models\Miracle;
-use App\Models\MysticEye;
 use App\Models\Sonata;
-use App\Models\Stat;
 use App\Models\Blood;
 use App\Models\Sheet;
-use App\Models\Skill;
-use JsonSerializable;
 use App\Enums\Alignment;
 use App\Enums\SpellTypes;
 use App\Models\Scripture;
 use App\Enums\Organization;
-use App\Http\Controllers\SheetController;
-use App\Models\RpgAttribute;
-use App\Models\School;
 use Illuminate\Support\Facades\Storage;
 
 class SheetEntity {
@@ -75,8 +67,12 @@ class SheetEntity {
 
         $scripture = $args["scripture"];
         if (isset($scripture)) {
-            $this->scripture = new Scripture($scripture);
-            $this->scripture->id = $scripture["id"];
+            $this->scripture = Scripture::find($scripture["id"]);
+            $scriptureAbilities = [];
+            foreach ($args["scripture"]["scriptureAbilities"] as $scriptureAbility) {
+                $scriptureAbilities[] = ScriptureAbilitiesController::findByNameAndLevel($scriptureAbility["name"], $scriptureAbility["level"]);
+            }
+            $this->scripture->scriptureAbilities = $scriptureAbilities;
         }
 
         foreach ($args["items"] as $item) {
@@ -144,6 +140,7 @@ class SheetEntity {
         $this->items = $sheet->items?->toArray();
         $this->miracles = $sheet->miracles?->toArray();
         $this->scripture = $sheet->scripture;
+        $this->scripture->scriptureAbilities = $sheet->scripture->scriptureAbilities?->toArray();
         $this->sonatas = $sheet->sonatas?->toArray();
         $this->mysticEyes = $sheet->mysticEyes?->toArray();
 
@@ -275,6 +272,13 @@ class SheetEntity {
         $model->scripture->double = $this->scripture->double;
 
         $model->scripture->save();
+
+        $scriptureAbilities = [];
+        foreach ($this->scripture->scriptureAbilities as $scriptureAbility) {
+            $scriptureAbilities[] = $scriptureAbility->id;
+        }
+
+        $model->scripture->scriptureAbilities()->sync($scriptureAbilities, true);
 
         $this->setClasses();
         $model->save();

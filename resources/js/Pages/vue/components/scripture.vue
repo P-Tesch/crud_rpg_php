@@ -5,7 +5,7 @@ import TextInputModal from './modals/textInputModal.vue'
 import TextAreaModal from './modals/textAreaModal.vue'
 
 const props = defineProps({ sheet: Object });
-const emit = defineEmits(["sync"]);
+const emit = defineEmits(["sync", "add"]);
 
 const yesNo = {
     true: "Sim",
@@ -45,6 +45,10 @@ function canDecrease(key) {
 
 function invertDouble(sheet) {
     sheet.scripture.double = !sheet.scripture.double;
+}
+
+function rollScriptureAbility(scriptureAbility) {
+    console.log("TODO");
 }
 
 </script>
@@ -103,6 +107,19 @@ function invertDouble(sheet) {
                     </div>
                 </div>
             </div>
+
+            <div v-for="ability in sheet.scripture.scriptureAbilities" class="collapse collapse-arrow bg-base-100">
+                <input type="checkbox" name="info-collapse">
+                <div class="collapse-title text-md font-medium flex gap-t">{{ ability.name }}</div>
+                <div class="collapse-content overflow-auto flex flex-col gap-3">
+                    <p>{{ ability.description }}</p>
+                    <div class="flex flex-row">
+                        <span>Level: {{ ability.level }}</span>
+                        <button class="btn btn-outline btn-secondary btn-sm ml-auto mr-0" @click="rollScriptureAbility(ability)">Rolar</button>
+                    </div>
+                </div>
+            </div>
+
         </div>
         <div class="w-full text-center">
             <button class="btn btn-outline btn-accent w-full my-3" @click="$emit('add')">Adicionar</button>
