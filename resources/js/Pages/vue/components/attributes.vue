@@ -45,6 +45,15 @@ function decrease(sheet, key) {
                         <button class="btn btn-outline btn-accent btn-xs" id="{{ key }}DecreaseButton" @click="decrease(sheet, key)">-</button>
                     </th>
                 </tr>
+                <tr v-if="sheet.scripture != null">
+                    <th>Pontos de escritura</th>
+                    <th class="text-center">{{ sheet.scripture.remaining_scripture_points }}</th>
+                    <th class="text-center">{{ sheet.maxAttributes["max_scripture_points"] }}</th>
+                    <th class="text-center space-x-1">
+                        <button class="btn btn-outline btn-primary btn-xs" id="{{ key }}IncreaseButton" @click="sheet.scripture.remaining_scripture_points++">+</button>
+                        <button class="btn btn-outline btn-accent btn-xs" id="{{ key }}DecreaseButton" @click="sheet.scripture.remaining_scripture_points--">-</button>
+                    </th>
+                </tr>
             </tbody>
         </table>
     </div>

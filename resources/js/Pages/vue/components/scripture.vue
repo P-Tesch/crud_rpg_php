@@ -82,6 +82,7 @@ function rollScriptureAbility(scriptureAbility) {
                 <input type="checkbox" name="info-collapse" />
                 <div class="collapse-title text-md font-medium flex gap-5">Atributos</div>
                 <div class="collapse-content overflow-auto flex flex-col gap-3">
+
                     <div class="w-full">
                         <span>Dano: {{ sheet.scripture.damage }}</span>
                             <button class="btn btn-outline btn-accent btn-xs float-right" v-if="canDecrease('damage')" @click="decrease(sheet, 'damage')">-</button>

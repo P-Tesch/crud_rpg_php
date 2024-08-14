@@ -67,7 +67,7 @@ class SheetEntity {
 
         $scripture = $args["scripture"];
         if (isset($scripture)) {
-            $this->scripture = Scripture::find($scripture["id"]);
+            $this->scripture = new Scripture($args["scripture"]);
             $scriptureAbilities = [];
             foreach ($args["scripture"]["scriptureAbilities"] as $scriptureAbility) {
                 $scriptureAbilities[] = ScriptureAbilitiesController::findByNameAndLevel($scriptureAbility["name"], $scriptureAbility["level"]);
@@ -196,6 +196,10 @@ class SheetEntity {
         if (array_key_exists("working_circuits", $this->attributes)) {
             $this->maxAttributes["max_circuits"] = $this->stats["tech"];
         }
+        if (array_key_exists("faith", $this->stats)) {
+            $max = (int) floor($this->stats["faith"] / 2);
+            $this->maxAttributes["max_scripture_points"] = $max == 0 ? 1 : $max;
+        }
     }
 
     public function update(Sheet $model) {
@@ -270,6 +274,7 @@ class SheetEntity {
         $model->scripture->range = $this->scripture->range;
         $model->scripture->sharpness = $this->scripture->sharpness;
         $model->scripture->double = $this->scripture->double;
+        $model->scripture->remaining_scripture_points = $this->scripture->remaining_scripture_points;
 
         $model->scripture->save();
 
