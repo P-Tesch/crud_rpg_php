@@ -17,11 +17,6 @@ class Stat extends Model
         "value"
     ];
 
-    //TODO remover
-    protected $hidden = [
-        "strategy"
-    ];
-
     public function blood() : BelongsTo {
         return $this->belongsTo(Blood::class);
     }

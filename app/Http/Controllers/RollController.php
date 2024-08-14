@@ -83,7 +83,7 @@ class RollController extends Controller {
         $sheet = SheetEntity::buildFromModel($sheetController->showAsModel($request));
         $target = SheetEntity::buildFromModel($sheetController->showFromId($targetId));
 
-        // TODO: #13 Roll from strategy and apply effects to $target
+        // TODO: #2 Roll from strategy and apply effects to $target
         $roll = RollHelper::roll([5]); // Placeholder
 
         $this->broadcastAndStore(["portrait" => $sheet->portrait, "id" => $sheet->id, "type" => "mystic_eye", "subject" => $eye->name, "name" => $sheet->name, "target" => $target->name, "rolls" => $roll]);

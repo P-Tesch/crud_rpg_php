@@ -20,11 +20,6 @@ class RpgAttribute extends Model
         "value"
     ];
 
-    // TODO remover
-    protected $hidden = [
-        "strategy"
-    ];
-
     public function sheet() : BelongsTo {
         return $this->belongsTo(Sheet::class);
     }
