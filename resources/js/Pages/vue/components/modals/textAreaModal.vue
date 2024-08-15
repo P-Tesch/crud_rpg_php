@@ -2,7 +2,6 @@
 import { ref, Ref, ModelRef } from "vue"
 
 interface Props {
-    defaultValue: number;
     title: string;
 }
 const props: Props = defineProps<Props>();

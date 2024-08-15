@@ -98,6 +98,6 @@ function remove(key) {
     </div>
     <FailToast class="z-10" ref="failToast" :message="'Mana insuficiente'" />
     <Teleport to="body">
-        <NumberInputModal :title="'Insira o custo da magia'" :defaultValue="0" @end="(cost) => roll(cost)" ref="costModal"/>
+        <NumberInputModal :title="'Insira o custo da magia'" @end="(cost) => roll(cost)" ref="costModal"/>
     </Teleport>
 </template>
