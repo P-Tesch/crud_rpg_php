@@ -1,39 +1,49 @@
-<script setup>
-import { Head, router } from '@inertiajs/vue3'
-import { ref, reactive, onBeforeMount } from "vue"
+<script setup lang="ts">
+import { ref, Ref, onBeforeMount } from "vue"
+import type { Sheet, MysticEye } from "rpgTypes";
 
-const props = defineProps({
-    sheet: Object
-})
-const modalRef = ref(null);
-const eyes = ref(null);
+interface Props {
+    sheet: Sheet;
+}
+
+const props: Props = defineProps<Props>();
+const modalRef: Ref<HTMLDialogElement | null> = ref(null);
+const eyes: Ref<MysticEye[] | null> = ref(null);
 
 onBeforeMount(() => { getEyes() })
 
 defineExpose({ modalRef });
 
-async function getEyes() {
-    const url = "/api/mystic_eyes";
+async function getEyes() : Promise<void> {
+        const url: string = "/api/mystic_eyes";
     try {
-        const response = await fetch(url);
+        const response: Response = await fetch(url);
         if (!response.ok) {
             throw new Error(await response.text());
         }
 
         eyes.value = JSON.parse(await response.text())["data"];
     } catch (error) {
-        window.open().document.body.innerHTML = error.message;
+        let open: Window | null = window.open();
+
+        if (open != null) {
+            open.document.body.innerHTML = error.message;
+        }
     }
 }
 
-function addToSheet(index) {
-    let toAdd = eyes.value[index];
-    let original = props.sheet.mysticEyes;
+function addToSheet(index: number) : void {
+    if (eyes.value == null) {
+        return;
+    }
+
+    let toAdd: MysticEye = eyes.value[index];
+    let original: MysticEye[] = props.sheet.mysticEyes;
     if (original.length >= 2) {
         return;
     }
 
-    let exists = false;
+    let exists: boolean = false;
     original.forEach(eye => {
         if (eye.name == toAdd.name) {
             exists = true;
@@ -44,7 +54,11 @@ function addToSheet(index) {
         return;
     }
 
-    toAdd.pivot = {"current_cooldown": toAdd.cooldown};
+    toAdd.pivot = {
+        "current_cooldown": toAdd.cooldown,
+        "sheet_id": props.sheet.id,
+        "mystic_eye_id": toAdd.id
+    };
 
     props.sheet.mysticEyes.push(toAdd);
 }

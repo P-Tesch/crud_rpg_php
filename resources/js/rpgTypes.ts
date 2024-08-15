@@ -42,6 +42,22 @@ declare module "rpgTypes" {
         name: string;
     }
 
+    export type MysticEyesPivot = {
+        current_cooldown: number;
+        mystic_eye_id: number;
+        sheet_id: number;
+    }
+
+    export type MysticEye = {
+        active: string;
+        cooldown: number;
+        cost: number;
+        id: number;
+        name: string;
+        passive: string;
+        pivot: MysticEyesPivot
+    }
+
     export type Sheet = {
         advantages: Advantage[];
         alignment: string | null;
@@ -55,6 +71,7 @@ declare module "rpgTypes" {
         items: null[];
         maxAttributes: Map<string, number>;
         miracles: Miracle[];
+        mysticEyes: MysticEye[];
         name: string;
         organization: string | null;
         portrait: string;
