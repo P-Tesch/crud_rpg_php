@@ -35,6 +35,13 @@ declare module "rpgTypes" {
         sheet_id: number;
     }
 
+    export type Miracle = {
+        cost: number;
+        description: string;
+        id: number;
+        name: string;
+    }
+
     export type Sheet = {
         advantages: Advantage[];
         alignment: string | null;
@@ -47,6 +54,7 @@ declare module "rpgTypes" {
         id: number;
         items: null[];
         maxAttributes: Map<string, number>;
+        miracles: Miracle[];
         name: string;
         organization: string | null;
         portrait: string;

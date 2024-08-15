@@ -111,7 +111,7 @@ async function updateSheet(sheet) {
 }
 
 function endTurn(sheet) {
-    console.log(window.innerWidth);
+    console.log(sheet);
 }
 
 </script>

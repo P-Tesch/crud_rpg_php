@@ -1,36 +1,48 @@
-<script setup>
+<script setup lang="ts">
 import { Head, router } from '@inertiajs/vue3'
-import { ref, reactive, onBeforeMount } from "vue"
+import { ref, reactive, onBeforeMount, Ref } from "vue"
+import type { Sheet, Miracle } from "rpgTypes";
 
-const props = defineProps({
-    sheet: Object
-})
-const modalRef = ref(null);
-const miracles = ref(null);
+interface Props {
+    sheet: Sheet;
+}
+
+const props: Props = defineProps<Props>();
+
+const modalRef: Ref<HTMLDialogElement | null> = ref(null);
+const miracles: Ref<Miracle[] | null>  = ref(null);
 
 onBeforeMount(() => { getMiracles() })
 
 defineExpose({ modalRef });
 
-async function getMiracles() {
-    const url = "/api/miracles";
+async function getMiracles() : Promise<void> {
+    const url: string = "/api/miracles";
     try {
-        const response = await fetch(url);
+        const response: Response = await fetch(url);
         if (!response.ok) {
             throw new Error(await response.text());
         }
 
         miracles.value = JSON.parse(await response.text())["data"];
     } catch (error) {
-        window.open().document.body.innerHTML = error.message;
+        let open: Window | null = window.open();
+
+        if (open != null) {
+            open.document.body.innerHTML = error.message;
+        }
     }
 }
 
-function addToSheet(index) {
-    let toAdd = miracles.value[index];
-    let original = props.sheet.miracles;
+function addToSheet(index: number) : void {
+    if (miracles.value == null) {
+        return;
+    }
 
-    let shouldAdd = true;
+    let toAdd: Miracle = miracles.value[index];
+    let original: Miracle[] = props.sheet.miracles;
+
+    let shouldAdd: boolean = true;
     original.forEach(
         (value) => {
             if (value.name == toAdd.name) {
