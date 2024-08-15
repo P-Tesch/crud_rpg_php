@@ -1,36 +1,48 @@
-<script setup>
-import { Head, router } from '@inertiajs/vue3'
-import { ref, reactive, onBeforeMount } from "vue"
+<script setup lang="ts">
+import { ref, onBeforeMount } from "vue";
+import type { Sheet, Advantage } from "rpgTypes";
+import type { Ref } from "vue";
 
-const props = defineProps({
-    sheet: Object
-})
-const modalRef = ref(null);
-const advantages = ref(null);
+interface Props {
+    sheet: Sheet;
+}
 
-onBeforeMount(() => { getAdvantages() })
+const props: Props = defineProps<Props>();
+
+const modalRef: Ref<HTMLDialogElement | null> = ref(null);
+const advantages: Ref<Advantage[] | null> = ref(null);
+
+onBeforeMount(() => { getAdvantages() });
 
 defineExpose({ modalRef });
 
-async function getAdvantages() {
-    const url = "/api/advantages";
+async function getAdvantages() : Promise<void> {
+    const url: string = "/api/advantages";
     try {
-        const response = await fetch(url);
+        const response: Response = await fetch(url);
         if (!response.ok) {
             throw new Error(await response.text());
         }
 
         advantages.value = JSON.parse(await response.text())["data"];
     } catch (error) {
-        window.open().document.body.innerHTML = error.message;
+        let open: Window | null = window.open();
+
+        if (open != null) {
+            open.document.body.innerHTML = error.message;
+        }
     }
 }
 
-function addToSheet(index) {
-    let toAdd = advantages.value[index];
-    let original = props.sheet.advantages;
+function addToSheet(index: number) : void {
+    if (advantages.value == null) {
+        return;
+    }
 
-    let shouldAdd = true;
+    let toAdd: Advantage = advantages.value[index];
+    let original: Advantage[] = props.sheet.advantages;
+    let shouldAdd: boolean = true;
+
     original.forEach(
         (value) => {
             if (value.name == toAdd.name) {
