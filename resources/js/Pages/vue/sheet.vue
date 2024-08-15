@@ -1,6 +1,6 @@
 <script setup>
 import { Head, router } from '@inertiajs/vue3'
-import { ref, reactive, getCurrentInstance } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import SkillsTable from './components/skills.vue'
 import StatsTable from './components/stats.vue'
 import AttributesTable from './components/attributes.vue'
@@ -25,6 +25,7 @@ defineProps({ sheet: Object })
 const csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 const points = ref(null);
 const scripture = ref(null);
+const gridClass = ref("p-5 grid grid-cols-3 gap-5");
 
 const mysticEyesTable = ref(null);
 
@@ -45,6 +46,27 @@ const schoolsKey = ref(0);
 const mysticEyesKey = ref(0);
 const advantagesKey = ref(0);
 const scriptureKey = ref(0);
+
+const calculateGridCols = () => {
+    if (window.innerWidth >= 1400) {
+        gridClass.value = "p-5 grid grid-cols-3 gap-5";
+        return;
+    }
+
+    if (window.innerWidth >= 910) {
+        gridClass.value = "p-5 grid grid-cols-2 gap-5";
+        return;
+    }
+
+    gridClass.value = "p-5 grid grid-cols-1 gap-5";
+}
+
+onMounted(() => {
+    calculateGridCols();
+    window.addEventListener("resize", () => {
+        calculateGridCols();
+    })
+});
 
 async function persist(sheet) {
     if (this.points.points.remainingPoints < 0 || this.scripture.remainingPoints < 0) {
@@ -89,23 +111,23 @@ async function updateSheet(sheet) {
 }
 
 function endTurn(sheet) {
-    console.log(sheet.portrait);
+    console.log(window.innerWidth);
 }
 
 </script>
 
 <template>
     <Head title="Ficha" />
-    <div class="p-5 grid grid-cols-3 gap-5">
+    <div :class="gridClass">
         <CharacterInfo :sheet ref="points" />
         <AttributesTable :sheet />
+        <RollHistory :sheet />
         <StatsTable :sheet :key="statsKey" />
         <SkillsTable :sheet :key="skillsKey" />
         <SchoolsTable :sheet @add="schoolsModal.modalRef.showModal()" @sync="updateSheet(sheet)" v-if="sheet.classes['isMage']" :key="schoolsKey"/>
         <Scripture :sheet :key="scriptureKey" v-if="sheet.classes['isCleric']" @add="scriptureAbilitiesModal.modalRef.showModal()" ref="scripture" />
         <ItemsTable :sheet @sync="updateSheet(sheet)" />
         <MysticEyesTable :sheet @add="eyesModal.modalRef.showModal()" @target="targetModal.updateCharacters(); targetModal.modalRef.showModal()" :key="mysticEyesKey" ref="mysticEyesTable" />
-        <RollHistory class="col-start-3 row-start-1" :sheet />
         <Advantages :sheet @add="advantagesModal.modalRef.showModal()" :key="advantagesKey" />
         <MiraclesTable :sheet @add="miraclesModal.modalRef.showModal()" v-if="sheet.classes['isCleric']" :key="miraclesKey" />
 
