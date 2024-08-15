@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { Head, router } from '@inertiajs/vue3'
-import { ref, reactive, onBeforeMount, Ref } from "vue"
+import { ref, onBeforeMount, Ref } from "vue"
 import type { Sheet, Miracle } from "rpgTypes";
 
 interface Props {
