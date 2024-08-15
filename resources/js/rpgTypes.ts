@@ -58,6 +58,40 @@ declare module "rpgTypes" {
         pivot: MysticEyesPivot
     }
 
+    export type Spell = {
+        description: string;
+        strategy: string | null;
+        type: string;
+    }
+
+    export interface SpellFromShop extends Spell {
+        name: string;
+    }
+
+    export type SpellArray = {
+        [key: string]: Spell;
+    }
+
+    type SchoolBase = {
+        id: number;
+        level: number;
+        cost: number;
+    }
+
+    export interface School extends SchoolBase {
+        spells: SpellArray;
+    }
+
+    export interface SchoolFromShop extends SchoolBase {
+        name: string;
+        description: string;
+        spells: SpellFromShop[];
+    }
+
+    export type SchoolArray = {
+        [key: string]: School;
+    }
+
     export type Sheet = {
         advantages: Advantage[];
         alignment: string | null;
@@ -75,7 +109,7 @@ declare module "rpgTypes" {
         name: string;
         organization: string | null;
         portrait: string;
-        schools: Map<string, null>;
+        schools: SchoolArray | any[];
         scripture: Scripture;
         skills: Map<string, number>;
         skillsRelations: Map<string, string>;
