@@ -1,16 +1,19 @@
-<script setup>
-import { Head, router } from '@inertiajs/vue3'
-import { ref, reactive } from "vue"
+<script setup lang="ts">
+import { ref, Ref, ModelRef } from "vue"
 
-const props = defineProps({defaultValue: String, title: String});
+interface Props {
+    defaultValue: number;
+    title: string;
+}
+const props: Props = defineProps<Props>();
 const emit = defineEmits(["end"]);
 
-const modalRef = ref(null);
-const input = defineModel();
+const modalRef: Ref<HTMLDialogElement | null> = ref(null);
+const input: ModelRef<string | undefined, string> = defineModel();
 
 defineExpose({modalRef, input});
 
-function confirm() {
+function confirm() : void {
     emit("end", input.value);
 }
 
