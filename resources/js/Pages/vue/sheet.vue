@@ -69,7 +69,7 @@ onMounted(() => {
 });
 
 async function persist(sheet) {
-    if (this.points.points.remainingPoints < 0 || this.scripture.remainingPoints < 0) {
+    if (this.points.points.remainingPoints < 0 || (this.scripture != null && this.scripture.remainingPoints < 0)) {
         this.failToast.toastRef = true;
         setTimeout(() => this.failToast.toastRef = false, 2500);
         return;
