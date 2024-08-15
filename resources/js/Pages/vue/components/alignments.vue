@@ -1,8 +1,11 @@
-<script setup>
-import { Head, router } from '@inertiajs/vue3'
-import { ref, reactive } from "vue"
+<script setup lang="ts">
+import { Sheet } from 'rpgTypes';
 
-defineProps({ sheet: Object })
+interface Props {
+    sheet: Sheet
+}
+
+const props: Props = defineProps<Props>();
 
 const alignments = {
     "fire": "Fogo",
