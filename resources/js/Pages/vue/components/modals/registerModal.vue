@@ -1,21 +1,30 @@
-<script setup>
-import { Head, router } from '@inertiajs/vue3'
-import { ref, reactive } from "vue"
+<script setup lang="ts">
+import { ref, Ref, ModelRef } from "vue"
 
-const props = defineProps({defaultValue: String, title: String});
+interface Props {
+    defaultValue: number;
+    title: string;
+}
+const props: Props = defineProps<Props>();
+
 const emit = defineEmits(["success"]);
 
-const modalRef = ref(null);
-const login = defineModel("login");
-const password = defineModel("password");
-const charClass = defineModel("charClass");
-const alignment = defineModel("alignment");
-const organization = defineModel("organization");
+const modalRef: Ref<HTMLDialogElement | null> = ref(null);
+const login: ModelRef<string | undefined, string> = defineModel("login");
+const password: ModelRef<string | undefined, string> = defineModel("password");
+const charClass: ModelRef<string | undefined, string> = defineModel("charClass");
+const alignment: ModelRef<string | undefined, string> = defineModel("alignment");
+const organization: ModelRef<string | undefined, string> = defineModel("organization");
 
 defineExpose({modalRef});
 
+interface keyValue {
+    key: string,
+    value: number
+}
+
 function buildSheet() {
-    let attributes = [
+    let attributes: keyValue[] = [
         {
             "key": "health",
             "value": 0
@@ -29,7 +38,7 @@ function buildSheet() {
             "value": 0
         }
     ]
-    let stats = [
+    let stats: keyValue[] = [
         {
             "key": "strength",
             "value": 1
@@ -60,8 +69,8 @@ function buildSheet() {
         }
     ];
     let items = [];
-    let organization = null;
-    let alignment = null;
+    let organization: string | null = null;
+    let alignment: string | null = null;
     if (this.charClass == "mage") {
         alignment = this.alignment;
         attributes.push(
@@ -233,10 +242,10 @@ function buildUser(sheetId) {
 async function register() {
     let sheet = this.buildSheet();
 
-    const url = "/api/sheets";
-    const urlUser = "/api/users"
+    const url: string = "/api/sheets";
+    const urlUser: string = "/api/users"
     try {
-        const response = await fetch(url, {
+        const response: Response = await fetch(url, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -249,7 +258,7 @@ async function register() {
         }
 
         let user = this.buildUser(await response.text());
-        const responseUser = await fetch(urlUser, {
+        const responseUser: Response = await fetch(urlUser, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -264,7 +273,11 @@ async function register() {
         emit("success");
 
     } catch (error) {
-        window.open().document.body.innerHTML = error.message;
+        let open: Window | null = window.open();
+
+        if (open != null) {
+            open.document.body.innerHTML = error.message;
+        }
     }
 }
 
