@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, Ref, onBeforeMount } from "vue";
-import type { Sheet, School, SchoolArray, SchoolFromShop, Spell, SpellArray, SpellFromShop } from "rpgTypes";
+import type { Sheet, School, SchoolFromShop, SpellArray } from "rpgTypes";
 
 interface Props {
     sheet: Sheet;
