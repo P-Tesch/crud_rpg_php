@@ -1,15 +1,20 @@
-<script setup>
-import { Head, router } from '@inertiajs/vue3'
-import { ref, reactive, onBeforeMount, onMounted } from "vue"
+<script setup lang="ts">
+import { ref, Ref } from "vue";
+import type { Sheet, Character } from "rpgTypes";
 
-const props = defineProps({ sheet: Object, csrf: String });
+interface Props {
+    sheet: Sheet;
+    csrf: string;
+}
+
+const props: Props = defineProps<Props>();
 const emit = defineEmits(["end"]);
 
-const modalRef = ref(null);
-const characters = ref([]);
+const modalRef: Ref<HTMLDialogElement | null> = ref(null);
+const characters: Ref<Character[]> = ref([]);
 
 const updateCharacters = async () => {
-    const response = await fetch("/api/live", {
+    const response: Response = await fetch("/api/live", {
         method: "GET"
     });
 
@@ -18,7 +23,7 @@ const updateCharacters = async () => {
 
 defineExpose({modalRef, updateCharacters});
 
-const heartbeat = async () => {
+const heartbeat = async (): Promise<void> => {
     fetch("/api/live",{
         method: "POST",
         headers: {
@@ -40,7 +45,7 @@ heartbeat();
 
 setInterval(heartbeat, 10000);
 
-function select(key) {
+function select(key: number) {
     emit("end", key);
 }
 

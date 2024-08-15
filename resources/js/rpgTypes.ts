@@ -116,4 +116,11 @@ declare module "rpgTypes" {
         sonatas: null[];
         stats: Map<String, number>;
     }
+
+    export type Character = {
+        name: string;
+        portrait: string;
+        sheet_id: number;
+        timestamp: number;
+    }
 }
