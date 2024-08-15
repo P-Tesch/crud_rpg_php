@@ -70,11 +70,11 @@ function addToSheet(index: number) : void {
             </form>
             <h3 class="text-3xl font-bold text-center">Vantagens</h3>
             <div class="flex flex-col gap-5">
-                <div class="flex flex-col outline outline-primary p-2 rounded-box" v-for="value, key in advantages">
-                    <p class="text-2xl">{{ value.name }}</p>
-                    <p class="text-md"> {{ value.description }}</p>
-                    <p class="text-md">Level: {{ value.level }}</p>
-                    <p class="text-md">Custo: {{ value.cost }}</p>
+                <div class="flex flex-col outline outline-primary p-2 rounded-box" v-for="advantage, key in advantages">
+                    <p class="text-2xl">{{ advantage.name }}</p>
+                    <p class="text-md"> {{ advantage.description }}</p>
+                    <p class="text-md">Level: {{ advantage.level }}</p>
+                    <p class="text-md">Custo: {{ advantage.cost }}</p>
                     <button class="btn btn-outline btn-accent btn-md self-end"
                         @click="addToSheet(key)">Adicionar</button>
                 </div>

@@ -65,10 +65,10 @@ function addToSheet(index: number) : void {
             </form>
             <h3 class="text-3xl font-bold text-center">Milagres</h3>
             <div class="flex flex-col gap-5">
-                <div class="flex flex-col outline outline-primary p-2 rounded-box" v-for="value, key in miracles">
-                    <p class="text-2xl">{{ value.name }}</p>
-                    <p class="text-md"> {{ value.description }}</p>
-                    <p class="text-md">Custo: {{ value.cost }}</p>
+                <div class="flex flex-col outline outline-primary p-2 rounded-box" v-for="miracle, key in miracles">
+                    <p class="text-2xl">{{ miracle.name }}</p>
+                    <p class="text-md"> {{ miracle.description }}</p>
+                    <p class="text-md">Custo: {{ miracle.cost }}</p>
                     <button class="btn btn-outline btn-accent btn-md self-end"
                         @click="addToSheet(key)">Adicionar</button>
                 </div>

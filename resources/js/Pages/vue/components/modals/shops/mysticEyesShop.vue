@@ -73,29 +73,29 @@ function addToSheet(index: number) : void {
             </form>
             <h3 class="text-3xl font-bold text-center">Olhos místicos</h3>
             <div class="flex flex-col gap-5">
-                <div class="flex flex-col outline outline-primary p-2 rounded-box" v-for="value, key in eyes">
+                <div class="flex flex-col outline outline-primary p-2 rounded-box" v-for="eye, key in eyes">
                     <div class="collapse collapse-arrow bg-base-100">
                         <input type="checkbox" name="mystic-eyes-collapse" />
-                        <div class="collapse-title text-xl font-medium">{{ value.name }}</div>
+                        <div class="collapse-title text-xl font-medium">{{ eye.name }}</div>
                         <div class="collapse-content">
-                            <div v-if="value.passive != null" class="collapse collapse-arrow bg-base-100">
+                            <div v-if="eye.passive != null" class="collapse collapse-arrow bg-base-100">
                                 <input type="checkbox" name="me-passive-collapse" />
                                 <div class="collapse-title text-xl font-medium">Passivo</div>
                                 <div class="collapse-content">
-                                    <p>{{ value.passive }}</p>
+                                    <p>{{ eye.passive }}</p>
                                 </div>
                             </div>
-                            <div v-if="value.active != null" class="collapse collapse-arrow bg-base-100">
+                            <div v-if="eye.active != null" class="collapse collapse-arrow bg-base-100">
                                 <input type="checkbox" name="me-passive-collapse" />
                                 <div class="collapse-title text-xl font-medium">Ativo</div>
                                 <div class="collapse-content grid grid-flow-row grid-cols-2">
-                                    <p class="col-start-1 row-start-1">{{ value.active }}</p>
-                                    <p class="col-start-1 row-start-2">Cooldown: {{ value.cooldown }}</p>
+                                    <p class="col-start-1 row-start-1">{{ eye.active }}</p>
+                                    <p class="col-start-1 row-start-2">Cooldown: {{ eye.cooldown }}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <p class="p-5">Custo: {{ value.cost }}</p>
+                    <p class="p-5">Custo: {{ eye.cost }}</p>
                     <button class="btn btn-outline btn-accent btn-md self-end"
                         @click="addToSheet(key)">Adicionar</button>
                 </div>
