@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Sheet } from 'rpgTypes';
+import type { Sheet } from 'rpgTypes';
 
 interface Props {
     sheet: Sheet;
