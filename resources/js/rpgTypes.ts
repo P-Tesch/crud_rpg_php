@@ -92,6 +92,13 @@ declare module "rpgTypes" {
         [key: string]: School;
     }
 
+    export type Item = {
+        name: string;
+        description: string;
+        damage: string;
+        id: number;
+    }
+
     export type Sheet = {
         advantages: Advantage[];
         alignment: string | null;
@@ -102,7 +109,7 @@ declare module "rpgTypes" {
         creationPoints: number;
         description: string;
         id: number;
-        items: null[];
+        items: Item[];
         maxAttributes: Map<string, number>;
         miracles: Miracle[];
         mysticEyes: MysticEye[];

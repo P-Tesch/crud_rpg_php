@@ -1,14 +1,17 @@
-<script setup>
-import { Head, router } from '@inertiajs/vue3'
-import { ref, reactive } from "vue"
+<script setup lang="ts">
+import { Item, Sheet } from 'rpgTypes';
 
-defineProps({ sheet: Object });
+interface Props {
+    sheet: Sheet
+}
+
+defineProps<Props>();
 const emit = defineEmits(["sync"]);
 
-async function rollItem(item) {
-    const url = "/api/roll/item?item=" + item.id;
+async function rollItem(item: Item) {
+    const url: string = "/api/roll/item?item=" + item.id;
     try {
-        const response = await fetch(url);
+        const response: Response = await fetch(url);
         if (!response.ok) {
             throw new Error(await response.text());
         }
@@ -17,7 +20,11 @@ async function rollItem(item) {
         alert(JSON.stringify(json["rolls"]));
         emit("sync");
     } catch (error) {
-        window.open().document.body.innerHTML = error.message;
+        let open: Window | null = window.open();
+
+        if (open != null) {
+            open.document.body.innerHTML = error.message;
+        }
     }
 }
 
@@ -30,13 +37,13 @@ async function rollItem(item) {
             <h1 class="font-semibold text-2xl">Inventário</h1>
         </div>
 
-        <div v-for="value, key in sheet.items" class="collapse collapse-arrow bg-base-100">
+        <div v-for="item in sheet.items" class="collapse collapse-arrow bg-base-100">
             <input type="checkbox" name="items-collapse" />
-            <div class="collapse-title text-xl font-medium">{{ value.name }}</div>
+            <div class="collapse-title text-xl font-medium">{{ item.name }}</div>
             <div class="collapse-content grid grid-flow-row grid-cols-2">
-                <p class="col-start-1 row-start-1" >{{ value.description }}</p>
-                <p class="col-start-1 row-start-2" v-if="value.damage != null">Damage: {{ value.damage }}</p>
-                <button class="btn btn-outline btn-secondary btn-sm grid-rows-1 col-start-2 row-span-full w-4/12 ml-auto my-auto mr-5" @click="rollItem(value)">Rolar</button>
+                <p class="col-start-1 row-start-1" >{{ item.description }}</p>
+                <p class="col-start-1 row-start-2" v-if="item.damage != null">Damage: {{ item.damage }}</p>
+                <button class="btn btn-outline btn-secondary btn-sm grid-rows-1 col-start-2 row-span-full w-4/12 ml-auto my-auto mr-5" @click="rollItem(item)">Rolar</button>
             </div>
         </div>
     </div>
