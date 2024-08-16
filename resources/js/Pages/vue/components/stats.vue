@@ -1,9 +1,13 @@
-<script setup>
-import { Head, router } from '@inertiajs/vue3'
-import { ref, reactive } from "vue"
+<script setup lang="ts">
+import { Sheet, Stats } from 'rpgTypes';
 
-const props = defineProps({ sheet: Object });
-const originalStats = Object.assign({}, props.sheet.stats);
+
+interface Props {
+    sheet: Sheet;
+}
+
+const props = defineProps<Props>();
+const originalStats: Stats = Object.assign({}, props.sheet.stats);
 
 const stats = {
     "strength": "Força",
@@ -20,15 +24,15 @@ const stats = {
     "faith": "Fé"
 }
 
-function increase(key) {
+function increase(key: string | number) : void {
     props.sheet.stats[key]++;
 }
 
-function decrease(key) {
+function decrease(key: string | number) : void {
     props.sheet.stats[key]--;
 }
 
-function canIncrease(key, value) {
+function canIncrease(key: string | number, value: number) : boolean {
     switch (key) {
         case "tech":
         case "lineage":
@@ -42,7 +46,7 @@ function canIncrease(key, value) {
     }
 }
 
-function canDecrease(key, value) {
+function canDecrease(key: string | number, value: number) : boolean {
     return originalStats[key] < value;
 }
 
@@ -62,12 +66,12 @@ function canDecrease(key, value) {
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="value, key in sheet.stats">
+                <tr v-for="stat, key in sheet.stats">
                     <th>{{ stats[key] }}</th>
-                    <th class="text-center">{{ value }}</th>
+                    <th class="text-center">{{ stat }}</th>
                     <th class="text-center space-x-1">
-                        <button class="btn btn-outline btn-primary btn-xs" id="{{ key }}IncreaseButton"v-if="canIncrease(key, value)" @click="increase(key)">+</button>
-                        <button class="btn btn-outline btn-accent btn-xs" id="{{ key }}DecreaseButton" v-if="canDecrease(key, value)" @click="decrease(key)">-</button>
+                        <button class="btn btn-outline btn-primary btn-xs" id="{{ key }}IncreaseButton"v-if="canIncrease(key, stat)" @click="increase(key)">+</button>
+                        <button class="btn btn-outline btn-accent btn-xs" id="{{ key }}DecreaseButton" v-if="canDecrease(key, stat)" @click="decrease(key)">-</button>
                     </th>
                 </tr>
             </tbody>

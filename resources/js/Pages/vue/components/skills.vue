@@ -82,12 +82,12 @@ async function rollSkill(key: string | number) {
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="value, key in sheet.skills">
+                <tr v-for="skill, key in sheet.skills">
                     <th>{{ skills[key] }}</th>
-                    <th>{{ value }}</th>
+                    <th>{{ skill }}</th>
                     <th class="space-x-1">
-                        <button class="btn btn-outline btn-primary btn-xs" id="{{ key }}IncreaseButton"v-if="canIncrease(key, value)" @click="increase(key)">+</button>
-                        <button class="btn btn-outline btn-accent btn-xs" id="{{ key }}DecreaseButton" v-if="canDecrease(key, value)" @click="decrease(key)">-</button>
+                        <button class="btn btn-outline btn-primary btn-xs" id="{{ key }}IncreaseButton"v-if="canIncrease(key, skill)" @click="increase(key)">+</button>
+                        <button class="btn btn-outline btn-accent btn-xs" id="{{ key }}DecreaseButton" v-if="canDecrease(key, skill)" @click="decrease(key)">-</button>
                     </th>
                     <th>
                         <button class="btn btn-outline btn-secondary btn-sm" id="{{ key }}RollButton" @click="rollSkill(key)">Rolar</button>
