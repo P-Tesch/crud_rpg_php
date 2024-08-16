@@ -1,22 +1,21 @@
-<script setup>
-import { Head, router } from '@inertiajs/vue3'
-import { ref, reactive } from "vue"
-import CreationPoints from './creationPoints.vue'
-import Alignments from './alignments.vue'
-import Organizations from './organizations.vue'
-import TextInputModal from './modals/textInputModal.vue'
-import TextAreaModal from './modals/textAreaModal.vue'
+<script setup lang="ts">
+import { ref } from "vue";
+import CreationPoints from './creationPoints.vue';
+import TextInputModal from './modals/textInputModal.vue';
+import TextAreaModal from './modals/textAreaModal.vue';
+import type { Sheet } from "rpgTypes";
 
-const props = defineProps({
-    sheet: Object,
-    points: Object
-})
+interface Props {
+    sheet: Sheet;
+}
 
-const points = ref(null);
-const nameModal = ref(null);
-const descriptionModal = ref(null);
-const backgroundModal = ref(null);
-const portraitInput = ref(null);
+const props = defineProps<Props>();
+
+const points = ref<InstanceType<typeof CreationPoints>>();
+const nameModal = ref<InstanceType<typeof TextInputModal>>();
+const descriptionModal = ref<InstanceType<typeof TextAreaModal>>();
+const backgroundModal = ref<InstanceType<typeof TextAreaModal>>();
+const portraitInput = ref<HTMLInputElement>();
 defineExpose({ points });
 
 const alignments = {
@@ -37,28 +36,51 @@ const organizations = {
     "exorcists": "Exorcistas"
 }
 
-function editName(name) {
+function editName(name: string) : void {
     if (name != null) {
         props.sheet.name = name;
     }
 }
 
-function editDescription(description) {
+function editDescription(description: string) : void {
     if (description != null) {
         props.sheet.description = description;
     }
 }
 
-function editBackground(background) {
+function editBackground(background: string) : void {
     if (background != null) {
         props.sheet.background = background;
     }
 }
 
-function updatePortrait() {
+function updatePortrait() : void {
+    if (portraitInput.value == null) {
+        return;
+    }
+
+    if (portraitInput.value.files == null) {
+        return;
+    }
+
     let fr = new FileReader();
     fr.readAsDataURL(portraitInput.value.files[0]);
-    fr.onloadend = () => props.sheet.portrait = fr.result;
+    fr.onloadend = () => {
+        if (typeof fr.result != "string") {
+            return;
+        }
+
+        props.sheet.portrait = fr.result;
+    };
+}
+
+function showModal(modal: InstanceType<typeof TextInputModal | typeof TextAreaModal> | undefined, defaultValue: string) : void {
+    if (modal == undefined) {
+        return;
+    }
+
+    modal.modalRef?.showModal();
+    modal.input = defaultValue;
 }
 
 </script>
@@ -73,7 +95,7 @@ function updatePortrait() {
             <div class="collapse collapse-arrow bg-base-100">
                 <input type="checkbox" name="info-collapse" />
                 <div class="collapse-title text-md font-medium flex gap-5">{{ sheet.name }}
-                    <svg class="stroke-neutral-content h-5 w-5 z-10" @click="nameModal.modalRef.showModal(); nameModal.input = sheet.name;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg class="stroke-neutral-content h-5 w-5 z-10" @click="showModal(nameModal, sheet.name)" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path>
                     <polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon>
                     </svg>
@@ -99,7 +121,7 @@ function updatePortrait() {
         <div class="collapse collapse-arrow bg-base-100">
             <input type="checkbox" name="info-collapse" />
             <div class="collapse-title text-md font-medium flex gap-5">Descrição
-                <svg class="stroke-neutral-content h-5 w-5 z-10" @click="descriptionModal.modalRef.showModal(); descriptionModal.input = sheet.description;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="stroke-neutral-content h-5 w-5 z-10" @click="showModal(descriptionModal, sheet.description)" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path>
                 <polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon>
                 </svg>
@@ -112,7 +134,7 @@ function updatePortrait() {
         <div class="collapse collapse-arrow bg-base-100">
             <input type="checkbox" name="info-collapse" />
             <div class="collapse-title text-md font-medium flex gap-5">História
-                <svg class="stroke-neutral-content h-5 w-5 z-10" @click="backgroundModal.modalRef.showModal(); backgroundModal.input = sheet.background;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="stroke-neutral-content h-5 w-5 z-10" @click="showModal(backgroundModal, sheet.background)" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path>
                 <polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon>
                 </svg>
