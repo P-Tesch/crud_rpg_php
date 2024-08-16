@@ -70,6 +70,7 @@ function buildSheet() {
     let items = [];
     let organization: string | null = null;
     let alignment: string | null = null;
+    let scripture: any = null;
     if (this.charClass == "mage") {
         alignment = this.alignment;
         attributes.push(
@@ -93,6 +94,18 @@ function buildSheet() {
                 "value": 1
             }
         );
+        scripture = {
+            "name": "Insira o nome da escritura",
+            "creation_points": 0,
+            "remaining_scripture_points": 0,
+            "damage": 0,
+            "range": 0,
+            "sharpness": 0,
+            "double": false,
+            "strategy": null,
+            "description": "Insira a descrição da escritura",
+            "scripture_abilities": []
+        };
     }
     if (this.charClass == "magiteck") {
         stats.push(
@@ -212,18 +225,7 @@ function buildSheet() {
     "miracles": [],
     "mystic_eyes": [],
     "schools": [],
-    "scripture": {
-        "name": "Insira o nome da escritura",
-        "creation_points": 0,
-        "remaining_scripture_points": 0,
-        "damage": 0,
-        "range": 0,
-        "sharpness": 0,
-        "double": false,
-        "strategy": null,
-        "description": "Insira a descrição da escritura",
-        "scripture_abilities": []
-    },
+    "scripture": scripture,
     "sonatas": []
     }
 

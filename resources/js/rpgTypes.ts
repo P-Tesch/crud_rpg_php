@@ -7,6 +7,11 @@ declare module "rpgTypes" {
         cost: number;
     }
 
+    export type Attributes = {
+        [key: string]: number;
+    }
+
+
     export type ScriptureAbilitiesPivot = {
         scripture_ability_id: number;
         scripture_id: number;
@@ -102,7 +107,7 @@ declare module "rpgTypes" {
     export type Sheet = {
         advantages: Advantage[];
         alignment: string | null;
-        attributes: Map<string, number>;
+        attributes: Attributes;
         background: string;
         blood: null;
         classes: Map<string, boolean>;
@@ -116,7 +121,7 @@ declare module "rpgTypes" {
         name: string;
         organization: string | null;
         portrait: string;
-        schools: SchoolArray | any[];
+        schools: SchoolArray;
         scripture: Scripture;
         skills: Map<string, number>;
         skillsRelations: Map<string, string>;
@@ -136,10 +141,12 @@ declare module "rpgTypes" {
         hits: number;
     }
 
-    export type RollSpell = {
-        recoil: RollInternal[];
-        success: RollInternal[] | null;
-        specific: RollInternal[] | null;
+    export type Roll = {
+        skill: RollInternal | null
+        recoil: RollInternal | null;
+        success: RollInternal | null;
+        specific: RollInternal | null;
+        mystic_eye: RollInternal | null;
     }
 
     export type RollAssociative = {
@@ -150,6 +157,7 @@ declare module "rpgTypes" {
         subject: string;
         target: string | null;
         recoilDamage: number | null;
-        rolls: RollInternal | RollSpell;
+        cost: number | null;
+        rolls: Roll;
     }
 }

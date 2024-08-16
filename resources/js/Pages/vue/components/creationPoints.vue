@@ -104,6 +104,9 @@ function totalAdvantagesCost() : number {
 }
 
 function totalScriptureCost() : number {
+    if (props.sheet.scripture == null) {
+        return 0;
+    }
     return summation(props.sheet.scripture.creation_points / 50) * 4;
 }
 

@@ -36,7 +36,9 @@ class RollController extends Controller {
             "id" => $sheet->id,
             "subject" => $skill,
             "name" => $sheet->name,
-            "rolls" => RollHelper::roll([$sheet->skills[$skill], $sheet->stats[$stat], $modifiers])
+            "rolls" => [
+                "skill" => RollHelper::roll([$sheet->skills[$skill], $sheet->stats[$stat], $modifiers])
+                ]
             ]
         );
     }
@@ -123,7 +125,9 @@ class RollController extends Controller {
             "subject" => $eye->name,
             "name" => $sheet->name,
             "target" => $target->name,
-            "rolls" => $roll
+            "rolls" => [
+                "mystic_eye" => $roll
+                ]
             ]
         );
     }

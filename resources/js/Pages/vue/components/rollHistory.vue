@@ -91,8 +91,8 @@ function scrollToBottom() : void {
             <div class="w-full" v-if="roll.type == 'skill'">
                 <div class="chat-header">{{ roll.name }} rolou {{ skills[roll.subject] }}</div>
                 <div :class="getBubbleStyle(roll)">
-                <span v-for="rollResult in roll.rolls.rolls">{{ rollResult }}&nbsp;</span>
-                <p class="chat-footer">Total: {{ roll.rolls.hits }} Acertos</p>
+                <span v-for="rollResult in roll.rolls.skill?.rolls">{{ rollResult }}&nbsp;</span>
+                <p class="chat-footer">Total: {{ roll.rolls.skill?.hits }} Acertos</p>
                 </div>
             </div>
             <div class="w-full" v-if="roll.type == 'spell'">
@@ -101,8 +101,8 @@ function scrollToBottom() : void {
                     <p>Coice: </p>
                     <p>Dano Recebido: {{ roll.recoilDamage }}</p>
                     <span>Rolagem: </span>
-                    <span v-for="rollResult in roll.rolls.recoil.rolls">{{ rollResult }}&nbsp;</span>
-                    <p class="chat-footer">Total: {{ roll.rolls.recoil.hits }} Acertos</p>
+                    <span v-for="rollResult in roll.rolls.recoil?.rolls">{{ rollResult }}&nbsp;</span>
+                    <p class="chat-footer">Total: {{ roll.rolls.recoil?.hits }} Acertos</p>
                 </div>
                 <div class="h-1 clear-both" v-if="roll.rolls.success != null"></div>
                 <div :class="getBubbleStyle(roll)" v-if="roll.rolls.success != null">
@@ -120,8 +120,8 @@ function scrollToBottom() : void {
             <div class="w-full" v-if="roll.type == 'mystic_eye'">
                 <div class="chat-header">{{ roll.name }} rolou {{ roll.subject }} alvejando {{ roll.target }}</div>
                 <div :class="getBubbleStyle(roll)">
-                <span v-for="rollResult in roll.rolls.rolls">{{ rollResult }}&nbsp;</span>
-                <p class="chat-footer">Total: {{ roll.rolls.hits }} Acertos</p>
+                <span v-for="rollResult in roll.rolls.mystic_eye?.rolls">{{ rollResult }}&nbsp;</span>
+                <p class="chat-footer">Total: {{ roll.rolls.mystic_eye?.hits }} Acertos</p>
                 </div>
             </div>
         </div>
