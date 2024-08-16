@@ -7,7 +7,7 @@ interface Props {
 
 const props = defineProps<Props>();
 
-const toastRef = ref<HTMLDivElement>();
+const toastRef = ref<boolean>(false);
 
 defineExpose({toastRef});
 

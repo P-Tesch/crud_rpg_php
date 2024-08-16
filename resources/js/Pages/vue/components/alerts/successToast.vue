@@ -1,9 +1,13 @@
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue"
 
-const props = defineProps({message : String});
+interface Props {
+    message: string;
+}
 
-const toastRef = ref(false);
+const props = defineProps<Props>();
+
+const toastRef = ref<boolean>(false);
 
 defineExpose({toastRef});
 
