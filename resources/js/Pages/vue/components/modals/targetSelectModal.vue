@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, Ref } from "vue";
+import { ref } from "vue";
 import type { Sheet, Character } from "rpgTypes";
 
 interface Props {
@@ -7,11 +7,11 @@ interface Props {
     csrf: string;
 }
 
-const props: Props = defineProps<Props>();
+const props = defineProps<Props>();
 const emit = defineEmits(["end"]);
 
-const modalRef: Ref<HTMLDialogElement | null> = ref(null);
-const characters: Ref<Character[]> = ref([]);
+const modalRef = ref<HTMLDialogElement>();
+const characters = ref<Character[]>([]);
 
 const updateCharacters = async () => {
     const response: Response = await fetch("/api/live", {

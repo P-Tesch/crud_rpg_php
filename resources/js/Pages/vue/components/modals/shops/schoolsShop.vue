@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { ref, Ref, onBeforeMount } from "vue";
+import { ref, onBeforeMount } from "vue";
 import type { Sheet, School, SchoolFromShop, SpellArray } from "rpgTypes";
 
 interface Props {
     sheet: Sheet;
 }
 
-const props: Props = defineProps<Props>();
-const modalRef: Ref<HTMLDialogElement | null> = ref(null);
-const schools: Ref<SchoolFromShop[] | null> = ref(null);
+const props = defineProps<Props>();
+const modalRef = ref<HTMLDialogElement>();
+const schools = ref<SchoolFromShop[]>([]);
 
 const types: {[key: string]: string} = {
     "PROJECTILE": "Projétil",

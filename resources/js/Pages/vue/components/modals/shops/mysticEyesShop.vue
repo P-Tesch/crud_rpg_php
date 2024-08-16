@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { ref, Ref, onBeforeMount } from "vue"
+import { ref, onBeforeMount } from "vue"
 import type { Sheet, MysticEye } from "rpgTypes";
 
 interface Props {
     sheet: Sheet;
 }
 
-const props: Props = defineProps<Props>();
-const modalRef: Ref<HTMLDialogElement | null> = ref(null);
-const eyes: Ref<MysticEye[] | null> = ref(null);
+const props = defineProps<Props>();
+const modalRef = ref<HTMLDialogElement>();
+const eyes = ref<MysticEye[]>([]);
 
 onBeforeMount(() => { getEyes() })
 

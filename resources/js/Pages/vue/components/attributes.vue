@@ -5,7 +5,7 @@ interface Props {
     sheet: Sheet;
 }
 
-const props: Props = defineProps<Props>();
+const props = defineProps<Props>();
 
 const attributes = {
     "health": "Vida",

@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { ref, Ref, ModelRef } from "vue"
+import { ref } from "vue"
 
 interface Props {
     title: string;
 }
-const props: Props = defineProps<Props>();
+const props = defineProps<Props>();
 const emit = defineEmits(["end"]);
 
-const modalRef: Ref<HTMLDialogElement | null> = ref(null);
-const input: ModelRef<HTMLInputElement | undefined, string> = defineModel();
+const modalRef = ref<HTMLDialogElement>();
+const input = defineModel<HTMLInputElement, string>();
 
 defineExpose({modalRef, input});
 

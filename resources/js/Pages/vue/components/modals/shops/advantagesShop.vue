@@ -1,16 +1,15 @@
 <script setup lang="ts">
 import { ref, onBeforeMount } from "vue";
 import type { Sheet, Advantage } from "rpgTypes";
-import type { Ref } from "vue";
 
 interface Props {
     sheet: Sheet;
 }
 
-const props: Props = defineProps<Props>();
+const props = defineProps<Props>();
 
-const modalRef: Ref<HTMLDialogElement | null> = ref(null);
-const advantages: Ref<Advantage[] | null> = ref(null);
+const modalRef = ref<HTMLDialogElement>();
+const advantages = ref<Advantage[]>([]);
 
 onBeforeMount(() => { getAdvantages() });
 

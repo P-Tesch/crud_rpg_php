@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import { ref, Ref, ModelRef } from "vue"
+import { ref } from "vue"
 
 interface Props {
     title: string;
 }
-const props: Props = defineProps<Props>();
+const props = defineProps<Props>();
 
 const emit = defineEmits(["success"]);
 
-const modalRef: Ref<HTMLDialogElement | null> = ref(null);
-const login: ModelRef<string | undefined, string> = defineModel("login");
-const password: ModelRef<string | undefined, string> = defineModel("password");
-const charClass: ModelRef<string | undefined, string> = defineModel("charClass");
-const alignment: ModelRef<string | undefined, string> = defineModel("alignment");
-const organization: ModelRef<string | undefined, string> = defineModel("organization");
+const modalRef = ref<HTMLDialogElement>();
+const login = defineModel<HTMLInputElement, string>("login");
+const password = defineModel<HTMLInputElement | string, string>("password");
+const charClass = defineModel<HTMLInputElement | string, string>("charClass");
+const alignment = defineModel<HTMLInputElement | string, string>("alignment");
+const organization = defineModel<HTMLInputElement | string, string>("organization");
 
 defineExpose({modalRef});
 

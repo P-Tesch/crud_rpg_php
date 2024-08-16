@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { ref, onBeforeMount, Ref } from "vue"
+import { ref, onBeforeMount } from "vue"
 import type { Sheet, Miracle } from "rpgTypes";
 
 interface Props {
     sheet: Sheet;
 }
 
-const props: Props = defineProps<Props>();
+const props = defineProps<Props>();
 
-const modalRef: Ref<HTMLDialogElement | null> = ref(null);
-const miracles: Ref<Miracle[] | null>  = ref(null);
+const modalRef = ref<HTMLDialogElement>();
+const miracles = ref<Miracle[]>([]);
 
 onBeforeMount(() => { getMiracles() })
 

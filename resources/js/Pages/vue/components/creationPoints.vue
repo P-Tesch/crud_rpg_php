@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { ref, Ref, watch } from "vue";
+import { ref, watch } from "vue";
 import type { Advantage, Miracle, MysticEye, School, Sheet } from "rpgTypes";
 
 interface Props {
     sheet: Sheet;
 }
 
-const props: Props = defineProps<Props>();
+const props = defineProps<Props>();
 
-const remainingPoints: Ref<number> = ref(0);
+const remainingPoints = ref<number>(0);
 calculatePoints();
 watch(props.sheet, () => calculatePoints());
 

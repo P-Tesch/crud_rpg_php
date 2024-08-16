@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { ref, Ref, onBeforeMount } from "vue"
+import { ref, onBeforeMount } from "vue"
 import type { ScriptureAbility, Sheet } from "rpgTypes";
 
 interface Props {
     sheet: Sheet;
 }
 
-const props: Props = defineProps<Props>();
-const modalRef: Ref<HTMLDialogElement | null> = ref(null);
-const scriptureAbilities: Ref<ScriptureAbility[] | null> = ref(null);
+const props = defineProps<Props>();
+const modalRef = ref<HTMLDialogElement>();
+const scriptureAbilities = ref<ScriptureAbility[]>([]);
 
 onBeforeMount(() => { getScriptureAbilities() });
 
