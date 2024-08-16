@@ -11,6 +11,14 @@ declare module "rpgTypes" {
         [key: string]: number;
     }
 
+    export type Classes = {
+        isMage: boolean;
+        isCleric: boolean;
+        isMagiteck: boolean;
+        isVampire: boolean;
+        isHybrid: boolean;
+    }
+
 
     export type ScriptureAbilitiesPivot = {
         scripture_ability_id: number;
@@ -63,6 +71,18 @@ declare module "rpgTypes" {
         pivot: MysticEyesPivot
     }
 
+    export type Skills = {
+        [key: string]: number;
+    }
+
+    export type SkillsRelations = {
+        [key: string]: string;
+    }
+
+    export type Stats = {
+        [key: string]: number;
+    }
+
     export type Spell = {
         description: string;
         strategy: string | null;
@@ -110,12 +130,12 @@ declare module "rpgTypes" {
         attributes: Attributes;
         background: string;
         blood: null;
-        classes: Map<string, boolean>;
+        classes: Classes;
         creationPoints: number;
         description: string;
         id: number;
         items: Item[];
-        maxAttributes: Map<string, number>;
+        maxAttributes: Attributes;
         miracles: Miracle[];
         mysticEyes: MysticEye[];
         name: string;
@@ -123,10 +143,10 @@ declare module "rpgTypes" {
         portrait: string;
         schools: SchoolArray;
         scripture: Scripture;
-        skills: Map<string, number>;
-        skillsRelations: Map<string, string>;
+        skills: Skills;
+        skillsRelations: SkillsRelations;
         sonatas: null[];
-        stats: Map<String, number>;
+        stats: Stats;
     }
 
     export type Character = {

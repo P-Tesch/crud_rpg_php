@@ -14,11 +14,11 @@ const attributes = {
     "mana": "Mana"
 }
 
-function increase(key: number) : void {
+function increase(key: number | string) : void {
   props.sheet.attributes[key]++;
 }
 
-function decrease(key: number) : void {
+function decrease(key: number | string) : void {
   props.sheet.attributes[key]--;
 }
 
