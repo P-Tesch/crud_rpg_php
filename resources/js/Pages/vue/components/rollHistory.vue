@@ -1,14 +1,18 @@
-<script setup>
-import { Head, router } from '@inertiajs/vue3'
-import { ref, reactive, watch } from "vue"
+<script setup lang="ts">
+import { RollAssociative, Sheet } from "rpgTypes";
+import { ref, watch } from "vue";
 
-const props = defineProps({ sheet: Object })
-const rolls = ref([]);
+interface Props {
+    sheet: Sheet;
+}
 
-const endOfHistory = ref(null);
+const props = defineProps<Props>();
+const rolls = ref<RollAssociative[]>([]);
+
+const endOfHistory = ref<HTMLDivElement>();
 watch(rolls, () => {scrollToBottom()});
 
-async function setup() {
+async function setup() : Promise<void> {
     await setupRolls();
     scrollToBottom();
 }
@@ -35,34 +39,38 @@ const skills = {
 
 defineExpose({rolls});
 
-Echo.channel("rolls").listen(".rollsTableUpdated", (echo) => {
+window.Echo.channel("rolls").listen(".rollsTableUpdated", (echo: RollAssociative[]) => {
     rolls.value = echo;
 });
 
-function getUserStyle(roll) {
+function getUserStyle(roll: RollAssociative) : string {
     return roll["id"] == props.sheet.id ? "chat chat-end w-full text-right " : "chat chat-start w-full text-left";
 }
 
-function getBubbleStyle(roll) {
+function getBubbleStyle(roll: RollAssociative) : string {
     return roll["id"] == props.sheet.id ? "chat-bubble chat-bubble-primary float-right" : "chat-bubble chat-bubble-primary float-left";
 }
 
-async function setupRolls() {
-    const url = "/api/roll";
+async function setupRolls() : Promise<void> {
+    const url: string = "/api/roll";
     try {
-        const response = await fetch(url);
+        const response: Response = await fetch(url);
         if (!response.ok) {
             throw new Error(await response.text());
         }
 
         rolls.value = JSON.parse(await response.text());
     } catch (error) {
-        window.open().document.body.innerHTML = error.message;
+        let open: Window | null = window.open();
+
+        if (open != null) {
+            open.document.body.innerHTML = error.message;
+        }
     }
 }
 
-function scrollToBottom() {
-    endOfHistory.value.scrollIntoView(false);
+function scrollToBottom() : void {
+    endOfHistory?.value?.scrollIntoView(false);
 }
 
 </script>
@@ -77,43 +85,43 @@ function scrollToBottom() {
             <div class="chat-image avatar w-fit">
                 <div class="w-10 rounded-full">
                     <img
-                    :src="roll['portrait']" />
+                    :src="roll.portrait" />
                 </div>
             </div>
-            <div class="w-full" v-if="roll['type'] == 'skill'">
-                <div class="chat-header">{{ roll["name"] }} rolou {{ skills[roll["subject"]] }}</div>
+            <div class="w-full" v-if="roll.type == 'skill'">
+                <div class="chat-header">{{ roll.name }} rolou {{ skills[roll.subject] }}</div>
                 <div :class="getBubbleStyle(roll)">
-                <span v-for="rollResult in roll['rolls']['rolls']">{{ rollResult }}&nbsp;</span>
-                <p class="chat-footer">Total: {{ roll["rolls"]["hits"] }} Acertos</p>
+                <span v-for="rollResult in roll.rolls.skill?.rolls">{{ rollResult }}&nbsp;</span>
+                <p class="chat-footer">Total: {{ roll.rolls.skill?.hits }} Acertos</p>
                 </div>
             </div>
-            <div class="w-full" v-if="roll['type'] == 'spell'">
-                <div class="chat-header">{{ roll["name"] }} rolou {{ roll["subject"] }} com custo {{ roll["cost"] }}</div>
+            <div class="w-full" v-if="roll.type == 'spell'">
+                <div class="chat-header">{{ roll.name }} rolou {{ roll.subject }} com custo {{ roll.cost }}</div>
                 <div :class="getBubbleStyle(roll)">
                     <p>Coice: </p>
-                    <p>Dano Recebido: {{ roll["recoilDamage"] }}</p>
+                    <p>Dano Recebido: {{ roll.recoilDamage }}</p>
                     <span>Rolagem: </span>
-                    <span v-for="rollResult in roll['rolls']['recoil']['rolls']">{{ rollResult }}&nbsp;</span>
-                    <p class="chat-footer">Total: {{ roll["rolls"]["recoil"]["hits"] }} Acertos</p>
+                    <span v-for="rollResult in roll.rolls.recoil?.rolls">{{ rollResult }}&nbsp;</span>
+                    <p class="chat-footer">Total: {{ roll.rolls.recoil?.hits }} Acertos</p>
                 </div>
-                <div class="h-1 clear-both" v-if="roll['rolls']['success'] != null"></div>
-                <div :class="getBubbleStyle(roll)" v-if="roll['rolls']['success'] != null">
+                <div class="h-1 clear-both" v-if="roll.rolls.success != null"></div>
+                <div :class="getBubbleStyle(roll)" v-if="roll.rolls.success != null">
                     <span>Sucesso: </span>
-                    <span v-for="rollResult in roll['rolls']['success']['rolls']">{{ rollResult }}&nbsp;</span>
-                    <p class="chat-footer">Total: {{ roll["rolls"]["success"]["hits"] }} Acertos</p>
+                    <span v-for="rollResult in roll.rolls.success.rolls">{{ rollResult }}&nbsp;</span>
+                    <p class="chat-footer">Total: {{ roll.rolls.success.hits }} Acertos</p>
                 </div>
-                <div class="h-1 clear-both" v-if="roll['rolls']['success'] != null"></div>
-                <div :class="getBubbleStyle(roll)" v-if="roll['rolls']['specific'] != null">
+                <div class="h-1 clear-both" v-if="roll.rolls.success != null"></div>
+                <div :class="getBubbleStyle(roll)" v-if="roll.rolls.specific != null">
                     <span>Específico: </span>
-                    <span v-for="rollResult in roll['rolls']['specific']['rolls']">{{ rollResult }}&nbsp;</span>
-                    <p class="chat-footer">Total: {{ roll["rolls"]["specific"]["hits"] }} Acertos</p>
+                    <span v-for="rollResult in roll.rolls.specific.rolls">{{ rollResult }}&nbsp;</span>
+                    <p class="chat-footer">Total: {{ roll.rolls.specific.hits }} Acertos</p>
                 </div>
             </div>
-            <div class="w-full" v-if="roll['type'] == 'mystic_eye'">
-                <div class="chat-header">{{ roll["name"] }} rolou {{ roll["subject"] }} alvejando {{ roll["target"] }}</div>
+            <div class="w-full" v-if="roll.type == 'mystic_eye'">
+                <div class="chat-header">{{ roll.name }} rolou {{ roll.subject }} alvejando {{ roll.target }}</div>
                 <div :class="getBubbleStyle(roll)">
-                <span v-for="rollResult in roll['rolls']['rolls']">{{ rollResult }}&nbsp;</span>
-                <p class="chat-footer">Total: {{ roll["rolls"]["hits"] }} Acertos</p>
+                <span v-for="rollResult in roll.rolls.mystic_eye?.rolls">{{ rollResult }}&nbsp;</span>
+                <p class="chat-footer">Total: {{ roll.rolls.mystic_eye?.hits }} Acertos</p>
                 </div>
             </div>
         </div>

@@ -1,8 +1,11 @@
-<script setup>
-import { Head, router } from '@inertiajs/vue3'
-import { toRef, ref, reactive, watch } from "vue"
+<script setup lang="ts">
+import type { Sheet } from 'rpgTypes';
 
-const props = defineProps({ sheet: Object });
+interface Props {
+    sheet: Sheet;
+}
+
+const props = defineProps<Props>();
 
 const attributes = {
     "health": "Vida",
@@ -11,12 +14,12 @@ const attributes = {
     "mana": "Mana"
 }
 
-function increase(sheet, key) {
-  sheet.attributes[key]++;
+function increase(key: number | string) : void {
+  props.sheet.attributes[key]++;
 }
 
-function decrease(sheet, key) {
-  sheet.attributes[key]--;
+function decrease(key: number | string) : void {
+  props.sheet.attributes[key]--;
 }
 
 </script>
@@ -41,8 +44,8 @@ function decrease(sheet, key) {
                     <th class="text-center">{{ value }}</th>
                     <th class="text-center">{{ sheet.maxAttributes["max_" + key] }}</th>
                     <th class="text-center space-x-1">
-                        <button class="btn btn-outline btn-primary btn-xs" id="{{ key }}IncreaseButton" @click="increase(sheet, key)">+</button>
-                        <button class="btn btn-outline btn-accent btn-xs" id="{{ key }}DecreaseButton" @click="decrease(sheet, key)">-</button>
+                        <button class="btn btn-outline btn-primary btn-xs" id="{{ key }}IncreaseButton" @click="increase(key)">+</button>
+                        <button class="btn btn-outline btn-accent btn-xs" id="{{ key }}DecreaseButton" @click="decrease(key)">-</button>
                     </th>
                 </tr>
                 <tr v-if="sheet.scripture != null">

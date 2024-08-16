@@ -1,36 +1,47 @@
-<script setup>
-import { Head, router } from '@inertiajs/vue3'
-import { ref, reactive, onBeforeMount } from "vue"
+<script setup lang="ts">
+import { ref, onBeforeMount } from "vue";
+import type { Sheet, Advantage } from "rpgTypes";
 
-const props = defineProps({
-    sheet: Object
-})
-const modalRef = ref(null);
-const advantages = ref(null);
+interface Props {
+    sheet: Sheet;
+}
 
-onBeforeMount(() => { getAdvantages() })
+const props = defineProps<Props>();
+
+const modalRef = ref<HTMLDialogElement>();
+const advantages = ref<Advantage[]>([]);
+
+onBeforeMount(() => { getAdvantages() });
 
 defineExpose({ modalRef });
 
-async function getAdvantages() {
-    const url = "/api/advantages";
+async function getAdvantages() : Promise<void> {
+    const url: string = "/api/advantages";
     try {
-        const response = await fetch(url);
+        const response: Response = await fetch(url);
         if (!response.ok) {
             throw new Error(await response.text());
         }
 
         advantages.value = JSON.parse(await response.text())["data"];
     } catch (error) {
-        window.open().document.body.innerHTML = error.message;
+        let open: Window | null = window.open();
+
+        if (open != null) {
+            open.document.body.innerHTML = error.message;
+        }
     }
 }
 
-function addToSheet(index) {
-    let toAdd = advantages.value[index];
-    let original = props.sheet.advantages;
+function addToSheet(index: number) : void {
+    if (advantages.value == null) {
+        return;
+    }
 
-    let shouldAdd = true;
+    let toAdd: Advantage = advantages.value[index];
+    let original: Advantage[] = props.sheet.advantages;
+    let shouldAdd: boolean = true;
+
     original.forEach(
         (value) => {
             if (value.name == toAdd.name) {
@@ -58,11 +69,11 @@ function addToSheet(index) {
             </form>
             <h3 class="text-3xl font-bold text-center">Vantagens</h3>
             <div class="flex flex-col gap-5">
-                <div class="flex flex-col outline outline-primary p-2 rounded-box" v-for="value, key in advantages">
-                    <p class="text-2xl">{{ value.name }}</p>
-                    <p class="text-md"> {{ value.description }}</p>
-                    <p class="text-md">Level: {{ value.level }}</p>
-                    <p class="text-md">Custo: {{ value.cost }}</p>
+                <div class="flex flex-col outline outline-primary p-2 rounded-box" v-for="advantage, key in advantages">
+                    <p class="text-2xl">{{ advantage.name }}</p>
+                    <p class="text-md"> {{ advantage.description }}</p>
+                    <p class="text-md">Level: {{ advantage.level }}</p>
+                    <p class="text-md">Custo: {{ advantage.cost }}</p>
                     <button class="btn btn-outline btn-accent btn-md self-end"
                         @click="addToSheet(key)">Adicionar</button>
                 </div>

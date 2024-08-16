@@ -1,10 +1,14 @@
-<script setup>
-import { Head, router } from '@inertiajs/vue3'
-import { ref, reactive, watch } from "vue"
+<script setup lang="ts">
+import { ref, watch } from "vue"
 import TextInputModal from './modals/textInputModal.vue'
 import TextAreaModal from './modals/textAreaModal.vue'
+import { Scripture, Sheet } from "rpgTypes";
 
-const props = defineProps({ sheet: Object });
+interface Props {
+    sheet: Sheet;
+}
+
+const props = defineProps<Props>();
 const emit = defineEmits(["sync", "add"]);
 
 const yesNo = {
@@ -14,26 +18,26 @@ const yesNo = {
     1: "Sim"
 }
 
-const originalScripture = Object.assign({}, props.sheet.scripture);
+const originalScripture: Scripture = Object.assign({}, props.sheet.scripture);
 
-const nameModal = ref(null);
-const descriptionModal = ref(null);
+const nameModal = ref<InstanceType<typeof TextInputModal>>();
+const descriptionModal = ref<InstanceType<typeof TextAreaModal>>();
 
-const remainingPoints = ref(0);
+const remainingPoints = ref<number>(0);
 calculatePoints();
 watch(props.sheet.scripture, () => calculatePoints());
 
 defineExpose({remainingPoints});
 
-function calculatePoints() {
-    let totalAttributes = 0;
-    let totalAbilities = 0;
-    let scripture = props.sheet.scripture;
+function calculatePoints() : void {
+    let totalAttributes: number = 0;
+    let totalAbilities: number = 0;
+    let scripture: Scripture = props.sheet.scripture;
 
     totalAttributes += scripture.damage * 15;
     totalAttributes += scripture.range * 5;
     totalAttributes += scripture.sharpness * 20;
-    totalAttributes += scripture.double * 30;
+    totalAttributes += Number(scripture.double) * 30;
 
     props.sheet.scripture.scriptureAbilities.forEach(ability => {
         totalAbilities += ability.cost;
@@ -42,36 +46,45 @@ function calculatePoints() {
     remainingPoints.value = props.sheet.scripture.creation_points - totalAbilities - totalAttributes;
 }
 
-function editName(name) {
+function editName(name: string) : void {
     if (name != null) {
         props.sheet.scripture.name = name;
     }
 }
 
-function editDescription(description) {
+function editDescription(description: string) : void {
     if (description != null) {
         props.sheet.scripture.description = description;
     }
 }
 
-function increase(sheet, key) {
-    sheet.scripture[key]++;
+function increase(key: string) : void {
+    props.sheet.scripture[key]++;
 }
 
-function decrease(sheet, key) {
-    sheet.scripture[key]--;
+function decrease(key: string) : void {
+    props.sheet.scripture[key]--;
 }
 
-function canDecrease(key) {
+function canDecrease(key: string) : boolean {
     return originalScripture[key] < props.sheet.scripture[key];
 }
 
-function invertDouble(sheet) {
-    sheet.scripture.double = !sheet.scripture.double;
+function invertDouble() : void {
+    props.sheet.scripture.double = !props.sheet.scripture.double;
 }
 
 function rollScriptureAbility(scriptureAbility) {
     console.log("TODO");
+}
+
+function showModal(modal: InstanceType<typeof TextInputModal | typeof TextAreaModal> | undefined, defaultValue: string) : void {
+    if (modal == undefined) {
+        return;
+    }
+
+    modal.modalRef?.showModal();
+    modal.input = defaultValue;
 }
 
 </script>
@@ -87,14 +100,14 @@ function rollScriptureAbility(scriptureAbility) {
             <div class="collapse collapse-arrow bg-base-100">
                 <input type="checkbox" name="info-collapse" />
                 <div class="collapse-title text-md font-medium flex gap-5">{{ sheet.scripture.name }}
-                    <svg class="stroke-neutral-content h-5 w-5 z-10" @click="nameModal.modalRef.showModal(); nameModal.input = sheet.scripture.name;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg class="stroke-neutral-content h-5 w-5 z-10" @click="showModal(nameModal, sheet.scripture.name)" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path>
                         <polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon>
                     </svg>
                 </div>
                 <div class="collapse-content overflow-auto">
                     <p>{{ sheet.scripture.description }}</p>
-                    <svg class="stroke-neutral-content h-5 w-5 z-10" @click="descriptionModal.modalRef.showModal(); descriptionModal.input = sheet.scripture.description;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg class="stroke-neutral-content h-5 w-5 z-10" @click="showModal(descriptionModal, sheet.scripture.description)" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path>
                         <polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon>
                     </svg>
@@ -115,25 +128,25 @@ function rollScriptureAbility(scriptureAbility) {
 
                     <div class="w-full">
                         <span>Dano: {{ sheet.scripture.damage }}</span>
-                            <button class="btn btn-outline btn-accent btn-xs float-right" v-if="canDecrease('damage')" @click="decrease(sheet, 'damage')">-</button>
+                            <button class="btn btn-outline btn-accent btn-xs float-right" v-if="canDecrease('damage')" @click="decrease('damage')">-</button>
                             <div class="float-right w-1 h-1"></div>
-                            <button class="btn btn-outline btn-primary btn-xs float-right" v-if="sheet.scripture.damage < 5" @click="increase(sheet, 'damage')">+</button>
+                            <button class="btn btn-outline btn-primary btn-xs float-right" v-if="sheet.scripture.damage < 5" @click="increase('damage')">+</button>
                     </div>
                     <div class="w-full">
                         <span>Alcance: {{ sheet.scripture.range }}</span>
-                            <button class="btn btn-outline btn-accent btn-xs float-right" v-if="canDecrease('range')" @click="decrease(sheet, 'range')">-</button>
+                            <button class="btn btn-outline btn-accent btn-xs float-right" v-if="canDecrease('range')" @click="decrease('range')">-</button>
                             <div class="float-right w-1 h-1"></div>
-                            <button class="btn btn-outline btn-primary btn-xs float-right" v-if="sheet.scripture.range < 15" @click="increase(sheet, 'range')">+</button>
+                            <button class="btn btn-outline btn-primary btn-xs float-right" v-if="sheet.scripture.range < 15" @click="increase('range')">+</button>
                     </div>
                     <div class="w-full">
                         <span>Afiação: {{ sheet.scripture.sharpness }}</span>
-                            <button class="btn btn-outline btn-accent btn-xs float-right" v-if="canDecrease('sharpness')" @click="decrease(sheet, 'sharpness')">-</button>
+                            <button class="btn btn-outline btn-accent btn-xs float-right" v-if="canDecrease('sharpness')" @click="decrease('sharpness')">-</button>
                             <div class="float-right w-1 h-1"></div>
-                            <button class="btn btn-outline btn-primary btn-xs float-right" v-if="sheet.scripture.sharpness < 5" @click="increase(sheet, 'sharpness')">+</button>
+                            <button class="btn btn-outline btn-primary btn-xs float-right" v-if="sheet.scripture.sharpness < 5" @click="increase('sharpness')">+</button>
                     </div>
                     <div class="w-full">
-                        <span>Dupla: {{ yesNo[sheet.scripture.double] }}</span>
-                        <input id="checkbox-double" type="checkbox" class="checkbox checkbox-primary float-right mr-1" v-if="!originalScripture.double" @click="invertDouble(sheet)"></input>
+                        <span>Dupla: {{ yesNo[Number(sheet.scripture.double)] }}</span>
+                        <input id="checkbox-double" type="checkbox" class="checkbox checkbox-primary float-right mr-1" v-if="!originalScripture.double" @click="invertDouble()"></input>
                         <input id="checkbox-double-disabled" type="checkbox" disabled class="checkbox checkbox-primary float-right mr-1" v-if="originalScripture.double"></input>
                     </div>
                 </div>
@@ -158,9 +171,9 @@ function rollScriptureAbility(scriptureAbility) {
     </div>
 
     <Teleport to="body">
-        <TextInputModal :title="'Insira o nome da escritura'" @end="(name) => editName(name)" ref="nameModal"/>
+        <TextInputModal :title="'Insira o nome da escritura'" @end="(name: string) => editName(name)" ref="nameModal"/>
     </Teleport>
     <Teleport to="body">
-        <TextAreaModal :title="'Insira a descrição da escritura'" @end="(description) => editDescription(description)" ref="descriptionModal"/>
+        <TextAreaModal :title="'Insira a descrição da escritura'" @end="(description: string) => editDescription(description)" ref="descriptionModal"/>
     </Teleport>
 </template>

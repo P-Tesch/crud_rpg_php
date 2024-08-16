@@ -1,15 +1,17 @@
-<script setup>
-import { Head, router } from '@inertiajs/vue3'
-import { ref, reactive, watch } from "vue"
+<script setup lang="ts">
+import { Sheet, Skills } from "rpgTypes";
+import { watch } from "vue";
 
-const props = defineProps({ sheet: Object });
-const originalSkills = Object.assign({}, props.sheet.skills);
+interface Props {
+    sheet: Sheet;
+}
+
+const props = defineProps<Props>();
+const originalSkills: Skills = Object.assign({}, props.sheet.skills);
 watch(props.sheet.stats, () => {
     Object.entries(props.sheet.skillsRelations).forEach((keys) => {
-        let skills = new Map(Object.entries(props.sheet.skills));
-        let stats = new Map(Object.entries(props.sheet.stats));
-        if (skills.get(keys[0]) > stats.get(keys[1]) * 2) {
-            props.sheet.skills[keys[0]] = stats.get(keys[1]) * 2;
+        if (props.sheet.stats[keys[0]] > props.sheet.stats[keys[1]] * 2) {
+            props.sheet.skills[keys[0]] = props.sheet.stats[keys[1]] * 2;
         }
     })
 });
@@ -32,31 +34,35 @@ const skills = {
     "insight": "Perspicácia"
 }
 
-function increase(sheet, key) {
-    sheet.skills[key]++;
+function increase(key: string | number) : void {
+    props.sheet.skills[key]++;
 }
 
-function decrease(sheet, key) {
-    sheet.skills[key]--;
+function decrease(key: string | number) : void {
+    props.sheet.skills[key]--;
 }
 
-function canIncrease(key, value) {
+function canIncrease(key: string | number, value: number) : boolean {
     return value <= 2 * props.sheet.stats[props.sheet.skillsRelations[key]] - 1;
 }
 
-function canDecrease(key, value) {
+function canDecrease(key: string | number, value: number) : boolean {
     return originalSkills[key] < value;
 }
 
-async function rollSkill(sheet, key) {
-    const url = "/api/roll/skill?skill=" + key + "&modifier=0";
+async function rollSkill(key: string | number) {
+    const url: string = "/api/roll/skill?skill=" + key + "&modifier=0";
     try {
-      const response = await fetch(url);
+      const response: Response = await fetch(url);
       if (!response.ok) {
         throw new Error(await response.text());
       }
     } catch (error) {
-        window.open().document.body.innerHTML = error.message;
+        let open: Window | null = window.open();
+
+        if (open != null) {
+            open.document.body.innerHTML = error.message;
+        }
     }
 }
 
@@ -76,15 +82,15 @@ async function rollSkill(sheet, key) {
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="value, key in sheet.skills">
+                <tr v-for="skill, key in sheet.skills">
                     <th>{{ skills[key] }}</th>
-                    <th>{{ value }}</th>
+                    <th>{{ skill }}</th>
                     <th class="space-x-1">
-                        <button class="btn btn-outline btn-primary btn-xs" id="{{ key }}IncreaseButton"v-if="canIncrease(key, value)" @click="increase(sheet, key)">+</button>
-                        <button class="btn btn-outline btn-accent btn-xs" id="{{ key }}DecreaseButton" v-if="canDecrease(key, value)" @click="decrease(sheet, key)">-</button>
+                        <button class="btn btn-outline btn-primary btn-xs" id="{{ key }}IncreaseButton"v-if="canIncrease(key, skill)" @click="increase(key)">+</button>
+                        <button class="btn btn-outline btn-accent btn-xs" id="{{ key }}DecreaseButton" v-if="canDecrease(key, skill)" @click="decrease(key)">-</button>
                     </th>
                     <th>
-                        <button class="btn btn-outline btn-secondary btn-sm" id="{{ key }}RollButton" @click="rollSkill(sheet, key)">Rolar</button>
+                        <button class="btn btn-outline btn-secondary btn-sm" id="{{ key }}RollButton" @click="rollSkill(key)">Rolar</button>
                     </th>
                 </tr>
             </tbody>

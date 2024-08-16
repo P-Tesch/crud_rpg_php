@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { Head, router } from '@inertiajs/vue3'
 import { ref, reactive } from "vue"
 import RegisterModal from './components/modals/registerModal.vue';
@@ -10,14 +10,14 @@ const form = reactive({
     remember_me: null
 })
 
-const registerModal = ref(null);
-const successToast = ref(null);
+const registerModal = ref<InstanceType<typeof RegisterModal>>();
+const successToast = ref<InstanceType<typeof SuccessToast>>();
 
-const auth = () => {
-    router.get("/api/login", form)
+const auth = () : void => {
+    router.get("/api/login", form);
 }
 
-function success() {
+function success() : void {
     this.successToast.toastRef = true;
     setTimeout(() => this.successToast.toastRef = false, 2500);
 }
@@ -29,7 +29,7 @@ function success() {
     <div class="flex h-screen">
         <div class="flex flex-col border border-1 rounded-md border-primary p-5 w-4/12 h-4/12 m-auto gap-2">
             <h1 class="text-xl font-bold text-center mb-4 text-accent">Gerenciador de fichas</h1>
-            <form class="flex flex-col gap-4" @submit.prevent="submit">
+            <form class="flex flex-col gap-4">
                 <div>
                     <label class="input input-bordered input-accent flex items-center gap-2">
                         <svg

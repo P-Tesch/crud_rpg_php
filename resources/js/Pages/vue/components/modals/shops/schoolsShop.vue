@@ -1,57 +1,76 @@
-<script setup>
-import { Head, router } from '@inertiajs/vue3'
-import { ref, reactive, onBeforeMount } from "vue"
+<script setup lang="ts">
+import { ref, onBeforeMount } from "vue";
+import type { Sheet, School, SchoolFromShop, SpellArray } from "rpgTypes";
 
-const props = defineProps({
-    sheet: Object
-})
-const modalRef = ref(null);
-const schools = ref(null);
+interface Props {
+    sheet: Sheet;
+}
 
-const types = {
+const props = defineProps<Props>();
+const modalRef = ref<HTMLDialogElement>();
+const schools = ref<SchoolFromShop[]>([]);
+
+const types: {[key: string]: string} = {
     "PROJECTILE": "Projétil",
     "DIRECT": "Direto",
-    null: "Outro"
+    "null": "Outro"
 }
 
 onBeforeMount(() => {getSchools()})
 
 defineExpose({modalRef});
 
-async function getSchools() {
-    const url = "/api/schools";
+async function getSchools() : Promise<void> {
+    const url: string = "/api/schools";
     try {
-        const response = await fetch(url);
+        const response: Response = await fetch(url);
         if (!response.ok) {
             throw new Error(await response.text());
         }
 
         schools.value = JSON.parse(await response.text())["data"];
     } catch (error) {
-        window.open().document.body.innerHTML = error.message;
+        let open: Window | null = window.open();
+
+        if (open != null) {
+            open.document.body.innerHTML = error.message;
+        }
     }
 }
 
-function addToSheet(index) {
-    if (props.sheet.schools.length == 0) {
-        props.sheet.schools = {}
-    }
-    let toAdd = schools.value[index];
-    let original = props.sheet.schools[toAdd["name"]];
-    if (original != null && original.level >= toAdd["level"]) {
+function addToSheet(index: number) : void {
+    if (schools.value == null) {
         return;
     }
 
-    let spells = {};
-    toAdd["spells"].forEach(spell => {
-        spells[spell["name"]] = {"type": spell["type"], "description": spell["description"]}
+    if (props.sheet.schools.length == 0) {
+        props.sheet.schools = {}
+    }
+    let toAdd: SchoolFromShop = schools.value[index];
+
+    let original: School = props.sheet.schools[toAdd.name];
+    if (original != null && original.level >= toAdd.level) {
+        return;
+    }
+
+    let spells: SpellArray = {};
+    toAdd.spells.forEach(spell => {
+        spells[spell.name] = {
+            "type": spell.type,
+            "description": spell.description,
+            "strategy": null
+        };
     });
     if (original != null) {
-        original.level = toAdd["level"];
+        original.level = toAdd.level;
         original.spells = spells;
     }
     else {
-        props.sheet.schools[toAdd["name"]] = {"level": toAdd["level"], "cost": toAdd["cost"], "spells": spells};
+        props.sheet.schools[toAdd.name] = {
+            "level": toAdd.level,
+            "cost": toAdd.cost,
+            "spells": spells
+        };
     }
 }
 
@@ -65,19 +84,19 @@ function addToSheet(index) {
             </form>
             <h3 class="text-3xl font-bold text-center">Escolas</h3>
             <div class="flex flex-col gap-5">
-                <div class="flex flex-col outline outline-primary p-2 rounded-box" v-for="value, key in schools">
-                    <h4 class="text-xl font-semibold">{{ value["name"] }}</h4>
-                    <p>{{ value["description"] }}</p>
-                    <p>Level: {{ value["level"] }}</p>
-                    <div v-for="v, k in value['spells']" class="collapse collapse-arrow bg-base-100">
+                <div class="flex flex-col outline outline-primary p-2 rounded-box" v-for="school, key in schools">
+                    <h4 class="text-xl font-semibold">{{ school.name }}</h4>
+                    <p>{{ school.description }}</p>
+                    <p>Level: {{ school.level }}</p>
+                    <div v-for="spell in school.spells" class="collapse collapse-arrow bg-base-100">
                         <input type="checkbox" name="spells-collapse" />
-                        <div class="collapse-title text-xl font-medium">{{ v["name"] }}</div>
+                        <div class="collapse-title text-xl font-medium">{{ spell.name }}</div>
                         <div class="collapse-content">
-                            <p>Tipo: {{ types[v.type] }}</p>
-                            <p>Descrição: {{ v.description }}</p>
+                            <p>Tipo: {{ types[spell.type] }}</p>
+                            <p>Descrição: {{ spell.description }}</p>
                         </div>
                     </div>
-                    <p>Custo: {{ value.cost }}</p>
+                    <p>Custo: {{ school.cost }}</p>
                     <button class="btn btn-outline btn-accent btn-md self-end" @click="addToSheet(key)">Adicionar</button>
                 </div>
             </div>

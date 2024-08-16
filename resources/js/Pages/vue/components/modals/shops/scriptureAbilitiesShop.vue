@@ -1,36 +1,46 @@
-<script setup>
-import { Head, router } from '@inertiajs/vue3'
-import { ref, reactive, onBeforeMount } from "vue"
+<script setup lang="ts">
+import { ref, onBeforeMount } from "vue"
+import type { ScriptureAbility, Sheet } from "rpgTypes";
 
-const props = defineProps({
-    sheet: Object
-})
-const modalRef = ref(null);
-const scriptureAbilities = ref(null);
+interface Props {
+    sheet: Sheet;
+}
 
-onBeforeMount(() => { getScriptureAbilities() })
+const props = defineProps<Props>();
+const modalRef = ref<HTMLDialogElement>();
+const scriptureAbilities = ref<ScriptureAbility[]>([]);
+
+onBeforeMount(() => { getScriptureAbilities() });
 
 defineExpose({ modalRef });
 
 async function getScriptureAbilities() {
-    const url = "/api/scripture_abilities";
+    const url: string = "/api/scripture_abilities";
     try {
-        const response = await fetch(url);
+        const response: Response = await fetch(url);
         if (!response.ok) {
             throw new Error(await response.text());
         }
 
         scriptureAbilities.value = JSON.parse(await response.text())["data"];
     } catch (error) {
-        window.open().document.body.innerHTML = error.message;
+        let open: Window | null = window.open();
+
+        if (open != null) {
+            open.document.body.innerHTML = error.message;
+        }
     }
 }
 
-function addToSheet(index) {
-    let toAdd = scriptureAbilities.value[index];
-    let original = props.sheet.scripture.scriptureAbilities;
+function addToSheet(index: number) {
+    if (scriptureAbilities.value == null) {
+        return;
+    }
 
-    let shouldAdd = true;
+    let toAdd: ScriptureAbility = scriptureAbilities.value[index];
+    let original: ScriptureAbility[] = props.sheet.scripture.scriptureAbilities;
+
+    let shouldAdd: boolean = true;
     original.forEach(
         (value) => {
             if (value.name == toAdd.name) {
@@ -58,11 +68,11 @@ function addToSheet(index) {
             </form>
             <h3 class="text-3xl font-bold text-center">Habilidades de escritura</h3>
             <div class="flex flex-col gap-5">
-                <div class="flex flex-col outline outline-primary p-2 rounded-box" v-for="value, key in scriptureAbilities">
-                    <p class="text-2xl">{{ value.name }}</p>
-                    <p class="text-md"> {{ value.description }}</p>
-                    <p class="text-md">Level: {{ value.level }}</p>
-                    <p class="text-md">Custo: {{ value.cost }}</p>
+                <div class="flex flex-col outline outline-primary p-2 rounded-box" v-for="scriptureAbility, key in scriptureAbilities">
+                    <p class="text-2xl">{{ scriptureAbility.name }}</p>
+                    <p class="text-md"> {{ scriptureAbility.description }}</p>
+                    <p class="text-md">Level: {{ scriptureAbility.level }}</p>
+                    <p class="text-md">Custo: {{ scriptureAbility.cost }}</p>
                     <button class="btn btn-outline btn-accent btn-md self-end"
                         @click="addToSheet(key)">Adicionar</button>
                 </div>

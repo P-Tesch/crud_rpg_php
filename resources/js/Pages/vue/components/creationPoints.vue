@@ -1,16 +1,20 @@
-<script setup>
-import { Head, router } from '@inertiajs/vue3'
-import { ref, reactive, watch } from "vue"
+<script setup lang="ts">
+import { ref, watch } from "vue";
+import type { Advantage, Miracle, MysticEye, School, Sheet } from "rpgTypes";
 
-const props = defineProps({ sheet: Object });
+interface Props {
+    sheet: Sheet;
+}
 
-const remainingPoints = ref(0);
+const props = defineProps<Props>();
+
+const remainingPoints = ref<number>(0);
 calculatePoints();
 watch(props.sheet, () => calculatePoints());
 
 defineExpose({remainingPoints})
 
-function calculatePoints() {
+function calculatePoints() : void {
     remainingPoints.value
         = props.sheet.creationPoints
             - totalSkillsCost()
@@ -22,12 +26,12 @@ function calculatePoints() {
             - totalScriptureCost();
 }
 
-function totalStatsCost() {
+function totalStatsCost() : number {
     return Object
         .values(props.sheet.stats)
         .reduce(
-            function (total, item, index) {
-                let sum;
+            function (total: number, item: number, index: number) {
+                let sum: number;
                 switch (Object.keys(props.sheet.stats)[index]) {
                     case "tech":
                     case "lineage":
@@ -44,67 +48,70 @@ function totalStatsCost() {
         );
 }
 
-function totalSkillsCost() {
+function totalSkillsCost() : number {
     return Object
         .values(props.sheet.skills)
         .reduce(
-            function (total, item) {
-                return total + summation(item)
+            function (total: number, skillValue: number) {
+                return total + summation(skillValue)
             },
             0
         );
 }
 
-function totalSchoolsCost() {
+function totalSchoolsCost() : number {
     return Object
         .values(props.sheet.schools)
         .reduce(
-            function (total, item) {
-                return total + item.cost
+            function (total: number, school: School) {
+                return total + school.cost;
             },
             0
         );
 }
 
-function totalMiraclesCost() {
+function totalMiraclesCost() : number {
     return Object
         .values(props.sheet.miracles)
         .reduce(
-            function (total, item) {
-                return total + item.cost
+            function (total: number, miracle: Miracle) {
+                return total + miracle.cost
             },
             0
         );
 }
 
-function totalMysticEyesCost() {
+function totalMysticEyesCost() : number {
     return Object
         .values(props.sheet.mysticEyes)
         .reduce(
-            function (total, item) {
-                return total + item.cost
+            function (total: number, eye: MysticEye) {
+                return total + eye.cost
             },
             0
         );
 }
 
-function totalAdvantagesCost() {
+function totalAdvantagesCost() : number {
     return Object
         .values(props.sheet.advantages)
         .reduce(
-            function (total, item) {
-                return total + item.cost
+            function (total: number, advantage: Advantage) {
+                return total + advantage.cost
             },
             0
         );
 }
 
-function totalScriptureCost() {
+function totalScriptureCost() : number {
+    if (props.sheet.scripture == null) {
+        return 0;
+    }
     return summation(props.sheet.scripture.creation_points / 50) * 4;
 }
 
-function summation(number) {
-    let total = 0;
+function summation(number: number) : number {
+    let total: number = 0;
     for (let i = 1; i <= number; i++) {
         total += i;
     }

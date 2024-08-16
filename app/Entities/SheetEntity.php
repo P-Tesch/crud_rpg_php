@@ -140,9 +140,11 @@ class SheetEntity {
         $this->items = $sheet->items?->toArray();
         $this->miracles = $sheet->miracles?->toArray();
         $this->scripture = $sheet->scripture;
-        $this->scripture->scriptureAbilities = $sheet->scripture->scriptureAbilities?->toArray();
+        if ($this->scripture != null) {
+            $this->scripture->scriptureAbilities = $sheet->scripture->scriptureAbilities?->toArray();
+        }
         $this->sonatas = $sheet->sonatas?->toArray();
-        $this->mysticEyes = $sheet->mysticEyes?->toArray();
+        $this->mysticEyes = $sheet->mysticEyes?->all();
 
         foreach ($sheet->stats as $stat) {
             $this->stats[$stat->key] = $stat->value;
@@ -169,7 +171,7 @@ class SheetEntity {
                     "strategy" => $spell->strategy
                 ];
             }
-            $this->schools[$school->name] = ["id" => $school->id, "level" => $school->level, "spells" => $spells];
+            $this->schools[$school->name] = ["id" => $school->id, "level" => $school->level, "spells" => $spells, "cost" => $school->cost];
         }
 
         $this->miracles = [];
@@ -268,23 +270,25 @@ class SheetEntity {
 
         $model->miracles()->sync($miracles, true);
 
-        $model->scripture->name = $this->scripture->name;
-        $model->scripture->description = $this->scripture->description;
-        $model->scripture->damage = $this->scripture->damage;
-        $model->scripture->range = $this->scripture->range;
-        $model->scripture->sharpness = $this->scripture->sharpness;
-        $model->scripture->double = $this->scripture->double;
-        $model->scripture->remaining_scripture_points = $this->scripture->remaining_scripture_points;
-        $model->scripture->creation_points = $this->scripture->creation_points;
+        if ($model->scripture != null) {
+            $model->scripture->name = $this->scripture->name;
+            $model->scripture->description = $this->scripture->description;
+            $model->scripture->damage = $this->scripture->damage;
+            $model->scripture->range = $this->scripture->range;
+            $model->scripture->sharpness = $this->scripture->sharpness;
+            $model->scripture->double = $this->scripture->double;
+            $model->scripture->remaining_scripture_points = $this->scripture->remaining_scripture_points;
+            $model->scripture->creation_points = $this->scripture->creation_points;
 
-        $model->scripture->save();
+            $model->scripture->save();
 
-        $scriptureAbilities = [];
-        foreach ($this->scripture->scriptureAbilities as $scriptureAbility) {
-            $scriptureAbilities[] = $scriptureAbility->id;
+            $scriptureAbilities = [];
+            foreach ($this->scripture->scriptureAbilities as $scriptureAbility) {
+                $scriptureAbilities[] = $scriptureAbility->id;
+            }
+
+            $model->scripture->scriptureAbilities()->sync($scriptureAbilities, true);
         }
-
-        $model->scripture->scriptureAbilities()->sync($scriptureAbilities, true);
 
         $this->setClasses();
         $model->save();

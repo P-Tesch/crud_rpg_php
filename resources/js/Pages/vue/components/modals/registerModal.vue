@@ -1,21 +1,29 @@
-<script setup>
-import { Head, router } from '@inertiajs/vue3'
-import { ref, reactive } from "vue"
+<script setup lang="ts">
+import { ref } from "vue"
 
-const props = defineProps({defaultValue: String, title: String});
+interface Props {
+    title: string;
+}
+const props = defineProps<Props>();
+
 const emit = defineEmits(["success"]);
 
-const modalRef = ref(null);
-const login = defineModel("login");
-const password = defineModel("password");
-const charClass = defineModel("charClass");
-const alignment = defineModel("alignment");
-const organization = defineModel("organization");
+const modalRef = ref<HTMLDialogElement>();
+const login = defineModel<HTMLInputElement, string>("login");
+const password = defineModel<HTMLInputElement | string, string>("password");
+const charClass = defineModel<HTMLInputElement | string, string>("charClass");
+const alignment = defineModel<HTMLInputElement | string, string>("alignment");
+const organization = defineModel<HTMLInputElement | string, string>("organization");
 
 defineExpose({modalRef});
 
+interface keyValue {
+    key: string,
+    value: number
+}
+
 function buildSheet() {
-    let attributes = [
+    let attributes: keyValue[] = [
         {
             "key": "health",
             "value": 0
@@ -29,7 +37,7 @@ function buildSheet() {
             "value": 0
         }
     ]
-    let stats = [
+    let stats: keyValue[] = [
         {
             "key": "strength",
             "value": 1
@@ -60,8 +68,9 @@ function buildSheet() {
         }
     ];
     let items = [];
-    let organization = null;
-    let alignment = null;
+    let organization: string | null = null;
+    let alignment: string | null = null;
+    let scripture: any = null;
     if (this.charClass == "mage") {
         alignment = this.alignment;
         attributes.push(
@@ -85,6 +94,18 @@ function buildSheet() {
                 "value": 1
             }
         );
+        scripture = {
+            "name": "Insira o nome da escritura",
+            "creation_points": 0,
+            "remaining_scripture_points": 0,
+            "damage": 0,
+            "range": 0,
+            "sharpness": 0,
+            "double": false,
+            "strategy": null,
+            "description": "Insira a descrição da escritura",
+            "scripture_abilities": []
+        };
     }
     if (this.charClass == "magiteck") {
         stats.push(
@@ -204,18 +225,7 @@ function buildSheet() {
     "miracles": [],
     "mystic_eyes": [],
     "schools": [],
-    "scripture": {
-        "name": "Insira o nome da escritura",
-        "creation_points": 0,
-        "remaining_scripture_points": 0,
-        "damage": 0,
-        "range": 0,
-        "sharpness": 0,
-        "double": false,
-        "strategy": null,
-        "description": "Insira a descrição da escritura",
-        "scripture_abilities": []
-    },
+    "scripture": scripture,
     "sonatas": []
     }
 
@@ -233,10 +243,10 @@ function buildUser(sheetId) {
 async function register() {
     let sheet = this.buildSheet();
 
-    const url = "/api/sheets";
-    const urlUser = "/api/users"
+    const url: string = "/api/sheets";
+    const urlUser: string = "/api/users"
     try {
-        const response = await fetch(url, {
+        const response: Response = await fetch(url, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -249,7 +259,7 @@ async function register() {
         }
 
         let user = this.buildUser(await response.text());
-        const responseUser = await fetch(urlUser, {
+        const responseUser: Response = await fetch(urlUser, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -264,7 +274,11 @@ async function register() {
         emit("success");
 
     } catch (error) {
-        window.open().document.body.innerHTML = error.message;
+        let open: Window | null = window.open();
+
+        if (open != null) {
+            open.document.body.innerHTML = error.message;
+        }
     }
 }
 

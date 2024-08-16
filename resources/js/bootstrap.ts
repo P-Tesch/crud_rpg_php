@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosStatic } from 'axios';
 import Echo from 'laravel-echo';
 import Pusher from 'pusher-js';
 
@@ -25,3 +25,11 @@ window.Echo = new Echo({
     forceTLS: (import.meta.env.VITE_REVERB_SCHEME ?? 'https') === 'https',
     enabledTransports: ['ws', 'wss'],
 });
+
+declare global {
+    interface Window {
+        Pusher: any;
+        Echo: Echo;
+        axios: AxiosStatic;
+    }
+}

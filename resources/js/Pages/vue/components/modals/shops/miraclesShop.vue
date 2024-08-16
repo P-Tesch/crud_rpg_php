@@ -1,36 +1,47 @@
-<script setup>
-import { Head, router } from '@inertiajs/vue3'
-import { ref, reactive, onBeforeMount } from "vue"
+<script setup lang="ts">
+import { ref, onBeforeMount } from "vue"
+import type { Sheet, Miracle } from "rpgTypes";
 
-const props = defineProps({
-    sheet: Object
-})
-const modalRef = ref(null);
-const miracles = ref(null);
+interface Props {
+    sheet: Sheet;
+}
+
+const props = defineProps<Props>();
+
+const modalRef = ref<HTMLDialogElement>();
+const miracles = ref<Miracle[]>([]);
 
 onBeforeMount(() => { getMiracles() })
 
 defineExpose({ modalRef });
 
-async function getMiracles() {
-    const url = "/api/miracles";
+async function getMiracles() : Promise<void> {
+    const url: string = "/api/miracles";
     try {
-        const response = await fetch(url);
+        const response: Response = await fetch(url);
         if (!response.ok) {
             throw new Error(await response.text());
         }
 
         miracles.value = JSON.parse(await response.text())["data"];
     } catch (error) {
-        window.open().document.body.innerHTML = error.message;
+        let open: Window | null = window.open();
+
+        if (open != null) {
+            open.document.body.innerHTML = error.message;
+        }
     }
 }
 
-function addToSheet(index) {
-    let toAdd = miracles.value[index];
-    let original = props.sheet.miracles;
+function addToSheet(index: number) : void {
+    if (miracles.value == null) {
+        return;
+    }
 
-    let shouldAdd = true;
+    let toAdd: Miracle = miracles.value[index];
+    let original: Miracle[] = props.sheet.miracles;
+
+    let shouldAdd: boolean = true;
     original.forEach(
         (value) => {
             if (value.name == toAdd.name) {
@@ -54,10 +65,10 @@ function addToSheet(index) {
             </form>
             <h3 class="text-3xl font-bold text-center">Milagres</h3>
             <div class="flex flex-col gap-5">
-                <div class="flex flex-col outline outline-primary p-2 rounded-box" v-for="value, key in miracles">
-                    <p class="text-2xl">{{ value.name }}</p>
-                    <p class="text-md"> {{ value.description }}</p>
-                    <p class="text-md">Custo: {{ value.cost }}</p>
+                <div class="flex flex-col outline outline-primary p-2 rounded-box" v-for="miracle, key in miracles">
+                    <p class="text-2xl">{{ miracle.name }}</p>
+                    <p class="text-md"> {{ miracle.description }}</p>
+                    <p class="text-md">Custo: {{ miracle.cost }}</p>
                     <button class="btn btn-outline btn-accent btn-md self-end"
                         @click="addToSheet(key)">Adicionar</button>
                 </div>

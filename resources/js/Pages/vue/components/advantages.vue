@@ -1,19 +1,21 @@
-<script setup>
-import { Head, router } from '@inertiajs/vue3'
-import { ref, reactive } from "vue"
+<script setup lang="ts">
+import type { Sheet, Advantage } from 'rpgTypes';
 
-const props = defineProps({ sheet: Object });
+interface Props {
+    sheet: Sheet;
+}
 
-const originalAdvantages = Object.assign({}, props.sheet.advantages);
+const props = defineProps<Props>();
+
+const originalAdvantages: Advantage[] = Object.values(Object.assign({}, props.sheet.advantages));
 
 const emit = defineEmits(["add"]);
 
-function isOriginal(value) {
-    let advantagesArray = Object.values(originalAdvantages);
-    let isOriginal = false;
-    advantagesArray.forEach(
-        (v) => {
-            if (v.name == value.name && v.level == value.level) {
+function isOriginal(advantage: Advantage) : boolean {
+    let isOriginal: boolean = false;
+    originalAdvantages.forEach(
+        (original) => {
+            if (original.name == advantage.name && original.level == advantage.level) {
                 isOriginal = true;
             }
         }
@@ -22,14 +24,16 @@ function isOriginal(value) {
     return !isOriginal;
 }
 
-function remove(key, toRemove) {
-    let isPresent = false;
-    Object.values(originalAdvantages).forEach(original => {
-        if (toRemove.name == original.name) {
-            isPresent = true;
-            props.sheet.advantages[key] = original;
+function remove(key: number, toRemove: Advantage) : void {
+    let isPresent: boolean = false;
+    originalAdvantages.forEach(
+        (original) => {
+            if (toRemove.name == original.name) {
+                isPresent = true;
+                props.sheet.advantages[key] = original;
+            }
         }
-    });
+    );
 
     if (!isPresent) {
         props.sheet.advantages.splice(key, 1);
@@ -44,13 +48,13 @@ function remove(key, toRemove) {
             <h1 class="font-semibold text-2xl">Vantagens</h1>
         </div>
 
-        <div v-for="value, key in sheet.advantages" class="collapse collapse-arrow bg-base-100">
-            <button v-if="isOriginal(value)" class="btn btn-sm btn-circle btn-ghost absolute right-10 top-3.5 z-10 overflow-visible" @click="remove(key, value)">✕</button>
+        <div v-for="advantage, key in sheet.advantages" class="collapse collapse-arrow bg-base-100">
+            <button v-if="isOriginal(advantage)" class="btn btn-sm btn-circle btn-ghost absolute right-10 top-3.5 z-10 overflow-visible" @click="remove(key, advantage)">✕</button>
             <input type="checkbox" name="advantages-collapse" />
-            <div class="collapse-title text-xl font-medium">{{ value.name }}</div>
+            <div class="collapse-title text-xl font-medium">{{ advantage.name }}</div>
             <div class="collapse-content">
-                <p>{{ value.description }}</p>
-                <p>Level: {{ value.level }}</p>
+                <p>{{ advantage.description }}</p>
+                <p>Level: {{ advantage.level }}</p>
             </div>
         </div>
         <div class="w-full text-center">

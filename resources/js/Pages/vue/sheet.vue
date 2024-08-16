@@ -1,6 +1,6 @@
-<script setup>
+<script setup lang="ts">
 import { Head, router } from '@inertiajs/vue3'
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted } from 'vue'
 import SkillsTable from './components/skills.vue'
 import StatsTable from './components/stats.vue'
 import AttributesTable from './components/attributes.vue'
@@ -20,34 +20,41 @@ import MiraclesShop from './components/modals/shops/miraclesShop.vue'
 import Scripture from './components/scripture.vue'
 import ScriptureAbilitiesShop from './components/modals/shops/scriptureAbilitiesShop.vue'
 import TargetSelectModal from './components/modals/targetSelectModal.vue'
+import CreationPoints from './components/creationPoints.vue'
+import { Sheet } from 'rpgTypes'
 
-defineProps({ sheet: Object })
-const csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-const points = ref(null);
-const scripture = ref(null);
-const gridClass = ref("p-5 grid grid-cols-3 gap-5");
+interface Props {
+    sheet: Sheet
+}
 
-const mysticEyesTable = ref(null);
+const props = defineProps<Props>();
 
-const schoolsModal = ref(null);
-const eyesModal = ref(null);
-const advantagesModal = ref(null);
-const miraclesModal = ref(null);
-const scriptureAbilitiesModal = ref(null);
-const targetModal = ref(null);
+const csrf: string | null | undefined = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+const points = ref<InstanceType<typeof CreationPoints>>();
+const scripture = ref<InstanceType<typeof Scripture>>();
+const gridClass = ref<string>("p-5 grid grid-cols-3 gap-5");
 
-const successToast = ref(null);
-const failToast = ref(null);
+const mysticEyesTable = ref<InstanceType<typeof MysticEyesTable>>();
 
-const statsKey = ref(0);
-const skillsKey = ref(0);
-const miraclesKey = ref(0);
-const schoolsKey = ref(0);
-const mysticEyesKey = ref(0);
-const advantagesKey = ref(0);
-const scriptureKey = ref(0);
+const schoolsModal = ref<InstanceType<typeof SchoolsShop>>();
+const eyesModal = ref<InstanceType<typeof MysticEyesShop>>();
+const advantagesModal = ref<InstanceType<typeof AdvantagesShop>>();
+const miraclesModal = ref<InstanceType<typeof MiraclesShop>>();
+const scriptureAbilitiesModal = ref<InstanceType<typeof ScriptureAbilitiesShop>>();
+const targetModal = ref<InstanceType<typeof TargetSelectModal>>();
 
-const calculateGridCols = () => {
+const successToast = ref<InstanceType<typeof SuccessToast>>();
+const failToast = ref<InstanceType<typeof FailToast>>();
+
+const statsKey = ref<number>(0);
+const skillsKey = ref<number>(0);
+const miraclesKey = ref<number>(0);
+const schoolsKey = ref<number>(0);
+const mysticEyesKey = ref<number>(0);
+const advantagesKey = ref<number>(0);
+const scriptureKey = ref<number>(0);
+
+const calculateGridCols = () : void => {
     if (window.innerWidth >= 1400) {
         gridClass.value = "p-5 grid grid-cols-3 gap-5";
         return;
@@ -61,39 +68,65 @@ const calculateGridCols = () => {
     gridClass.value = "p-5 grid grid-cols-1 gap-5";
 }
 
-onMounted(() => {
+onMounted(() : void => {
     calculateGridCols();
     window.addEventListener("resize", () => {
         calculateGridCols();
     })
 });
 
-async function persist(sheet) {
+async function persist() : Promise<void> {
     if (this.points.points.remainingPoints < 0 || (this.scripture != null && this.scripture.remainingPoints < 0)) {
         this.failToast.toastRef = true;
         setTimeout(() => this.failToast.toastRef = false, 2500);
         return;
     }
 
-    router.put("/api/sheets", JSON.stringify(sheet));
+    if (csrf == null || csrf == undefined) {
+        return;
+    }
 
-    updateSheet(sheet);
-    this.statsKey++;
-    this.skillsKey++;
-    this.miraclesKey++;
-    this.schoolsKey++;
-    this.mysticEyesKey++;
-    this.advantagesKey++;
-    this.scriptureKey++;
+    const url: string = "/api/sheets";
 
-    this.successToast.toastRef = true;
-    setTimeout(() => this.successToast.toastRef = false, 2500);
-}
-
-async function updateSheet(sheet) {
-    const url = "api/sheets";
     try {
         const response = await fetch(url, {
+            method: "PUT",
+            headers: [
+                ["X-CSRF-Token", csrf],
+                ["Content-Type", "application/json"]
+            ],
+            credentials: "same-origin",
+            body: JSON.stringify(props.sheet)
+        });
+        if (!response.ok) {
+            throw new Error(await response.text());
+        }
+
+
+        updateSheet();
+        this.statsKey++;
+        this.skillsKey++;
+        this.miraclesKey++;
+        this.schoolsKey++;
+        this.mysticEyesKey++;
+        this.advantagesKey++;
+        this.scriptureKey++;
+
+        this.successToast.toastRef = true;
+        setTimeout(() => this.successToast.toastRef = false, 2500);
+    } catch (error) {
+        let open: Window | null = window.open();
+
+        if (open != null) {
+            open.document.body.innerHTML = error.message;
+        }
+    }
+}
+
+async function updateSheet() : Promise<void> {
+    const url: string = "api/sheets";
+    try {
+        const response: Response = await fetch(url, {
             method: "GET"
         });
 
@@ -101,17 +134,21 @@ async function updateSheet(sheet) {
             throw new Error(await response.text());
         }
 
-        const obj = JSON.parse(await response.text());
-        sheet.attributes = obj.attributes;
-        sheet.portrait = obj.portrait;
+        const sheet: Sheet = JSON.parse(await response.text());
+        props.sheet.attributes = sheet.attributes;
+        props.sheet.portrait = sheet.portrait;
 
     } catch (error) {
-        window.open().document.body.innerHTML = error.message;
+        let open: Window | null = window.open();
+
+        if (open != null) {
+            open.document.body.innerHTML = error.message;
+        }
     }
 }
 
-function endTurn(sheet) {
-    console.log(window.innerWidth);
+function endTurn() : void {
+    console.log(props.sheet);
 }
 
 </script>
@@ -124,16 +161,16 @@ function endTurn(sheet) {
         <RollHistory :sheet />
         <StatsTable :sheet :key="statsKey" />
         <SkillsTable :sheet :key="skillsKey" />
-        <SchoolsTable :sheet @add="schoolsModal.modalRef.showModal()" @sync="updateSheet(sheet)" v-if="sheet.classes['isMage']" :key="schoolsKey"/>
+        <SchoolsTable :sheet @add="schoolsModal.modalRef.showModal()" @sync="updateSheet()" v-if="sheet.classes['isMage']" :key="schoolsKey"/>
         <Scripture :sheet :key="scriptureKey" v-if="sheet.classes['isCleric']" @add="scriptureAbilitiesModal.modalRef.showModal()" ref="scripture" />
-        <ItemsTable :sheet @sync="updateSheet(sheet)" />
+        <ItemsTable :sheet @sync="updateSheet()" />
         <MysticEyesTable :sheet @add="eyesModal.modalRef.showModal()" @target="targetModal.updateCharacters(); targetModal.modalRef.showModal()" :key="mysticEyesKey" ref="mysticEyesTable" />
         <Advantages :sheet @add="advantagesModal.modalRef.showModal()" :key="advantagesKey" />
         <MiraclesTable :sheet @add="miraclesModal.modalRef.showModal()" v-if="sheet.classes['isCleric']" :key="miraclesKey" />
 
         <div class="fixed bottom-10 right-10 space-x-5 z-10">
-            <button class="btn btn-outline btn-accent" id="save" @click="persist(sheet)">Salvar</button>
-            <button class="btn btn-outline btn-secondary" @click="endTurn(sheet)">Terminar turno</button>
+            <button class="btn btn-outline btn-accent" id="save" @click="persist()">Salvar</button>
+            <button class="btn btn-outline btn-secondary" @click="endTurn()">Terminar turno</button>
             <input type="hidden" name="_token" :value="csrf">
         </div>
     </div>
