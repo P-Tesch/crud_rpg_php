@@ -1,11 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue"
 
-interface Props {
-    title: string;
-}
-const props = defineProps<Props>();
-
 const emit = defineEmits(["success"]);
 
 const modalRef = ref<HTMLDialogElement>();
@@ -241,45 +236,39 @@ function buildUser(sheetId) {
 }
 
 async function register() {
-    let sheet = this.buildSheet();
+    const sheet = this.buildSheet();
 
     const url: string = "/api/sheets";
     const urlUser: string = "/api/users"
-    try {
-        const response: Response = await fetch(url, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            credentials: "same-origin",
-            body: JSON.stringify(sheet)
-        });
-        if (!response.ok) {
-            throw new Error(await response.text());
-        }
 
-        let user = this.buildUser(await response.text());
-        const responseUser: Response = await fetch(urlUser, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            credentials: "same-origin",
-            body: JSON.stringify(user)
-        });
-        if (!responseUser.ok) {
-            throw new Error(await responseUser.text());
-        }
+    const response: Response = await fetch(url, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        credentials: "same-origin",
+        body: JSON.stringify(sheet)
+    });
 
-        emit("success");
-
-    } catch (error) {
-        let open: Window | null = window.open();
-
-        if (open != null) {
-            open.document.body.innerHTML = error.message;
-        }
+    if (!response.ok) {
+        throw new Error("Falha ao registrar ficha");
     }
+
+    const user = this.buildUser(await response.text());
+    const responseUser: Response = await fetch(urlUser, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        credentials: "same-origin",
+        body: JSON.stringify(user)
+    });
+
+    if (!responseUser.ok) {
+        throw new Error("Falha ao registrar usuário");
+    }
+
+    emit("success");
 }
 
 </script>

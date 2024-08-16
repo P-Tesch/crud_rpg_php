@@ -10,22 +10,16 @@ const emit = defineEmits(["sync"]);
 
 async function rollItem(item: Item) : Promise<void> {
     const url: string = "/api/roll/item?item=" + item.id;
-    try {
-        const response: Response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(await response.text());
-        }
 
-        const json = JSON.parse(await response.text());
-        alert(JSON.stringify(json["rolls"]));
-        emit("sync");
-    } catch (error) {
-        let open: Window | null = window.open();
+    const response: Response = await fetch(url);
 
-        if (open != null) {
-            open.document.body.innerHTML = error.message;
-        }
+    if (!response.ok) {
+        throw new Error("Falha ao rolar item");
     }
+
+    const json = JSON.parse(await response.text());
+    alert(JSON.stringify(json["rolls"]));
+    emit("sync");
 }
 
 </script>

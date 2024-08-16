@@ -3,6 +3,7 @@ import { Head, router } from '@inertiajs/vue3'
 import { ref, reactive } from "vue"
 import RegisterModal from './components/modals/registerModal.vue';
 import SuccessToast from './components/alerts/successToast.vue';
+import ErrorHandler from './errorHandler.vue';
 
 const form = reactive({
     login: null,
@@ -72,5 +73,9 @@ function success() : void {
     <Teleport to="body">
         <RegisterModal @success="success()" ref="registerModal"/>
     </Teleport>
+    <Teleport to="body">
+        <ErrorHandler />
+    </Teleport>
+
     <SuccessToast class="z-10" ref="successToast" :message="'Registrado com sucesso'" />
 </template>

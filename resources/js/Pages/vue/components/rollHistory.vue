@@ -53,20 +53,14 @@ function getBubbleStyle(roll: RollAssociative) : string {
 
 async function setupRolls() : Promise<void> {
     const url: string = "/api/roll";
-    try {
-        const response: Response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(await response.text());
-        }
 
-        rolls.value = JSON.parse(await response.text());
-    } catch (error) {
-        let open: Window | null = window.open();
+    const response: Response = await fetch(url);
 
-        if (open != null) {
-            open.document.body.innerHTML = error.message;
-        }
+    if (!response.ok) {
+        throw new Error("Falha ao buscar histórico de rolagens");
     }
+
+    rolls.value = JSON.parse(await response.text());
 }
 
 function scrollToBottom() : void {
