@@ -1,24 +1,32 @@
-<script setup>
-import { Head, router } from '@inertiajs/vue3'
-import { ref, reactive } from "vue"
+<script setup lang="ts">
+import { MysticEye, Sheet } from "rpgTypes";
+import { ref } from "vue";
 
-const props = defineProps({ sheet: Object });
+interface Props {
+    sheet: Sheet;
+}
 
-const originalMysticEyes = Object.assign({}, props.sheet.mysticEyes);
-const selectedEye = ref(null);
+const props = defineProps<Props>();
 
-const rollMysticEye = async (target) => {
-    const url = "/api/roll/mystic_eyes?eye=" + selectedEye.value + "&target=" + target + "&modifier=0";
+const originalMysticEyes: MysticEye[] = Object.assign({}, props.sheet.mysticEyes);
+const selectedEye = ref<number>();
+
+const rollMysticEye = async (target: number) : Promise<void> => {
+    const url: string = "/api/roll/mystic_eyes?eye=" + selectedEye.value + "&target=" + target + "&modifier=0";
 
     try {
-      const response = await fetch(url);
+      const response: Response = await fetch(url);
 
       if (!response.ok) {
         throw new Error(await response.text());
       }
 
     } catch (error) {
-        window.open().document.body.innerHTML = error.message;
+        let open: Window | null = window.open();
+
+        if (open != null) {
+            open.document.body.innerHTML = error.message;
+        }
     }
 };
 
@@ -26,17 +34,17 @@ defineExpose({rollMysticEye});
 
 const emit = defineEmits(["add", "target"]);
 
-async function selectTarget(eyeId) {
+function selectTarget(eyeId: number) : void {
     selectedEye.value = eyeId;
     emit("target");
 }
 
-function isOriginal(value) {
-    let mysticEyesArray = Object.values(originalMysticEyes);
-    let isOriginal = false;
-    mysticEyesArray.forEach(
-        (v) => {
-            if (v.name == value.name) {
+function isOriginal(eye: MysticEye) : boolean {
+    let originalArray = Object.values(originalMysticEyes);
+    let isOriginal: boolean = false;
+    originalArray.forEach(
+        (original) => {
+            if (original.name == eye.name) {
                 isOriginal = true;
             }
         }
@@ -53,25 +61,25 @@ function isOriginal(value) {
             <h1 class="font-semibold text-2xl">Olhos místicos</h1>
         </div>
 
-        <div v-for="value, key in sheet.mysticEyes" class="collapse collapse-arrow bg-base-100">
-            <button v-if="isOriginal(value)" class="btn btn-sm btn-circle btn-ghost absolute right-10 top-3.5 z-10 overflow-visible" @click="sheet.mysticEyes.splice(key, 1)">✕</button>
+        <div v-for="eye, key in sheet.mysticEyes" class="collapse collapse-arrow bg-base-100">
+            <button v-if="isOriginal(eye)" class="btn btn-sm btn-circle btn-ghost absolute right-10 top-3.5 z-10 overflow-visible" @click="sheet.mysticEyes.splice(key, 1)">✕</button>
             <input type="checkbox" name="mystic-eyes-collapse" />
-            <div class="collapse-title text-xl font-medium">{{ value.name }}</div>
+            <div class="collapse-title text-xl font-medium">{{ eye.name }}</div>
             <div class="collapse-content">
-                <div v-if="value.passive != null" class="collapse collapse-arrow bg-base-100">
+                <div v-if="eye.passive != null" class="collapse collapse-arrow bg-base-100">
                     <input type="checkbox" name="me-passive-collapse" />
                     <div class="collapse-title text-xl font-medium">Passivo</div>
                     <div class="collapse-content">
-                        <p>{{ value.passive }}</p>
+                        <p>{{ eye.passive }}</p>
                     </div>
                 </div>
-                <div v-if="value.active != null" class="collapse collapse-arrow bg-base-100">
+                <div v-if="eye.active != null" class="collapse collapse-arrow bg-base-100">
                     <input type="checkbox" name="me-passive-collapse" />
                     <div class="collapse-title text-xl font-medium">Ativo</div>
                     <div class="collapse-content grid grid-flow-row grid-cols-2">
-                        <p class="col-start-1 row-start-1" >{{ value.active }}</p>
-                        <p class="col-start-1 row-start-2">Cooldown: {{ value.pivot.current_cooldown }} / {{ value.cooldown }}</p>
-                        <button class="btn btn-outline btn-secondary btn-sm grid-rows-1 col-start-2 row-span-full w-4/12 ml-auto my-auto mr-5" @click="selectTarget(value.id)">Rolar</button>
+                        <p class="col-start-1 row-start-1" >{{ eye.active }}</p>
+                        <p class="col-start-1 row-start-2">Cooldown: {{ eye.pivot.current_cooldown }} / {{ eye.cooldown }}</p>
+                        <button class="btn btn-outline btn-secondary btn-sm grid-rows-1 col-start-2 row-span-full w-4/12 ml-auto my-auto mr-5" @click="selectTarget(eye.id)">Rolar</button>
                     </div>
                 </div>
             </div>

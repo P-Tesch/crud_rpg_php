@@ -11,7 +11,7 @@ const originalMiracles: Miracle[] = Object.assign({}, props.sheet.miracles);
 
 const emit = defineEmits(["add"]);
 
-function isOriginal(miracle: Miracle) {
+function isOriginal(miracle: Miracle) : boolean {
     let originalArray = Object.values(originalMiracles);
     let isOriginal: boolean = false;
     originalArray.forEach(

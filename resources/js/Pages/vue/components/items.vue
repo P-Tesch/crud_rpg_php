@@ -8,7 +8,7 @@ interface Props {
 defineProps<Props>();
 const emit = defineEmits(["sync"]);
 
-async function rollItem(item: Item) {
+async function rollItem(item: Item) : Promise<void> {
     const url: string = "/api/roll/item?item=" + item.id;
     try {
         const response: Response = await fetch(url);
