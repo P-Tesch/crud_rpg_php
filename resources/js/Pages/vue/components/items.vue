@@ -2,7 +2,7 @@
 import { Item, Sheet } from 'rpgTypes';
 
 interface Props {
-    sheet: Sheet
+    sheet: Sheet;
 }
 
 defineProps<Props>();

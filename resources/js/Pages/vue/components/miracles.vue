@@ -1,19 +1,22 @@
-<script setup>
-import { Head, router } from '@inertiajs/vue3'
-import { ref, reactive } from "vue"
+<script setup lang="ts">
+import { Miracle, Sheet } from 'rpgTypes';
 
-const props = defineProps({ sheet: Object });
+interface Props {
+    sheet: Sheet;
+}
 
-const originalMiracles = Object.assign({}, props.sheet.miracles);
+const props = defineProps<Props>();
+
+const originalMiracles: Miracle[] = Object.assign({}, props.sheet.miracles);
 
 const emit = defineEmits(["add"]);
 
-function isOriginal(value) {
-    let miraclesArray = Object.values(originalMiracles);
-    let isOriginal = false;
-    miraclesArray.forEach(
-        (v) => {
-            if (v.name == value.name) {
+function isOriginal(miracle: Miracle) {
+    let originalArray = Object.values(originalMiracles);
+    let isOriginal: boolean = false;
+    originalArray.forEach(
+        (original) => {
+            if (original.name == miracle.name) {
                 isOriginal = true;
             }
         }
@@ -30,12 +33,12 @@ function isOriginal(value) {
             <h1 class="font-semibold text-2xl">Milagres</h1>
         </div>
 
-        <div v-for="value, key in sheet.miracles" class="collapse collapse-arrow bg-base-100">
-            <button v-if="isOriginal(value)" class="btn btn-sm btn-circle btn-ghost absolute right-10 top-3.5 z-10 overflow-visible" @click="sheet.miracles.splice(key, 1)">✕</button>
+        <div v-for="miracle, key in sheet.miracles" class="collapse collapse-arrow bg-base-100">
+            <button v-if="isOriginal(miracle)" class="btn btn-sm btn-circle btn-ghost absolute right-10 top-3.5 z-10 overflow-visible" @click="sheet.miracles.splice(key, 1)">✕</button>
             <input type="checkbox" name="miracles-collapse" />
-            <div class="collapse-title text-xl font-medium">{{ value.name }}</div>
+            <div class="collapse-title text-xl font-medium">{{ miracle.name }}</div>
             <div class="collapse-content">
-                <p>{{ value.description }}</p>
+                <p>{{ miracle.description }}</p>
             </div>
         </div>
         <div class="w-full text-center">
