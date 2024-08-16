@@ -18,13 +18,17 @@ const updateCharacters = async () => {
         method: "GET"
     });
 
+    if (!response.ok) {
+        throw new Error("Falha ao atualizar lista de personagens");
+    }
+
     characters.value = JSON.parse(await response.text());
 }
 
 defineExpose({modalRef, updateCharacters});
 
 const heartbeat = async (): Promise<void> => {
-    fetch("/api/live",{
+    const response: Response = await fetch("/api/live",{
         method: "POST",
         headers: {
             "X-CSRF-Token": props.csrf,
@@ -38,7 +42,11 @@ const heartbeat = async (): Promise<void> => {
             portrait: props.sheet.portrait,
             timestamp: new Date().getTime()
         })
-    })
+    });
+
+    if (!response.ok) {
+        throw new Error("Falha ao sincronizar com servidor");
+    }
 };
 
 heartbeat();

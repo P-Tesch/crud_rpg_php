@@ -30,27 +30,18 @@ function rollSpell(school: string | number, spell: string | number) : void {
 
 async function roll(cost: number) : Promise<void> {
     if (props.sheet.attributes.mana < cost || cost == null) {
-        this.failToast.toastRef = true;
-        setTimeout(() => this.failToast.toastRef = false, 2500);
-        return;
+        throw new Error("Mana insuficiente");
     }
 
     const url: string = "/api/roll/spell?school=" + this.school + "&spell=" + this.spell + "&cost=" + cost + "&modifier=0";
-    try {
-        const response: Response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(await response.text());
-        }
 
-        emit("sync");
+    const response: Response = await fetch(url);
 
-    } catch (error) {
-        let open: Window | null = window.open();
-
-        if (open != null) {
-            open.document.body.innerHTML = error.message;
-        }
+    if (!response.ok) {
+        throw new Error("Falha ao rolar magia");
     }
+
+    emit("sync");
 }
 
 function isOriginal(value: School, key: string | number) : boolean {
@@ -103,7 +94,7 @@ function remove(key: string | number) : void {
             <button class="btn btn-outline btn-accent w-full my-3" @click="$emit('add')">Adicionar</button>
         </div>
     </div>
-    <FailToast class="z-10" ref="failToast" :message="'Mana insuficiente'" />
+
     <Teleport to="body">
         <NumberInputModal :title="'Insira o custo da magia'" @end="(cost) => roll(cost)" ref="costModal"/>
     </Teleport>

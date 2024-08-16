@@ -1,27 +1,27 @@
 <script setup lang="ts">
-import { Head, router } from '@inertiajs/vue3'
-import { ref, onMounted } from 'vue'
-import SkillsTable from './components/skills.vue'
-import StatsTable from './components/stats.vue'
-import AttributesTable from './components/attributes.vue'
-import SchoolsTable from './components/schools.vue'
-import ItemsTable from './components/items.vue'
-import MysticEyesTable from './components/mysticEyes.vue'
-import RollHistory from './components/rollHistory.vue'
-import CharacterInfo from './components/info.vue'
-import SchoolsShop from './components/modals/shops/schoolsShop.vue'
-import SuccessToast from './components/alerts/successToast.vue'
-import FailToast from './components/alerts/failToast.vue'
-import MysticEyesShop from './components/modals/shops/mysticEyesShop.vue'
-import Advantages from './components/advantages.vue'
-import AdvantagesShop from './components/modals/shops/advantagesShop.vue'
-import MiraclesTable from './components/miracles.vue'
-import MiraclesShop from './components/modals/shops/miraclesShop.vue'
-import Scripture from './components/scripture.vue'
-import ScriptureAbilitiesShop from './components/modals/shops/scriptureAbilitiesShop.vue'
-import TargetSelectModal from './components/modals/targetSelectModal.vue'
-import CreationPoints from './components/creationPoints.vue'
-import { Sheet } from 'rpgTypes'
+import { Head } from '@inertiajs/vue3';
+import { ref, onMounted } from 'vue';
+import SkillsTable from './components/skills.vue';
+import StatsTable from './components/stats.vue';
+import AttributesTable from './components/attributes.vue';
+import SchoolsTable from './components/schools.vue';
+import ItemsTable from './components/items.vue';
+import MysticEyesTable from './components/mysticEyes.vue';
+import RollHistory from './components/rollHistory.vue';
+import CharacterInfo from './components/info.vue';
+import SchoolsShop from './components/modals/shops/schoolsShop.vue';
+import SuccessToast from './components/alerts/successToast.vue';
+import MysticEyesShop from './components/modals/shops/mysticEyesShop.vue';
+import Advantages from './components/advantages.vue';
+import AdvantagesShop from './components/modals/shops/advantagesShop.vue';
+import MiraclesTable from './components/miracles.vue';
+import MiraclesShop from './components/modals/shops/miraclesShop.vue';
+import Scripture from './components/scripture.vue';
+import ScriptureAbilitiesShop from './components/modals/shops/scriptureAbilitiesShop.vue';
+import TargetSelectModal from './components/modals/targetSelectModal.vue';
+import CreationPoints from './components/creationPoints.vue';
+import ErrorHandler from './errorHandler.vue';
+import { Sheet } from 'rpgTypes';
 
 interface Props {
     sheet: Sheet
@@ -44,7 +44,6 @@ const scriptureAbilitiesModal = ref<InstanceType<typeof ScriptureAbilitiesShop>>
 const targetModal = ref<InstanceType<typeof TargetSelectModal>>();
 
 const successToast = ref<InstanceType<typeof SuccessToast>>();
-const failToast = ref<InstanceType<typeof FailToast>>();
 
 const statsKey = ref<number>(0);
 const skillsKey = ref<number>(0);
@@ -77,74 +76,54 @@ onMounted(() : void => {
 
 async function persist() : Promise<void> {
     if (this.points.points.remainingPoints < 0 || (this.scripture != null && this.scripture.remainingPoints < 0)) {
-        this.failToast.toastRef = true;
-        setTimeout(() => this.failToast.toastRef = false, 2500);
-        return;
+        throw new Error("Pontos de criação insuficientes");
     }
 
     if (csrf == null || csrf == undefined) {
-        return;
+        throw new Error("Token CSRF inválido");
     }
 
     const url: string = "/api/sheets";
 
-    try {
-        const response = await fetch(url, {
-            method: "PUT",
-            headers: [
-                ["X-CSRF-Token", csrf],
-                ["Content-Type", "application/json"]
-            ],
-            credentials: "same-origin",
-            body: JSON.stringify(props.sheet)
-        });
-        if (!response.ok) {
-            throw new Error(await response.text());
-        }
-
-
-        updateSheet();
-        this.statsKey++;
-        this.skillsKey++;
-        this.miraclesKey++;
-        this.schoolsKey++;
-        this.mysticEyesKey++;
-        this.advantagesKey++;
-        this.scriptureKey++;
-
-        this.successToast.toastRef = true;
-        setTimeout(() => this.successToast.toastRef = false, 2500);
-    } catch (error) {
-        let open: Window | null = window.open();
-
-        if (open != null) {
-            open.document.body.innerHTML = error.message;
-        }
+    const response = await fetch(url, {
+        method: "PUT",
+        headers: [
+            ["X-CSRF-Token", csrf],
+            ["Content-Type", "application/json"]
+        ],
+        credentials: "same-origin",
+        body: JSON.stringify(props.sheet)
+    });
+    if (!response.ok) {
+        throw new Error("Falha ao salvar");
     }
+
+    updateSheet();
+    this.statsKey++;
+    this.skillsKey++;
+    this.miraclesKey++;
+    this.schoolsKey++;
+    this.mysticEyesKey++;
+    this.advantagesKey++;
+    this.scriptureKey++;
+
+    this.successToast.toastRef = true;
+    setTimeout(() => this.successToast.toastRef = false, 2500);
 }
 
 async function updateSheet() : Promise<void> {
     const url: string = "api/sheets";
-    try {
-        const response: Response = await fetch(url, {
-            method: "GET"
-        });
+    const response: Response = await fetch(url, {
+        method: "GET"
+    });
 
-        if (!response.ok) {
-            throw new Error(await response.text());
-        }
-
-        const sheet: Sheet = JSON.parse(await response.text());
-        props.sheet.attributes = sheet.attributes;
-        props.sheet.portrait = sheet.portrait;
-
-    } catch (error) {
-        let open: Window | null = window.open();
-
-        if (open != null) {
-            open.document.body.innerHTML = error.message;
-        }
+    if (!response.ok) {
+        throw new Error("Falha ao atualizar ficha");
     }
+
+    const sheet: Sheet = JSON.parse(await response.text());
+    props.sheet.attributes = sheet.attributes;
+    props.sheet.portrait = sheet.portrait;
 }
 
 function endTurn() : void {
@@ -191,9 +170,11 @@ function endTurn() : void {
         <ScriptureAbilitiesShop :sheet ref="scriptureAbilitiesModal" />
     </Teleport>
     <Teleport to="body">
-        <TargetSelectModal :sheet :csrf ref="targetModal" @end="(id) => mysticEyesTable.rollMysticEye(id)"/>
+        <TargetSelectModal :sheet :csrf ref="targetModal" @end="(id: number) => mysticEyesTable.rollMysticEye(id)"/>
+    </Teleport>
+    <Teleport to="body">
+        <ErrorHandler />
     </Teleport>
 
     <SuccessToast class="z-10" ref="successToast" :message="'Ficha salva com sucesso'" />
-    <FailToast class="z-10" ref="failToast" :message="'Pontos de criação insuficientes'" />
 </template>

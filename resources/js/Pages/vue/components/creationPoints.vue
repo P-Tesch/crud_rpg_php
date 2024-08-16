@@ -12,7 +12,7 @@ const remainingPoints = ref<number>(0);
 calculatePoints();
 watch(props.sheet, () => calculatePoints());
 
-defineExpose({remainingPoints})
+defineExpose({remainingPoints});
 
 function calculatePoints() : void {
     remainingPoints.value

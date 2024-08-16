@@ -14,19 +14,10 @@ const selectedEye = ref<number>();
 const rollMysticEye = async (target: number) : Promise<void> => {
     const url: string = "/api/roll/mystic_eyes?eye=" + selectedEye.value + "&target=" + target + "&modifier=0";
 
-    try {
-      const response: Response = await fetch(url);
+    const response: Response = await fetch(url);
 
-      if (!response.ok) {
-        throw new Error(await response.text());
-      }
-
-    } catch (error) {
-        let open: Window | null = window.open();
-
-        if (open != null) {
-            open.document.body.innerHTML = error.message;
-        }
+    if (!response.ok) {
+    throw new Error("Falha ao rolar habilidade de olhos místicos");
     }
 };
 

@@ -80,7 +80,7 @@ function rollScriptureAbility(scriptureAbility) {
 
 function showModal(modal: InstanceType<typeof TextInputModal | typeof TextAreaModal> | undefined, defaultValue: string) : void {
     if (modal == undefined) {
-        return;
+        throw new Error("Falha ao carregar loja de habilidades");
     }
 
     modal.modalRef?.showModal();

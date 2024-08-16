@@ -55,19 +55,16 @@ function editBackground(background: string) : void {
 }
 
 function updatePortrait() : void {
-    if (portraitInput.value == null) {
-        return;
-    }
-
-    if (portraitInput.value.files == null) {
-        return;
+    if (portraitInput.value == null || portraitInput.value.files == null) {
+        throw new Error("Falha ao atualizar retrato");
     }
 
     let fr = new FileReader();
     fr.readAsDataURL(portraitInput.value.files[0]);
+
     fr.onloadend = () => {
         if (typeof fr.result != "string") {
-            return;
+            throw new Error("Retrato inválido");
         }
 
         props.sheet.portrait = fr.result;
@@ -76,7 +73,7 @@ function updatePortrait() : void {
 
 function showModal(modal: InstanceType<typeof TextInputModal | typeof TextAreaModal> | undefined, defaultValue: string) : void {
     if (modal == undefined) {
-        return;
+        throw new Error("Falha ao carregar entrada de texto");
     }
 
     modal.modalRef?.showModal();
