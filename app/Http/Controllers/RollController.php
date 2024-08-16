@@ -30,7 +30,15 @@ class RollController extends Controller {
         $sheet = SheetEntity::buildFromModel($sheetController->showAsModel($request));
         $stat = $sheet->skillsRelations[$skill];
 
-        $this->broadcastAndStore(["portrait" => $sheet->portrait, "type" => "skill", "id" => $sheet->id, "subject" => $skill, "name" => $sheet->name, "rolls" => RollHelper::roll([$sheet->skills[$skill], $sheet->stats[$stat], $modifiers])]);
+        $this->broadcastAndStore([
+            "portrait" => $sheet->portrait,
+            "type" => "skill",
+            "id" => $sheet->id,
+            "subject" => $skill,
+            "name" => $sheet->name,
+            "rolls" => RollHelper::roll([$sheet->skills[$skill], $sheet->stats[$stat], $modifiers])
+            ]
+        );
     }
 
     public function rollSpell(Request $request, SheetController $sheetController) : void {
@@ -60,7 +68,21 @@ class RollController extends Controller {
 
         $sheet->update($sheetController->showFromId($sheet->id));
 
-        $this->broadcastAndStore(["portrait" => $sheet->portrait, "type" => "spell", "id" => $sheet->id, "recoilDamage" => $recoilRoll["recoil"], "cost" => $cost, "subject" => $spellString, "name" => $sheet->name,"rolls" => ["recoil" => $recoilRoll["roll"], "success" => $spellRoll, "specific" => $specificRoll ?? null]]);
+        $this->broadcastAndStore([
+            "portrait" => $sheet->portrait,
+            "type" => "spell",
+            "id" => $sheet->id,
+            "recoilDamage" => $recoilRoll["recoil"],
+            "cost" => $cost,
+            "subject" => $spellString,
+            "name" => $sheet->name,
+            "rolls" => [
+                "recoil" => $recoilRoll["roll"],
+                "success" => $spellRoll,
+                "specific" => $specificRoll ?? null
+                ]
+            ]
+        );
     }
 
     public function rollItem(Request $request, SheetController $sheetController) : void {
@@ -71,7 +93,15 @@ class RollController extends Controller {
 
         $roll = $item->strategy != null ? RollHelper::roll($item->strategy) : null;
 
-        $this->broadcastAndStore(["portrait" => $sheet->portrait, "type" => "item", "subject" => $item->name, "name" => $sheet->name, "id" => $sheet->id, "rolls" => $roll]);
+        $this->broadcastAndStore([
+            "portrait" => $sheet->portrait,
+            "type" => "item",
+            "subject" => $item->name,
+            "name" => $sheet->name,
+            "id" => $sheet->id,
+            "rolls" => $roll
+            ]
+        );
     }
 
     public function rollMysticEye(Request $request, SheetController $sheetController, MysticEyesController $mysticEyesController) : void {
@@ -86,7 +116,16 @@ class RollController extends Controller {
         // TODO: #2 Roll from strategy and apply effects to $target
         $roll = RollHelper::roll([5]); // Placeholder
 
-        $this->broadcastAndStore(["portrait" => $sheet->portrait, "id" => $sheet->id, "type" => "mystic_eye", "subject" => $eye->name, "name" => $sheet->name, "target" => $target->name, "rolls" => $roll]);
+        $this->broadcastAndStore([
+            "portrait" => $sheet->portrait,
+            "id" => $sheet->id,
+            "type" => "mystic_eye",
+            "subject" => $eye->name,
+            "name" => $sheet->name,
+            "target" => $target->name,
+            "rolls" => $roll
+            ]
+        );
     }
 
     public function rollGeneric(Request $request, SheetController $sheetController) : void {
@@ -94,7 +133,13 @@ class RollController extends Controller {
 
         $sheet = SheetEntity::buildFromModel($sheetController->showAsModel($request));
 
-        $this->broadcastAndStore(["portrait" => $sheet->portrait, "type" => "generic", "name" => $sheet->name, "rolls" => RollHelper::roll([$modifier])]);
+        $this->broadcastAndStore([
+            "portrait" => $sheet->portrait,
+            "type" => "generic",
+            "name" => $sheet->name,
+            "rolls" => RollHelper::roll([$modifier])
+            ]
+        );
     }
 
     private function rollRecoil(SheetEntity &$sheet, int $cost) : array {
@@ -106,7 +151,10 @@ class RollController extends Controller {
             $sheet->attributes["health"] -= $recoil;
         }
 
-        return ["recoil" => $recoil, "roll" => $recoilRoll];
+        return [
+            "recoil" => $recoil,
+            "roll" => $recoilRoll
+        ];
     }
 
     private function broadcastAndStore(array $rolls) {

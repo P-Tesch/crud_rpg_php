@@ -130,4 +130,26 @@ declare module "rpgTypes" {
         sheet_id: number;
         timestamp: number;
     }
+
+    export type RollInternal = {
+        rolls: number[];
+        hits: number;
+    }
+
+    export type RollSpell = {
+        recoil: RollInternal[];
+        success: RollInternal[] | null;
+        specific: RollInternal[] | null;
+    }
+
+    export type RollAssociative = {
+        portrait: string;
+        type: string;
+        id: number;
+        name: string;
+        subject: string;
+        target: string | null;
+        recoilDamage: number | null;
+        rolls: RollInternal | RollSpell;
+    }
 }
