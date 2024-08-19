@@ -5,9 +5,12 @@ import FailToast from './components/alerts/failToast.vue';
 const messages = ref<string[]>([]);
 
 window.onerror = (msg: string | Event, url: string | undefined, line: number | undefined, col: number | undefined, error: Error | undefined) : void => {
-    if (typeof msg == "string") {
-        showError(msg);
+    const errorMessage = error?.message;
+    if (errorMessage != null) {
+        showError(errorMessage);
     }
+
+    logError(url, line, col, msg);
 }
 
 window.addEventListener(
@@ -25,6 +28,22 @@ function showError(msg: string) : void {
             messages.value.shift();
         },
         3500
+    );
+}
+
+function logError(url: string | undefined, line: number | undefined, col: number | undefined, msg: string | Event) : void {
+    let message: string;
+    if (msg instanceof Event) {
+        message = msg.type;
+    } else {
+        message = msg;
+    }
+
+    console.error(
+        "URL: " + url + "\n" +
+        "Line: " + line + "\n" +
+        "Column: " + col + "\n" +
+        "Error: " + message
     );
 }
 
