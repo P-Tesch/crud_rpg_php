@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, onBeforeMount } from "vue"
 import type { Sheet, Miracle } from "rpgTypes";
+import { AxiosResponse } from "axios";
 
 interface Props {
     sheet: Sheet;
@@ -15,27 +16,22 @@ onBeforeMount(() => { getMiracles() })
 
 defineExpose({ modalRef });
 
-async function getMiracles() : Promise<void> {
+function getMiracles() : void {
     const url: string = "/api/miracles";
-    try {
-        const response: Response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(await response.text());
-        }
 
-        miracles.value = JSON.parse(await response.text())["data"];
-    } catch (error) {
-        let open: Window | null = window.open();
-
-        if (open != null) {
-            open.document.body.innerHTML = error.message;
+    window.axios.get(url)
+        .then((response: AxiosResponse) =>{
+            miracles.value = response.data["data"];
         }
-    }
+    ).catch(() => {
+            throw new Error("Falha ao buscar milagres");
+        }
+    );
 }
 
 function addToSheet(index: number) : void {
     if (miracles.value == null) {
-        return;
+        throw new Error("A lista de milagres está vazia");
     }
 
     let toAdd: Miracle = miracles.value[index];

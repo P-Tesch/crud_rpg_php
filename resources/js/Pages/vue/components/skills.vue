@@ -53,11 +53,11 @@ function canDecrease(key: string | number, value: number) : boolean {
 async function rollSkill(key: string | number) {
     const url: string = "/api/roll/skill?skill=" + key + "&modifier=0";
 
-    const response: Response = await fetch(url);
-
-    if (!response.ok) {
-        throw new Error("Falha ao rolar habilidade");
-    }
+    window.axios.get(url)
+        .catch(() => {
+            throw new Error("Falha ao rolar habilidade");
+        }
+    );
 }
 
 </script>

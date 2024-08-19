@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, onBeforeMount } from "vue"
 import type { ScriptureAbility, Sheet } from "rpgTypes";
+import { AxiosResponse } from "axios";
 
 interface Props {
     sheet: Sheet;
@@ -14,38 +15,32 @@ onBeforeMount(() => { getScriptureAbilities() });
 
 defineExpose({ modalRef });
 
-async function getScriptureAbilities() {
+function getScriptureAbilities() : void {
     const url: string = "/api/scripture_abilities";
-    try {
-        const response: Response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(await response.text());
-        }
 
-        scriptureAbilities.value = JSON.parse(await response.text())["data"];
-    } catch (error) {
-        let open: Window | null = window.open();
-
-        if (open != null) {
-            open.document.body.innerHTML = error.message;
+    window.axios.get(url)
+        .then((response: AxiosResponse) => {
+            scriptureAbilities.value = response.data["data"];
         }
-    }
+    ).catch(() => {
+            throw new Error("Falha ao buscar habilidades de escritura");
+        }
+    );
 }
 
-function addToSheet(index: number) {
+function addToSheet(index: number) : void {
     if (scriptureAbilities.value == null) {
-        return;
+        throw new Error("A lista de habilidades de escritura está vazia");
     }
 
     let toAdd: ScriptureAbility = scriptureAbilities.value[index];
     let original: ScriptureAbility[] = props.sheet.scripture.scriptureAbilities;
 
-    let shouldAdd: boolean = true;
     original.forEach(
         (value) => {
             if (value.name == toAdd.name) {
                 if (value.level >= toAdd.level) {
-                    shouldAdd = false;
+                    throw new Error("A escritura ja possui essa habilidade com um nível igual ou maior");
                 } else {
                     props.sheet.scripture.scriptureAbilities.splice(props.sheet.scripture.scriptureAbilities.indexOf(value), 1);
                 }
@@ -53,9 +48,7 @@ function addToSheet(index: number) {
         }
     );
 
-    if (shouldAdd) {
-        props.sheet.scripture.scriptureAbilities.push(toAdd);
-    }
+    props.sheet.scripture.scriptureAbilities.push(toAdd);
 }
 
 </script>

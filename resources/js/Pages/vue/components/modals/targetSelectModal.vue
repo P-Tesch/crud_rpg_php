@@ -4,7 +4,6 @@ import type { Sheet, Character } from "rpgTypes";
 
 interface Props {
     sheet: Sheet;
-    csrf: string;
 }
 
 const props = defineProps<Props>();
@@ -27,26 +26,16 @@ const updateCharacters = async () => {
 
 defineExpose({modalRef, updateCharacters});
 
-const heartbeat = async (): Promise<void> => {
-    const response: Response = await fetch("/api/live",{
-        method: "POST",
-        headers: {
-            "X-CSRF-Token": props.csrf,
-            "Content-Type": "application/json"
-        },
-        credentials: "same-origin",
-        body:
-        JSON.stringify({
-            sheet_id: props.sheet.id,
-            name: props.sheet.name,
-            portrait: props.sheet.portrait,
-            timestamp: new Date().getTime()
-        })
+const heartbeat = (): void => {
+    const url = "/api/live";
+    window.axios.post(url, {
+        sheet_id: props.sheet.id,
+        name: props.sheet.name,
+        portrait: props.sheet.portrait,
+        timestamp: new Date().getTime()
+    }).catch(() => {
+        throw new Error("Falha ao sincronizar com o servidor")
     });
-
-    if (!response.ok) {
-        throw new Error("Falha ao sincronizar com servidor");
-    }
 };
 
 heartbeat();

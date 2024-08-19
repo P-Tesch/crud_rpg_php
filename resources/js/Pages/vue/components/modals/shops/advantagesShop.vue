@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, onBeforeMount } from "vue";
 import type { Sheet, Advantage } from "rpgTypes";
+import { AxiosResponse } from "axios";
 
 interface Props {
     sheet: Sheet;
@@ -15,27 +16,22 @@ onBeforeMount(() => { getAdvantages() });
 
 defineExpose({ modalRef });
 
-async function getAdvantages() : Promise<void> {
+function getAdvantages() : void {
     const url: string = "/api/advantages";
-    try {
-        const response: Response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(await response.text());
-        }
 
-        advantages.value = JSON.parse(await response.text())["data"];
-    } catch (error) {
-        let open: Window | null = window.open();
-
-        if (open != null) {
-            open.document.body.innerHTML = error.message;
+    window.axios.get(url)
+        .then((response : AxiosResponse) => {
+            advantages.value = response.data["data"];
         }
-    }
+    ).catch(() => {
+            throw new Error("Falha ao buscar vantagens");
+        }
+    );
 }
 
 function addToSheet(index: number) : void {
     if (advantages.value == null) {
-        return;
+        throw new Error("A lista de vantagens está vazia");
     }
 
     let toAdd: Advantage = advantages.value[index];

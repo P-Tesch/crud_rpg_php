@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { AxiosResponse } from "axios";
 import { RollAssociative, Sheet } from "rpgTypes";
 import { ref, watch } from "vue";
 
@@ -51,16 +52,17 @@ function getBubbleStyle(roll: RollAssociative) : string {
     return roll["id"] == props.sheet.id ? "chat-bubble chat-bubble-primary float-right" : "chat-bubble chat-bubble-primary float-left";
 }
 
-async function setupRolls() : Promise<void> {
+function setupRolls() : void {
     const url: string = "/api/roll";
 
-    const response: Response = await fetch(url);
-
-    if (!response.ok) {
+    window.axios.get(url)
+        .then((response: AxiosResponse) => {
+            rolls.value = response.data;
+        }
+    ).catch(() => {
         throw new Error("Falha ao buscar histórico de rolagens");
-    }
-
-    rolls.value = JSON.parse(await response.text());
+        }
+    );
 }
 
 function scrollToBottom() : void {
