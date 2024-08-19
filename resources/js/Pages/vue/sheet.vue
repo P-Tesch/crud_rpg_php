@@ -19,11 +19,13 @@ import MiraclesTable from './components/miracles.vue'
 import MiraclesShop from './components/modals/shops/miraclesShop.vue'
 import Scripture from './components/scripture.vue'
 import ScriptureAbilitiesShop from './components/modals/shops/scriptureAbilitiesShop.vue'
+import SonatasTable from './components/sonatas.vue'
+import SonatasShop from './components/modals/shops/sonatasShop.vue'
 import TargetSelectModal from './components/modals/targetSelectModal.vue'
 import CreationPoints from './components/creationPoints.vue'
 import ErrorHandler from './errorHandler.vue'
 import { Sheet } from 'rpgTypes'
-import { AxiosResponse } from 'axios'
+import { AxiosError, AxiosResponse } from 'axios'
 
 interface Props {
     sheet: Sheet
@@ -42,6 +44,7 @@ const eyesModal = ref<InstanceType<typeof MysticEyesShop>>();
 const advantagesModal = ref<InstanceType<typeof AdvantagesShop>>();
 const miraclesModal = ref<InstanceType<typeof MiraclesShop>>();
 const scriptureAbilitiesModal = ref<InstanceType<typeof ScriptureAbilitiesShop>>();
+const sonatasModal = ref<InstanceType<typeof SonatasShop>>();
 const targetModal = ref<InstanceType<typeof TargetSelectModal>>();
 
 const successToast = ref<InstanceType<typeof SuccessToast>>();
@@ -54,6 +57,7 @@ const schoolsKey = ref<number>(0);
 const mysticEyesKey = ref<number>(0);
 const advantagesKey = ref<number>(0);
 const scriptureKey = ref<number>(0);
+const sonatasKey = ref<number>(0);
 
 const calculateGridCols = () : void => {
     if (window.innerWidth >= 1400) {
@@ -93,11 +97,12 @@ function persist() : void {
             this.mysticEyesKey++;
             this.advantagesKey++;
             this.scriptureKey++;
+            this.sonatasKey++;
 
             this.successToast.toastRef = true;
             setTimeout(() => this.successToast.toastRef = false, 2500);
         }
-    ).catch(() => {
+    ).catch((e: AxiosError) => {
             throw new Error("Falha ao salvar ficha");
         }
     );
@@ -134,6 +139,7 @@ function endTurn() : void {
         <StatsTable :sheet :key="statsKey" />
         <SkillsTable :sheet :key="skillsKey" />
         <SchoolsTable :sheet @add="schoolsModal.modalRef.showModal()" @sync="updateSheet()" v-if="sheet.classes['isMage']" :key="schoolsKey"/>
+        <SonatasTable :sheet @add="sonatasModal?.modalRef?.showModal()" v-if="sheet.classes['isVampire']" :key="sonatasKey" />
         <Scripture :sheet :key="scriptureKey" v-if="sheet.classes['isCleric']" @add="scriptureAbilitiesModal.modalRef.showModal()" ref="scripture" />
         <ItemsTable :sheet @sync="updateSheet()" />
         <MysticEyesTable :sheet @add="eyesModal.modalRef.showModal()" @target="targetModal.updateCharacters(); targetModal.modalRef.showModal()" :key="mysticEyesKey" ref="mysticEyesTable" />
@@ -160,6 +166,9 @@ function endTurn() : void {
     </Teleport>
     <Teleport to="body">
         <ScriptureAbilitiesShop :sheet ref="scriptureAbilitiesModal" />
+    </Teleport>
+    <Teleport to="body">
+        <SonatasShop :sheet ref="sonatasModal" />
     </Teleport>
     <Teleport to="body">
         <TargetSelectModal :sheet ref="targetModal" @end="(id: number) => mysticEyesTable.rollMysticEye(id)"/>

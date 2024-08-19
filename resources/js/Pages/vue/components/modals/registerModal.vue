@@ -117,6 +117,24 @@ function buildSheet() {
                 "value": 1
             }
         );
+        attributes.push(
+            {
+                "key": "blood_points",
+                "value": 0
+            },
+            {
+                "key": "blood_xp_animal",
+                "value": 0
+            },
+            {
+                "key": "blood_xp_human",
+                "value": 0,
+            },
+            {
+                "key": "blood_xp_vampire",
+                "value": 0
+            }
+        );
     }
     if (this.charClass == "mixed") {
         stats.push(

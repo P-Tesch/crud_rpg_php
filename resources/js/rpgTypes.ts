@@ -117,6 +117,27 @@ declare module "rpgTypes" {
         [key: string]: School;
     }
 
+    export type SonataAbility = {
+        name: string;
+        description: string;
+        level: number;
+        cost: number;
+    }
+
+    export type Sonata = {
+        id: number;
+        sonata_abilities: SonataAbility[];
+    }
+
+    export type SonataArray = {
+        [key: string]: Sonata;
+    }
+
+    export interface SonataFromShop extends Sonata {
+        name: string;
+        description: string;
+    }
+
     export type Item = {
         name: string;
         description: string;
@@ -145,7 +166,7 @@ declare module "rpgTypes" {
         scripture: Scripture;
         skills: Skills;
         skillsRelations: SkillsRelations;
-        sonatas: null[];
+        sonatas: SonataArray;
         stats: Stats;
     }
 

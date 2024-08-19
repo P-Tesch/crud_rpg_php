@@ -114,6 +114,13 @@ class SheetEntity {
         $this->advantages = $advantages;
 
         $this->sonatas = [];
+        foreach ($args["sonatas"] as $name => $sonata) {
+            $sonataModel = SonatasController::findByName($name);
+            $this->sonatas[$sonataModel->name] = [
+                "id" => $sonataModel->id,
+                "abilities" => []
+            ];
+        }
 
         $this->setClasses();
 
@@ -183,7 +190,7 @@ class SheetEntity {
                 "abilites" => []
             ];
             foreach ($sonata->sonataAbilities as $ability) {
-                if ($sheet->SonataAbilities->contains($ability)) {
+                if ($sheet->sonataAbilities->contains($ability)) {
                     $this->sonatas[$sonata->name]["abilities"] = $ability;
                 }
             }
@@ -211,6 +218,9 @@ class SheetEntity {
         if (array_key_exists("faith", $this->stats)) {
             $max = (int) floor($this->stats["faith"] / 2);
             $this->maxAttributes["max_scripture_points"] = $max == 0 ? 1 : $max;
+        }
+        if (array_key_exists("blood_points", $this->attributes)) {
+            $this->maxAttributes["max_blood_points"] = 20 * $this->stats["lineage"];
         }
     }
 

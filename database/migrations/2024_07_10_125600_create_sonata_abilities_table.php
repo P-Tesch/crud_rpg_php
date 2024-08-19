@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string("name", 63);
             $table->string("description", 511);
             $table->integer("level");
+            $table->integer("cost");
             $table->string("strategy")->nullable();
         });
     }

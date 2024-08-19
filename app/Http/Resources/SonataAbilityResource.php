@@ -17,7 +17,8 @@ class SonataAbilityResource extends JsonResource
         return [
             "name" => $this->name,
             "description" => $this->description,
-            "level" => $this->level
+            "level" => $this->level,
+            "cost" => $this->cost
         ];
     }
 }
