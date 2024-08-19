@@ -11,14 +11,14 @@ const props = defineProps<Props>();
 const originalMysticEyes: MysticEye[] = Object.assign({}, props.sheet.mysticEyes);
 const selectedEye = ref<number>();
 
-const rollMysticEye = async (target: number) : Promise<void> => {
+const rollMysticEye = (target: number) : void => {
     const url: string = "/api/roll/mystic_eyes?eye=" + selectedEye.value + "&target=" + target + "&modifier=0";
 
-    const response: Response = await fetch(url);
-
-    if (!response.ok) {
-    throw new Error("Falha ao rolar habilidade de olhos místicos");
-    }
+    window.axios.get(url)
+        .catch(() => {
+            throw new Error("Falha ao rolar habilidade de olhos místicos");
+        }
+    );
 };
 
 defineExpose({rollMysticEye});

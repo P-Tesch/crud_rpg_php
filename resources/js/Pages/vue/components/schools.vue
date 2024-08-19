@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, toRaw } from "vue";
-import FailToast from './alerts/failToast.vue';
 import NumberInputModal from './modals/numberInputModal.vue';
 import { School, SchoolArray, Sheet } from 'rpgTypes';
 
@@ -13,7 +12,6 @@ const props = defineProps<Props>();
 const originalSchools: SchoolArray | any[] = structuredClone(toRaw(props.sheet.schools));
 
 const emit = defineEmits(["sync", "add"]);
-const failToast = ref<InstanceType<typeof FailToast>>();
 const costModal = ref<InstanceType<typeof NumberInputModal>>();
 
 const types = {
@@ -28,20 +26,21 @@ function rollSpell(school: string | number, spell: string | number) : void {
     this.spell = spell;
 }
 
-async function roll(cost: number) : Promise<void> {
+function roll(cost: number) : void {
     if (props.sheet.attributes.mana < cost || cost == null) {
         throw new Error("Mana insuficiente");
     }
 
     const url: string = "/api/roll/spell?school=" + this.school + "&spell=" + this.spell + "&cost=" + cost + "&modifier=0";
 
-    const response: Response = await fetch(url);
-
-    if (!response.ok) {
-        throw new Error("Falha ao rolar magia");
-    }
-
-    emit("sync");
+    window.axios.get(url)
+        .then(() => {
+            emit("sync");
+        }
+    ).catch(() => {
+            throw new Error("Falha ao rolar magia");
+        }
+    );
 }
 
 function isOriginal(value: School, key: string | number) : boolean {

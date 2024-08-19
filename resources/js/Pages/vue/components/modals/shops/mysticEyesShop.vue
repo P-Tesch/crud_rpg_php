@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, onBeforeMount } from "vue"
 import type { Sheet, MysticEye } from "rpgTypes";
+import { AxiosResponse } from "axios";
 
 interface Props {
     sheet: Sheet;
@@ -14,33 +15,28 @@ onBeforeMount(() => { getEyes() })
 
 defineExpose({ modalRef });
 
-async function getEyes() : Promise<void> {
+function getEyes() : void {
         const url: string = "/api/mystic_eyes";
-    try {
-        const response: Response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(await response.text());
-        }
 
-        eyes.value = JSON.parse(await response.text())["data"];
-    } catch (error) {
-        let open: Window | null = window.open();
-
-        if (open != null) {
-            open.document.body.innerHTML = error.message;
+        window.axios.get(url)
+            .then((response: AxiosResponse) => {
+                eyes.value = response.data["data"];
+            }
+        ).catch(() => {
+            throw new Error("Falha ao buscar olhos místicos");
         }
-    }
+    );
 }
 
 function addToSheet(index: number) : void {
     if (eyes.value == null) {
-        return;
+        throw new Error("A lista de olhos místicos está vazia");
     }
 
     let toAdd: MysticEye = eyes.value[index];
     let original: MysticEye[] = props.sheet.mysticEyes;
     if (original.length >= 2) {
-        return;
+        throw new Error("O personagem ja possui o máximo de olhos místicos");
     }
 
     let exists: boolean = false;
@@ -51,7 +47,7 @@ function addToSheet(index: number) : void {
     });
 
     if (exists) {
-        return;
+        throw new Error("O personagem ja possui esse olho");
     }
 
     toAdd.pivot = {

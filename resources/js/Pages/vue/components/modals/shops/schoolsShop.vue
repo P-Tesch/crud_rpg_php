@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, onBeforeMount } from "vue";
-import type { Sheet, School, SchoolFromShop, SpellArray } from "rpgTypes";
+import type { Sheet, School, SchoolFromShop, SpellArray, SchoolArray } from "rpgTypes";
+import { AxiosResponse } from "axios";
 
 interface Props {
     sheet: Sheet;
@@ -20,37 +21,32 @@ onBeforeMount(() => {getSchools()})
 
 defineExpose({modalRef});
 
-async function getSchools() : Promise<void> {
+function getSchools() : void {
     const url: string = "/api/schools";
-    try {
-        const response: Response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(await response.text());
-        }
 
-        schools.value = JSON.parse(await response.text())["data"];
-    } catch (error) {
-        let open: Window | null = window.open();
-
-        if (open != null) {
-            open.document.body.innerHTML = error.message;
+    window.axios.get(url)
+        .then((response: AxiosResponse) => {
+            schools.value = response.data["data"];
         }
-    }
+    ).catch(() => {
+        throw new Error("Falha ao buscar escolas");
+        }
+    );
 }
 
 function addToSheet(index: number) : void {
     if (schools.value == null) {
-        return;
+        throw new Error("A lista de escolha está vazia");
     }
 
-    if (props.sheet.schools.length == 0) {
+    if (props.sheet.schools.length != undefined) {
         props.sheet.schools = {}
     }
     let toAdd: SchoolFromShop = schools.value[index];
 
     let original: School = props.sheet.schools[toAdd.name];
     if (original != null && original.level >= toAdd.level) {
-        return;
+        throw new Error("O personagem ja possui essa escola com um nível igual ou maior");
     }
 
     let spells: SpellArray = {};
@@ -67,6 +63,7 @@ function addToSheet(index: number) : void {
     }
     else {
         props.sheet.schools[toAdd.name] = {
+            "id": toAdd.id,
             "level": toAdd.level,
             "cost": toAdd.cost,
             "spells": spells

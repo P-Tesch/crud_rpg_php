@@ -11,14 +11,8 @@ const emit = defineEmits(["sync"]);
 async function rollItem(item: Item) : Promise<void> {
     const url: string = "/api/roll/item?item=" + item.id;
 
-    const response: Response = await fetch(url);
+    // TODO
 
-    if (!response.ok) {
-        throw new Error("Falha ao rolar item");
-    }
-
-    const json = JSON.parse(await response.text());
-    alert(JSON.stringify(json["rolls"]));
     emit("sync");
 }
 
