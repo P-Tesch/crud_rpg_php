@@ -21,6 +21,7 @@ import Scripture from './components/scripture.vue'
 import ScriptureAbilitiesShop from './components/modals/shops/scriptureAbilitiesShop.vue'
 import TargetSelectModal from './components/modals/targetSelectModal.vue'
 import CreationPoints from './components/creationPoints.vue'
+import ErrorHandler from './errorHandler.vue'
 import { Sheet } from 'rpgTypes'
 import { AxiosResponse } from 'axios'
 
@@ -165,5 +166,5 @@ function endTurn() : void {
     </Teleport>
 
     <SuccessToast class="z-10" ref="successToast" :message="'Ficha salva com sucesso'" />
-    <FailToast class="z-10" ref="failToast" :message="'Pontos de criação insuficientes'" />
+    <ErrorHandler />
 </template>
