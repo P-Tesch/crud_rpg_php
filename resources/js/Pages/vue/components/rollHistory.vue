@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { AxiosResponse } from "axios";
 import { RollAssociative, Sheet } from "rpgTypes";
-import { ref, watch } from "vue";
+import { ref, watch, onMounted } from "vue";
 
 interface Props {
     sheet: Sheet;
@@ -11,14 +11,11 @@ const props = defineProps<Props>();
 const rolls = ref<RollAssociative[]>([]);
 
 const endOfHistory = ref<HTMLDivElement>();
-watch(rolls, () => {scrollToBottom()});
+watch(rolls, () => { scrollToBottom() });
 
-async function setup() : Promise<void> {
-    await setupRolls();
-    scrollToBottom();
-}
-
-setup();
+onMounted(() => {
+    setupRolls();
+});
 
 const skills = {
     "speed": "Velocidade",
@@ -58,6 +55,7 @@ function setupRolls() : void {
     window.axios.get(url)
         .then((response: AxiosResponse) => {
             rolls.value = response.data;
+            setTimeout(() => {scrollToBottom()}, 1);
         }
     ).catch(() => {
         throw new Error("Falha ao buscar histórico de rolagens");
