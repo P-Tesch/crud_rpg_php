@@ -17,9 +17,6 @@ return new class extends Migration
             $table->string("description", 511);
             $table->integer("level");
             $table->string("strategy")->nullable();
-
-            $table->unsignedBigInteger("sonata_id");
-            $table->foreign("sonata_id")->references("id")->on("sonatas");
         });
     }
 

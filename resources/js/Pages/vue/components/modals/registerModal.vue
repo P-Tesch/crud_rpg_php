@@ -395,9 +395,6 @@ async function register() {
                     </div>
 
                 </div>
-                <div v-if="charClass == 'vampire'" class="outline outline-primary flex flex-col gap-5 p-5 rounded-xl">
-
-                </div>
                 <div v-if="charClass == 'hybrid'" class="outline outline-primary flex flex-col gap-5 p-5 rounded-xl">
 
                 </div>

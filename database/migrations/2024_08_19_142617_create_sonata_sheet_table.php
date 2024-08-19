@@ -11,10 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sonatas', function (Blueprint $table) {
+        Schema::create('sheet_sonata', function (Blueprint $table) {
             $table->id();
-            $table->string("name", 63);
-            $table->string("description", 511);
+
+            $table->unsignedBigInteger("sonata_id");
+            $table->foreign("sonata_id")->references("id")->on("sonatas");
+
+            $table->unsignedBigInteger("sheet_id");
+            $table->foreign("sheet_id")->references("id")->on("sheets");
         });
     }
 
@@ -23,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sonatas');
+        Schema::dropIfExists('sheet_sonata');
     }
 };

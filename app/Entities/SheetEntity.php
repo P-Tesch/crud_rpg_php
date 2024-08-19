@@ -7,6 +7,7 @@ use App\Http\Controllers\MiraclesController;
 use App\Http\Controllers\MysticEyesController;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\ScriptureAbilitiesController;
+use App\Http\Controllers\SonatasController;
 use App\Models\Item;
 use App\Models\Sonata;
 use App\Models\Blood;
@@ -112,10 +113,7 @@ class SheetEntity {
         }
         $this->advantages = $advantages;
 
-        foreach ($args["sonatas"] as $sonata) {
-            $sonataModel = new Sonata($sonata);
-            $this->sonatas[] = $sonataModel;
-        }
+        $this->sonatas = [];
 
         $this->setClasses();
 
@@ -143,7 +141,6 @@ class SheetEntity {
         if ($this->scripture != null) {
             $this->scripture->scriptureAbilities = $sheet->scripture->scriptureAbilities?->toArray();
         }
-        $this->sonatas = $sheet->sonatas?->toArray();
         $this->mysticEyes = $sheet->mysticEyes?->all();
 
         foreach ($sheet->stats as $stat) {
@@ -177,6 +174,19 @@ class SheetEntity {
         $this->miracles = [];
         foreach ($sheet->miracles as $miracle) {
             $this->miracles[] = MiraclesController::findByName($miracle["name"]);
+        }
+
+        $this->sonatas = [];
+        foreach ($sheet->sonatas as $sonata) {
+            $this->sonatas[$sonata->name] = [
+                "id" => $sonata->id,
+                "abilites" => []
+            ];
+            foreach ($sonata->sonataAbilities as $ability) {
+                if ($sheet->SonataAbilities->contains($ability)) {
+                    $this->sonatas[$sonata->name]["abilities"] = $ability;
+                }
+            }
         }
 
         $this->setClasses();
@@ -290,13 +300,30 @@ class SheetEntity {
             $model->scripture->scriptureAbilities()->sync($scriptureAbilities, true);
         }
 
+        $sonatas = [];
+        foreach (array_keys($this->sonatas) as $sonataName) {
+            $sonatas[] = $this->sonatas[$sonataName]["id"];
+        }
+        $model->sonatas()->sync($sonatas, true);
+
+        $sonataAbilities = [];
+        foreach ($this->sonatas as $sonata) {
+            foreach ($sonata["abilities"] as $ability) {
+                $sonataAbilities[] = $ability->id;
+            }
+        }
+        $model->SonataAbilities()->sync($sonataAbilities, true);
+
         $this->setClasses();
         $model->save();
     }
 
     private function setClasses() {
         $this->classes = [];
-        $this->classes["isMage"] = $this->alignment != null;
-        $this->classes["isCleric"] = $this->organization != null;
+        $this->classes["isMage"] = array_key_exists("magic", $this->stats);
+        $this->classes["isCleric"] = array_key_exists("faith", $this->stats);
+        $this->classes["isVampire"] = array_key_exists("lineage", $this->stats);
+        $this->classes["isMagiteck"] = array_key_exists("tech", $this->stats);
+        $this->classes["isHybrid"] = array_key_exists("blood", $this->stats);
     }
 }

@@ -68,7 +68,11 @@ class Sheet extends Model
         return $this->hasOne(Scripture::class);
     }
 
-    public function sonatas() : HasMany {
-        return $this->hasMany(Sonata::class);
+    public function sonatas() : BelongsToMany {
+        return $this->belongsToMany(Sonata::class);
+    }
+
+    public function SonataAbilities() : BelongsToMany {
+        return $this->belongsToMany(SonataAbility::class);
     }
 }
