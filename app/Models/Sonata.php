@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -23,7 +22,7 @@ class Sonata extends Model
         return $this->hasMany(SonataAbility::class);
     }
 
-    public function sheet() : BelongsTo {
-        return $this->belongsTo(Sheet::class);
+    public function sheet() : BelongsToMany {
+        return $this->belongsToMany(Sheet::class);
     }
 }

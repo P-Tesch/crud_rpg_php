@@ -33,6 +33,11 @@ function decrease(key: string | number) : void {
 }
 
 function canIncrease(key: string | number, value: number) : boolean {
+    let max = 5;
+    if (props.sheet.classes.isVampire) {
+        max = 7;
+    }
+
     switch (key) {
         case "tech":
         case "lineage":
@@ -42,7 +47,7 @@ function canIncrease(key: string | number, value: number) : boolean {
         case "faith":
             return value < 10;
         default:
-            return value < 5;
+            return value < max;
     }
 }
 

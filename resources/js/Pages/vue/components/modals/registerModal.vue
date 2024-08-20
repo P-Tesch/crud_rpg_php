@@ -117,6 +117,24 @@ function buildSheet() {
                 "value": 1
             }
         );
+        attributes.push(
+            {
+                "key": "blood_points",
+                "value": 0
+            },
+            {
+                "key": "blood_xp_animal",
+                "value": 0
+            },
+            {
+                "key": "blood_xp_human",
+                "value": 0,
+            },
+            {
+                "key": "blood_xp_vampire",
+                "value": 0
+            }
+        );
     }
     if (this.charClass == "mixed") {
         stats.push(
@@ -393,9 +411,6 @@ async function register() {
                             <input v-model="organization" :value="'exorcists'" type="radio" name="alignment-radio" class="radio radio-accent" />
                         </label>
                     </div>
-
-                </div>
-                <div v-if="charClass == 'vampire'" class="outline outline-primary flex flex-col gap-5 p-5 rounded-xl">
 
                 </div>
                 <div v-if="charClass == 'hybrid'" class="outline outline-primary flex flex-col gap-5 p-5 rounded-xl">

@@ -7,9 +7,11 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SheetController;
 use App\Http\Controllers\SchoolController;
+use App\Http\Controllers\SonatasController;
 use App\Http\Controllers\MiraclesController;
 use App\Http\Controllers\AdvantagesController;
 use App\Http\Controllers\MysticEyesController;
+use App\Http\Controllers\SonataAbilitiesController;
 use App\Http\Controllers\ScriptureAbilitiesController;
 
 Route::post("/users", [UserController::class, "store"]);
@@ -42,6 +44,10 @@ Route::group(["middleware" => ["web"]], function () {
     Route::get("/miracles", [MiraclesController::class, "index"]);
 
     Route::get("/scripture_abilities", [ScriptureAbilitiesController::class, "index"]);
+
+    Route::get("/sonatas", [SonatasController::class, "index"]);
+
+    Route::get("/sonata_abilities", [SonataAbilitiesController::class, "indexBySonata"]);
 
     Route::post("/live", [LiveController::class, "heartbeat"]);
     Route::get("/live", [LiveController::class, "alive"]);

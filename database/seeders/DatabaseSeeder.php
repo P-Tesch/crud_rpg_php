@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\School;
+use App\Models\Sonata;
 use App\Models\Miracle;
 use App\Models\Advantage;
 use App\Models\MysticEye;
@@ -35,6 +36,11 @@ class DatabaseSeeder extends Seeder
 
         Miracle::factory()
             ->count(10)
+            ->create();
+
+        Sonata::factory()
+            ->count(10)
+            ->hasSonataAbilities(fake()->numberBetween(1, 5))
             ->create();
     }
 }

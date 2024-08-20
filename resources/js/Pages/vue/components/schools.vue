@@ -9,7 +9,7 @@ interface Props {
 
 const props = defineProps<Props>();
 
-const originalSchools: SchoolArray | any[] = structuredClone(toRaw(props.sheet.schools));
+const originalSchools: SchoolArray = structuredClone(toRaw(props.sheet.schools));
 
 const emit = defineEmits(["sync", "add"]);
 const costModal = ref<InstanceType<typeof NumberInputModal>>();

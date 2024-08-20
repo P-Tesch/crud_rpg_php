@@ -56,6 +56,7 @@ class SheetController extends Controller
         $sheet->schools()->attach($request->get("schools"));
         $sheet->mysticEyes()->attach($request->get("mystic_eyes"));
         $sheet->advantages()->attach($request->get("advantages"));
+        $sheet->sonatas()->attach($request->get("sonatas"));
 
         foreach ($request->get("stats") as $statArray) {
             $stat = new Stat();
@@ -174,23 +175,6 @@ class SheetController extends Controller
                 $sa->level = $saArray["level"];
                 $sa->strategy = $saArray["strategy"];
                 $sa->scripture_id = $scripture->id;
-                $sa->save();
-            }
-        }
-
-        foreach ($request->get("sonatas") as $sonataArray) {
-            $sonata = new Sonata;
-            $sonata->name = $sonataArray["name"];
-            $sonata->description = $sonataArray["description"];
-            $sonata->sheet_id = $sheet->id;
-            $sonata->save();
-            foreach ($sonataArray["sonata_abilities"] as $saArray) {
-                $sa = new SonataAbility;
-                $sa->name = $saArray["name"];
-                $sa->description = $saArray["description"];
-                $sa->level = $saArray["level"];
-                $sa->strategy = $saArray["strategy"];
-                $sa->sonata_id = $sonata->id;
                 $sa->save();
             }
         }
