@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { toRaw } from "vue";
-import { Sheet, SonataArray } from 'rpgTypes';
+import { Sheet, SonataAbility, SonataArray } from 'rpgTypes';
 
 interface Props {
     sheet: Sheet;
@@ -20,8 +20,27 @@ function isOriginal(key: string | number) : boolean {
     return !originalSonatas.hasOwnProperty(key);
 }
 
+function isOriginalAbility(sonataKey: string | number, ability: SonataAbility) : boolean {
+    let original = true;
+    originalSonatas[sonataKey].abilities.forEach((entry) => {
+        if (entry.name == ability.name) {
+            original = false;
+        }
+    });
+    return original;
+}
+
 function remove(key: string | number) : void {
     delete props.sheet.sonatas[key];
+}
+
+function removeAbility(sonataKey: string | number, abilityKey: number, ability: SonataAbility) : void {
+    if (!isOriginalAbility(sonataKey, ability)) {
+        props.sheet.sonatas[sonataKey].abilities[abilityKey] = structuredClone(originalSonatas[sonataKey].abilities[abilityKey]);
+    } else {
+        props.sheet.sonatas[sonataKey].abilities.splice(abilityKey, 1);
+    }
+
 }
 
 </script>
@@ -38,16 +57,17 @@ function remove(key: string | number) : void {
                     <input type="checkbox" name="sonatas-collapse" />
                     <div class="collapse-title text-xl font-medium">{{ key }}</div>
                     <div class="collapse-content">
-                        <div v-for="ability, k in sonata.sonata_abilities" class="collapse collapse-arrow bg-base-100">
+                        <div v-for="ability, k in sonata.abilities" class="collapse collapse-arrow bg-base-100">
+                            <button v-if="isOriginalAbility(key, ability)" class="btn btn-sm btn-circle btn-ghost absolute right-10 top-3.5 z-10 overflow-visible" @click="removeAbility(key, k, ability)">✕</button>
                             <input type="checkbox" name="sonata-abilities-collapse" />
                             <div class="collapse-title text-xl font-medium">{{ ability.name }} [{{ ability.level }}]</div>
-                            <div class="collapse-content">
-                                <p>Descrição: {{ ability.description }}</p>
-                                <button class="btn btn-outline btn-secondary btn-sm" @click="rollSonata(key, k)">Rolar</button>
+                            <div class="collapse-content flex flex-col">
+                                <p class="">Descrição: {{ ability.description }}</p>
+                                <button class="btn btn-outline btn-secondary btn-sm ml-auto mr-5" @click="rollSonata(key, k)">Rolar</button>
                             </div>
                         </div>
                         <div class="w-full text-center">
-                            <button class="btn btn-outline btn-accent w-full my-3" @click="$emit('add')">Adicionar</button>
+                            <button class="btn btn-outline btn-accent w-full my-3" @click="$emit('addAbility', key)">Adicionar</button>
                         </div>
                     </div>
                 </div>

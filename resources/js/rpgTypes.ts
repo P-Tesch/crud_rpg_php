@@ -126,7 +126,7 @@ declare module "rpgTypes" {
 
     export type Sonata = {
         id: number;
-        sonata_abilities: SonataAbility[];
+        abilities: SonataAbility[];
     }
 
     export type SonataArray = {

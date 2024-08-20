@@ -46,7 +46,7 @@ function addToSheet(index: number) : void {
 
     props.sheet.sonatas[sonata.name] = {
         id: sonata.id,
-        sonata_abilities: []
+        abilities: []
     };
 }
 
@@ -63,7 +63,7 @@ function addToSheet(index: number) : void {
                 <div class="flex flex-col outline outline-primary p-2 rounded-box" v-for="sonata, key in sonatas">
                     <h4 class="text-xl font-semibold">{{ sonata.name }}</h4>
                     <p>{{ sonata.description }}</p>
-                    <div v-for="ability in sonata.sonata_abilities" class="collapse collapse-arrow bg-base-100">
+                    <div v-for="ability in sonata.abilities" class="collapse collapse-arrow bg-base-100">
                         <input type="checkbox" name="spells-collapse" />
                         <div class="collapse-title text-xl font-medium">{{ ability.name }}</div>
                         <div class="collapse-content">

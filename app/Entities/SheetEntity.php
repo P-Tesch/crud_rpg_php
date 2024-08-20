@@ -7,9 +7,9 @@ use App\Http\Controllers\MiraclesController;
 use App\Http\Controllers\MysticEyesController;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\ScriptureAbilitiesController;
+use App\Http\Controllers\SonataAbilitiesController;
 use App\Http\Controllers\SonatasController;
 use App\Models\Item;
-use App\Models\Sonata;
 use App\Models\Blood;
 use App\Models\Sheet;
 use App\Enums\Alignment;
@@ -118,7 +118,7 @@ class SheetEntity {
             $sonataModel = SonatasController::findByName($name);
             $this->sonatas[$sonataModel->name] = [
                 "id" => $sonataModel->id,
-                "abilities" => []
+                "abilities" => $sonata["abilities"]
             ];
         }
 
@@ -187,11 +187,11 @@ class SheetEntity {
         foreach ($sheet->sonatas as $sonata) {
             $this->sonatas[$sonata->name] = [
                 "id" => $sonata->id,
-                "abilites" => []
+                "abilities" => []
             ];
             foreach ($sonata->sonataAbilities as $ability) {
                 if ($sheet->sonataAbilities->contains($ability)) {
-                    $this->sonatas[$sonata->name]["abilities"] = $ability;
+                    $this->sonatas[$sonata->name]["abilities"][] = $ability;
                 }
             }
         }
@@ -319,7 +319,8 @@ class SheetEntity {
         $sonataAbilities = [];
         foreach ($this->sonatas as $sonata) {
             foreach ($sonata["abilities"] as $ability) {
-                $sonataAbilities[] = $ability->id;
+                $abilityModel = SonataAbilitiesController::findByNameAndLevel($ability["name"], $ability["level"]);
+                $sonataAbilities[] = $abilityModel->id;
             }
         }
         $model->SonataAbilities()->sync($sonataAbilities, true);
