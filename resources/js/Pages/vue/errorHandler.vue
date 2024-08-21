@@ -8,9 +8,13 @@ const messages = ref<string[]>([]);
 window.onerror = (msg: string | Event, url: string | undefined, line: number | undefined, col: number | undefined, error: Error | undefined) : boolean => {
     const errorMessage = error?.message;
 
-    if (errorMessage != null && error instanceof ToastError) {
-        showError(errorMessage);
-        return true;
+    if (errorMessage != null) {
+        if (error instanceof ToastError) {
+            showError(errorMessage);
+            return true;
+        }
+
+        window.document.body.innerHTML = errorMessage;
     }
 
     return false;
@@ -25,6 +29,8 @@ window.addEventListener(
             showError(error.message);
             return true;
         }
+
+        window.document.body.innerHTML = error.message;
 
         return false;
     }
