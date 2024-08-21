@@ -27,6 +27,7 @@ import CreationPoints from './components/creationPoints.vue'
 import ErrorHandler from './errorHandler.vue'
 import { Sheet } from 'rpgTypes'
 import { AxiosError, AxiosResponse } from 'axios'
+import ToastError from '../../ToastError'
 
 interface Props {
     sheet: Sheet
@@ -84,7 +85,7 @@ onMounted(() : void => {
 
 function persist() : void {
     if (this.points.points.remainingPoints < 0 || (this.scripture != null && this.scripture.remainingPoints < 0)) {
-        throw new Error("Pontos de criação insuficientes");
+        throw new ToastError("Pontos de criação insuficientes");
     }
 
     const url: string = "/api/sheets";
@@ -104,9 +105,8 @@ function persist() : void {
             this.successToast.toastRef = true;
             setTimeout(() => this.successToast.toastRef = false, 2500);
         }
-    ).catch((e: AxiosError) => {
-        window.document.body.innerHTML = JSON.stringify(e.response?.data);
-            throw new Error("Falha ao salvar ficha");
+    ).catch((error: AxiosError) => {
+            throw new ToastError("Falha ao salvar ficha", error);
         }
     );
 }
@@ -121,8 +121,8 @@ async function updateSheet() : Promise<void> {
             props.sheet.maxAttributes = sheet.maxAttributes;
             props.sheet.portrait = sheet.portrait;
         }
-    ).catch(() => {
-            throw new Error("Falha ao atualizar ficha");
+    ).catch((error: AxiosError) => {
+            throw new ToastError("Falha ao atualizar ficha", error);
         }
     );
 }

@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { ref, onBeforeMount } from "vue";
 import type { Sheet, Advantage } from "rpgTypes";
-import { AxiosResponse } from "axios";
+import { AxiosError, AxiosResponse } from "axios";
+import ToastError from "../../../../../ToastError";
 
 interface Props {
     sheet: Sheet;
@@ -23,15 +24,15 @@ function getAdvantages() : void {
         .then((response : AxiosResponse) => {
             advantages.value = response.data["data"];
         }
-    ).catch(() => {
-            throw new Error("Falha ao buscar vantagens");
+    ).catch((error: AxiosError) => {
+            throw new ToastError("Falha ao buscar vantagens", error);
         }
     );
 }
 
 function addToSheet(index: number) : void {
     if (advantages.value == null) {
-        throw new Error("A lista de vantagens está vazia");
+        throw new ToastError("A lista de vantagens está vazia");
     }
 
     let toAdd: Advantage = advantages.value[index];

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import type { Sheet, Character } from "rpgTypes";
+import ToastError from "../../../../ToastError.ts";
 
 interface Props {
     sheet: Sheet;
@@ -18,7 +19,7 @@ const updateCharacters = async () => {
     });
 
     if (!response.ok) {
-        throw new Error("Falha ao atualizar lista de personagens");
+        throw new ToastError("Falha ao atualizar lista de personagens");
     }
 
     characters.value = JSON.parse(await response.text());
@@ -34,7 +35,7 @@ const heartbeat = (): void => {
         portrait: props.sheet.portrait,
         timestamp: new Date().getTime()
     }).catch(() => {
-        throw new Error("Falha ao sincronizar com o servidor")
+        throw new ToastError("Falha ao sincronizar com o servidor");
     });
 };
 

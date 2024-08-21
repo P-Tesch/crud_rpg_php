@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { AxiosResponse } from "axios";
+import { AxiosError, AxiosResponse } from "axios";
 import { RollAssociative, Sheet } from "rpgTypes";
 import { ref, watch, onMounted } from "vue";
+import ToastError from "../../../ToastError";
 
 interface Props {
     sheet: Sheet;
@@ -57,8 +58,8 @@ function setupRolls() : void {
             rolls.value = response.data;
             setTimeout(() => {scrollToBottom()}, 1);
         }
-    ).catch(() => {
-        throw new Error("Falha ao buscar histórico de rolagens");
+    ).catch((error: AxiosError) => {
+        throw new ToastError("Falha ao buscar histórico de rolagens", error);
         }
     );
 }

@@ -1,28 +1,44 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import FailToast from './components/alerts/failToast.vue';
+import ToastError from "../../ToastError.ts";
 
 const messages = ref<string[]>([]);
 
-window.onerror = (msg: string | Event, url: string | undefined, line: number | undefined, col: number | undefined, error: Error | undefined) : void => {
+window.onerror = (msg: string | Event, url: string | undefined, line: number | undefined, col: number | undefined, error: Error | undefined) : boolean => {
     const errorMessage = error?.message;
+
     if (errorMessage != null) {
-        showError(errorMessage);
+        if (error instanceof ToastError) {
+            showError(errorMessage);
+            return true;
+        }
+
+        window.document.body.innerHTML = errorMessage;
     }
 
-    logError(url, line, col, msg);
+    return false;
 }
 
 window.addEventListener(
     "unhandledrejection",
     (event) => {
         let error: Error = event.reason;
-        showError(error.message);
+
+        if (error instanceof ToastError) {
+            showError(error.message);
+            return true;
+        }
+
+        window.document.body.innerHTML = error.message;
+
+        return false;
     }
 );
 
 function showError(msg: string) : void {
     messages.value.push(msg);
+
     setTimeout(
         () : void => {
             messages.value.shift();
@@ -31,26 +47,11 @@ function showError(msg: string) : void {
     );
 }
 
-function logError(url: string | undefined, line: number | undefined, col: number | undefined, msg: string | Event) : void {
-    let message: string;
-    if (msg instanceof Event) {
-        message = msg.type;
-    } else {
-        message = msg;
-    }
-
-    console.error(
-        "URL: " + url + "\n" +
-        "Line: " + line + "\n" +
-        "Column: " + col + "\n" +
-        "Error: " + message
-    );
-}
 
 </script>
 
 <template>
     <div>
-        <FailToast :messages :visible="true" />
+        <FailToast :messages :visible="true" class="z-50"/>
     </div>
 </template>

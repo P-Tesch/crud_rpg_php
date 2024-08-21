@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import { AxiosError } from "axios";
 import { Sheet, Skills } from "rpgTypes";
 import { watch } from "vue";
+import ToastError from "../../../ToastError";
 
 interface Props {
     sheet: Sheet;
@@ -54,8 +56,8 @@ async function rollSkill(key: string | number) {
     const url: string = "/api/roll/skill?skill=" + key + "&modifier=0";
 
     window.axios.get(url)
-        .catch(() => {
-            throw new Error("Falha ao rolar habilidade");
+        .catch((error: AxiosError) => {
+            throw new ToastError("Falha ao rolar habilidade");
         }
     );
 }

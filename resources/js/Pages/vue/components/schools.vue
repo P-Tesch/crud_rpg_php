@@ -2,6 +2,8 @@
 import { ref, toRaw } from "vue";
 import NumberInputModal from './modals/numberInputModal.vue';
 import { School, SchoolArray, Sheet } from 'rpgTypes';
+import ToastError from "../../../ToastError";
+import { AxiosError } from "axios";
 
 interface Props {
     sheet: Sheet;
@@ -28,7 +30,7 @@ function rollSpell(school: string | number, spell: string | number) : void {
 
 function roll(cost: number) : void {
     if (props.sheet.attributes.mana < cost || cost == null) {
-        throw new Error("Mana insuficiente");
+        throw new ToastError("Mana insuficiente");
     }
 
     const url: string = "/api/roll/spell?school=" + this.school + "&spell=" + this.spell + "&cost=" + cost + "&modifier=0";
@@ -37,8 +39,8 @@ function roll(cost: number) : void {
         .then(() => {
             emit("sync");
         }
-    ).catch(() => {
-            throw new Error("Falha ao rolar magia");
+    ).catch((error: AxiosError) => {
+            throw new ToastError("Falha ao rolar magia");
         }
     );
 }

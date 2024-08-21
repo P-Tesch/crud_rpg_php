@@ -2,6 +2,7 @@
 import { ref, onBeforeMount } from "vue";
 import type { Sheet, School, SchoolFromShop, SpellArray, SonataFromShop, SonataAbility } from "rpgTypes";
 import { AxiosError, AxiosResponse } from "axios";
+import ToastError from "../../../../../ToastError";
 
 interface Props {
     sheet: Sheet;
@@ -22,8 +23,8 @@ function build(sonataName: string) {
             sonataAbilities.value = response.data["data"];
             modalRef.value?.showModal();
         }
-    ).catch((e: AxiosError) => {
-        throw new Error("Falha ao buscar habilidades de sonata");
+    ).catch((error: AxiosError) => {
+        throw new ToastError("Falha ao buscar habilidades de sonata", error);
     }
 );
 }
@@ -34,7 +35,7 @@ function addToSheet(index: number) : void {
     props.sheet.sonatas[sonataNameRef.value].abilities.forEach((entry, key) => {
         if (entry.name == ability.name) {
             if (entry.level >= ability.level) {
-                throw new Error("O personagem já possui essa habilidade em um nível igual ou maior");
+                throw new ToastError("O personagem já possui essa habilidade em um nível igual ou maior");
             }
 
             delete props.sheet.sonatas[sonataNameRef.value].abilities[key];

@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { ref, onBeforeMount } from "vue"
 import type { Sheet, Miracle } from "rpgTypes";
-import { AxiosResponse } from "axios";
+import { AxiosError, AxiosResponse } from "axios";
+import ToastError from "../../../../../ToastError";
 
 interface Props {
     sheet: Sheet;
@@ -23,15 +24,15 @@ function getMiracles() : void {
         .then((response: AxiosResponse) =>{
             miracles.value = response.data["data"];
         }
-    ).catch(() => {
-            throw new Error("Falha ao buscar milagres");
+    ).catch((error: AxiosError) => {
+            throw new ToastError("Falha ao buscar milagres", error);
         }
     );
 }
 
 function addToSheet(index: number) : void {
     if (miracles.value == null) {
-        throw new Error("A lista de milagres está vazia");
+        throw new ToastError("A lista de milagres está vazia");
     }
 
     let toAdd: Miracle = miracles.value[index];

@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import { AxiosError } from "axios";
 import { MysticEye, Sheet } from "rpgTypes";
 import { ref } from "vue";
+import ToastError from "../../../ToastError";
 
 interface Props {
     sheet: Sheet;
@@ -15,8 +17,8 @@ const rollMysticEye = (target: number) : void => {
     const url: string = "/api/roll/mystic_eyes?eye=" + selectedEye.value + "&target=" + target + "&modifier=0";
 
     window.axios.get(url)
-        .catch(() => {
-            throw new Error("Falha ao rolar habilidade de olhos místicos");
+        .catch((error: AxiosError) => {
+            throw new ToastError("Falha ao rolar habilidade de olhos místicos", error);
         }
     );
 };

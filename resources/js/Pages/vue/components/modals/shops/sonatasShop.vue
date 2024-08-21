@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { ref, onBeforeMount } from "vue";
 import type { Sheet, School, SchoolFromShop, SpellArray, SonataFromShop } from "rpgTypes";
-import { AxiosResponse } from "axios";
+import { AxiosError, AxiosResponse } from "axios";
+import ToastError from "../../../../../ToastError";
 
 interface Props {
     sheet: Sheet;
@@ -22,8 +23,8 @@ function getSonatas() : void {
         .then((response: AxiosResponse) => {
             sonatas.value = response.data["data"];
         }
-    ).catch(() => {
-        throw new Error("Falha ao buscar sonatas");
+    ).catch((error: AxiosError) => {
+        throw new ToastError("Falha ao buscar sonatas", error);
         }
     );
 }
@@ -35,13 +36,13 @@ function addToSheet(index: number) : void {
 
     const maxSonatas = Math.ceil(props.sheet.stats["lineage"] / 3);
     if (Object.keys(props.sheet.sonatas).length >= maxSonatas) {
-        throw new Error("O personagem já possui o número máximo de sonatas");
+        throw new ToastError("O personagem já possui o número máximo de sonatas");
     }
 
     const sonata = sonatas.value[index];
 
     if (props.sheet.sonatas.hasOwnProperty(sonata.name)) {
-        throw new Error("O personagem já possui esssa sonata");
+        throw new ToastError("O personagem já possui esssa sonata");
     }
 
     props.sheet.sonatas[sonata.name] = {

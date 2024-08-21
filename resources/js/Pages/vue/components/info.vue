@@ -4,6 +4,7 @@ import CreationPoints from './creationPoints.vue';
 import TextInputModal from './modals/textInputModal.vue';
 import TextAreaModal from './modals/textAreaModal.vue';
 import type { Sheet } from "rpgTypes";
+import ToastError from "../../../ToastError";
 
 interface Props {
     sheet: Sheet;
@@ -56,7 +57,7 @@ function editBackground(background: string) : void {
 
 function updatePortrait() : void {
     if (portraitInput.value == null || portraitInput.value.files == null) {
-        throw new Error("Falha ao atualizar retrato");
+        throw new ToastError("Falha ao atualizar retrato");
     }
 
     let fr = new FileReader();
@@ -64,7 +65,7 @@ function updatePortrait() : void {
 
     fr.onloadend = () => {
         if (typeof fr.result != "string") {
-            throw new Error("Retrato inválido");
+            throw new ToastError("Retrato inválido");
         }
 
         props.sheet.portrait = fr.result;
