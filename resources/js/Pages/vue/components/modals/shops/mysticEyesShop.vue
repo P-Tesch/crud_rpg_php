@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { ref, onBeforeMount } from "vue"
 import type { Sheet, MysticEye } from "rpgTypes";
-import { AxiosResponse } from "axios";
+import { AxiosError, AxiosResponse } from "axios";
+import ToastError from "../../../../../ToastError";
 
 interface Props {
     sheet: Sheet;
@@ -22,21 +23,21 @@ function getEyes() : void {
             .then((response: AxiosResponse) => {
                 eyes.value = response.data["data"];
             }
-        ).catch(() => {
-            throw new Error("Falha ao buscar olhos místicos");
+        ).catch((error: AxiosError) => {
+            throw new ToastError("Falha ao buscar olhos místicos", error);
         }
     );
 }
 
 function addToSheet(index: number) : void {
     if (eyes.value == null) {
-        throw new Error("A lista de olhos místicos está vazia");
+        throw new ToastError("A lista de olhos místicos está vazia");
     }
 
     let toAdd: MysticEye = eyes.value[index];
     let original: MysticEye[] = props.sheet.mysticEyes;
     if (original.length >= 2) {
-        throw new Error("O personagem ja possui o máximo de olhos místicos");
+        throw new ToastError("O personagem ja possui o máximo de olhos místicos");
     }
 
     let exists: boolean = false;
@@ -47,7 +48,7 @@ function addToSheet(index: number) : void {
     });
 
     if (exists) {
-        throw new Error("O personagem ja possui esse olho");
+        throw new ToastError("O personagem ja possui esse olho");
     }
 
     toAdd.pivot = {

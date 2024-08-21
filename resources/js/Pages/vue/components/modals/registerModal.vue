@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue"
+import ToastError from "../../../../ToastError";
 
 const emit = defineEmits(["success"]);
 
@@ -269,7 +270,7 @@ async function register() {
     });
 
     if (!response.ok) {
-        throw new Error("Falha ao registrar ficha");
+        throw new ToastError("Falha ao registrar ficha");
     }
 
     const user = this.buildUser(await response.text());
@@ -283,7 +284,7 @@ async function register() {
     });
 
     if (!responseUser.ok) {
-        throw new Error("Falha ao registrar usuário");
+        throw new ToastError("Falha ao registrar usuário");
     }
 
     emit("success");

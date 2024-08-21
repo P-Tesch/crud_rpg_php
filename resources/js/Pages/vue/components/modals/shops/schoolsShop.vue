@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { ref, onBeforeMount } from "vue";
 import type { Sheet, School, SchoolFromShop, SpellArray, SchoolArray } from "rpgTypes";
-import { AxiosResponse } from "axios";
+import { AxiosError, AxiosResponse } from "axios";
+import ToastError from "../../../../../ToastError";
 
 interface Props {
     sheet: Sheet;
@@ -28,15 +29,15 @@ function getSchools() : void {
         .then((response: AxiosResponse) => {
             schools.value = response.data["data"];
         }
-    ).catch(() => {
-        throw new Error("Falha ao buscar escolas");
+    ).catch((error: AxiosError) => {
+        throw new ToastError("Falha ao buscar escolas");
         }
     );
 }
 
 function addToSheet(index: number) : void {
     if (schools.value == null) {
-        throw new Error("A lista de escolha está vazia");
+        throw new ToastError("A lista de escolha está vazia");
     }
 
     if (props.sheet.schools.length != undefined) {
@@ -46,7 +47,7 @@ function addToSheet(index: number) : void {
 
     let original: School = props.sheet.schools[toAdd.name];
     if (original != null && original.level >= toAdd.level) {
-        throw new Error("O personagem ja possui essa escola com um nível igual ou maior");
+        throw new ToastError("O personagem ja possui essa escola com um nível igual ou maior");
     }
 
     let spells: SpellArray = {};

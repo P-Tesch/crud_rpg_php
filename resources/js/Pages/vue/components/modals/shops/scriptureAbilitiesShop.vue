@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { ref, onBeforeMount } from "vue"
 import type { ScriptureAbility, Sheet } from "rpgTypes";
-import { AxiosResponse } from "axios";
+import { AxiosError, AxiosResponse } from "axios";
+import ToastError from "../../../../../ToastError";
 
 interface Props {
     sheet: Sheet;
@@ -22,15 +23,15 @@ function getScriptureAbilities() : void {
         .then((response: AxiosResponse) => {
             scriptureAbilities.value = response.data["data"];
         }
-    ).catch(() => {
-            throw new Error("Falha ao buscar habilidades de escritura");
+    ).catch((error: AxiosError) => {
+            throw new ToastError("Falha ao buscar habilidades de escritura", error);
         }
     );
 }
 
 function addToSheet(index: number) : void {
     if (scriptureAbilities.value == null) {
-        throw new Error("A lista de habilidades de escritura está vazia");
+        throw new ToastError("A lista de habilidades de escritura está vazia");
     }
 
     let toAdd: ScriptureAbility = scriptureAbilities.value[index];
@@ -40,7 +41,7 @@ function addToSheet(index: number) : void {
         (value) => {
             if (value.name == toAdd.name) {
                 if (value.level >= toAdd.level) {
-                    throw new Error("A escritura ja possui essa habilidade com um nível igual ou maior");
+                    throw new ToastError("A escritura ja possui essa habilidade com um nível igual ou maior");
                 } else {
                     props.sheet.scripture.scriptureAbilities.splice(props.sheet.scripture.scriptureAbilities.indexOf(value), 1);
                 }
