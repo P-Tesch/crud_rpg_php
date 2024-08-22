@@ -77,7 +77,6 @@ function canDecrease(key: string | number, value: number) : boolean {
                     <th class="text-center space-x-1">
                         <div class="flex flex-row gap-1 justify-end">
                             <button class="btn btn-outline btn-primary btn-xs" id="{{ key }}IncreaseButton" v-show="canIncrease(key, stat)" @click="increase(key)">+</button>
-                            <div class="btn-xs btn-square" v-show="!canIncrease(key, stat)"></div>
                             <button class="btn btn-outline btn-accent btn-xs" id="{{ key }}DecreaseButton" v-show="canDecrease(key, stat)" @click="decrease(key)">-</button>
                             <div class="btn-xs btn-square" v-show="!canDecrease(key, stat)"></div>
                         </div>

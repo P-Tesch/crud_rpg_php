@@ -84,7 +84,6 @@ async function rollSkill(key: string | number) {
                     <th class="space-x-1">
                         <div class="flex flex-row gap-1 justify-end">
                             <button class="btn btn-outline btn-primary btn-xs" id="{{ key }}IncreaseButton" v-show="canIncrease(key, skill)" @click="increase(key)">+</button>
-                            <div v-show="!canIncrease(key, skill)" class="btn-xs btn-square"></div>
                             <button class="btn btn-outline btn-accent btn-xs" id="{{ key }}DecreaseButton" v-show="canDecrease(key, skill)" @click="decrease(key)">-</button>
                             <div v-show="!canDecrease(key, skill)" class="btn-xs btn-square"></div>
                         </div>
