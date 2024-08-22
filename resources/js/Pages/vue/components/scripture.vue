@@ -2,7 +2,8 @@
 import { ref, watch } from "vue"
 import TextInputModal from './modals/textInputModal.vue'
 import TextAreaModal from './modals/textAreaModal.vue'
-import { Scripture, Sheet } from "rpgTypes";
+import type { Scripture, ScriptureAbility, Sheet } from "rpgTypes";
+import ToastError from "../../../ToastError";
 
 interface Props {
     sheet: Sheet;
@@ -11,7 +12,7 @@ interface Props {
 const props = defineProps<Props>();
 const emit = defineEmits(["sync", "add"]);
 
-const yesNo = {
+const yesNo: {[key: string | number]: string} = {
     true: "Sim",
     false: "Não",
     0: "Não",
@@ -59,10 +60,18 @@ function editDescription(description: string) : void {
 }
 
 function increase(key: string) : void {
+    if (typeof props.sheet.scripture[key] != "number") {
+        throw new ToastError("Falha ao aumentar atributo de escritura");
+    }
+
     props.sheet.scripture[key]++;
 }
 
 function decrease(key: string) : void {
+    if (typeof props.sheet.scripture[key] != "number") {
+        throw new ToastError("Falha ao diminuitr atributo de escritura");
+    }
+
     props.sheet.scripture[key]--;
 }
 
@@ -74,12 +83,15 @@ function invertDouble() : void {
     props.sheet.scripture.double = !props.sheet.scripture.double;
 }
 
-function rollScriptureAbility(scriptureAbility) {
+function rollScriptureAbility(ability: ScriptureAbility) {
     console.log("TODO");
 }
 
 function showModal(modal: InstanceType<typeof TextInputModal | typeof TextAreaModal> | undefined, defaultValue: string) : void {
-    modal.modalRef.showModal();
+    if (modal == undefined) {
+        throw new ToastError("Falha ao exibir popup");
+    }
+    modal.modalRef?.showModal();
     modal.input = defaultValue;
 }
 

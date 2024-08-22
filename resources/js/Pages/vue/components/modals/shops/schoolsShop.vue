@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { ref, onBeforeMount } from "vue";
-import type { Sheet, School, SchoolFromShop, SpellArray, SchoolArray } from "rpgTypes";
-import { AxiosError, AxiosResponse } from "axios";
+import { AxiosError } from "axios";
 import ToastError from "../../../../../ToastError";
+import type { Sheet, School, SchoolFromShop, SpellArray, AssociativeArray } from "rpgTypes";
+import type { AxiosResponse } from "axios";
 
 interface Props {
     sheet: Sheet;
@@ -12,7 +13,7 @@ const props = defineProps<Props>();
 const modalRef = ref<HTMLDialogElement>();
 const schools = ref<SchoolFromShop[]>([]);
 
-const types: {[key: string]: string} = {
+const types: AssociativeArray = {
     "PROJECTILE": "Projétil",
     "DIRECT": "Direto",
     "null": "Outro"

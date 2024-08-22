@@ -4,6 +4,7 @@ import { ref } from "vue"
 interface Props {
     title: string;
 }
+
 const props = defineProps<Props>();
 const emit = defineEmits(["end"]);
 

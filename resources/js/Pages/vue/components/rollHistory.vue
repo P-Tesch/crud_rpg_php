@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { AxiosError, AxiosResponse } from "axios";
-import { RollAssociative, Sheet } from "rpgTypes";
+import { AxiosError } from "axios";
 import { ref, watch, onMounted } from "vue";
 import ToastError from "../../../ToastError";
+import type { RollAssociative, Sheet, AssociativeArray } from "rpgTypes";
+import type { AxiosResponse } from "axios";
 
 interface Props {
     sheet: Sheet;
@@ -18,7 +19,7 @@ onMounted(() => {
     setupRolls();
 });
 
-const skills = {
+const skills: AssociativeArray = {
     "speed": "Velocidade",
     "acrobatics": "Acrobacia",
     "melee": "Combate corpo a corpo",

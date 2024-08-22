@@ -3,8 +3,8 @@ import { ref } from "vue";
 import CreationPoints from './creationPoints.vue';
 import TextInputModal from './modals/textInputModal.vue';
 import TextAreaModal from './modals/textAreaModal.vue';
-import type { Sheet } from "rpgTypes";
 import ToastError from "../../../ToastError";
+import type { Sheet, AssociativeArray } from "rpgTypes";
 
 interface Props {
     sheet: Sheet;
@@ -19,7 +19,7 @@ const backgroundModal = ref<InstanceType<typeof TextAreaModal>>();
 const portraitInput = ref<HTMLInputElement>();
 defineExpose({ points });
 
-const alignments = {
+const alignments: AssociativeArray = {
     "fire": "Fogo",
     "water": "Água",
     "air": "Ar",
@@ -30,7 +30,7 @@ const alignments = {
     "electricity": "Eletricidade"
 }
 
-const organizations = {
+const organizations: AssociativeArray = {
     "executors": "Executores",
     "brotherhood": "Irmandade",
     "chivalry": "Cavaleiros",
@@ -73,7 +73,11 @@ function updatePortrait() : void {
 }
 
 function showModal(modal: InstanceType<typeof TextInputModal | typeof TextAreaModal> | undefined, defaultValue: string) : void {
-    modal.modalRef.showModal();
+    if (modal == undefined) {
+        throw new ToastError("Falha ao carregar popup");
+    }
+
+    modal.modalRef?.showModal();
     modal.input = defaultValue;
 }
 

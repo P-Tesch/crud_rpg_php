@@ -1,4 +1,4 @@
-import axios, { AxiosStatic } from 'axios';
+import axios, { type AxiosStatic } from 'axios';
 import Echo from 'laravel-echo';
 import Pusher from 'pusher-js';
 

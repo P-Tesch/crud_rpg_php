@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { AxiosError } from "axios";
-import { Sheet, Skills } from "rpgTypes";
 import { watch } from "vue";
 import ToastError from "../../../ToastError";
+import type { AssociativeArray, Sheet, Skills } from "rpgTypes";
 
 interface Props {
     sheet: Sheet;
@@ -18,7 +18,7 @@ watch(props.sheet.stats, () => {
     })
 });
 
-const skills = {
+const skills: AssociativeArray = {
     "speed": "Velocidade",
     "acrobatics": "Acrobacia",
     "melee": "Combate corpo a corpo",

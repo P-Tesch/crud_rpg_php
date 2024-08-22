@@ -5,17 +5,23 @@ import ToastError from "../../../../ToastError";
 const emit = defineEmits(["success"]);
 
 const modalRef = ref<HTMLDialogElement>();
-const login = defineModel<HTMLInputElement, string>("login");
-const password = defineModel<HTMLInputElement | string, string>("password");
-const charClass = defineModel<HTMLInputElement | string, string>("charClass");
-const alignment = defineModel<HTMLInputElement | string, string>("alignment");
-const organization = defineModel<HTMLInputElement | string, string>("organization");
+const login = defineModel<string, string>("login");
+const password = defineModel<string, string>("password");
+const charClass = defineModel<string, string>("charClass");
+const alignment = defineModel<string, string>("alignment");
+const organization = defineModel<string, string>("organization");
 
 defineExpose({modalRef});
 
 interface keyValue {
     key: string,
     value: number
+}
+
+interface user {
+    login: string,
+    password: string,
+    sheet_id: number
 }
 
 function buildSheet() {
@@ -63,12 +69,15 @@ function buildSheet() {
             "value": 1
         }
     ];
-    let items = [];
-    let organization: string | null = null;
-    let alignment: string | null = null;
+    let items: Array<any> = [];
+    let organizationField: string | null = null;
+    let alignmentField: string | null = null;
     let scripture: any = null;
-    if (this.charClass == "mage") {
-        alignment = this.alignment;
+    if (charClass?.value == "mage") {
+        if (alignment.value == undefined) {
+            throw new ToastError("Falha ao definir alinhamento");
+        }
+        alignmentField = alignment.value;
         attributes.push(
             {
                 "key": "mana",
@@ -82,8 +91,11 @@ function buildSheet() {
             }
         );
     }
-    if (this.charClass == "cleric") {
-        organization = this.organization;
+    if (charClass?.value == "cleric") {
+        if (organization.value == undefined) {
+            throw new ToastError("Falha ao definir organização");
+        }
+        organizationField = organization.value;
         stats.push(
             {
                 "key": "faith",
@@ -103,7 +115,7 @@ function buildSheet() {
             "scripture_abilities": []
         };
     }
-    if (this.charClass == "magiteck") {
+    if (charClass?.value == "magiteck") {
         stats.push(
             {
                 "key": "tech",
@@ -111,7 +123,7 @@ function buildSheet() {
             }
         );
     }
-    if (this.charClass == "vampire") {
+    if (charClass?.value == "vampire") {
         stats.push(
             {
                 "key": "lineage",
@@ -137,7 +149,7 @@ function buildSheet() {
             }
         );
     }
-    if (this.charClass == "mixed") {
+    if (charClass?.value == "mixed") {
         stats.push(
             {
                 "key": "blood",
@@ -151,8 +163,8 @@ function buildSheet() {
         "background": "Insira a história do personagem",
         "creation_points": 150,
         "portrait": "/storage/portraits/defaultPortrait.png",
-        "alignment": alignment,
-        "organization": organization,
+        "alignment": alignmentField,
+        "organization": organizationField,
         "stats": stats,
     "attributes": attributes,
     "skills": [
@@ -246,16 +258,24 @@ function buildSheet() {
     return sheet;
 }
 
-function buildUser(sheetId) {
+function buildUser(sheetId: number) : user {
+    if (login.value == undefined) {
+        throw new ToastError("Login indefinido");
+    }
+
+    if (password.value == undefined) {
+        throw new ToastError("Senha indefinida");
+    }
+
     return {
-        "login": this.login,
-        "password": this.password,
-        "sheet_id": sheetId
+        login: login.value,
+        password: password.value,
+        sheet_id: sheetId
     }
 }
 
 async function register() {
-    const sheet = this.buildSheet();
+    const sheet = buildSheet();
 
     const url: string = "/api/sheets";
     const urlUser: string = "/api/users"
@@ -273,7 +293,7 @@ async function register() {
         throw new ToastError("Falha ao registrar ficha");
     }
 
-    const user = this.buildUser(await response.text());
+    const user: user = buildUser(Number(await response.text()));
     const responseUser: Response = await fetch(urlUser, {
         method: "POST",
         headers: {
@@ -284,6 +304,7 @@ async function register() {
     });
 
     if (!responseUser.ok) {
+        window.document.body.innerHTML = await responseUser.text()
         throw new ToastError("Falha ao registrar usuário");
     }
 
