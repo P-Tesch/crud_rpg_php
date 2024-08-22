@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Sheet, Stats } from 'rpgTypes';
+import type { Sheet, Stats, AssociativeArray } from 'rpgTypes';
 
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
 const props = defineProps<Props>();
 const originalStats: Stats = Object.assign({}, props.sheet.stats);
 
-const stats = {
+const stats: AssociativeArray = {
     "strength": "Força",
     "dexterity": "Destreza",
     "agility": "Agilidade",

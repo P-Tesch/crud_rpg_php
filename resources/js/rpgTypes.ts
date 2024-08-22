@@ -35,6 +35,7 @@ declare module "rpgTypes" {
     }
 
     export type Scripture = {
+        [key: string]: number | string | boolean | ScriptureAbility[];
         creation_points: number;
         damage: number;
         description: string;
@@ -200,5 +201,9 @@ declare module "rpgTypes" {
         recoilDamage: number | null;
         cost: number | null;
         rolls: Roll;
+    }
+
+    export type AssociativeArray = {
+        [key: string]: string
     }
 }
