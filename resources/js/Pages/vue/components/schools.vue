@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, toRaw } from "vue";
-import NumberInputModal from './modals/numberInputModal.vue';
-import ToastError from "../../../ToastError";
+import NumberInputModal from '@modals/numberInputModal.vue';
+import ToastError from "@scripts/ToastError.ts";
 import { AxiosError } from "axios";
 import type { AssociativeArray, School, SchoolArray, Sheet } from 'rpgTypes';
 

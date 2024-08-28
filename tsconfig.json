@@ -14,6 +14,20 @@
       "esModuleInterop": true,
       "forceConsistentCasingInFileNames": true,
       "skipLibCheck": true,
-      "allowImportingTsExtensions": true
-    }
+      "allowImportingTsExtensions": true,
+      "paths": {
+        "@scripts/*": ["./resources/js/*"],
+        "@pages/*": ["./resources/js/Pages/vue/*"],
+        "@components/*": ["./resources/js/Pages/vue/components/*"],
+        "@modals/*": ["./resources/js/Pages/vue/components/modals/*"],
+        "@shops/*": ["./resources/js/Pages/vue/components/modals/shops/*"],
+        "@alerts/*": ["./resources/js/Pages/vue/components/alerts/*"]
+      }
+    },
+    "include": [
+        "resources/**/*.ts",
+        "resources/**/*.d.ts",
+        "resources/**/*.vue",
+        "resources/**/*.js"
+    ]
   }

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import type { Sheet, Character } from "rpgTypes";
-import ToastError from "../../../../ToastError.ts";
+import ToastError from "@scripts/ToastError.ts";
 
 interface Props {
     sheet: Sheet;

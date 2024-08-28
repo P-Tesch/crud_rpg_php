@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import CreationPoints from './creationPoints.vue';
-import TextInputModal from './modals/textInputModal.vue';
-import TextAreaModal from './modals/textAreaModal.vue';
-import ToastError from "../../../ToastError";
+import CreationPoints from '@components/creationPoints.vue';
+import TextInputModal from '@modals/textInputModal.vue';
+import TextAreaModal from '@modals/textAreaModal.vue';
+import ToastError from "@scripts/ToastError.ts";
 import type { Sheet, AssociativeArray } from "rpgTypes";
 
 interface Props {

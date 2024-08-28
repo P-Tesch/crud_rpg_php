@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { AxiosError } from "axios";
 import { watch } from "vue";
-import ToastError from "../../../ToastError";
+import ToastError from "@scripts/ToastError.ts";
 import type { AssociativeArray, Sheet, Skills } from "rpgTypes";
 
 interface Props {

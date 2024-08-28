@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import FailToast from './components/alerts/failToast.vue';
-import ToastError from "../../ToastError.ts";
+import FailToast from '@alerts/failToast.vue';
+import ToastError from "@scripts/ToastError.ts";
 
 const messages = ref<string[]>([]);
 
