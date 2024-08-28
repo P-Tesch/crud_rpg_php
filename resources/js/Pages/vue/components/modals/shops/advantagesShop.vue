@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, onBeforeMount } from "vue";
 import { AxiosError } from "axios";
-import ToastError from "../../../../../ToastError";
+import ToastError from "@scripts/ToastError.ts";
 import type { Sheet, Advantage } from "rpgTypes";
 import type { AxiosResponse } from "axios";
 

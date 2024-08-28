@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue"
-import ToastError from "../../../../ToastError";
+import ToastError from "@scripts/ToastError.ts";
 
 const emit = defineEmits(["success"]);
 

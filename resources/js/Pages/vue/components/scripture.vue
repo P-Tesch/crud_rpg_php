@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref, watch } from "vue"
-import TextInputModal from './modals/textInputModal.vue'
-import TextAreaModal from './modals/textAreaModal.vue'
+import TextInputModal from '@modals/textInputModal.vue'
+import TextAreaModal from '@modals/textAreaModal.vue'
 import type { Scripture, ScriptureAbility, Sheet } from "rpgTypes";
-import ToastError from "../../../ToastError";
+import ToastError from "@scripts/ToastError.ts";
 
 interface Props {
     sheet: Sheet;

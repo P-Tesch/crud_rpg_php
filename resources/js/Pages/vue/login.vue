@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { Head, router } from '@inertiajs/vue3'
 import { ref, reactive } from "vue"
-import RegisterModal from './components/modals/registerModal.vue';
-import SuccessToast from './components/alerts/successToast.vue';
-import ErrorHandler from './errorHandler.vue';
+import RegisterModal from '@modals/registerModal.vue';
+import SuccessToast from '@alerts/successToast.vue';
+import ErrorHandler from '@pages/errorHandler.vue';
 
 const form = reactive({
     login: null,

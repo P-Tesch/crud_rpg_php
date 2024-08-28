@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { AxiosError } from "axios";
 import { ref, watch, onMounted } from "vue";
-import ToastError from "../../../ToastError";
+import ToastError from "@scripts/ToastError.ts";
 import type { RollAssociative, Sheet, AssociativeArray } from "rpgTypes";
 import type { AxiosResponse } from "axios";
 
