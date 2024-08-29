@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LiveController;
 use App\Http\Controllers\RollController;
@@ -14,8 +15,7 @@ use App\Http\Controllers\MysticEyesController;
 use App\Http\Controllers\SonataAbilitiesController;
 use App\Http\Controllers\ScriptureAbilitiesController;
 
-Route::post("/users", [UserController::class, "store"]);
-Route::post("/sheets", [SheetController::class, "store"]);
+Route::post("/users", [UserController::class, "store"])->middleware([HandlePrecognitiveRequests::class]);
 
 Route::group(["middleware" => ["web"]], function () {
     Route::get("/login", [LoginController::class, "authenticate"]);

@@ -1,15 +1,23 @@
 <script setup lang="ts">
 import { ref } from "vue"
 import ToastError from "@scripts/ToastError.ts";
+import { useForm, client } from "laravel-precognition-vue";
+import type { AxiosError } from "axios";
 
 const emit = defineEmits(["success"]);
 
 const modalRef = ref<HTMLDialogElement>();
-const login = defineModel<string, string>("login");
-const password = defineModel<string, string>("password");
 const charClass = defineModel<string, string>("charClass");
 const alignment = defineModel<string, string>("alignment");
 const organization = defineModel<string, string>("organization");
+
+client.use(window.axios);
+
+const form = useForm("post", "/api/users", {
+    login: "",
+    password: "",
+    sheet: {}
+});
 
 defineExpose({modalRef});
 
@@ -258,57 +266,15 @@ function buildSheet() {
     return sheet;
 }
 
-function buildUser(sheetId: number) : user {
-    if (login.value == undefined) {
-        throw new ToastError("Login indefinido");
-    }
-
-    if (password.value == undefined) {
-        throw new ToastError("Senha indefinida");
-    }
-
-    return {
-        login: login.value,
-        password: password.value,
-        sheet_id: sheetId
-    }
-}
-
 async function register() {
-    const sheet = buildSheet();
+    form.sheet = buildSheet();
 
-    const url: string = "/api/sheets";
-    const urlUser: string = "/api/users"
-
-    const response: Response = await fetch(url, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        credentials: "same-origin",
-        body: JSON.stringify(sheet)
+    form.submit().then(() => {
+            emit("success");
+        }
+    ).catch((error: AxiosError) => {
+        throw new ToastError("Falha ao registrar usuário", error);
     });
-
-    if (!response.ok) {
-        throw new ToastError("Falha ao registrar ficha");
-    }
-
-    const user: user = buildUser(Number(await response.text()));
-    const responseUser: Response = await fetch(urlUser, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        credentials: "same-origin",
-        body: JSON.stringify(user)
-    });
-
-    if (!responseUser.ok) {
-        window.document.body.innerHTML = await responseUser.text()
-        throw new ToastError("Falha ao registrar usuário");
-    }
-
-    emit("success");
 }
 
 </script>
@@ -323,6 +289,7 @@ async function register() {
                 <div class="outline outline-primary flex flex-col gap-5 p-5 rounded-xl">
                     <h1 class="text-center font-semibold text-xl">Usuário</h1>
                     <div>
+                        <p v-if="form.errors['login'] != undefined" class=" text-sm text-[#ff0000] absolute -mt-5">{{ form.errors["login"] }}</p>
                         <label class="input input-bordered input-accent flex items-center gap-2">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -332,10 +299,11 @@ async function register() {
                                 <path
                                 d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
                             </svg>
-                            <input type="text" class="grow" placeholder="Usuário" v-model="login" />
+                            <input type="text" class="grow" placeholder="Usuário" v-model="form.login" @change="form.validate('login')"/>
                         </label>
                     </div>
                     <div>
+                        <p v-if="form.errors['password'] != undefined" class=" text-sm text-[#ff0000] absolute -mt-5">{{ form.errors["password"] }}</p>
                         <label class="input input-bordered input-accent flex items-center gap-2">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -347,7 +315,7 @@ async function register() {
                                 d="M14 6a4 4 0 0 1-4.899 3.899l-1.955 1.955a.5.5 0 0 1-.353.146H5v1.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-2.293a.5.5 0 0 1 .146-.353l3.955-3.955A4 4 0 1 1 14 6Zm-4-2a.75.75 0 0 0 0 1.5.5.5 0 0 1 .5.5.75.75 0 0 0 1.5 0 2 2 0 0 0-2-2Z"
                                 clip-rule="evenodd" />
                             </svg>
-                            <input type="password" class="grow" placeholder="Senha" v-model="password" />
+                            <input id="password" type="password" class="grow" placeholder="Senha" v-model="form.password" @change="form.validate('password')"/>
                         </label>
                     </div>
                 </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -18,12 +19,13 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request, SheetController $sheetController)
     {
+        $sheetId = $sheetController->store($request);
         $user = new User();
         $user->login = $request->get("login");
         $user->password = $request->get("password");
-        $user->sheet_id = $request->get("sheet_id");
+        $user->sheet_id = $sheetId;
         $user->save();
     }
 

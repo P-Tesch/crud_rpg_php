@@ -40,25 +40,25 @@ class SheetController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request) : int
     {
         $sheet = new Sheet();
-        $sheet->name = $request->get("name");
-        $sheet->portrait = $request->get("portrait");
-        $sheet->description = $request->get("description");
-        $sheet->background = $request->get("background");
-        $sheet->creation_points = $request->get("creation_points");
-        $sheet->alignment = $request->get("alignment");
-        $sheet->organization = $request->get("organization");
+        $sheet->name = $request->input("sheet")["name"];
+        $sheet->portrait = $request->input("sheet")["portrait"];
+        $sheet->description = $request->input("sheet")["description"];
+        $sheet->background = $request->input("sheet")["background"];
+        $sheet->creation_points = $request->input("sheet")["creation_points"];
+        $sheet->alignment = $request->input("sheet")["alignment"];
+        $sheet->organization = $request->input("sheet")["organization"];
 
         $sheet->save();
 
-        $sheet->schools()->attach($request->get("schools"));
-        $sheet->mysticEyes()->attach($request->get("mystic_eyes"));
-        $sheet->advantages()->attach($request->get("advantages"));
-        $sheet->sonatas()->attach($request->get("sonatas"));
+        $sheet->schools()->attach($request->input("sheet")["schools"]);
+        $sheet->mysticEyes()->attach($request->input("sheet")["mystic_eyes"]);
+        $sheet->advantages()->attach($request->input("sheet")["advantages"]);
+        $sheet->sonatas()->attach($request->input("sheet")["sonatas"]);
 
-        foreach ($request->get("stats") as $statArray) {
+        foreach ($request->input("sheet")["stats"] as $statArray) {
             $stat = new Stat();
             $stat->key = $statArray["key"];
             $stat->value = $statArray["value"];
@@ -66,7 +66,7 @@ class SheetController extends Controller
             $stat->save();
         }
 
-        foreach ($request->get("skills") as $skillArray) {
+        foreach ($request->input("sheet")["skills"] as $skillArray) {
             $skill = new Skill();
             $skill->key = $skillArray["key"];
             $skill->value = $skillArray["value"];
@@ -75,7 +75,7 @@ class SheetController extends Controller
             $skill->save();
         }
 
-        foreach ($request->get("attributes") as $attributesArray) {
+        foreach ($request->input("sheet")["attributes"] as $attributesArray) {
             $attributes = new RpgAttribute();
             $attributes->key = $attributesArray["key"];
             $attributes->value = $attributesArray["value"];
@@ -83,7 +83,7 @@ class SheetController extends Controller
             $attributes->save();
         }
 
-        $bloodArray = $request->get("blood");
+        $bloodArray = $request->input("sheet")["blood"];
         if (isset($bloodArray)) {
             $blood = new Blood();
             $blood->name = $bloodArray["name"];
@@ -108,7 +108,7 @@ class SheetController extends Controller
             }
         }
 
-        $items = $request->get("items");
+        $items = $request->input("sheet")["items"];
         if (isset($items)) {
             foreach ($items as $itemArray) {
                 $item = new Item;
@@ -129,7 +129,7 @@ class SheetController extends Controller
             }
         }
 
-        $effects = $request->get("effects");
+        $effects = $request->input("sheet")["effects"];
         if(isset($effects)) {
             foreach ($effects as $effectArray) {
                 $effect = new Effect;
@@ -142,7 +142,7 @@ class SheetController extends Controller
             }
         }
 
-        $miracles = $request->get("miracles");
+        $miracles = $request->input("sheet")["miracles"];
         if(isset($miracles)) {
             foreach ($miracles as $miracleArray) {
                 $miracle = new Miracle;
@@ -154,7 +154,7 @@ class SheetController extends Controller
             }
         }
 
-        $scriptureArray = $request->get("scripture");
+        $scriptureArray = $request->input("sheet")["scripture"];
         if (isset($scriptureArray)) {
             $scripture = new Scripture;
             $scripture->name = $scriptureArray["name"];
