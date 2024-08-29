@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref, toRaw } from "vue";
-import NumberInputModal from './modals/numberInputModal.vue';
-import { School, SchoolArray, Sheet } from 'rpgTypes';
-import ToastError from "../../../ToastError";
+import NumberInputModal from '@modals/numberInputModal.vue';
+import ToastError from "@scripts/ToastError.ts";
 import { AxiosError } from "axios";
+import type { AssociativeArray, School, SchoolArray, Sheet } from 'rpgTypes';
 
 interface Props {
     sheet: Sheet;
@@ -16,16 +16,19 @@ const originalSchools: SchoolArray = structuredClone(toRaw(props.sheet.schools))
 const emit = defineEmits(["sync", "add"]);
 const costModal = ref<InstanceType<typeof NumberInputModal>>();
 
-const types = {
+var school: string | number;
+var spell: string | number;
+
+const types: AssociativeArray = {
     "PROJECTILE": "Projétil",
     "DIRECT": "Direto",
     "null": "Outro"
 }
 
-function rollSpell(school: string | number, spell: string | number) : void {
-    this.costModal.modalRef.showModal();
-    this.school = school;
-    this.spell = spell;
+function rollSpell(schoolId: string | number, spellId: string | number) : void {
+    costModal.value?.modalRef?.showModal();
+    school = schoolId;
+    spell = spellId;
 }
 
 function roll(cost: number) : void {
@@ -33,7 +36,7 @@ function roll(cost: number) : void {
         throw new ToastError("Mana insuficiente");
     }
 
-    const url: string = "/api/roll/spell?school=" + this.school + "&spell=" + this.spell + "&cost=" + cost + "&modifier=0";
+    const url: string = "/api/roll/spell?school=" + school + "&spell=" + spell + "&cost=" + cost + "&modifier=0";
 
     window.axios.get(url)
         .then(() => {

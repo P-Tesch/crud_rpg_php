@@ -1,21 +1,35 @@
 <script setup lang="ts">
 import { ref } from "vue"
-import ToastError from "../../../../ToastError";
+import ToastError from "@scripts/ToastError.ts";
+import { useForm, client } from "laravel-precognition-vue";
+import type { AxiosError } from "axios";
 
 const emit = defineEmits(["success"]);
 
 const modalRef = ref<HTMLDialogElement>();
-const login = defineModel<HTMLInputElement, string>("login");
-const password = defineModel<HTMLInputElement | string, string>("password");
-const charClass = defineModel<HTMLInputElement | string, string>("charClass");
-const alignment = defineModel<HTMLInputElement | string, string>("alignment");
-const organization = defineModel<HTMLInputElement | string, string>("organization");
+const charClass = defineModel<string, string>("charClass");
+const alignment = defineModel<string, string>("alignment");
+const organization = defineModel<string, string>("organization");
+
+client.use(window.axios);
+
+const form = useForm("post", "/api/users", {
+    login: "",
+    password: "",
+    sheet: {}
+});
 
 defineExpose({modalRef});
 
 interface keyValue {
     key: string,
     value: number
+}
+
+interface user {
+    login: string,
+    password: string,
+    sheet_id: number
 }
 
 function buildSheet() {
@@ -63,12 +77,15 @@ function buildSheet() {
             "value": 1
         }
     ];
-    let items = [];
-    let organization: string | null = null;
-    let alignment: string | null = null;
+    let items: Array<any> = [];
+    let organizationField: string | null = null;
+    let alignmentField: string | null = null;
     let scripture: any = null;
-    if (this.charClass == "mage") {
-        alignment = this.alignment;
+    if (charClass?.value == "mage") {
+        if (alignment.value == undefined) {
+            throw new ToastError("Falha ao definir alinhamento");
+        }
+        alignmentField = alignment.value;
         attributes.push(
             {
                 "key": "mana",
@@ -82,8 +99,11 @@ function buildSheet() {
             }
         );
     }
-    if (this.charClass == "cleric") {
-        organization = this.organization;
+    if (charClass?.value == "cleric") {
+        if (organization.value == undefined) {
+            throw new ToastError("Falha ao definir organização");
+        }
+        organizationField = organization.value;
         stats.push(
             {
                 "key": "faith",
@@ -103,7 +123,7 @@ function buildSheet() {
             "scripture_abilities": []
         };
     }
-    if (this.charClass == "magiteck") {
+    if (charClass?.value == "magiteck") {
         stats.push(
             {
                 "key": "tech",
@@ -111,7 +131,7 @@ function buildSheet() {
             }
         );
     }
-    if (this.charClass == "vampire") {
+    if (charClass?.value == "vampire") {
         stats.push(
             {
                 "key": "lineage",
@@ -137,7 +157,7 @@ function buildSheet() {
             }
         );
     }
-    if (this.charClass == "mixed") {
+    if (charClass?.value == "mixed") {
         stats.push(
             {
                 "key": "blood",
@@ -151,8 +171,8 @@ function buildSheet() {
         "background": "Insira a história do personagem",
         "creation_points": 150,
         "portrait": "/storage/portraits/defaultPortrait.png",
-        "alignment": alignment,
-        "organization": organization,
+        "alignment": alignmentField,
+        "organization": organizationField,
         "stats": stats,
     "attributes": attributes,
     "skills": [
@@ -246,48 +266,15 @@ function buildSheet() {
     return sheet;
 }
 
-function buildUser(sheetId) {
-    return {
-        "login": this.login,
-        "password": this.password,
-        "sheet_id": sheetId
-    }
-}
-
 async function register() {
-    const sheet = this.buildSheet();
+    form.sheet = buildSheet();
 
-    const url: string = "/api/sheets";
-    const urlUser: string = "/api/users"
-
-    const response: Response = await fetch(url, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        credentials: "same-origin",
-        body: JSON.stringify(sheet)
+    form.submit().then(() => {
+            emit("success");
+        }
+    ).catch((error: AxiosError) => {
+        throw new ToastError("Falha ao registrar usuário", error);
     });
-
-    if (!response.ok) {
-        throw new ToastError("Falha ao registrar ficha");
-    }
-
-    const user = this.buildUser(await response.text());
-    const responseUser: Response = await fetch(urlUser, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        credentials: "same-origin",
-        body: JSON.stringify(user)
-    });
-
-    if (!responseUser.ok) {
-        throw new ToastError("Falha ao registrar usuário");
-    }
-
-    emit("success");
 }
 
 </script>
@@ -302,6 +289,7 @@ async function register() {
                 <div class="outline outline-primary flex flex-col gap-5 p-5 rounded-xl">
                     <h1 class="text-center font-semibold text-xl">Usuário</h1>
                     <div>
+                        <p v-if="form.errors['login'] != undefined" class=" text-sm text-[#ff0000] absolute -mt-5">{{ form.errors["login"] }}</p>
                         <label class="input input-bordered input-accent flex items-center gap-2">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -311,10 +299,11 @@ async function register() {
                                 <path
                                 d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
                             </svg>
-                            <input type="text" class="grow" placeholder="Usuário" v-model="login" />
+                            <input type="text" class="grow" placeholder="Usuário" v-model="form.login" @change="form.validate('login')"/>
                         </label>
                     </div>
                     <div>
+                        <p v-if="form.errors['password'] != undefined" class=" text-sm text-[#ff0000] absolute -mt-5">{{ form.errors["password"] }}</p>
                         <label class="input input-bordered input-accent flex items-center gap-2">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -326,7 +315,7 @@ async function register() {
                                 d="M14 6a4 4 0 0 1-4.899 3.899l-1.955 1.955a.5.5 0 0 1-.353.146H5v1.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-2.293a.5.5 0 0 1 .146-.353l3.955-3.955A4 4 0 1 1 14 6Zm-4-2a.75.75 0 0 0 0 1.5.5.5 0 0 1 .5.5.75.75 0 0 0 1.5 0 2 2 0 0 0-2-2Z"
                                 clip-rule="evenodd" />
                             </svg>
-                            <input type="password" class="grow" placeholder="Senha" v-model="password" />
+                            <input id="password" type="password" class="grow" placeholder="Senha" v-model="form.password" @change="form.validate('password')"/>
                         </label>
                     </div>
                 </div>

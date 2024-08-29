@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { AxiosError } from "axios";
-import { MysticEye, Sheet } from "rpgTypes";
 import { ref } from "vue";
-import ToastError from "../../../ToastError";
+import ToastError from "@scripts/ToastError.ts";
+import type { MysticEye, Sheet } from "rpgTypes";
 
 interface Props {
     sheet: Sheet;

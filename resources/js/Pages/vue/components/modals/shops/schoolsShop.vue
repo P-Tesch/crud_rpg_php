@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { ref, onBeforeMount } from "vue";
-import type { Sheet, School, SchoolFromShop, SpellArray, SchoolArray } from "rpgTypes";
-import { AxiosError, AxiosResponse } from "axios";
-import ToastError from "../../../../../ToastError";
+import { AxiosError } from "axios";
+import ToastError from "@scripts/ToastError.ts";
+import type { Sheet, School, SchoolFromShop, SpellArray, AssociativeArray } from "rpgTypes";
+import type { AxiosResponse } from "axios";
 
 interface Props {
     sheet: Sheet;
@@ -12,7 +13,7 @@ const props = defineProps<Props>();
 const modalRef = ref<HTMLDialogElement>();
 const schools = ref<SchoolFromShop[]>([]);
 
-const types: {[key: string]: string} = {
+const types: AssociativeArray = {
     "PROJECTILE": "Projétil",
     "DIRECT": "Direto",
     "null": "Outro"
@@ -36,6 +37,7 @@ function getSchools() : void {
 }
 
 function addToSheet(index: number) : void {
+    modalRef.value?.close();
     if (schools.value == null) {
         throw new ToastError("A lista de escolha está vazia");
     }
@@ -43,6 +45,11 @@ function addToSheet(index: number) : void {
     if (props.sheet.schools.length != undefined) {
         props.sheet.schools = {}
     }
+
+    if (Object.keys(props.sheet.schools).length >= Math.floor(props.sheet.stats["magic"]) + 1) {
+        throw new ToastError("O usuário já possui a quantidade máxima de escolas para sua estatística de magia");
+    }
+
     let toAdd: SchoolFromShop = schools.value[index];
 
     let original: School = props.sheet.schools[toAdd.name];

@@ -8,6 +8,8 @@ interface Props {
 
 const props = defineProps<Props>();
 
+const originalPoints: number = props.sheet.creationPoints;
+
 const remainingPoints = ref<number>(0);
 calculatePoints();
 watch(props.sheet, () => calculatePoints());
@@ -118,11 +120,54 @@ function summation(number: number) : number {
     return total;
 }
 
+function increase() : void {
+    props.sheet.creationPoints++;
+}
+
+function increaseBy5() : void {
+    props.sheet.creationPoints += 5;
+}
+
+function increaseBy10() : void {
+    props.sheet.creationPoints += 10;
+}
+
+function decrease() : void {
+    props.sheet.creationPoints--;
+}
+
+function decreaseBy5() : void {
+    if (props.sheet.creationPoints - 5 < originalPoints) {
+        props.sheet.creationPoints = originalPoints;
+    } else {
+        props.sheet.creationPoints -= 5;
+    }
+}
+
+function decreaseBy10() : void {
+    if (props.sheet.creationPoints - 10 < originalPoints) {
+        props.sheet.creationPoints = originalPoints;
+    } else {
+        props.sheet.creationPoints -= 10;
+    }
+}
+
+function canDecrease() : boolean {
+    return props.sheet.creationPoints > originalPoints;
+}
+
 </script>
 
 <template>
-    <div>
-        <p>Restantes: {{ remainingPoints }}</p>
-        <p>Total: {{ sheet.creationPoints }}</p>
+    <div class="flex flex-row">
+        <div>
+            <p>Restantes: {{ remainingPoints }}</p>
+            <p>Total: {{ sheet.creationPoints }}</p>
+        </div>
+        <div class="flex flex-row flex-grow my-auto gap-1 justify-end">
+            <button class="btn btn-outline btn-primary btn-square btn-xs" @click.exact="increase()" @click.shift.exact="increaseBy10()" @click.alt.exact="increaseBy5">+</button>
+            <button v-show="canDecrease()" class="btn btn-outline btn-accent btn-square btn-xs" @click.exact="decrease()" @click.shift.exact="decreaseBy10()" @click.alt.exact="decreaseBy5">-</button>
+            <div v-show="!canDecrease()" class="btn-xs btn-square"></div>
+        </div>
     </div>
 </template>

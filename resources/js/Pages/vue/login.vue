@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { Head, router } from '@inertiajs/vue3'
 import { ref, reactive } from "vue"
-import RegisterModal from './components/modals/registerModal.vue';
-import SuccessToast from './components/alerts/successToast.vue';
-import ErrorHandler from './errorHandler.vue';
+import RegisterModal from '@modals/registerModal.vue';
+import SuccessToast from '@alerts/successToast.vue';
+import ErrorHandler from '@pages/errorHandler.vue';
 
 const form = reactive({
     login: null,
@@ -19,8 +19,18 @@ const auth = () : void => {
 }
 
 function success() : void {
-    this.successToast.toastRef = true;
-    setTimeout(() => this.successToast.toastRef = false, 2500);
+    if (successToast.value == undefined) {
+        return;
+    }
+    successToast.value.toastRef = true;
+    setTimeout(() => {
+            if (successToast.value == undefined) {
+                return;
+            }
+            successToast.value.toastRef = false;
+        },
+        2500
+    );
 }
 
 </script>
@@ -66,7 +76,7 @@ function success() : void {
             </form>
             <div class="flex flex-row">
                 <button class="btn btn-outline btn-accent mx-auto" v-on:click="auth">Entrar</button>
-                <button class="btn btn-outline btn-secondary mx-auto" v-on:click="registerModal.modalRef.showModal()">Registrar</button>
+                <button class="btn btn-outline btn-secondary mx-auto" v-on:click="registerModal?.modalRef?.showModal()">Registrar</button>
             </div>
         </div>
     </div>

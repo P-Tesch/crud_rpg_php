@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { ref, watch } from "vue"
-import TextInputModal from './modals/textInputModal.vue'
-import TextAreaModal from './modals/textAreaModal.vue'
-import { Scripture, Sheet } from "rpgTypes";
+import TextInputModal from '@modals/textInputModal.vue'
+import TextAreaModal from '@modals/textAreaModal.vue'
+import type { Scripture, ScriptureAbility, Sheet } from "rpgTypes";
+import ToastError from "@scripts/ToastError.ts";
 
 interface Props {
     sheet: Sheet;
@@ -11,7 +12,7 @@ interface Props {
 const props = defineProps<Props>();
 const emit = defineEmits(["sync", "add"]);
 
-const yesNo = {
+const yesNo: {[key: string | number]: string} = {
     true: "Sim",
     false: "Não",
     0: "Não",
@@ -59,10 +60,18 @@ function editDescription(description: string) : void {
 }
 
 function increase(key: string) : void {
+    if (typeof props.sheet.scripture[key] != "number") {
+        throw new ToastError("Falha ao aumentar atributo de escritura");
+    }
+
     props.sheet.scripture[key]++;
 }
 
 function decrease(key: string) : void {
+    if (typeof props.sheet.scripture[key] != "number") {
+        throw new ToastError("Falha ao diminuitr atributo de escritura");
+    }
+
     props.sheet.scripture[key]--;
 }
 
@@ -74,12 +83,15 @@ function invertDouble() : void {
     props.sheet.scripture.double = !props.sheet.scripture.double;
 }
 
-function rollScriptureAbility(scriptureAbility) {
+function rollScriptureAbility(ability: ScriptureAbility) {
     console.log("TODO");
 }
 
 function showModal(modal: InstanceType<typeof TextInputModal | typeof TextAreaModal> | undefined, defaultValue: string) : void {
-    modal.modalRef.showModal();
+    if (modal == undefined) {
+        throw new ToastError("Falha ao exibir popup");
+    }
+    modal.modalRef?.showModal();
     modal.input = defaultValue;
 }
 
@@ -115,35 +127,49 @@ function showModal(modal: InstanceType<typeof TextInputModal | typeof TextAreaMo
                 <div class="collapse-title text-md font-medium flex gap-5">Atributos</div>
                 <div class="collapse-content overflow-auto flex flex-col gap-3">
 
-                    <div class="w-full">
+                    <div class="w-full flex flex-row">
                         <span>Pontos de criação: {{ remainingPoints }} / {{ sheet.scripture.creation_points }}</span>
-                            <button class="btn btn-outline btn-accent btn-xs float-right" v-if="canDecrease('creation_points')" @click="sheet.scripture.creation_points -= 50">-</button>
-                            <div class="float-right w-1 h-1"></div>
-                            <button class="btn btn-outline btn-primary btn-xs float-right" v-if="sheet.scripture.creation_points < sheet.stats.faith * 50" @click="sheet.scripture.creation_points += 50">+</button>
+                        <div class="flex flex-row gap-1 justify-end flex-grow">
+                            <button class="btn btn-outline btn-primary btn-xs" v-show="sheet.scripture.creation_points < sheet.stats.faith * 50" @click="sheet.scripture.creation_points += 50">+</button>
+                            <button class="btn btn-outline btn-accent btn-xs" v-show="canDecrease('creation_points')" @click="sheet.scripture.creation_points -= 50">-</button>
+                            <div v-show="!canDecrease('creation_points')" class="btn-xs btn-square"></div>
+                        </div>
                     </div>
 
-                    <div class="w-full">
+                    <div class="w-full flex flex-row">
                         <span>Dano: {{ sheet.scripture.damage }}</span>
-                            <button class="btn btn-outline btn-accent btn-xs float-right" v-if="canDecrease('damage')" @click="decrease('damage')">-</button>
-                            <div class="float-right w-1 h-1"></div>
-                            <button class="btn btn-outline btn-primary btn-xs float-right" v-if="sheet.scripture.damage < 5" @click="increase('damage')">+</button>
+                        <div class="flex flex-row gap-1 justify-end flex-grow">
+                            <button class="btn btn-outline btn-primary btn-xs" v-if="sheet.scripture.damage < 5" @click="increase('damage')">+</button>
+                            <button class="btn btn-outline btn-accent btn-xs" v-if="canDecrease('damage')" @click="decrease('damage')">-</button>
+                            <div v-show="!canDecrease('damage')" class="btn-xs btn-square"></div>
+                        </div>
                     </div>
-                    <div class="w-full">
+
+                    <div class="w-full flex flex-row">
                         <span>Alcance: {{ sheet.scripture.range }}</span>
-                            <button class="btn btn-outline btn-accent btn-xs float-right" v-if="canDecrease('range')" @click="decrease('range')">-</button>
-                            <div class="float-right w-1 h-1"></div>
-                            <button class="btn btn-outline btn-primary btn-xs float-right" v-if="sheet.scripture.range < 15" @click="increase('range')">+</button>
+                        <div class="flex flex-row gap-1 justify-end flex-grow">
+                            <button class="btn btn-outline btn-primary btn-xs" v-if="sheet.scripture.range < 15" @click="increase('range')">+</button>
+                            <button class="btn btn-outline btn-accent btn-xs" v-if="canDecrease('range')" @click="decrease('range')">-</button>
+                            <div v-show="!canDecrease('range')" class="btn-xs btn-square"></div>
+                        </div>
                     </div>
-                    <div class="w-full">
+
+                    <div class="w-full flex flex-row">
                         <span>Afiação: {{ sheet.scripture.sharpness }}</span>
-                            <button class="btn btn-outline btn-accent btn-xs float-right" v-if="canDecrease('sharpness')" @click="decrease('sharpness')">-</button>
-                            <div class="float-right w-1 h-1"></div>
-                            <button class="btn btn-outline btn-primary btn-xs float-right" v-if="sheet.scripture.sharpness < 5" @click="increase('sharpness')">+</button>
+                        <div class="flex flex-row gap-1 justify-end flex-grow">
+                            <button class="btn btn-outline btn-primary btn-xs" v-if="sheet.scripture.sharpness < 5" @click="increase('sharpness')">+</button>
+                            <button class="btn btn-outline btn-accent btn-xs" v-if="canDecrease('sharpness')" @click="decrease('sharpness')">-</button>
+                            <div v-show="!canDecrease('sharpness')" class="btn-xs btn-square"></div>
+                        </div>
                     </div>
-                    <div class="w-full">
+
+                    <div class="w-full flex flex-row">
                         <span>Dupla: {{ yesNo[Number(sheet.scripture.double)] }}</span>
-                        <input id="checkbox-double" type="checkbox" class="checkbox checkbox-primary float-right mr-1" v-if="!originalScripture.double" @click="invertDouble()"></input>
-                        <input id="checkbox-double-disabled" type="checkbox" disabled class="checkbox checkbox-primary float-right mr-1" v-if="originalScripture.double"></input>
+                        <div class="flex flex-row gap-1 justify-end flex-grow">
+                            <input id="checkbox-double" type="checkbox" class="checkbox checkbox-primary" v-if="!originalScripture.double" @click="invertDouble()"></input>
+                            <input id="checkbox-double-disabled" type="checkbox" disabled class="checkbox checkbox-primary" v-if="originalScripture.double"></input>
+                            <div class="btn-xs btn-square"></div>
+                        </div>
                     </div>
                 </div>
             </div>

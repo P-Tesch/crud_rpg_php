@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { toRaw } from "vue";
-import { Sheet, SonataAbility, SonataArray } from 'rpgTypes';
+import type { Sheet, SonataAbility, SonataArray } from 'rpgTypes';
 
 interface Props {
     sheet: Sheet;

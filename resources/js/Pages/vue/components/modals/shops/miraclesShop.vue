@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { ref, onBeforeMount } from "vue"
+import { AxiosError } from "axios";
+import ToastError from "@scripts/ToastError.ts";
 import type { Sheet, Miracle } from "rpgTypes";
-import { AxiosError, AxiosResponse } from "axios";
-import ToastError from "../../../../../ToastError";
+import type { AxiosResponse } from "axios";
 
 interface Props {
     sheet: Sheet;

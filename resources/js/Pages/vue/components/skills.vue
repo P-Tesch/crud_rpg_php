@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { AxiosError } from "axios";
-import { Sheet, Skills } from "rpgTypes";
 import { watch } from "vue";
-import ToastError from "../../../ToastError";
+import ToastError from "@scripts/ToastError.ts";
+import type { AssociativeArray, Sheet, Skills } from "rpgTypes";
 
 interface Props {
     sheet: Sheet;
@@ -18,7 +18,7 @@ watch(props.sheet.stats, () => {
     })
 });
 
-const skills = {
+const skills: AssociativeArray = {
     "speed": "Velocidade",
     "acrobatics": "Acrobacia",
     "melee": "Combate corpo a corpo",
@@ -82,8 +82,11 @@ async function rollSkill(key: string | number) {
                     <th>{{ skills[key] }}</th>
                     <th>{{ skill }}</th>
                     <th class="space-x-1">
-                        <button class="btn btn-outline btn-primary btn-xs" id="{{ key }}IncreaseButton"v-if="canIncrease(key, skill)" @click="increase(key)">+</button>
-                        <button class="btn btn-outline btn-accent btn-xs" id="{{ key }}DecreaseButton" v-if="canDecrease(key, skill)" @click="decrease(key)">-</button>
+                        <div class="flex flex-row gap-1 justify-end">
+                            <button class="btn btn-outline btn-primary btn-xs" id="{{ key }}IncreaseButton" v-show="canIncrease(key, skill)" @click="increase(key)">+</button>
+                            <button class="btn btn-outline btn-accent btn-xs" id="{{ key }}DecreaseButton" v-show="canDecrease(key, skill)" @click="decrease(key)">-</button>
+                            <div v-show="!canDecrease(key, skill)" class="btn-xs btn-square"></div>
+                        </div>
                     </th>
                     <th>
                         <button class="btn btn-outline btn-secondary btn-sm" id="{{ key }}RollButton" @click="rollSkill(key)">Rolar</button>

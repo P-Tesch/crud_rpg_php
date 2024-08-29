@@ -1,4 +1,4 @@
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 
 export default class ToastError extends Error {
     constructor(msg: string, axiosError: AxiosError | undefined = undefined) {
