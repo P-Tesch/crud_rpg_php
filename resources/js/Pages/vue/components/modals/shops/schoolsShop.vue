@@ -37,6 +37,7 @@ function getSchools() : void {
 }
 
 function addToSheet(index: number) : void {
+    modalRef.value?.close();
     if (schools.value == null) {
         throw new ToastError("A lista de escolha está vazia");
     }
@@ -44,6 +45,11 @@ function addToSheet(index: number) : void {
     if (props.sheet.schools.length != undefined) {
         props.sheet.schools = {}
     }
+
+    if (Object.keys(props.sheet.schools).length >= Math.floor(props.sheet.stats["magic"]) + 1) {
+        throw new ToastError("O usuário já possui a quantidade máxima de escolas para sua estatística de magia");
+    }
+
     let toAdd: SchoolFromShop = schools.value[index];
 
     let original: School = props.sheet.schools[toAdd.name];

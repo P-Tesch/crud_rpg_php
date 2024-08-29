@@ -51,7 +51,6 @@ const sonataAbilitiesModal = ref<InstanceType<typeof SonataAbilitiesShop>>();
 const targetModal = ref<InstanceType<typeof TargetSelectModal>>();
 
 const successToast = ref<InstanceType<typeof SuccessToast>>();
-const failToast = ref<InstanceType<typeof FailToast>>();
 
 const statsKey = ref<number>(0);
 const skillsKey = ref<number>(0);
@@ -90,6 +89,14 @@ function persist() : void {
         (scripture != null && scripture.value != undefined && scripture?.value?.remainingPoints < 0)
     ) {
         throw new ToastError("Pontos de criação insuficientes");
+    }
+
+    if (Object.keys(props.sheet.schools).length > Math.floor(props.sheet.stats["magic"]) + 1) {
+        throw new ToastError("O usuário já possui a quantidade máxima de escolas para sua estatística de magia");
+    }
+
+    if (Object.keys(props.sheet.sonatas).length >= Math.ceil(props.sheet.stats["lineage"] / 3)) {
+        throw new ToastError("O personagem já possui o número máximo de sonatas");
     }
 
     const url: string = "/api/sheets";
