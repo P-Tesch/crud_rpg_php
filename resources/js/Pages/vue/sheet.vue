@@ -11,7 +11,6 @@ import RollHistory from '@components/rollHistory.vue'
 import CharacterInfo from '@components/info.vue'
 import SchoolsShop from '@shops/schoolsShop.vue'
 import SuccessToast from '@alerts/successToast.vue'
-import FailToast from '@alerts/failToast.vue'
 import MysticEyesShop from '@shops/mysticEyesShop.vue'
 import Advantages from '@components/advantages.vue'
 import AdvantagesShop from '@shops/advantagesShop.vue'
@@ -22,6 +21,7 @@ import ScriptureAbilitiesShop from '@shops/scriptureAbilitiesShop.vue'
 import SonatasTable from '@components/sonatas.vue'
 import SonatasShop from '@shops/sonatasShop.vue'
 import SonataAbilitiesShop from '@shops/sonataAbilitiesShop.vue'
+import Systems from '@components/systems.vue'
 import TargetSelectModal from '@modals/targetSelectModal.vue'
 import ErrorHandler from '@pages/errorHandler.vue'
 import ToastError from '@scripts/ToastError.ts'
@@ -60,6 +60,7 @@ const mysticEyesKey = ref<number>(0);
 const advantagesKey = ref<number>(0);
 const scriptureKey = ref<number>(0);
 const sonatasKey = ref<number>(0);
+const systemsKey = ref<number>(0);
 
 const calculateGridCols = () : void => {
     if (window.innerWidth >= 1400) {
@@ -112,6 +113,7 @@ function persist() : void {
             advantagesKey.value++;
             scriptureKey.value++;
             sonatasKey.value++;
+            systemsKey.value++;
 
             if (successToast.value == undefined) {
                 return;
@@ -165,6 +167,7 @@ function endTurn() : void {
         <SchoolsTable :sheet @add="schoolsModal?.modalRef?.showModal()" @sync="updateSheet()" v-if="sheet.classes['isMage']" :key="schoolsKey"/>
         <SonatasTable :sheet @add="sonatasModal?.modalRef?.showModal()" @addAbility="(sonataId: string) => sonataAbilitiesModal?.build(sonataId)" v-if="sheet.classes['isVampire']" :key="sonatasKey" />
         <Scripture :sheet :key="scriptureKey" v-if="sheet.classes['isCleric']" @add="scriptureAbilitiesModal?.modalRef?.showModal()" ref="scripture" />
+        <Systems :sheet :key="systemsKey" v-if="sheet.classes['isMagiteck']" />
         <ItemsTable :sheet @sync="updateSheet()" />
         <MysticEyesTable :sheet @add="eyesModal?.modalRef?.showModal()" @target="targetModal?.updateCharacters(); targetModal?.modalRef?.showModal()" :key="mysticEyesKey" ref="mysticEyesTable" />
         <Advantages :sheet @add="advantagesModal?.modalRef?.showModal()" :key="advantagesKey" />

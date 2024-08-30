@@ -40,6 +40,7 @@ class SheetEntity {
     public ?array $schools;
     public ?Scripture $scripture;
     public ?array $sonatas;
+    public ?array $systems;
     public array $skillsRelations;
     public array $classes;
 
@@ -221,6 +222,9 @@ class SheetEntity {
         }
         if (array_key_exists("blood_points", $this->attributes)) {
             $this->maxAttributes["max_blood_points"] = 20 * $this->stats["lineage"];
+        }
+        if (array_key_exists("circuits", $this->attributes)) {
+            $this->maxAttributes["max_circuits"] = (int) floor($this->stats["tech"] / 2) + 1;
         }
     }
 
