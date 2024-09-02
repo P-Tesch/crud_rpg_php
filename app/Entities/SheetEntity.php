@@ -9,6 +9,7 @@ use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\ScriptureAbilitiesController;
 use App\Http\Controllers\SonataAbilitiesController;
 use App\Http\Controllers\SonatasController;
+use App\Http\Controllers\SystemController;
 use App\Models\Item;
 use App\Models\Blood;
 use App\Models\Sheet;
@@ -123,6 +124,15 @@ class SheetEntity {
             ];
         }
 
+        $this->systems = [];
+        foreach ($args["systems"] as $system) {
+            $systemModel = SystemController::findByName($system["name"]);
+            $this->systems[$systemModel->name] = [
+                "id" => $systemModel->id,
+                "subsystems" => $system["subsystems"]
+            ];
+        }
+
         $this->setClasses();
 
     }
@@ -193,6 +203,19 @@ class SheetEntity {
             foreach ($sonata->sonataAbilities as $ability) {
                 if ($sheet->sonataAbilities->contains($ability)) {
                     $this->sonatas[$sonata->name]["abilities"][] = $ability;
+                }
+            }
+        }
+
+        $this->systems = [];
+        foreach ($sheet->systems as $system) {
+            $this->systems[$system->name] = [
+                "id" => $system->id,
+                "subsystems" => []
+            ];
+            foreach ($system->subsystems as $subsystem) {
+                if ($sheet->subsystems->contains($subsystem)) {
+                    $this->systems[$system->name]["subsystems"][] = $subsystem;
                 }
             }
         }
@@ -328,6 +351,21 @@ class SheetEntity {
             }
         }
         $model->SonataAbilities()->sync($sonataAbilities, true);
+
+        $systems = [];
+        foreach (array_keys($this->systems) as $systemName) {
+            $systems[] = $this->systems[$systemName]["id"];
+        }
+        $model->Systems()->sync($systems, true);
+
+        $subsystems = [];
+        foreach ($this->systems as $system) {
+            foreach ($system["subsystems"] as $subsystem) {
+                $subsystemModel = SonataAbilitiesController::findByNameAndLevel($ability["name"], $ability["level"]);
+                $subsystems[] = $subsystemModel->id;
+            }
+        }
+        $model->Subsystems()->sync($subsystems, true);
 
         $this->setClasses();
         $model->save();

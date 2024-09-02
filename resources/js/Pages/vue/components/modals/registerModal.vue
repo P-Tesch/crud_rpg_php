@@ -266,7 +266,8 @@ function buildSheet() {
     "mystic_eyes": [],
     "schools": [],
     "scripture": scripture,
-    "sonatas": []
+    "sonatas": [],
+    "systems": []
     }
 
     return sheet;

@@ -139,6 +139,20 @@ declare module "rpgTypes" {
         description: string;
     }
 
+    export type Subsystem = {
+        name: string;
+        description: string;
+    }
+
+    export type System = {
+        id: number;
+        subsystems: Subsystem[];
+    }
+
+    export type SystemArray = {
+        [key: string]: System;
+    }
+
     export type Item = {
         name: string;
         description: string;
@@ -169,6 +183,7 @@ declare module "rpgTypes" {
         skillsRelations: SkillsRelations;
         sonatas: SonataArray;
         stats: Stats;
+        systems: SystemArray;
     }
 
     export type Character = {

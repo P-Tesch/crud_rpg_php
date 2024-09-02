@@ -1,9 +1,6 @@
 <script setup lang="ts">
-import { ref, toRaw } from "vue";
-import NumberInputModal from '@modals/numberInputModal.vue';
-import ToastError from "@scripts/ToastError.ts";
-import { AxiosError } from "axios";
-import type { AssociativeArray, School, SchoolArray, Sheet } from 'rpgTypes';
+import { toRaw } from "vue";
+import type { Sheet, SonataAbility, SonataArray, Subsystem, SystemArray } from 'rpgTypes';
 
 interface Props {
     sheet: Sheet;
@@ -11,60 +8,31 @@ interface Props {
 
 const props = defineProps<Props>();
 
-const originalSystems: SchoolArray = structuredClone(toRaw(props.sheet.schools));
+const originalSystems: SystemArray = structuredClone(toRaw(props.sheet.systems));
 
-const emit = defineEmits(["sync", "add"]);
-const costModal = ref<InstanceType<typeof NumberInputModal>>();
+const emit = defineEmits(["sync", "add", "addSubsystem"]);
 
-var school: string | number;
-var spell: string | number;
-
-const types: AssociativeArray = {
-    "PROJECTILE": "Projétil",
-    "DIRECT": "Direto",
-    "null": "Outro"
+function isOriginal(key: string | number) : boolean {
+    return !originalSystems.hasOwnProperty(key);
 }
 
-function rollSpell(schoolId: string | number, spellId: string | number) : void {
-    costModal.value?.modalRef?.showModal();
-    school = schoolId;
-    spell = spellId;
-}
-
-function roll(cost: number) : void {
-    if (props.sheet.attributes.mana < cost || cost == null) {
-        throw new ToastError("Mana insuficiente");
-    }
-
-    const url: string = "/api/roll/spell?school=" + school + "&spell=" + spell + "&cost=" + cost + "&modifier=0";
-
-    window.axios.get(url)
-        .then(() => {
-            emit("sync");
+function isOriginalSubsystem(subsystemKey: string | number, subsystem: Subsystem) : boolean {
+    let original = true;
+    originalSystems[subsystemKey].subsystems.forEach((entry) => {
+        if (entry.name == subsystem.name) {
+            original = false;
         }
-    ).catch((error: AxiosError) => {
-            throw new ToastError("Falha ao rolar magia");
-        }
-    );
-}
-
-function isOriginal(value: School, key: string | number) : boolean {
-    let isOriginal: boolean = false;
-    if (originalSchools.hasOwnProperty(key)) {
-        isOriginal = originalSchools[key].level >= value.level;
-    }
-
-    return !isOriginal;
+    });
+    return original;
 }
 
 function remove(key: string | number) : void {
-    let isPresent: boolean = originalSchools.hasOwnProperty(key);
+    delete props.sheet.systems[key];
+}
 
-    if (!isPresent) {
-        delete props.sheet.schools[key];
-    } else {
-        props.sheet.schools[key] = structuredClone(originalSchools[key]);
-    }
+function removeSubsystem(systemKey: string | number, subsystemKey: number) : void {
+    props.sheet.sonatas[systemKey].abilities.splice(subsystemKey, 1);
+
 }
 
 </script>
@@ -76,19 +44,22 @@ function remove(key: string | number) : void {
                 <h1 class="font-semibold text-2xl">Sistemas</h1>
             </div>
             <div class="overflow-auto">
-                <div v-for="school, key in sheet.schools" class="collapse collapse-arrow bg-base-100">
-                    <button v-if="isOriginal(school, key)" class="btn btn-sm btn-circle btn-ghost absolute right-10 top-3.5 z-10 overflow-visible" @click="remove(key)">✕</button>
-                    <input type="checkbox" name="schools-collapse" />
-                    <div class="collapse-title text-xl font-medium">{{ key }} [{{ school.level }}]</div>
+                <div v-for="system, key in sheet.systems" class="collapse collapse-arrow bg-base-100">
+                    <button v-if="isOriginal(key)" class="btn btn-sm btn-circle btn-ghost absolute right-10 top-3.5 z-10 overflow-visible" @click="remove(key)">✕</button>
+                    <input type="checkbox" name="sonatas-collapse" />
+                    <div class="collapse-title text-xl font-medium">{{ key }}</div>
                     <div class="collapse-content">
-                        <div v-for="spell, k in school.spells" class="collapse collapse-arrow bg-base-100">
-                            <input type="checkbox" name="spells-collapse" />
-                            <div class="collapse-title text-xl font-medium">{{ k }}</div>
-                            <div class="collapse-content">
-                                <p>Tipo: {{ types[spell.type] }}</p>
-                                <p>Descrição: {{ spell.description }}</p>
-                                <button class="btn btn-outline btn-secondary btn-sm" @click="rollSpell(key, k)">Rolar</button>
+                        <div v-for="subsystem, k in system.subsystems" class="collapse collapse-arrow bg-base-100">
+                            <button v-if="isOriginalSubsystem(key, subsystem)" class="btn btn-sm btn-circle btn-ghost absolute right-10 top-3.5 z-10 overflow-visible" @click="removeSubsystem(key, k)">✕</button>
+                            <input type="checkbox" name="sonata-abilities-collapse" />
+                            <div class="collapse-title text-xl font-medium">{{ subsystem.name }}</div>
+                            <div class="collapse-content flex flex-col">
+                                <p class="">Descrição: {{ subsystem.description }}</p>
+                                <button class="btn btn-outline btn-secondary btn-sm ml-auto mr-5">Rolar</button>
                             </div>
+                        </div>
+                        <div class="w-full text-center">
+                            <button class="btn btn-outline btn-accent w-full my-3" @click="$emit('addSubsystem', key)">Adicionar</button>
                         </div>
                     </div>
                 </div>
@@ -98,8 +69,4 @@ function remove(key: string | number) : void {
             <button class="btn btn-outline btn-accent w-full my-3" @click="$emit('add')">Adicionar</button>
         </div>
     </div>
-
-    <Teleport to="body">
-        <NumberInputModal :title="'Insira o custo da magia'" @end="(cost) => roll(cost)" ref="costModal"/>
-    </Teleport>
 </template>
