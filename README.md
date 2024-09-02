@@ -52,6 +52,7 @@ erDiagram
         varchar description
         int damage "NULLABLE"
         varchar strategy "NULLABLE"
+        int sheet_id FK
     }
 
     Effects {
@@ -80,6 +81,7 @@ erDiagram
         varchar key
         int value
         int sheet_id FK
+        int blood_id FK
     }
 
     Skills {
@@ -87,6 +89,7 @@ erDiagram
         varchar key
         int value
         varchar referenced_stat
+        int sheet_id FK
     }
 
     Mystic_eyes {
@@ -161,6 +164,7 @@ erDiagram
         boolean double
         varchar strategy "NULLABLE"
         varchar description
+        int sheet_id FK
     }
 
     Scripture_abilities {
@@ -176,6 +180,92 @@ erDiagram
         int id PK
         int scripture_ability_id FK
         int scripture_id FK
+    }
+
+    Sonatas {
+        int id PK
+        varchar name
+        varchar description
+    }
+
+    Sonatas_Sheets {
+        int id PK
+        int sonata_id FK
+        int sheet_id FK
+    }
+
+    Sonata_abilities {
+        int id PK
+        varchar name
+        varchar description
+        int level
+        varchar strategy "NULLABLE"
+    }
+
+    Sonata_abilities_Sonatas {
+        int id PK
+        int sonata_ability_id FK
+        int sonata_id FK
+    }
+
+    Sonata_abilities_Sheets {
+        int id PK
+        int sonata_ability_id FK
+        int sheet_id FK
+    }
+
+    Systems {
+        int id PK
+        varchar name
+        varchar description
+        varchar strategy_passive "NULLABLE"
+        varchar strategy_active "NULLABLE"
+        varchar strategy_burn "NULLABLE"
+        int damage "NULLABLE"
+    }
+
+    Sheets_Systems {
+        int id PK
+        int system_id FK
+        int sheet_id FK
+    }
+
+    Subsystems {
+        int id PK
+        varchar name
+        varchar description
+        varchar strategy "NULLABLE"
+        varchar strategy_burn "NULLABLE"
+        int system_id FK
+    }
+
+    Sheets_Subsystems {
+        int id PK
+        int subsystem_id FK
+        int sheet_id FK
+        int burn_duration "NULLABLE"
+    }
+
+    Effects_Systems {
+        int id PK
+        int system_id FK
+        int effect_id FK
+        int remaining_duration
+    }
+
+    Blood {
+        int id PK
+        varchar name
+        varchar impulses
+        int sheet_id FK
+    }
+
+    Blood_abilities {
+        int id PK
+        varchar name
+        varchar description
+        varchar strategy "NULLABLE"
+        int blood_id FK
     }
 
     Sheets 1--1 Users : ""
@@ -197,8 +287,24 @@ erDiagram
     Schools_Spells 1+--1 Spells : ""
     Miracles_Sheets 0+--1 Sheets : ""
     Miracles_Sheets 0+--1 Miracles : ""
-    Scripture o|--1 Sheets : ""
+    Scriptures o|--1 Sheets : ""
     Scripture_abilities_Scriptures 0+--1 Scriptures : ""
     Scripture_abilities_Scriptures 0+--1 Scripture_abilities : ""
+    Sonatas_Sheets 0+--1 Sheets : ""
+    Sonatas_Sheets 0+--1 Sonatas : ""
+    Sonata_abilities_Sonatas 0+--1 Sonatas : ""
+    Sonata_abilities_Sonatas 0+--1 Sonata_abilities : ""
+    Sonata_abilities_Sheets 0+--1 Sonata_abilities : ""
+    Sonata_abilities_Sheets 0+--1 Sheets : ""
+    Sheets_Systems 0+--1 Sheets : ""
+    Sheets_Systems 0+--1 Systems : ""
+    Sheets_Subsystems 0+--1 Sheets : ""
+    Sheets_Subsystems 0+--1 Subsystems : ""
+    Subsystems 1+--1 Systems : ""
+    Effects_Systems 0+--1 Effects : ""
+    Effects_Systems 0+--1 Systems : ""
+    Blood o|--1 Systems : ""
+    Blood_abilities 1+--1 Blood : ""
+    Blood 1+--1 Stats : ""
 ```
 
