@@ -45,13 +45,17 @@ function removeSubsystem(systemKey: string | number, subsystemKey: number) : voi
             </div>
             <div class="overflow-auto">
                 <div v-for="system, key in sheet.systems" class="collapse collapse-arrow bg-base-100">
+                    <button class="btn btn-sm btn-outline btn-accent absolute top-4 right-44">Ativar</button>
+                    <button class="btn btn-sm btn-outline btn-error absolute top-4 right-20">Queimar</button>
                     <button v-if="isOriginal(key)" class="btn btn-sm btn-circle btn-ghost absolute right-10 top-3.5 z-10 overflow-visible" @click="remove(key)">✕</button>
-                    <input type="checkbox" name="sonatas-collapse" />
+                    <input type="checkbox" name="systems-collapse" />
                     <div class="collapse-title text-xl font-medium">{{ key }}</div>
                     <div class="collapse-content">
                         <div v-for="subsystem, k in system.subsystems" class="collapse collapse-arrow bg-base-100">
+                            <button class="btn btn-xs btn-outline btn-accent absolute top-5 right-40">Ativar</button>
+                            <button class="btn btn-xs btn-outline btn-error absolute top-5 right-20">Queimar</button>
                             <button v-if="isOriginalSubsystem(key, subsystem)" class="btn btn-sm btn-circle btn-ghost absolute right-10 top-3.5 z-10 overflow-visible" @click="removeSubsystem(key, k)">✕</button>
-                            <input type="checkbox" name="sonata-abilities-collapse" />
+                            <input type="checkbox" name="subsystems-collapse" />
                             <div class="collapse-title text-xl font-medium">{{ subsystem.name }}</div>
                             <div class="collapse-content flex flex-col">
                                 <p class="">Descrição: {{ subsystem.description }}</p>
