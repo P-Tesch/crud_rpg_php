@@ -36,10 +36,16 @@ function roll(cost: number) : void {
         throw new ToastError("Mana insuficiente");
     }
 
-    const url: string = "/api/roll/spell?school=" + school + "&spell=" + spell + "&cost=" + cost + "&modifier=0";
-
-    window.axios.get(url)
-        .then(() => {
+    window.axios.get(
+        "/api/roll/spell", {
+            params: {
+                school: school,
+                spell: spell,
+                cost: cost,
+                modifier: 0
+            }
+        }
+    ).then(() => {
             emit("sync");
         }
     ).catch((error: AxiosError) => {

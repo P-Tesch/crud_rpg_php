@@ -17,8 +17,11 @@ const systemNameRef = ref<string>("");
 defineExpose({modalRef, build});
 
 function build(systemName: string) {
-    const url = "/api/subsystems?system_name=" + systemName;
-    window.axios.get(url)
+    window.axios.get("/api/subsystems", {
+        params: {
+            system_name: systemName
+        }
+    })
         .then((response: AxiosResponse) => {
             systemNameRef.value = systemName;
             subsystems.value = response.data["data"];

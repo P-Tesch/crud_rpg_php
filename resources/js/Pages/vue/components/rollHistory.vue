@@ -52,9 +52,7 @@ function getBubbleStyle(roll: RollAssociative) : string {
 }
 
 function setupRolls() : void {
-    const url: string = "/api/roll";
-
-    window.axios.get(url)
+    window.axios.get("/api/roll")
         .then((response: AxiosResponse) => {
             rolls.value = response.data;
             setTimeout(() => {scrollToBottom()}, 1);

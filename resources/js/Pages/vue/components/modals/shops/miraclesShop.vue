@@ -19,9 +19,7 @@ onBeforeMount(() => { getMiracles() })
 defineExpose({ modalRef });
 
 function getMiracles() : void {
-    const url: string = "/api/miracles";
-
-    window.axios.get(url)
+    window.axios.get("/api/miracles")
         .then((response: AxiosResponse) =>{
             miracles.value = response.data["data"];
         }

@@ -17,9 +17,11 @@ const sonataNameRef = ref<string>("");
 defineExpose({modalRef, build});
 
 function build(sonataName: string) {
-    const url = "/api/sonata_abilities?sonata_name=" + sonataName;
-    window.axios.get(url)
-        .then((response: AxiosResponse) => {
+    window.axios.get("/api/sonata_abilities", {
+        params: {
+            sonata_name: sonataName
+        }
+    }).then((response: AxiosResponse) => {
             sonataNameRef.value = sonataName;
             sonataAbilities.value = response.data["data"];
             modalRef.value?.showModal();

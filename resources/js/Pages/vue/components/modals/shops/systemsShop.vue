@@ -18,9 +18,7 @@ onBeforeMount(() => {getSystems()})
 defineExpose({modalRef});
 
 function getSystems() : void {
-    const url: string = "/api/systems";
-
-    window.axios.get(url)
+    window.axios.get("/api/systems")
         .then((response: AxiosResponse) => {
             systems.value = response.data["data"];
         }

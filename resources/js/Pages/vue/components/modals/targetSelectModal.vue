@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import type { Sheet, Character } from "rpgTypes";
 import ToastError from "@scripts/ToastError.ts";
+import type { AxiosError, AxiosResponse } from "axios";
 
 interface Props {
     sheet: Sheet;
@@ -14,22 +15,19 @@ const modalRef = ref<HTMLDialogElement>();
 const characters = ref<Character[]>([]);
 
 const updateCharacters = async () => {
-    const response: Response = await fetch("/api/live", {
-        method: "GET"
-    });
-
-    if (!response.ok) {
+    window.axios.get("/api/live")
+        .then((response: AxiosResponse) => {
+            characters.value = response.data;
+        }
+    ).catch((error: AxiosError) => {
         throw new ToastError("Falha ao atualizar lista de personagens");
-    }
-
-    characters.value = JSON.parse(await response.text());
+    });
 }
 
 defineExpose({modalRef, updateCharacters});
 
 const heartbeat = (): void => {
-    const url = "/api/live";
-    window.axios.post(url, {
+    window.axios.post("/api/live", {
         sheet_id: props.sheet.id,
         name: props.sheet.name,
         portrait: props.sheet.portrait,
@@ -45,6 +43,7 @@ setInterval(heartbeat, 10000);
 
 function select(key: number) {
     emit("end", key);
+    modalRef.value?.close();
 }
 
 </script>

@@ -18,9 +18,7 @@ onBeforeMount(() => {getSonatas()})
 defineExpose({modalRef});
 
 function getSonatas() : void {
-    const url: string = "/api/sonatas";
-
-    window.axios.get(url)
+    window.axios.get("/api/sonatas")
         .then((response: AxiosResponse) => {
             sonatas.value = response.data["data"];
         }
