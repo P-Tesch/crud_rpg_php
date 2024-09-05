@@ -19,9 +19,7 @@ onBeforeMount(() => { getAdvantages() });
 defineExpose({ modalRef });
 
 function getAdvantages() : void {
-    const url: string = "/api/advantages";
-
-    window.axios.get(url)
+    window.axios.get("/api/advantages")
         .then((response : AxiosResponse) => {
             advantages.value = response.data["data"];
         }

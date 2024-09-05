@@ -17,7 +17,7 @@ const characters = ref<Character[]>([]);
 const updateCharacters = async () => {
     window.axios.get("/api/live")
         .then((response: AxiosResponse) => {
-            characters.value = JSON.parse(response.data);
+            characters.value = response.data;
         }
     ).catch((error: AxiosError) => {
         throw new ToastError("Falha ao atualizar lista de personagens");
@@ -27,8 +27,7 @@ const updateCharacters = async () => {
 defineExpose({modalRef, updateCharacters});
 
 const heartbeat = (): void => {
-    const url = "/api/live";
-    window.axios.post(url, {
+    window.axios.post("/api/live", {
         sheet_id: props.sheet.id,
         name: props.sheet.name,
         portrait: props.sheet.portrait,
@@ -44,6 +43,7 @@ setInterval(heartbeat, 10000);
 
 function select(key: number) {
     emit("end", key);
+    modalRef.value?.close();
 }
 
 </script>

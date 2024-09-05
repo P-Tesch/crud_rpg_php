@@ -24,9 +24,7 @@ onBeforeMount(() => {getSchools()})
 defineExpose({modalRef});
 
 function getSchools() : void {
-    const url: string = "/api/schools";
-
-    window.axios.get(url)
+    window.axios.get("/api/schools")
         .then((response: AxiosResponse) => {
             schools.value = response.data["data"];
         }

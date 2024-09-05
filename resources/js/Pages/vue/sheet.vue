@@ -104,9 +104,7 @@ function persist() : void {
         throw new ToastError("O personagem já possui o número máximo de sonatas");
     }
 
-    const url: string = "/api/sheets";
-
-    window.axios.put(url, props.sheet)
+    window.axios.put("/api/sheets", props.sheet)
         .then(() => {
             updateSheet();
             statsKey.value++;
@@ -139,9 +137,7 @@ function persist() : void {
 }
 
 async function updateSheet() : Promise<void> {
-    const url: string = "api/sheets";
-
-    window.axios.get(url)
+    window.axios.get("api/sheets")
         .then((response: AxiosResponse) => {
             const sheet: Sheet = response.data;
             props.sheet.attributes = sheet.attributes;

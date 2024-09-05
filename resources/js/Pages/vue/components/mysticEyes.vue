@@ -14,10 +14,15 @@ const originalMysticEyes: MysticEye[] = Object.assign({}, props.sheet.mysticEyes
 const selectedEye = ref<number>();
 
 const rollMysticEye = (target: number) : void => {
-    const url: string = "/api/roll/mystic_eyes?eye=" + selectedEye.value + "&target=" + target + "&modifier=0";
-
-    window.axios.get(url)
-        .catch((error: AxiosError) => {
+    window.axios.get(
+        "api/roll/mystic_eyes", {
+            params: {
+                eye: selectedEye.value,
+                target: target,
+                modifier: 0
+            }
+        }
+    ).catch((error: AxiosError) => {
             throw new ToastError("Falha ao rolar habilidade de olhos místicos", error);
         }
     );

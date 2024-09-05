@@ -18,9 +18,7 @@ onBeforeMount(() => { getScriptureAbilities() });
 defineExpose({ modalRef });
 
 function getScriptureAbilities() : void {
-    const url: string = "/api/scripture_abilities";
-
-    window.axios.get(url)
+    window.axios.get("/api/scripture_abilities")
         .then((response: AxiosResponse) => {
             scriptureAbilities.value = response.data["data"];
         }

@@ -18,9 +18,7 @@ onBeforeMount(() => { getEyes() })
 defineExpose({ modalRef });
 
 function getEyes() : void {
-        const url: string = "/api/mystic_eyes";
-
-        window.axios.get(url)
+        window.axios.get("/api/mystic_eyes")
             .then((response: AxiosResponse) => {
                 eyes.value = response.data["data"];
             }
