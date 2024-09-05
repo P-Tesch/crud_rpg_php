@@ -149,6 +149,14 @@ declare module "rpgTypes" {
         subsystems: Subsystem[];
     }
 
+    export type SystemFromShop = {
+        id: number;
+        name: string;
+        description: string;
+        damage: number;
+        subsystems: Subsystem[];
+    }
+
     export type SystemArray = {
         [key: string]: System;
     }

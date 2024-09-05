@@ -22,6 +22,7 @@ import SonatasTable from '@components/sonatas.vue'
 import SonatasShop from '@shops/sonatasShop.vue'
 import SonataAbilitiesShop from '@shops/sonataAbilitiesShop.vue'
 import Systems from '@components/systems.vue'
+import SystemsShop from '@shops/systemsShop.vue'
 import TargetSelectModal from '@modals/targetSelectModal.vue'
 import ErrorHandler from '@pages/errorHandler.vue'
 import ToastError from '@scripts/ToastError.ts'
@@ -48,6 +49,7 @@ const miraclesModal = ref<InstanceType<typeof MiraclesShop>>();
 const scriptureAbilitiesModal = ref<InstanceType<typeof ScriptureAbilitiesShop>>();
 const sonatasModal = ref<InstanceType<typeof SonatasShop>>();
 const sonataAbilitiesModal = ref<InstanceType<typeof SonataAbilitiesShop>>();
+const systemsModal = ref<InstanceType<typeof SystemsShop>>();
 const targetModal = ref<InstanceType<typeof TargetSelectModal>>();
 
 const successToast = ref<InstanceType<typeof SuccessToast>>();
@@ -167,7 +169,7 @@ function endTurn() : void {
         <SchoolsTable :sheet @add="schoolsModal?.modalRef?.showModal()" @sync="updateSheet()" v-if="sheet.classes['isMage']" :key="schoolsKey"/>
         <SonatasTable :sheet @add="sonatasModal?.modalRef?.showModal()" @addAbility="(sonataId: string) => sonataAbilitiesModal?.build(sonataId)" v-if="sheet.classes['isVampire']" :key="sonatasKey" />
         <Scripture :sheet :key="scriptureKey" v-if="sheet.classes['isCleric']" @add="scriptureAbilitiesModal?.modalRef?.showModal()" ref="scripture" />
-        <Systems :sheet :key="systemsKey" v-if="sheet.classes['isMagiteck']" />
+        <Systems :sheet :key="systemsKey" v-if="sheet.classes['isMagiteck']" @add="systemsModal?.modalRef?.showModal()" />
         <ItemsTable :sheet @sync="updateSheet()" />
         <MysticEyesTable :sheet @add="eyesModal?.modalRef?.showModal()" @target="targetModal?.updateCharacters(); targetModal?.modalRef?.showModal()" :key="mysticEyesKey" ref="mysticEyesTable" />
         <Advantages :sheet @add="advantagesModal?.modalRef?.showModal()" :key="advantagesKey" />
@@ -199,6 +201,9 @@ function endTurn() : void {
     </Teleport v-if="props.sheet.classes.isVampire">
     <Teleport to="body">
         <SonataAbilitiesShop :sheet ref="sonataAbilitiesModal" />
+    </Teleport>
+    <Teleport to="body">
+        <SystemsShop :sheet ref="systemsModal" />
     </Teleport>
     <Teleport to="body">
         <TargetSelectModal :sheet ref="targetModal" @end="(id: number) => mysticEyesTable?.rollMysticEye(id)"/>

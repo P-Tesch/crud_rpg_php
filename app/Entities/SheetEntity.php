@@ -9,6 +9,7 @@ use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\ScriptureAbilitiesController;
 use App\Http\Controllers\SonataAbilitiesController;
 use App\Http\Controllers\SonatasController;
+use App\Http\Controllers\SubsystemController;
 use App\Http\Controllers\SystemController;
 use App\Models\Item;
 use App\Models\Blood;
@@ -125,8 +126,8 @@ class SheetEntity {
         }
 
         $this->systems = [];
-        foreach ($args["systems"] as $system) {
-            $systemModel = SystemController::findByName($system["name"]);
+        foreach ($args["systems"] as $name => $system) {
+            $systemModel = SystemController::findByName($name);
             $this->systems[$systemModel->name] = [
                 "id" => $systemModel->id,
                 "subsystems" => $system["subsystems"]
@@ -361,7 +362,7 @@ class SheetEntity {
         $subsystems = [];
         foreach ($this->systems as $system) {
             foreach ($system["subsystems"] as $subsystem) {
-                $subsystemModel = SonataAbilitiesController::findByNameAndLevel($ability["name"], $ability["level"]);
+                $subsystemModel = SubsystemController::findByName($subsystem["name"]);
                 $subsystems[] = $subsystemModel->id;
             }
         }

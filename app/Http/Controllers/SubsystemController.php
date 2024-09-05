@@ -38,8 +38,8 @@ class SubsystemController extends Controller
         return Subsystem::find($id);
     }
 
-    public static function findByNameAndLevel(string $name, int $level) {
-        return Subsystem::where("name", $name)->where("level", $level)->firstOrFail();
+    public static function findByName(string $name) {
+        return Subsystem::where("name", $name)->firstOrFail();
     }
 
     /**
