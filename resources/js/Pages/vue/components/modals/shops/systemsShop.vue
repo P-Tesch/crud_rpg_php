@@ -72,7 +72,7 @@ function addToSheet(index: number) : void {
                     <h4 class="text-xl font-semibold">{{ system.name }}</h4>
                     <p>{{ system.description }}</p>
                     <div v-for="subsystem in system.subsystems" class="collapse collapse-arrow bg-base-100">
-                        <input type="checkbox" name="spells-collapse" />
+                        <input type="checkbox" name="subsystems-collapse" />
                         <div class="collapse-title text-xl font-medium">{{ subsystem.name }}</div>
                         <div class="collapse-content">
                             <p>Descrição: {{ subsystem.description }}</p>
