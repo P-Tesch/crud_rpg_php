@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Subsystem extends Model
@@ -26,7 +27,7 @@ class Subsystem extends Model
         return $this->belongsToMany(Sheet::class)->withPivot("burn_duration");
     }
 
-    public function subsystems() : BelongsToMany {
-        return $this->belongsToMany(Subsystem::class);
+    public function system() : BelongsTo {
+        return $this->belongsTo(System::class);
     }
 }

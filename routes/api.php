@@ -10,6 +10,7 @@ use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\SonatasController;
 use App\Http\Controllers\SystemsController;
 use App\Http\Controllers\MiraclesController;
+use App\Http\Controllers\SubsystemController;
 use App\Http\Controllers\AdvantagesController;
 use App\Http\Controllers\MysticEyesController;
 use App\Http\Controllers\SonataAbilitiesController;
@@ -51,6 +52,8 @@ Route::group(["middleware" => ["web"]], function () {
     Route::get("/sonata_abilities", [SonataAbilitiesController::class, "indexBySonata"]);
 
     Route::get("/systems", [SystemsController::class, "index"]);
+
+    Route::get("/subsystems", [SubsystemController::class, "indexBySystem"]);
 
     Route::post("/live", [LiveController::class, "heartbeat"]);
     Route::get("/live", [LiveController::class, "alive"]);

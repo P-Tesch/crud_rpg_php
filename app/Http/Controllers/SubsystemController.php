@@ -17,9 +17,9 @@ class SubsystemController extends Controller
         return SubsystemResource::collection(Subsystem::all());
     }
 
-    public function indexBySonata(Request $request) {
-        $subsystemName = $request->input("subsystem_name");
-        return SubsystemResource::collection(Subsystem::whereBelongsTo(System::where("name", $subsystemName)->firstOrFail(), "subsystem")->get());
+    public function indexBySystem(Request $request) {
+        $systemName = $request->input("system_name");
+        return SubsystemResource::collection(Subsystem::whereBelongsTo(System::where("name", $systemName)->firstOrFail(), "system")->get());
     }
 
     /**

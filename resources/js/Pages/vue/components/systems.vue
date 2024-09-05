@@ -16,9 +16,9 @@ function isOriginal(key: string | number) : boolean {
     return !originalSystems.hasOwnProperty(key);
 }
 
-function isOriginalSubsystem(subsystemKey: string | number, subsystem: Subsystem) : boolean {
+function isOriginalSubsystem(SystemKey: string | number, subsystem: Subsystem) : boolean {
     let original = true;
-    originalSystems[subsystemKey].subsystems.forEach((entry) => {
+    originalSystems[SystemKey]?.subsystems.forEach((entry) => {
         if (entry.name == subsystem.name) {
             original = false;
         }
@@ -31,7 +31,7 @@ function remove(key: string | number) : void {
 }
 
 function removeSubsystem(systemKey: string | number, subsystemKey: number) : void {
-    props.sheet.sonatas[systemKey].abilities.splice(subsystemKey, 1);
+    props.sheet.systems[systemKey].subsystems.splice(subsystemKey, 1);
 
 }
 
