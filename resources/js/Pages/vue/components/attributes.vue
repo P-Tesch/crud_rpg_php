@@ -15,7 +15,8 @@ const attributes: AssociativeArray = {
     "blood_points": "Sangue",
     "blood_xp_animal": "Bxp (Animal)",
     "blood_xp_human": "Bxp (Humano)",
-    "blood_xp_vampire": "Bxp (Vampiro)"
+    "blood_xp_vampire": "Bxp (Vampiro)",
+    "circuits": "Circuitos"
 }
 
 function increase(key: number | string) : void {

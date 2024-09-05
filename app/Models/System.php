@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Item extends Model
+class System extends Model
 {
     use HasFactory;
 
@@ -20,14 +20,20 @@ class Item extends Model
     ];
 
     protected $hidden = [
-        "strategy"
+        "strategy_passive",
+        "strategy_active",
+        "strategy_burn"
     ];
+
+    public function sheets() : BelongsToMany {
+        return $this->belongsToMany(Sheet::class);
+    }
 
     public function effects() : BelongsToMany {
         return $this->belongsToMany(Effect::class);
     }
 
-    public function sheet() : HasOne {
-        return $this->hasOne(Sheet::class);
+    public function subsystems() : HasMany {
+        return $this->hasMany(Subsystem::class);
     }
 }

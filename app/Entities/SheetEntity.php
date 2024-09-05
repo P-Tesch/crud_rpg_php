@@ -9,6 +9,8 @@ use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\ScriptureAbilitiesController;
 use App\Http\Controllers\SonataAbilitiesController;
 use App\Http\Controllers\SonatasController;
+use App\Http\Controllers\SubsystemController;
+use App\Http\Controllers\SystemController;
 use App\Models\Item;
 use App\Models\Blood;
 use App\Models\Sheet;
@@ -40,6 +42,7 @@ class SheetEntity {
     public ?array $schools;
     public ?Scripture $scripture;
     public ?array $sonatas;
+    public ?array $systems;
     public array $skillsRelations;
     public array $classes;
 
@@ -122,6 +125,15 @@ class SheetEntity {
             ];
         }
 
+        $this->systems = [];
+        foreach ($args["systems"] as $name => $system) {
+            $systemModel = SystemController::findByName($name);
+            $this->systems[$systemModel->name] = [
+                "id" => $systemModel->id,
+                "subsystems" => $system["subsystems"]
+            ];
+        }
+
         $this->setClasses();
 
     }
@@ -196,6 +208,19 @@ class SheetEntity {
             }
         }
 
+        $this->systems = [];
+        foreach ($sheet->systems as $system) {
+            $this->systems[$system->name] = [
+                "id" => $system->id,
+                "subsystems" => []
+            ];
+            foreach ($system->subsystems as $subsystem) {
+                if ($sheet->subsystems->contains($subsystem)) {
+                    $this->systems[$system->name]["subsystems"][] = $subsystem;
+                }
+            }
+        }
+
         $this->setClasses();
 
         return $this;
@@ -221,6 +246,9 @@ class SheetEntity {
         }
         if (array_key_exists("blood_points", $this->attributes)) {
             $this->maxAttributes["max_blood_points"] = 20 * $this->stats["lineage"];
+        }
+        if (array_key_exists("circuits", $this->attributes)) {
+            $this->maxAttributes["max_circuits"] = (int) floor($this->stats["tech"] / 2) + 1;
         }
     }
 
@@ -324,6 +352,21 @@ class SheetEntity {
             }
         }
         $model->SonataAbilities()->sync($sonataAbilities, true);
+
+        $systems = [];
+        foreach (array_keys($this->systems) as $systemName) {
+            $systems[] = $this->systems[$systemName]["id"];
+        }
+        $model->Systems()->sync($systems, true);
+
+        $subsystems = [];
+        foreach ($this->systems as $system) {
+            foreach ($system["subsystems"] as $subsystem) {
+                $subsystemModel = SubsystemController::findByName($subsystem["name"]);
+                $subsystems[] = $subsystemModel->id;
+            }
+        }
+        $model->Subsystems()->sync($subsystems, true);
 
         $this->setClasses();
         $model->save();

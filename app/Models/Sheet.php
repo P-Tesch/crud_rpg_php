@@ -72,7 +72,15 @@ class Sheet extends Model
         return $this->belongsToMany(Sonata::class);
     }
 
-    public function SonataAbilities() : BelongsToMany {
+    public function sonataAbilities() : BelongsToMany {
         return $this->belongsToMany(SonataAbility::class);
+    }
+
+    public function Systems() : BelongsToMany {
+        return $this->belongsToMany(System::class);
+    }
+
+    public function Subsystems() : BelongsToMany {
+        return $this->belongsToMany(Subsystem::class);
     }
 }

@@ -15,14 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string("name", 63);
             $table->string("description");
-            $table->integer("remaining_turns")->nullable();
             $table->string("strategy")->nullable();
-
-            $table->unsignedBigInteger("sheet_id")->nullable();
-            $table->foreign("sheet_id")->references("id")->on("sheets");
-
-            $table->unsignedBigInteger("item_id")->nullable();
-            $table->foreign("item_id")->references("id")->on("items");
         });
     }
 

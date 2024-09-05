@@ -4,8 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Effect extends Model
 {
@@ -23,11 +22,15 @@ class Effect extends Model
         "strategy"
     ];
 
-    public function item() : BelongsTo {
-        return $this->belongsTo(Item::class);
+    public function items() : BelongsToMany {
+        return $this->belongsToMany(Item::class)->withPivot("remaining_duration");
     }
 
-    public function sheet() : BelongsTo {
-        return $this->belongsTo(Sheet::class);
+    public function sheets() : BelongsToMany {
+        return $this->belongsToMany(Sheet::class)->withPivot("remaining_duration");
+    }
+
+    public function systems() : BelongsToMany {
+        return $this->belongsToMany(System::class)->withPivot("remaining_duration");
     }
 }
