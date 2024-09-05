@@ -29,6 +29,10 @@ class System extends Model
         return $this->belongsToMany(Sheet::class);
     }
 
+    public function effects() : BelongsToMany {
+        return $this->belongsToMany(Effect::class);
+    }
+
     public function subsystems() : HasMany {
         return $this->hasMany(Subsystem::class);
     }
