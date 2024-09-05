@@ -22,7 +22,7 @@ function isOriginal(key: string | number) : boolean {
 
 function isOriginalAbility(sonataKey: string | number, ability: SonataAbility) : boolean {
     let original = true;
-    originalSonatas[sonataKey].abilities.forEach((entry) => {
+    originalSonatas[sonataKey]?.abilities.forEach((entry) => {
         if (entry.name == ability.name) {
             original = false;
         }

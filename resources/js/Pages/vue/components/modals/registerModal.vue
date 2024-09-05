@@ -130,6 +130,12 @@ function buildSheet() {
                 "value": 1
             }
         );
+        attributes.push(
+            {
+                "key": "circuits",
+                "value": 0
+            }
+        );
     }
     if (charClass?.value == "vampire") {
         stats.push(
@@ -260,7 +266,8 @@ function buildSheet() {
     "mystic_eyes": [],
     "schools": [],
     "scripture": scripture,
-    "sonatas": []
+    "sonatas": [],
+    "systems": []
     }
 
     return sheet;
@@ -404,9 +411,6 @@ async function register() {
 
                 </div>
                 <div v-if="charClass == 'hybrid'" class="outline outline-primary flex flex-col gap-5 p-5 rounded-xl">
-
-                </div>
-                <div v-if="charClass == 'magiteck'" class="outline outline-primary flex flex-col gap-5 p-5 rounded-xl">
 
                 </div>
                 <button class="btn btn-outline btn-secondary" @click="register()">Confirmar</button>

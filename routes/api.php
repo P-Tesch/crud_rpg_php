@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LiveController;
 use App\Http\Controllers\RollController;
@@ -9,11 +8,14 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SheetController;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\SonatasController;
+use App\Http\Controllers\SystemsController;
 use App\Http\Controllers\MiraclesController;
+use App\Http\Controllers\SubsystemController;
 use App\Http\Controllers\AdvantagesController;
 use App\Http\Controllers\MysticEyesController;
 use App\Http\Controllers\SonataAbilitiesController;
 use App\Http\Controllers\ScriptureAbilitiesController;
+use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 
 Route::post("/users", [UserController::class, "store"])->middleware([HandlePrecognitiveRequests::class]);
 
@@ -48,6 +50,10 @@ Route::group(["middleware" => ["web"]], function () {
     Route::get("/sonatas", [SonatasController::class, "index"]);
 
     Route::get("/sonata_abilities", [SonataAbilitiesController::class, "indexBySonata"]);
+
+    Route::get("/systems", [SystemsController::class, "index"]);
+
+    Route::get("/subsystems", [SubsystemController::class, "indexBySystem"]);
 
     Route::post("/live", [LiveController::class, "heartbeat"]);
     Route::get("/live", [LiveController::class, "alive"]);

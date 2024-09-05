@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\School;
 use App\Models\Sonata;
+use App\Models\System;
 use App\Models\Miracle;
 use App\Models\Advantage;
 use App\Models\MysticEye;
@@ -19,7 +20,7 @@ class DatabaseSeeder extends Seeder
     {
         School::factory()
             ->hasSpells(fake()->numberBetween(1, 6))
-            ->count(5)
+            ->count(10)
             ->create();
 
         MysticEye::factory()
@@ -41,6 +42,11 @@ class DatabaseSeeder extends Seeder
         Sonata::factory()
             ->count(10)
             ->hasSonataAbilities(fake()->numberBetween(1, 5))
+            ->create();
+
+        System::factory()
+            ->hasSubsystems(fake()->numberBetween(2, 5))
+            ->count(10)
             ->create();
     }
 }

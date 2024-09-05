@@ -54,7 +54,7 @@ function addToSheet(index: number) : void {
             <form method="dialog">
             <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
             </form>
-            <h3 class="text-3xl font-bold text-center">Sonatas</h3>
+            <h3 class="text-3xl font-bold text-center">Habilidades de sonata</h3>
             <div class="flex flex-col gap-5">
                 <div class="flex flex-col outline outline-primary p-2 rounded-box" v-for="ability, key in sonataAbilities">
                     <h4 class="text-xl font-semibold">{{ ability.name }}</h4>

@@ -66,7 +66,7 @@ function addToSheet(index: number) : void {
                     <h4 class="text-xl font-semibold">{{ sonata.name }}</h4>
                     <p>{{ sonata.description }}</p>
                     <div v-for="ability in sonata.abilities" class="collapse collapse-arrow bg-base-100">
-                        <input type="checkbox" name="spells-collapse" />
+                        <input type="checkbox" name="sonata-abilities-collapse" />
                         <div class="collapse-title text-xl font-medium">{{ ability.name }}</div>
                         <div class="collapse-content">
                             <p>Descrição: {{ ability.description }}</p>

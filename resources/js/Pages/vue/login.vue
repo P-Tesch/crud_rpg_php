@@ -37,7 +37,7 @@ function success() : void {
 
 <template>
     <Head title="Login" />
-    <div class="flex h-screen">
+    <div class="flex h-screen" @keyup.enter="auth">
         <div class="flex flex-col border border-1 rounded-md border-primary p-5 w-4/12 h-4/12 m-auto gap-2">
             <h1 class="text-xl font-bold text-center mb-4 text-accent">Gerenciador de fichas</h1>
             <form class="flex flex-col gap-4">
@@ -75,8 +75,8 @@ function success() : void {
                 </div>
             </form>
             <div class="flex flex-row">
-                <button class="btn btn-outline btn-accent mx-auto" v-on:click="auth">Entrar</button>
-                <button class="btn btn-outline btn-secondary mx-auto" v-on:click="registerModal?.modalRef?.showModal()">Registrar</button>
+                <button class="btn btn-outline btn-accent mx-auto" @click="auth">Entrar</button>
+                <button class="btn btn-outline btn-secondary mx-auto" @click="registerModal?.modalRef?.showModal()">Registrar</button>
             </div>
         </div>
     </div>
