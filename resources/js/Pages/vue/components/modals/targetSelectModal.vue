@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import type { Sheet, Character } from "rpgTypes";
 import ToastError from "@scripts/ToastError.ts";
+import type { AxiosError, AxiosResponse } from "axios";
 
 interface Props {
     sheet: Sheet;
@@ -14,15 +15,13 @@ const modalRef = ref<HTMLDialogElement>();
 const characters = ref<Character[]>([]);
 
 const updateCharacters = async () => {
-    const response: Response = await fetch("/api/live", {
-        method: "GET"
-    });
-
-    if (!response.ok) {
+    window.axios.get("/api/live")
+        .then((response: AxiosResponse) => {
+            characters.value = JSON.parse(response.data);
+        }
+    ).catch((error: AxiosError) => {
         throw new ToastError("Falha ao atualizar lista de personagens");
-    }
-
-    characters.value = JSON.parse(await response.text());
+    });
 }
 
 defineExpose({modalRef, updateCharacters});
