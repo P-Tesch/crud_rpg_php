@@ -6,7 +6,7 @@ Toque flamejante: O usuário infunde uma parte de seu corpo com uma grande quant
 
 
 Nível 2
-Dardo de chamas : O usuário atira um projétil de fogo. Esse projétil tem alcance igual à MP+1 e causa MP-2 de dano. Quando esse ataque acerta, ele Cauteriza o inimigo, fazendo com que recebam uma penalidade em sua resistência igual à MP e deve-se rodar um dado que, caso resulte em um acerto, Queima o inimigo em 1 de dano por MP turnos.
+Dardo de chamas: O usuário atira um projétil de fogo. Esse projétil tem alcance igual à MP+1 e causa MP-2 de dano. Quando esse ataque acerta, ele Cauteriza o inimigo, fazendo com que recebam uma penalidade em sua resistência igual à MP e deve-se rodar um dado que, caso resulte em um acerto, Queima o inimigo em 1 de dano por MP turnos.
 
 
 Nível 3

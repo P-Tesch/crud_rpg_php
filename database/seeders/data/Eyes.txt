@@ -1,0 +1,56 @@
+Olhos místicos de percepção da morte
+Passivo: Permite ver a morte em tudo, seja um ser vivo, um espírito ou um objeto, torna possível matar seres imortais, fantasmas, espíritos, vampiros e afins.
+Ativo: O próximo ataque corpo a corpo do usuário causa dano verdadeiro integral e recebe 1 de dano bônus e, caso esse ataque cause ½ da vida atual do alvo ou mais de dano, o alvo tem sua vida reduzida a 0. O usuário recebe 2 de dano verdadeiro para ativar essa habilidade. (Custo 40)
+
+Olhos místicos de petrificação
+Ativo: O alvo é Atordoado por turnos iguais à diferença na checagem da Tenacidade do alvo contra a Consciência do usuário. Após usado precisa descansar por 10 turnos. (Custo 25)
+Cooldown: 10
+
+Olhos místicos de ligação
+Ativo: O alvo é Preso por turnos iguais à diferença na checagem da Tenacidade do alvo contra a Consciência do usuário. Após usado precisa descansar por 10 turnos. (Custo 15)
+Cooldown: 10
+
+Olhos místicos de charme
+Passivo: Faz o alvo ver o usuário como alguém atraente, fazendo checagens de Diplomacia do usuário ganharem 2 dados a mais.(Custo 10)
+
+Olhos místicos de compulsão
+Ativo: Permite ao usuário controlar as ações de movimentação do alvo por turnos iguais à diferença de acertos de uma checagem da Tenacidade do alvo contra a Consciência do usuário. Após usado, precisa descansar por 10 turnos. (Custo 25)
+Cooldown: 10
+
+Olhos místicos de encantamento
+Ativo: Pode ser usado contra um alvo, rolando a Tenacidade do alvo contra a Consciência do usuário e, caso se obtenha sucesso, o usuário controla as ações do alvo durante 1 turno. Após usado, precisa descansar por 10 turnos. (Custo 30)
+Cooldown: 10
+
+Olhos místicos de clarividência
+Passivo: O usuário tem 4 dados a mais em testes de percepção.
+Ativo: Pode ser usado contra um alvo, rolando a Tenacidade do alvo contra a Consciência do usuário e, caso se obtenha sucesso, o usuário recebe acesso à ficha do alvo. Após usado, precisa descansar por 10 turnos. (Custo 10)
+Cooldown: 10
+
+Olhos místicos de chamas
+Ativo: Cria chamas no local onde o usuário está olhando que duram por Inteligência turnos e causam 1 de dano verdadeiro por turno. Após usado precisa descansar por 10 turnos. (Custo 20)
+Cooldown: 10
+
+Olhos místicos de distorção
+Ativo: Permite ao usuário distorcer uma região do espaço, destruindo objetos nesse espaço e causando danos a inimigos. O dano é igual à diferença de acertos da checagem da Tenacidade do alvo contra a Consciência do usuário +1. O tempo de descanso varia de acordo com a área afetada, sendo igual ao raio da área afetada multiplicado por 5, com um limite de área igual a Inteligência quadrados.. (Custo 30)
+
+Olhos místicos de precognição
+Ativo: Permite o usuário simular uma ação, caso o usuário deseje tomar prosseguimento, a ação é efetuada, caso deseje tomar outro rumo, a ação é cancelada. Após o uso, precisa de 5 turnos de descanso. (Custo 25)
+Cooldown: 5
+
+Olhos místicos de saque
+Ativo: Permite o usuário roubar vida do alvo em quantidade igual à diferença de acertos da checagem da Tenacidade do alvo contra a Consciência do usuário. Após o uso precisa de 10 turnos de descanso. (Custo 20)
+Cooldown: 10
+
+Olhos místicos de retrocognição
+Ativo: Sem checagem. Permite ao usuário ver o passado próximo de uma região. (Custo 10)
+
+Olhos místicos de transiência
+Ativo: Permite o usuário trazer ações do passado para o presente.(Por exemplo, se um aliado usou uma magia em uma região anteriormente, repetir essa magia do passado na mesma área). Checagem de Consciência, falha se o número de acertos for menor do que o número de acertos alcançado na checagem da ação original(É necessário saber qual foi o resultado da checagem para poder trazer a ação). Depois de usado, precisa de 10 turnos de descanso. (Custo 30)
+Cooldown: 10
+
+Olhos místicos de detecção mágica
+Passivo: Demonstram sinais de irritação quando em um ambiente com resquícios de magia.(Custo 5)
+
+Olhos místicos de usurpação
+Ativo: Permite ao usuário copiar o efeito de um olho místico de outra pessoa. Para efeitos passivos, a passiva fica ativa durante 5 turnos. Para efeitos ativos, o efeito pode ser usado uma única vez nos 5 turnos subsequentes à cópia. Depois de usado, precisa de 10 turnos de descanso. (Custo 20)
+Cooldown: 10

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\MysticEye;
 use App\Models\Spell;
 use App\Models\School;
 use DB;
@@ -14,7 +15,54 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->seedMysticEyes();
         $this->seedSchoolsAndSpells();
+    }
+
+    private function seedMysticEyes() : void {
+        MysticEye::truncate();
+
+        $lines = file(__DIR__ . "/data/Eyes.txt");
+
+        $eyeArgs = [];
+        foreach ($lines as $line) {
+            switch (true) {
+                case str_starts_with($line, "Olhos"):
+                    if (!empty($eyeArgs)) {
+                        (new MysticEye($eyeArgs))->save();
+                        $eyeArgs = [];
+                    }
+                    $eyeArgs["name"] = trim($line);
+                    break;
+
+                case str_starts_with($line, "Passivo"):
+                    $eyeArgs["passive"] = trim(explode(": ", preg_replace("/\(Custo\s\d+\)/", "", $line))[1]);
+
+                    $hasCost = preg_match("/\(Custo\s\d+\)/", $line, $cost);
+                    if ($hasCost) {
+                        preg_match("/\d+/", $cost[0], $costNumber);
+                        $eyeArgs["cost"] = $costNumber[0];
+                    }
+
+                    break;
+
+                case str_starts_with($line, "Ativo"):
+                    $eyeArgs["active"] = trim(explode(": ", preg_replace("/\(Custo\s\d+\)/", "", $line))[1]);
+
+                    $hasCost = preg_match("/\(Custo\s\d+\)/", $line, $cost);
+                    if ($hasCost) {
+                        preg_match("/\d+/", $cost[0], $costNumber);
+                        $eyeArgs["cost"] = $costNumber[0];
+                    }
+
+                    break;
+
+                case str_starts_with($line, "Cooldown"):
+                    $eyeArgs["cooldown"] = explode(": ", $line)[1];
+            }
+        }
+
+        (new MysticEye($eyeArgs))->save();
     }
 
     private function seedSchoolsAndSpells() : void {
