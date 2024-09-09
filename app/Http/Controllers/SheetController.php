@@ -53,6 +53,9 @@ class SheetController extends Controller
 
         $sheet->save();
 
+        if ($sheet->alignment) {
+            $sheet->schools()->attach(School::where("name", "=", "Fundamentos gerais - " . $this->getAlignmentAlias($sheet->alignment))->where("level", "=", 1)->get());
+        }
         $sheet->schools()->attach($request->input("sheet")["schools"]);
         $sheet->mysticEyes()->attach($request->input("sheet")["mystic_eyes"]);
         $sheet->advantages()->attach($request->input("sheet")["advantages"]);
@@ -224,5 +227,33 @@ class SheetController extends Controller
     public function destroy(int $id)
     {
         return Sheet::destroy($id);
+    }
+
+    private function getAlignmentAlias(string $alignment) : string {
+        switch ($alignment) {
+            case "fire":
+                return "Fogo";
+
+            case "water":
+                return "Água";
+
+            case "air":
+                return "Ar";
+
+            case "earth":
+                return "Terra";
+
+            case "arcana":
+                return "Arcana";
+
+            case "void":
+                return "Vazio";
+
+            case "ice":
+                return "Gelo";
+
+            case "electricity":
+                return "Eletricidade";
+        }
     }
 }
