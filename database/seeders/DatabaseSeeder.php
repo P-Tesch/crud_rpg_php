@@ -2,14 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Spell;
 use App\Models\School;
-use App\Models\Sonata;
-use App\Models\System;
-use App\Models\Miracle;
-use App\Models\Advantage;
-use App\Models\MysticEye;
+use DB;
 use Illuminate\Database\Seeder;
-use App\Models\ScriptureAbility;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,35 +14,84 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        School::factory()
-            ->hasSpells(fake()->numberBetween(1, 6))
-            ->count(10)
-            ->create();
+        $this->seedSchoolsAndSpells();
+    }
 
-        MysticEye::factory()
-            ->count(10)
-            ->create();
+    private function seedSchoolsAndSpells() : void {
+        DB::table("school_spell")->truncate();
+        School::truncate();
+        Spell::truncate();
 
-        Advantage::factory()
-            ->count(10)
-            ->create();
+        $lines = file(__DIR__ . "/data/Magic.txt");
 
-        ScriptureAbility::factory()
-            ->count(10)
-            ->create();
+        $schools = [];
+        $schoolArgs = null;
+        $baseCost = null;
+        $spells = [];
 
-        Miracle::factory()
-            ->count(10)
-            ->create();
+        foreach ($lines as $line) {
+            $line = str_replace("\n", "", $line);
 
-        Sonata::factory()
-            ->count(10)
-            ->hasSonataAbilities(fake()->numberBetween(1, 5))
-            ->create();
+            switch (true) {
+                case str_starts_with($line, "Escola:"):
+                    if (!empty($spells)) {
+                        $school = $schools[$schoolArgs["name"] . " " . $schoolArgs["level"]];
+                        $school->spells()->saveMany($spells);
+                    }
 
-        System::factory()
-            ->hasSubsystems(fake()->numberBetween(2, 5))
-            ->count(10)
-            ->create();
+                    $lineArray = explode(": ", $line);
+                    $schoolArgs = [
+                        "name" => $lineArray[1],
+                        "description" => $lineArray[2]
+                    ];
+                    $baseCost = $lineArray[3];
+                    $spells = [];
+
+                    continue 2;
+
+                case str_starts_with($line, "Nível"):
+                    if (!empty($spells)) {
+                        $school = $schools[$schoolArgs["name"] . " " . $schoolArgs["level"]];
+                        $school->spells()->saveMany($spells);
+                    }
+
+                    $schoolArgs["level"] = (int) explode(" ", $line)[1];
+                    $schoolArgs["cost"] = $this->summation($schoolArgs["level"]) * $baseCost;
+                    $school = new School($schoolArgs);
+                    $school->save();
+
+                    $schools[$schoolArgs["name"] . " " . $schoolArgs["level"]] = $school;
+                    continue 2;
+
+                case preg_match("/[A-Za-z]/", $line):
+                    $lineArray = explode(": ", $line);
+                    $spellArgs = [
+                        "name" => $lineArray[0],
+                        "description" => $lineArray[1],
+                        "type" => $lineArray[2] ?? null,
+                        "strategy" => $lineArray[3] ?? null
+                    ];
+
+                    $spell = new Spell($spellArgs);
+                    $spell->save();
+                    $spells[] = $spell;
+                    continue 2;
+
+                default:
+                    continue 2;
+
+            }
+        }
+
+        $school = $schools[$schoolArgs["name"] . " " . $schoolArgs["level"]];
+        $school->spells()->saveMany($spells);
+    }
+
+    private function summation(int $number) {
+        $total = 0;
+        for ($i = 1; $i <= $number; $i++) {
+            $total += $i;
+        }
+        return $total;
     }
 }

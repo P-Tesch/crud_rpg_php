@@ -1,0 +1,692 @@
+﻿
+Escola: Fundamentos gerais - Fogo: Magias generalistas elementais (Dano ao longo do tempo): 3
+
+Nível 1
+Toque flamejante: O usuário infunde uma parte de seu corpo com uma grande quantidade de calor. O próximo ataque do usuário com essa parte do corpo causa MP de dano. Quando esse ataque acerta, ele Cauteriza o inimigo em por MP turnos e deve-se rodar um dado que, caso resulte em um acerto, Queima o inimigo em 1 de dano por MP turnos.
+
+
+Nível 2
+Dardo de chamas : O usuário atira um projétil de fogo. Esse projétil tem alcance igual à MP+1 e causa MP-2 de dano. Quando esse ataque acerta, ele Cauteriza o inimigo, fazendo com que recebam uma penalidade em sua resistência igual à MP e deve-se rodar um dado que, caso resulte em um acerto, Queima o inimigo em 1 de dano por MP turnos.
+
+
+Nível 3
+Esfera de fogo: O usuário invoca uma esfera de fogo que pode ser controlada para se mover e atacar. A esfera começa com força igual à MP que diminui em um por turno. A esfera pode ser movida por quadrados iguais à força remanescente e causa MP-1 de dano. Quando esse ataque acerta, ele Cauteriza o inimigo, fazendo com que recebam uma penalidade em sua resistência igual à MP e deve-se rodar um dado que, caso resulte em um acerto, Queima o inimigo em 1 de dano por MP turnos.
+
+
+Energia: O usuário infunde seu corpo com energia, fazendo com que seja possível realizar duas ações por turno, durante turnos iguais à MP usada na conjuração. Quando esse efeito chega ao fim, o usuário fica exausto, recebendo uma penalidade de dois dados em todas as suas rolagens até que possa descansar.
+
+
+Nível 4
+Explosão: O usuário lança uma esfera com alcance de dez quadrados, que quando chega ao alvo, explode com raio cinco. Todos pegos na explosão podem rolar sua Acrobacia contra o Combate à distância+MP do usuário e, caso obtenham sucesso, eles desviam completamente da explosão. A explosão causa MP de dano. Quando esse ataque acerta, ele Cauteriza o inimigo, fazendo com que recebam uma penalidade em sua resistência igual à MP e deve-se rodar um dado(cada alvo pego roda seu próprio dado) que, caso resulte em um acerto, Queima o inimigo em 1 de dano por MP turnos.
+
+
+Nível 5
+Ragnarok: O usuário incendeia tudo ao seu redor, com um alcance igual à Magia+MP. A cada turno, todos no alcance são Queimados em 1 de dano e Cauterizados em 1 ponto enquanto dentro da área, e recebem MP de dano a cada turno. A área leva um turno para ser formada. Essa magia custa por turno ½ MP inicial e o usuário deve se manter Concentrado para mantê-la.
+
+
+Escola: Fundamentos gerais - Água: Magias generalistas elementais (Suporte de cura): 3
+Nível 1
+Toque molhado: O usuário infunde uma parte do seu corpo com água. O próximo ataque do usuário com essa parte aplica Molhado por MP turnos, causa MP de dano e cura o personagem mais próximo do usuário(com um limite de 6 quadrados) em ½ do dano causado.
+
+
+Nível 2
+Remover efeito: O usuário escolhe um alvo dentro de 6 quadrados e rola Magia+MP. Para cada acerto, é removido um turno de duração de todos os efeitos que afligem o alvo(o efeito é escolhido pelo usuário). Não pode remover espírito ou voo.
+
+
+Benção da deusa do lago: Permite ao usuário caminhar sobre as águas. Custa 1 MP por turno para ser mantido e pode ser conjurado como ação gratuita a qualquer momento do turno do usuário e, caso o usuário seja lançado sobre um corpo d’água, também pode ser usado imediatamente. Esse efeito também pode ser aplicado a aliados, tendo 1 MP de custo por turno para cada usuário sobre o efeito e, caso o aliado sobre efeito saia de um raio de 15 quadrados do usuário, esse efeito é cancelado.
+
+
+Nível 3
+Vida líquida: O usuário atira um orbe de água curativa em um alvo dentro de um alcance de 6 quadrados. Esse alvo é curado em vida igual aos acertos de uma rolagem de ½ MP e depois o orbe rebate para outro alvo em até 1 quadrado de distância, também o curando pela mesma quantidade e depois rebate novamente por vezes indefinidas, com um limite de curar o mesmo personagem 2 vezes. Todos os atingidos são Molhados por 1 turno.
+
+
+Nível 4
+Onda: Só pode ser usado sobre a água. O usuário lança uma onda de largura igual a MP. Não causa dano, mas todos personagens no caminho da onda são Derrubados, sem chance de desviar, exceto aqueles nas pontas da onda. Todos os atingidos são Molhados por MP turnos. A onda percorre Magia quadrados.
+
+
+Nível 5
+Bolha: O usuário atira uma bolha de água em um alcance de Magia que quando atinge um alvo ela se envolve ao redor dele, tornando-o alvo Atordoado e o tornando intangível por Inteligência turnos, além de Molhado por 2*Inteligência. No momento da conjuração, o usuário deve optar se deseja usar a bolha de forma a causar dano ou de forma a curar o alvo envolto. Caso opte por causar dano, o alvo recebe ½ MP de dano a cada turno dentro da bolha. Caso opte por curar, o alvo recebe vida com base em uma rolagem de ½ MP.
+
+Escola: Fundamentos gerais - Ar: Magias generalistas elementais (Suporte de movimento): 3
+Nível 1
+Toque de vento: O usuário movimenta o ar ao redor de uma parte do seu corpo em alta velocidade, e o libera juntamente ao seu ataque. O próximo ataque do usuário com essa parte do corpo causa MP de dano, empurra o alvo 1 quadrado para trás e caso ele falhe em uma checagem de Tenacidade contra MP, ele é Derrubado.
+
+
+Nível 2
+Vento invisível: O usuário infunde uma arma com ar, fazendo com que ela se torne invisível. A dificuldade de ver a arma confunde os inimigos, removendo dois dados de suas rolagens de esquiva contra essa arma. Dura por 2*MP turnos.
+
+
+Avanço: O usuário remove parte do ar à frente do alvo, diminuindo assim o arrasto do seu corpo e permitindo se mover mais rápido, assim aumenta os seus Pontos de Movimento em MP. Essa magia pode ser conjurada como ação gratuita antes da fase de movimento do usuário, mas apenas uma vez por turno e tem um alcance de Magia*2 quadrados.
+
+
+Nível 3
+Voo: Concede ao alvo o efeito Voo. Custa 2 MP por turno. Pode ser usado como ação gratuita a qualquer momento do turno do usuário. mas apenas uma vez por turno e tem alcance de Magia*2 quadrados. Caso o alvo saia do alcance da magia, ele perde o efeito Voo imediatamente.
+
+
+Nível 4
+Ventania: O usuário cria um vento de alta velocidade e o atira em direção a um alvo. Esse alvo é empurrado em MP quadrados e, caso atinja um objeto, ele para no quadrado anterior ao objeto, recebendo ½ MP de dano e sendo Derrubado caso falhe em uma checagem de Tenacidade contra MP. Caso ele atinja outro personagem, ele pode tentar desviar a partir de uma rolagem de Acrobacia contra MP*2-a quantidade de quadrados percorridos até chegar nele e, caso falhe, recebe ½ MP de dano e deve realizar uma checagem de Tenacidade contra MP e, caso falhe, é Derrubado. Essa magia pode ser usada de forma mais controlada, empurrando o alvo sem chance de o derrubar caso o usuário assim deseje.
+
+
+Nível 5
+Singularidade: O usuário canaliza por um turno e então ativa, criando uma singularidade em um ponto dentro de um alcance de 15 quadrados. Todos em um raio de 10 quadrados da singularidade são puxados em direção a ela a uma taxa de 2*MP a cada turno, sendo que podem resistir rolando um dado de Resistência+Força contra a Magia+MP do usuário e, caso obtenham sucesso podem se mover em até ½ dos seus pontos de movimento totais. Quando um personagem chega à singularidade, ele recebe 1 de dano verdadeiro por turno mais 1 para cada outro personagem também na singularidade. O usuário precisa se manter Concentrado para manter essa magia.
+
+
+Escola: Fundamentos gerais - Terra: Magias generalistas elementais (Defesa): 3
+Nível 1
+Duro como pedra: O usuário infunde uma parte do seu corpo com pedra, fazendo com que seu próximo ataque com essa parte cause MP de dano e, caso o usuário tenha o 2* ou mais de acertos do que o alvo, o alvo fica Atordoado por turnos iguais à diferença de acertos que exceda o limiar.
+
+
+Nível 2
+Qué ota: O usuário dá uma pedrada no alvo. O tamanho da pedra lançada é definida pela MP, sendo que pedras maiores são mais difíceis de se desviar, dessa forma, para cada 2 MP usados o alvo tem -1 dado em sua rolagem de esquiva. Causa MP de dano. O alcance do projétil é de 10 quadrados.
+
+
+Fortificar: O usuário infunde seu corpo com a força da terra, aumentando sua Resistência em MP. A cada turno o usuário deverá pagar ½ MP da conjuração para manter o efeito.
+
+
+Nível 3
+Barreira: O usuário levanta uma pequena parede de pedra à sua frente ou de um aliado. Essa parede tem em sua rolagem MP dados para rolar contra o ataque de um inimigo(essa rolagem se dá antes da rolagem de esquiva), mesmo que ela falhe, o dano recebido é diminuído em 1. Quando usada para um aliado, esse aliado deve estar em um alcance de Magia. Essa magia pode ser usada como ação gratuita, inclusive fora do turno do usuário, mas não mais de uma vez por rodada.
+
+
+Nível 4
+Terraformar: O usuário pode criar uma parede de comprimento até Magia, essa parede dura por MP turnos. Essa parede é destrutível, sendo que cada um de seus quadrados tem 3 de vida e caso chegue a 0, esse quadrado é destruído. Inimigos em cima do caminho da parede são empurrados para o lado(eles têm a opção de escolher o lado).
+
+
+Nível 5
+Tumba: O usuário escolhe um alvo, e rola sua Magia+MP contra Resistência+Força do inimigo. Caso suceda, o inimigo é enterrado no chão, sendo que de acordo com o número de acertos, o inimigo fica mais profundo. Com 1 ou 2 acertos o inimigo tem seus pés enterrados, impossibilitando-o de se mover. Com 3 ou 4 acertos ele tem as pernas enterradas, não podendo se mover e pode apenas usar sua Agilidade para esquivar(sem habilidade de Acrobacia). Com 5 ou 6 o alvo é enterrado até os cotovelos, impedindo de andar e atacar, mas ainda pode desviar de ataques com Agilidade. Com 7 ou 8 o alvo é enterrado até os ombros, impedindo de se mover, atacar ou desviar. Com 9 ou mais acertos o alvo fica completamente submerso no chão, sendo incapaz de se mover, atacar, desviar, falar e, além disso, recebem 1 de dano a cada turno que continuam enterrados. A cada turno o alvo afetado rola um dado de Força e, para cada acerto que tiver, ele remove um acerto do usuário, se liberando aos poucos. O alcance dessa magia é de 6 quadrados. O usuário precisa se manter Concentrado para manter a magia.
+
+
+
+
+________________
+
+
+Escola: Fundamentos gerais - Arcana: Magias generalistas elementais (Dano explosivo): 3
+Nível 1
+Toque arcano: O usuário infunde uma parte de seu corpo com energia mágica concentrada. O próximo ataque do usuário com essa parte do corpo causa MP de dano. Quando esse ataque acerta, o alvo é Predestinado por Magia turnos.
+
+
+Nível 2
+Esfera arcana: O usuário concentra energia mágica em um local num alcance de Magia quadrados, criando uma bola que causa MP-1 de dano. Quando esse ataque acerta, o alvo é Predestinado por Magia turnos. A bola permanece no local por Inteligência turnos e qualquer personagem que esteja no quadrado da bola no início do turno do conjurador recebe o mesmo dano da conjuração.
+
+
+Nível 3
+Manipulação arcana: O usuário manipula uma Esfera arcana previamente criada por ele mesmo, podendo movê-la por até ½ MP quadrados, fazendo com que todos atingidos recebam Magia de dano. Para mover a Esfera arcana, ela deve estar num raio de Magia do usuário e só pode ser movida dentro desse mesmo raio. Quando esse ataque acerta, o alvo é Predestinado por Magia turnos.
+
+
+Nível 4
+Sobrecarga arcana: O usuário sobrecarrega uma Esfera arcana previamente criada por ele mesmo, fazendo com que ela exploda, causando MP de dano num raio igual ao tempo restante da bola em turnos +2. Todos pegos na explosão podem rolar sua Acrobacia contra o Combate à distância+MP do usuário e, caso obtenham sucesso, eles desviam completamente da explosão. Quando esse ataque acerta, o alvo é Predestinado por Magia turnos.
+
+
+Cofre arcano : O usuário pega uma Esfera arcana e a mantém ao redor de si. O usuário também pode criar uma nova Esfera arcana e imediatamente adicioná-la ao Cofre arcano. É possível ter até ⅓ Magia de Esferas arcanas armazenadas ao mesmo tempo. Adicionar uma Esfera arcana ao Cofre arcano não tem custo. Enquanto uma Esfera arcana está armazenada no Cofre arcano, ela tem 2* de sua duração atual. O usuário pode disparar uma ou mais Esferas arcanas de uma só vez. A primeira Esfera arcana causa seu dano integral e cada Esfera arcana no mesmo alvo após a primeira causa apenas ½ do seu dano. Cada Esfera arcana disparada tem um custo de ⅓ do seu próprio MP. Após ser disparada, a Esfera arcana é destruída.
+
+
+Nível 5
+Poder ilimitado: O usuário canaliza por 1 turno, ficando Concentrado, e no turno após a canalização pode realizar ações extras igual a ½ MP. Durante esse turno, quando um alvo com Predestinado receber outro ataque que cause Predestinado, o ataque pode reaplicar o efeito após consumi-lo. Devido à quantidade e velocidade de manipulação de energia mágica durante o uso dessa magia, ela é extremamente desgastante, fazendo com que só possa ser usada ⅓ Magia vezes por dia.
+
+
+________________
+
+
+Escola: Fundamentos gerais - Vazio: Magias generalistas elementais (Dano autodestrutivo): 3
+Nível 1
+Toque vazio: O usuário infunde uma parte de seu corpo com「        」. O próximo ataque do usuário com essa parte do corpo causa MP+1 de dano verdadeiro. O dano recebido pelo coice dessa magia é dobrado.
+
+
+Nível 2
+Dardo vazio: O usuário atira um dardo de「 」contra um alvo dentro de um alcance de Magia quadrados que causa MP de dano verdadeiro. O dano recebido pelo coice dessa magia é dobrado.
+
+
+Nível 3
+Imprudência: O usuário pode converter HP em MP a uma taxa de 1 HP para 3 MP. Essa é uma ação gratuita e pode ser usada a qualquer momento do turno do usuário.
+
+
+Nível 4
+Último suspiro: O usuário atira um projétil contra um alvo dentro de um alcance de Magia que causa dano igual à vida perdida do usuário como dano verdadeiro e custa MP igual a ½ do dano.
+
+
+Caminho do vazio: O usuário infunde seu corpo inteiro com 「 」, recebendo o efeito Banido até o início do seu próximo turno, mas ainda podendo realizar ações de movimentação normalmente. Quando o efeito Banido chega ao fim, caso o usuário esteja no mesmo quadrado de outro personagem, ele causa MP de dano verdadeiro a esse personagem e o empurra 1 quadrado na direção escolhida pelo usuário, sendo que caso haja uma parede ou similar no segundo quadrado da direção escolhida, o alvo é Atordoado por 1 turno e recebe 1 de dano verdadeiro extra. O dano recebido pelo coice dessa magia é dobrado.
+
+
+Nível 5
+Supernova: O usuário causa ½ Magia de dano verdadeiro a cada turno, durante ½ MP turnos, a todos em um alcance de Magia do usuário, incluindo a ele mesmo. Ao final dos turnos, causa a todos em um alcance de Magia dano igual ao total de dano que foi causado durante os turnos desde a conjuração por essa magia.
+________________
+
+
+Escola: Fundamentos gerais - Eletricidade: Magias generalistas elementais (Dano em área): 3
+Nível 1
+Toque chocante: O usuário infunde uma parte de seu corpo com energia elétrica. O próximo ataque do usuário com essa parte do corpo causa MP de dano. Quando esse ataque acerta, ele causa o mesmo dano a todos adjacentes ao alvo(exceto o conjurador) e continua ricocheteando aos adjacentes dos adjacentes, sem limite de ricochetes, porém apenas podendo atingir o mesmo alvo uma vez.
+
+
+Nível 2
+Orbe elétrico: O usuário atira um orbe de eletricidade em um alvo dentro de um alcance de Magia quadrados que causa MP de dano no alvo e em todos os personagens dentro de um alcance de 2 quadrados e continua ricocheteando aos adjacentes daqueles dentro de 2 quadrados, sem limite de ricochetes, porém apenas podendo atingir o mesmo alvo apenas uma vez.
+
+
+Nível 3
+Avanço: O usuário avança instantâneamente em uma distância de até MP com um limite de Agilidade+Magia, causando MP de dano a todos no caminho. Ainda é possível usar mais MP do que Agilidade+Magia, porém só aumenta o dano causado e não o alcance. O dano ricocheteia a todos os adjacentes dos atingidos, sem limite de ricochetes, porém apenas podendo atingir o mesmo alvo uma vez.
+
+
+Descarga: O usuário libera eletricidade ao seu redor, causando MP de dano a todos em um alcance de Inteligência quadrados de si. O dano ricocheteia a todos os adjacentes dos atingidos, sem limite de ricochetes, porém apenas podendo atingir o mesmo alvo uma vez.
+
+
+Nível 4
+Trovoada: O usuário escolhe um quadrado dentro de um alcance de Magia e faz cair um raio nesse ponto, que causa 2*MP de dano no quadrado escolhido e MP de dano a outros alvos dentro de um raio de Inteligência, ricocheteando a todos os adjacentes dos atingidos, sem limite de ricochetes, porém apenas podendo atingir o mesmo alvo uma vez. Após isso, o usuário pode optar por se teletransportar até o quadrado onde o raio caiu(Caso ele esteja vazio) ou um adjacente(Caso o quadrado do raio esteja ocupado. O usuário escolhe qual quadrado quer ir).
+
+
+Nível 5
+Tempestade: O usuário fica Concentrado por 1 turno enquanto transforma uma grande quantidade de energia mágica em energia elétrica e a acumula. Ao fim desse período, o usuário cria uma tempestade de Inteligência+Magia de área que dura por MP turnos. Magias de eletricidade conjuradas dentro dessa área não tem custo de MP e causam ½ do coice. Além disso, uma vez por turno é jogado um dado e, caso seja um acerto, o usuário pode escolher um alvo dentro da área que recebe um raio que causa MP de dano e pode ricochetear para outros alvos adjacentes, sem limite de ricochetes, porém podendo atingir o mesmo alvo apenas uma vez.
+
+
+________________
+
+
+Escola: Fundamentos gerais - Gelo: Magias generalistas elementais (Suporte debilitante): 3
+Nível 1
+Toque congelante: O usuário infunde uma parte do seu corpo com gelo. O próximo ataque do usuário com essa parte causa MP de dano e Congela o inimigo por MP turnos. Caso esse ataque acerte um inimigo Congelado em 3 ou mais, ele converte o Congelado em Atordoado que dura ⅓ dos turnos restantes do efeito.
+
+
+Nível 2
+Dardo de gelo: O usuário atira um projétil de gelo com alcance Magia que causa MP de dano e Congela o inimigo em MP. Caso esse ataque acerte um inimigo Congelado em 3 ou mais, ele converte o Congelado em Atordoado que dura ⅓ dos turnos restantes do efeito.
+
+
+Nível 3
+Bloco de gelo: O usuário cria um bloco de gelo ao redor de si ou de outro personagem dentro de um alcance de Magia. O alvo fica preso em um bloco de gelo, Atordoado-o por ½ MP turnos e tornando-o intangível.
+
+
+Piso congelado: O usuário escolhe um ou mais quadrados dentro de um alcance de Magia*2(Múltiplos quadrados devem estar adjacentes e o máximo de quadrados por conjuração é de Magia) onde pode optar por criar uma camada de gelo ou de neve. Uma camada de gelo faz com que qualquer um que se mova sob o quadrado precise rolar um dado e, caso não seja um acerto, ele é Derrubado, mas caso seja, ele reembolsa o ponto de movimento gasto ao passar por esse quadrado. Uma camada de neve faz com que qualquer um que passe sob o quadrado gaste 1 ponto extra de movimento para atravessá-lo. Dura por MP turnos.
+
+
+Nível 4
+Nevasca: O usuário cria uma tempestade de gelo ao seu redor de tamanho ½ Magia que o segue, durando por MP turnos e Congelando todos na área em ½ MP. Inimigos já Congelados tem a duração do efeito aumentada para ½ MP(Caso a duração restante seja menor do que esse valor) e recebem 1 de dano verdadeiro.
+
+
+Nível 5
+Patinação: O usuário cria uma área de raio igual a 2*MP, onde é criada uma camada de gelo no chão. Todos que tentam se mover precisam antes rolar um dado e, caso não seja um acerto, ele escorrega e é Derrubado. Em contrapartida, o usuário e todos aqueles anulados recebem patins de gelo, aumentando seus pontos de movimento em Magia. Além disso, todos na área são Congelados em MP, esse efeito é renovado a cada turno que o personagem se mantém dentro da área. Essa área precisa de 1 turno de canalização onde o usuário deve se manter Concentrado para ser formada e o usuário deve pagar ½ MP a cada turno para mantê-la.
+________________
+Escola: Mineralogia: Magia baseada no uso de pedras preciosas para ataques poderosos e armazenamento de MP e magias: 2
+Nível 1
+Transferência: Permite ao usuário armazenar MP em gemas. A quantidade máxima de MP que pode ser armazenada depende da qualidade da pedra. Essa MP armazenada pode ser usada para qualquer magia que o usuário usar, mas todo o MP é gasto de uma vez(se o usuário tiver uma gema com 6 MP e usar uma magia de 2 MP com essa pedra, gastam-se os 6 MP). O coice ainda se aplica.
+
+
+Nível 2
+Liberação: Permite ao usuário liberar toda a MP armazenada em uma gema de uma vez de forma explosiva como um projétil de Magia+Combate a distância de alcance. A gema é destruída no processo e causa MP de dano.
+
+
+Estourar: O usuário libera toda a MP guardada na gema de forma a criar um cone de alcance igual Magia(a largura do cone cresce a cada 2 quadrados de comprimento, exceto pelo primeiro, que ocorre com apenas 1). Causa ½ MP de dano. Alvos com objetos ou outros alvos na frente não são afetados. A gema é destruída no processo. Para fins de checagem, essa magia se comporta como um projétil.
+
+
+Atirar: O usuário libera toda a MP armazenada na gema de forma controlada, criando um projétil com grande capacidade de perfuração e alcance. O alcance é de 3*(Magia+Combate a distância) e causa ½ MP de dano. Após atingir um inimigo, objeto ou terreno perfurável, o projétil continua em linha reta até o fim do alcance, atingindo todos no caminho e causando dano integral. A gema é destruída no processo.
+
+
+Nível 3
+Liberação Múltipla: Permite ao usuário conjurar múltiplas magias de liberação de uma só vez, causando a soma de todos os MP armazenados -1 por gema como dano. (Para fins de acerto e erro, todas as liberações contam como uma única). Essa magia é usada contra um único alvo.
+
+
+Nível 4
+Armazenamento: Permite ao usuário armazenar uma magia em uma gema. Quando uma magia armazenada em uma gema é conjurada, a gema se quebra, mas a magia é conjurada como uma ação comum. O coice é aplicado no momento de armazenamento.
+
+
+________________
+
+
+Escola: Numerologia: Magia baseada na manipulação do mundo através de fórmulas matemáticas: 6
+Nível 1
+Previsão: O mago faz uma previsão sobre o futuro, alterando as equações de forma a aumentar a chance dessa previsão ocorrer. Custa 5 MP, adiciona ou remove 5 dados da próxima rolagem mais relevante ligada à previsão.
+
+
+Nível 2
+Equacionar: O mago copia um resultado para outra ação similar. Primeiramente essa magia é conjurada para copiar um resultado anterior que obteve sucesso. O custo dessa magia é igual ao número de acertos copiados. Após isso, o número pode ser colado em uma ação similar(se copiado de um ataque, deve ser usado em um ataque) como ação gratuita, mesmo fora do turno do usuário. Depois de usada, a cópia é perdida. Caso a rolagem seja usada em outra pessoa, ela deve ser usada antes da pessoa fazer a sua rolagem, e ela tem a opção de decidir se quer receber a rolagem ou rolar seu próprio dado.
+
+
+Nível 3
+Reescrever: O usuário é capaz de mudar a própria operação do universo, alterando temporariamente uma mecânica de jogo. Essa magia custa 10 MP para ser conjurada e mais 4 MP por turno para ser mantida. Enquanto de pé todos os personagens estão em efeito sobre ela, por exemplo, o usuário pode escolher que rolagens de esquiva usem inteligência ao invés de agilidade. Caso o usuário crie uma regra que apresente falhas, como usar a estatística de magia para rolar esquivas, toda vez que a falha acontecer e o universo tiver que compensá-la, o usuário recebe cinco de dano.
+
+
+Nível 4
+Viés: O usuário é capaz de colocar um forte viés em seu favor nas leis do universo. Essa magia custa 10 MP para ser conjurada e 5 MP por turno para ser mantida. Enquanto ativa, durante as rolagens do usuário, são considerados acertos os resultados 3, 4, 5 e 6.
+
+
+Nível 5
+Teoria: Muito além de mudar equações, essa magia reescreve um fato do universo. Essa magia tem o coice rolado primeiro e só entra em ação caso o usuário sobreviva. O custo dessa magia vai da discrição do GM, visto que pode ser alterado desde algo como "O inimigo não se moveu" até "O sol não existe".
+________________
+
+
+Escola: Astromancia: Magia baseada nos astros, na sorte e em previsões: 3
+Nível 1
+Tiro de sorte: O usuário atira um projétil que causa dano igual à MP usada na conjuração. Esse projétil tem alcance de 6 quadrados e, após acertar um inimigo tem 50% de chance de rebater para o personagem mais próximo(moeda coroa rebate, d6 par rebate) dentro de um alcance de 6 quadrados do atingido. Esse projétil pode rebater por vezes indefinidas e pode acertar o usuário.
+
+
+Nível 2
+Destino: O usuário escolhe um alvo. Caso esse alvo seja o próximo em cena a morrer, o usuário e todos que participaram na eliminação recebem um bônus igual à vida máxima do alvo dividido pelo número de participantes(arredondado para baixo) em uma de suas estatísticas. A estatística é escolhida aleatoriamente a partir de uma rolagem de um d8, sendo cada um dos números correlacionados a uma estatística na ordem em que aparecem na ficha(Cada um que recebe o bônus tem sua própria rolagem). Esse efeito de bônus dura por turnos iguais à MP usada na conjuração.
+
+
+Nível 3
+Horóscopo: O usuário escolhe um alvo, ambos fazem uma previsão de quanto de vida o outro terá três turnos após a ativação dessa magia, sendo que essa previsão não pode ser igual à vida atual dos mesmos. Quem acerta causa dano igual à MP usada na conjuração no outro, já quem erra recebe dano igual aos MP usados na conjuração.(Caso ambos acertem, ambos recebem dano. Caso ambos errem, ambos recebem dano. Caso um acerte e um erre, quem errou recebe dano igual ao dobro da MP usada na conjuração)
+
+
+Nível 4
+Alinhamento: Essa magia pode ser conjurada como ação gratuita antes de uma rolagem, inclusive fora do turno do usuário. O usuário declara um número, caso a rolagem subsequente ao uso dessa magia tenha acertos iguais ao número declarado, o número de acertos é dobrado. O custo dessa magia é o número declarado em MP.
+
+
+Nível 5
+Chuva de meteoros: Cria uma chuva de meteoros que caem em locais aleatórios. Quando conjurada, todos(incluindo o conjurador) num alcance de nove quadrados do usuário devem rolar um dado, caso o resultado seja par, um meteoro cai em sua posição. O meteoro causa dano igual à MP usada na conjuração.
+
+
+Roleta brasileira: O usuário escolhe um alvo. Eles jogam uma moeda, caso caia coroa, o alvo tem sua vida reduzida a zero, caso caia cara, o usuário tem sua vida reduzida a zero. Caso a moeda caia em pé, os dois têm sua vida reduzida a zero. Também pode ser optado o uso de um dado ao invés de uma moeda, onde um resultado par é tido como cara e um resultado ímpar como coroa. Custo 10 MP.
+
+
+
+
+________________
+Escola: Criação: Magia baseada na criação de objetos: 3
+Nível 1
+Copiar: Permite ao usuário copiar um objeto qualquer que esteja em sua visão. Esse objeto é frágil e imperfeito, fazendo com que ele receba uma penalidade de um dado em suas rolagens e quebrando depois do primeiro uso. Além disso, o usuário só é capaz de copiar a parte exterior do objeto, dessa forma, qualquer propriedade especial do objeto não é copiada. Custa 3 MP para ser conjurado. A primeira cópia de um turno é uma ação gratuita.
+
+
+Nível 2
+Imaginar: Permite ao usuário realizar cópias de objetos simples, mesmo sem vê-los, coisas como uma espada comum ou um arco de madeira. Custa 4 MP para realizar uma cópia de um objeto imaginado.
+
+
+Nível 3
+Armazenar: Quando o usuário realiza um cópia de um objeto, esse objeto ficar guardado em sua memória, permitindo ser usado novamente posteriormente. Custa 5 MP realizar uma cópia a partir de um armazenamento.
+
+
+Nível 4
+Criar: O usuário consegue realizar uma cópia perfeita, objetos criados não sofrem penalidade de rolagem, tem todos os efeitos do objeto original e duram enquanto houver suprimento de MP. O custo da criação de um objeto é variável e o custo para mantê-lo é um quarto do custo de conjuração (arredondado para cima) por turno. Objetos criados podem ser armazenados, mas passam a ter custo de 1 MP a mais do que a criação original para a conjuração. Objetos criados não podem ser imaginados.
+________________
+
+
+Escola: Botânica: Magia baseada em criação de poções: 3
+Nível 1
+Aprendiz de botânica: Permite ao usuário criar uma poção por dia.
+Poção de melhoramento: Aumenta uma estatística geral do usuário em um. Dura por turnos iguais à MP usada na criação. A estatística a ser melhorada é definida na criação.
+
+
+Nível 2
+Formado em botânica: Permite ao usuário criar duas poções por dia.
+Poção de vida: Cura o usuário em pontos iguais à quantidade de acertos de uma rolagem de dados da MP usada na criação da poção.
+Poção de enfraquecimento: Pode ser aplicada a uma arma, ou arremessada. Caso aplicada a uma arma, o próximo ataque causa enfraquecimento(armas corpo a corpo mantém o enfraquecimento até ele ser aplicado, armas à distância perdem o enfraquecimento caso errem). Diminui uma estatística geral do alvo em um. Dura por turno iguais à MP usada na criação. A estatística a ser piorada é definida na criação.
+
+
+Nível 3
+Mestre em botânica: Permite ao usuário criar três poções por dia.
+Poção de fortalecimento: Aumenta a estatística de classe do usuário em um. Dura por turnos iguais à MP usada na criação. A estatística a ser melhorada é definida na criação.
+Poção de veneno: Pode ser aplicada a uma arma, ou arremessada. Caso aplicada a uma arma, o próximo ataque causa veneno(armas corpo a corpo mantém o veneno até ele ser aplicado, armas à distância perdem o veneno caso errem). O veneno dura por turnos iguais à MP usada na conjuração e todo turno rola um dado, caso seja um acerto, causa um de dano verdadeiro ao afetado.
+
+
+Nível 4
+Grão-mestre em botânica: Permite ao usuário criar quatro poções por dia.
+Poção de regeneração: Durante turnos iguais à MP usada na criação somada à magia do criador, rola um dado por turno, caso seja um acerto, regenera um de vida.
+
+
+Nível 5
+Ancião em botânica: Permite ao usuário criar cinco poções por dia.
+Poção de mana: O criador acumula a mana do local, criando uma poção capaz de regenerar os MP do usuário. A quantidade de MP a ser regenerada é igual à estatística de magia do criador.
+
+
+
+
+________________
+
+
+Escola: Evocação espiritual: Magia baseada na evocação de familiares espirituais *O usuário pode evocar quantos espíritos desejar, desde que tenha MP para mantê-los. Caso o usuário não tenha MP suficiente para manter o espírito, ele é dispersado. *As fichas dos espíritos se encontram na pasta de fichas.: 4
+Nível 1
+Evocar pombo na coleira pássaro: Cria um frágil pássaro espiritual. Custa 1 MP para ser evocado e 1 MP por turno para ser mantido. Essa magia precisa de um turno inteiro para ser realizada.
+
+
+Evocar rato: Cria um rato espiritual. Custa 1 MP para ser invocado e 1 MP por turno para ser mantido. Essa magia precisa de um turno inteiro para ser realizada.
+
+
+Nível 2
+Evocar lobo: Cria um lobo espiritual. Custa 2 MP para ser evocado e 1 MP por turno para ser mantido. Essa magia precisa de um turno inteiro para ser realizada.
+
+
+Nível 3
+Evocar espírito: Evoca um espírito nomeado. Custa 3 MP para ser evocado e 2 MP por turno para ser mantido. Essa magia precisa de um turno inteiro para ser realizada. Qualquer um dos espíritos numerados na pasta de espíritos pode ser evocado. Um mesmo espírito só pode ter uma evocação ativa por vez a partir de um mesmo personagem.
+
+
+Nível 4
+Evocar elemental: Cria um elemental do elemento correspondente ao alinhamento do usuário. Custa 5 MP para ser evocado e 5 MP por turno para ser mantido. Essa magia precisa de dois turnos para ser realizada e, caso o usuário seja atacado durante a canalização, ela é interrompida e metade dos MP que seriam usados é perdida. *Apenas alinhamento de fogo
+
+
+Nível 5
+Evocar doppelganger: Cria uma cópia do usuário. Essa cópia tem todas as suas estatísticas diminuídas em um. Além disso ele tem HP igual aos do usuário no momento da criação(exceto caso o usuário esteja com HP acima do seu HP máximo, nesse caso, ele tem HP igual ao HP máximo do usuário) e também compartilha quaisquer ferimentos e efeitos negativos do usuário no momento da criação. Custa MP igual à estatística de magia do usuário para ser evocado e metade dessa quantidade(arredondado para baixo) por turno para ser mantido. Essa magia precisa de dois turnos para ser realizada e, caso o usuário seja atacado durante a canalização, ela é interrompida e metade dos MP que seriam usados é perdida.
+________________
+
+
+Escola: Necromancia: Magia baseado no uso de inimigos caídos: 4
+Nível 1
+Aprendiz em necromancia: Permite ao usuário reviver e tomar controle de inimigos caídos. O usuário pode selecionar um inimigo morto, rolando um dado de magia mais os MP usados na conjuração contra um dado da soma de todas as estatísticas do alvo. Caso ele tenha um resultado superior, o inimigo é revivido com metade da vida máxima(arredondado para baixo) e uma penalidade de um ponto em todas as suas estatísticas (não podendo ficar com zero em nenhuma estatística). Depois de revivido, ele continua vivo por turnos iguais à MP usada na conjuração ou até ser morto novamente.
+
+
+Nível 2
+Formado em necromancia: Quando o usuário rola contra o alvo, o alvo recebe uma penalidade de dois dados.
+
+
+Nível 3
+Mestre em necromancia: Quando o usuário rola contra o alvo, o alvo recebe uma penalidade de quatro dados. Quando revivido, o alvo dura por turnos iguais à MP usada na conjuração somada à estatística de magia do usuário.
+
+
+Nível 4
+Grão-mestre em necromancia: Quando o usuário rola contra o alvo, o alvo recebe uma penalidade de seis dados. Quando o alvo é revivido, ele tem vida máxima igual à vida máxima que tinha em vida.
+
+
+Nível 5
+Ancião em necromancia: Quando o usuário rola contra o alvo, o alvo recebe uma penalidade de oito dados. Quando revivido, o alvo não recebe mais penalidade em suas estatísticas
+________________
+
+
+Escola: Zoologia: Magia baseada no uso de um companheiro animal: 4
+Nível 1
+Aprendiz em zoologia: O usuário possui um animal ou besta. Essa besta tem 50 pontos para sua criação (usar documento de criação de bestas)
+
+
+Nível 2
+Formado em zoologia: O usuário recebe mais 25 pontos para investir na ficha da sua besta.
+
+
+Nível 3
+Mestre em zoologia: O usuário recebe mais 25 pontos para investir na ficha da sua besta.
+
+
+Nível 4
+Grão-mestre em zoologia: O usuário recebe mais 25 pontos para investir na ficha da sua besta.
+
+
+Nível 5
+Ancião em zoologia: O usuário recebe mais 25 pontos para investir na ficha de sua besta.
+
+
+________________
+
+
+Escola: Maldição: Magia baseada na aplicação de desvantagens e dano ao longo do tempo: 3
+Nível 1
+Gandr: O usuário atira um projétil que fortalece ferimentos já existentes. Não causa dano ao contato, mas rola dados iguais à quantidade de vida perdida do alvo, por turnos iguais à quantidade de MP usada na conjuração. Para cada acerto, o alvo recebe um de dano.
+
+
+Geis: O usuário forma um contrato inviolável com um outro alguém, ambas as partes precisam entrar em acordo para o contrato ser firmado. Depois de firmado, ambas as partes não podem executar nenhuma ação que infrinja as condições enquanto durar o contrato. Sem custo.
+
+
+Nível 2
+Algemar: O usuário declara dois alvos. Durante turnos iguais à MP usada na conjuração, os alvos tornam-se ligados, recebendo metade do dano(arredondado para cima) que o outro receber.
+
+
+Amaldiçoar: O usuário declara um alvo e uma estatística. Essa estatística do alvo é diminuída em dois por turnos iguais à MP usada na conjuração.
+
+
+Osteoporose: O usuário declara um alvo que tem seus pontos de movimento diminuídos para um por turnos iguais à MP usada na conjuração.
+
+
+Nível 3
+Finn: Uma versão mais imediata do Gandr, quando alguém é acertado, recebe dano verdadeiro igual à quantidade de acertos de uma rolagem de dados iguais à vida perdida do alvo mais a MP usada na conjuração.
+
+
+Expor: O usuário declara um alvo. Esse alvo recebe dano dobrado do próximo ataque que receber. Custa 5 MP.
+
+
+Acorrentar: O usuário declara um alvo, que deve rolar um dado de resistência contra a MP usada na conjuração e, caso ele falhe, ele é stunado por turnos iguais à diferença na checagem.
+________________
+
+
+Escola: Reforço: Magia baseada na fortificação de objetos já existentes *A primeira magia de reforço de um turno é uma ação gratuita. *Um mesmo objeto não pode ser reforçado duas vezes ao mesmo tempo.: 3
+
+Nível 1
+Reforçar pernas: O usuário reforça suas próprias pernas, permitindo que ele ande o dobro do que normalmente poderia, durante turnos iguais à metade da MP usada na conjuração(arredondado para baixo).
+
+
+Nível 2
+Reforçar: O usuário reforça um objeto, adicionando dados iguais à metade da MP usada na conjuração(arredondado para baixo) a todas as rolagens que envolvem o objeto e dura por turnos iguais à metade da MP usada(arredondada para baixo).
+
+
+Reforçar pele: O usuário reforça o próprio tecido epidérmico, diminuindo todo o dano recebido em um quarto da MP usada(arredondado para baixo) por turnos iguais à metade da MP usada.
+
+
+Reforçar braços: O usuário reforça os músculos do seu braço, fazendo com que todos os seus ataques físicos causem dano verdadeiro extra igual a um quarto da MP usada, por turnos iguais à metade da MP usada.
+
+
+Nível 3
+Reforço elemental de fogo: O usuário reforça sua arma com fogo, fazendo com que todos seus ataques Queimem os alvos em ⅓ MP por ½ Magia turnos. O efeito de reforço dura por Magia turnos . *Apenas alinhamento de fogo
+
+
+Reforço  elemental de água:  O usuário reforça sua arma com água, fazendo com que todos os seus ataques curem ao invés de causar dano. A cura concedida é igual ao dano que seria causado e a cura total durante todo o efeito do reforço tem um máximo de MP. O efeito de reforço dura por Magia turnos  *Apenas alinhamento de água
+
+
+Reforço elemental de ar:  O usuário reforça seu corpo com ar, tornando-se imune a ataques físicos a distância e aumentado todas as suas rolagens de esquiva em ⅓ MP. O efeito de reforço dura por Magia turnos  *Apenas alinhamento de ar
+
+
+Reforço elemental de terra: O usuário reforça seu corpo com terra, fazendo com que todo o dano recebido seja reduzido em ⅓ MP. Todo o dano mitigado por esse efeito é transferido para o chão, causando uma onda de choque de alcance Resistência. O dano causado pela onda de choque é igual ao dano mitigado pelo efeito. O efeito de reforço dura por Magia turnos  *Apenas alinhamento de terra
+
+
+Reforço elemental arcano : O usuário reforça sua arma com energia arcana, fazendo com que todos seus ataques tornem os alvos Predestinados por ½ Magia turnos e causem ⅓ MP de dano adicional. O efeito do reforço dura por Magia turnos. *Apenas alinhamento de arcana
+
+
+Reforço elemental vazio: O usuário reforça sua arma com 「        」, fazendo com que todo o dano causado por ela se torne dano verdadeiro, mas causem 1 de dano verdadeiro ao usuário. O efeito do reforço dura por ½ MP turnos. *Apenas alinhamento de vazio
+
+
+Reforço elemental elétrico: O usuário reforça sua arma com eletricidade, fazendo com que ataques com essa arma causem 1 de dano a mais e todo o dano é ricocheteado para até ⅓ outros alvos adjacentes, podendo ricochetear de volta no mesmo alvo, mas dando preferência a novos alvos.O efeito do reforço dura por Magia turnos. *Apenas alinhamento de eletricidade
+
+
+Reforço elemental gelo: O usuário reforça sua arma com gelo, fazendo com que ataques com essa arma Congelem o inimigo por ½ MP turnos. Caso esse ataque acerte um inimigo Congelado em 3 ou mais, ele converte o Congelado em Atordoado que dura ⅓ dos turnos restantes do efeito. O efeito do reforço dura por Magia turnos. *Apenas alinhamento de gelo
+
+
+
+
+Nível 4
+Reforço excessivo: O usuário reforça um objeto além do seu próprio limite, adicionando a todas as rolagens do objeto dados iguais ao dobro da MP usada a todas as rolagens que envolvem o objeto e dura por turnos iguais à metade da MP usada(arredondado para baixo), porém quando o efeito acaba o objeto é destruído permanentemente.
+
+
+Reforçar aliados: Permite ao usuário usar magias de reforço em aliados e em suas armas. O aliado precisa conceder consenso para o uso e deve estar em distância máxima de Magia. Reforços conjurados para aliados custam dois MP extra(esses MP não entram nas contas das magias).
+
+
+
+
+
+
+
+
+
+
+
+
+________________
+
+
+Escola: Magia negra: Magia baseada na alteração do corpo do usuário para múltiplos propósitos: 3
+Nível 1
+Estender: Permite ao usuário estender seus braços, permitindo a realização de ataques corpo a corpo a distância. O custo é igual à quantidade de quadrados extras e para cada dois quadrados extras, o ataque tem menos um dado na rolagem. Pode ser conjurado como ação gratuita. Dura apenas durante o turno da conjuração.
+
+
+Star finger: O usuário estende seus dedos indicador e do meio em linha reta, causando dano a todos que atravessarem. Estende-se em quadrados iguais ao custo, causando dois de dano base. Para cada inimigo atingido depois do primeiro, diminui o dano em um.
+
+
+Nível 2
+Metamorfia: Permite ao usuário transformar parte do seu corpo em uma parte animal. Custa 3 MP para ser conjurado e 1 MP por turno para ser mantido.
+
+
+Pirocóptero: O usuário extende seu órgão reprodutor masculino, permitindo realizar um ataque circular de alcance igual à metade da MP usada, causando dano igual à MP usada em todos dentro desse alcance, sendo que o usuário pode escolher girar em sentido horário ou anti-horário e, para cada inimigo atingido, o próximo recebe dano reduzido em um. Todos atingidos recebem dano moral, tendo suas estatísticas de inteligência e de agilidade diminuidas em 1 por turnos iguais à MP usada. Para personagens do sexo feminino, é necessário utilizar metamorfismo antecipadamente para adquirir um órgão reprodutor masculino.
+
+
+Nível 3
+Metamorfia completa: Permite ao usuário transformar-se completamente em um animal. Custa 5 de MP para ser conjurado e 2 MP por turno para ser mantido. Não é possível conjurar magias enquanto metamorfado.
+
+
+________________
+
+
+Escola: Golemancia: Magia baseada no uso de golems pré-selecionados *As fichas dos golems se encontram na pasta de fichas. *Golems tem um custo mais elevado de MP para a invocação, mas não tem custo de manutenção. Além disso, caso um golem seja desativado sem ser destruído, um terço da MP usada na invocação é devolvida ao usuário, mas caso um golem seja destruído, o usuário deve pagar um terço da MP usada na invocação e, caso não possa pagar, o custo é convertido diretamente em dano verdadeiro.: 4
+Nível 1
+Aprendiz de golemancia: Passivo. Permite ao usuário invocar e controlar um golem. Além disso, permite ter até dois golems no inventário. Quais golems o usuário quer carregar é escolhido no começo do dia.
+
+
+Golem de ataque básico: Cria um golem de ataque básico. Custo 3 MP.
+
+
+Golem de defesa básico: Cria um golem de defesa básico.  Custo 3 MP.
+
+
+Nível 2
+Formado em golemancia: Passivo. Aumenta o número máximo de golems no inventário para cinco e o número máximo de golems invocados para dois.
+
+
+Golem de ataque avançado: Cria um golem de ataque com estatísticas melhoradas. Custo 5 MP
+
+
+Golem de defesa avançado: Cria um golem de defesa com estatísticas melhoradas. Custo 5 MP
+
+
+Golem de cura básico: Cria um golem básico capaz de realizar magia de cura básica.  Custo 6 MP
+
+
+Nível 3
+Mestre em golemancia: Passivo. Aumenta o número máximo de golems no inventário para oito e o número máximo de golems invocados para três.
+
+
+Golem de cura avançado: Cria um golem capaz de curar com maior eficiência e tem estatísticas melhores. Custo 7 MP.
+
+
+Golem espadachim: Cria um golem de ataque avançado capaz de utilizar armas corpo a corpo. É necessário dar uma arma para o golem usar. Custo 7 MP.
+
+
+Golem arqueiro: Cria um golem de ataque avançado capaz de utilizar armas de combate à distância. É necessário dar uma arma para o golem usar. Custo 7 MP.
+
+
+Golem escudeiro: Cria um golem de defesa avançado capaz de utilizar equipamentos defensivos. É necessário dar um equipamento para o golem usar. Custo 7 MP.
+
+
+Golem bomba: Cria um golem com baixas estatísticas, com grande capacidade de movimentação que pode se autodestruir para causar uma explosão que causa dano em área.  Custo 4 MP.
+
+
+Nível 4
+Grão-mestre em golemancia: Passivo. Aumenta o número máximo de golems no inventário para onze e o número máximo de golems invocados para quatro.
+
+
+Golem druida: Cria um golem de cura que é capaz de conceder buffs.  Custo 9 MP.
+
+
+Golem mestre espadachim: Cria um golem espadachim com estatísticas melhoradas.  Custo 9 MP.
+
+
+Golem mestre arqueiro: Cria um golem arqueiro com estatísticas melhoradas. Custo 9 MP.
+
+
+Golem mestre escudeiro: Cria um golem escudeiro com estatísticas melhoradas. Custo 9 MP.
+
+
+Golem assassino: Cria um golem capaz de se tornar invisível, tem grande mobilidade e pode receber armas para utilizar.  Custo 8 MP.
+
+
+Nível 5
+Ancião em golemancia: Passivo. Aumenta o número máximo de golems no inventário para quatorze e o número máximo de golems invocados para cinco.
+
+
+Golem elemental de ar: Cria um golem avançado capaz de usar magias de ar. Custo 12 MP.
+
+
+Golem elemental de fogo: Cria um golem avançado capaz de usar magias de fogo.  Custo 12 MP.
+
+
+Golem elemental de terra: Cria um golem avançado capaz de usar magias de terra. Custo 12 MP
+
+
+Golem elemental de água: Cria um golem avançado capaz de usar magias de água. Custo 12 MP.
+
+
+Golem elemental de arcana: Cria um golem avançado capaz de usar magias de arcana. Custo 12 MP.
+
+
+Golem elemental de vazio: Cria um golem avançado capaz de usar magias de vazio. Custo 12 MP.
+
+
+Golem elemental de eletricidade: Cria um golem avançado capaz de usar magias de eletricidade. Custo 12 MP.
+
+
+Golem elemental de gelo: Cria um golem avançado capaz de usar magias de gelo. Custo 12 MP.
+
+
+Golem ancião: Cria um golem com estatísticas ainda melhores, esse golem é grande e ocupa um espaço de dois por dois.  Custo 15 MP.
+
+Escola: Runas: Magia baseada no uso de runas para criação de campos com diversos propósitos e adicionar efeitos a objetos: 3
+Nível 1
+Campo de isolamento espacial: O usuário posiciona três ou mais runas e depois pode ativar esse campo. Traça-se um plano ligando as runas onde será o campo. Esse campo isola o exterior do inteiro, nada de fora entra, nada de dentro sai. Dura por turnos iguais à MP usada na conjuração somado à quantidade de runas usadas.
+
+
+Nível 2
+Campo de transformação espacial: O usuário posiciona três ou mais runas e depois pode ativar esse campo. Traça-se um plano ligando as runas onde será o campo. Dentro do campo, ignoram-se quaisquer obstáculos, irregularidades e contornos do terreno, criando uma área totalmente plana e sem obstruções. Dura por turnos iguais à MP usada somado à quantidade de runas usadas.
+
+
+Campo de dreno: O usuário posiciona três ou mais runas e depois pode ativar esse campo. Traça-se um plano ligando as runas onde será o campo. Dentro do campo, todos os inimigos recebem uma penalidade igual à metade das runas usadas em todas as suas estatísticas. Dura por turnos iguais à MP usada somado à quantidade de runas usadas.
+
+
+Nível 3
+Campo de dissolução: O usuário posiciona três ou mais runas e depois pode ativar esse campo. Traça-se um plano ligando as runas onde será o campo. Esse campo faz com que todos os inimigos recebam dano igual à quantidade de runas usada na conjuração. Dura por turnos iguais à MP usada somado à quantidade de runas usadas.
+
+
+Campo de cura: O usuário posiciona três ou mais runas e depois pode ativar esse campo. Traça-se um plano ligando as runas onde será o campo. A cada três turnos, todos os aliados dentro do campo são curados em quantidade igual à de runas usadas. Dura por turnos iguais à MP usada. Não cura na conjuração, apenas três turnos depois somado à quantidade de runas usadas.
+
+
+Nível 4
+Campo de roubo de vida: O usuário posiciona três ou mais runas e depois pode ativar esse campo. Traça-se um plano ligando as runas onde será o campo. Junta o campo de dissolução e o campo de cura, criando um campo que causa dano igual à quantidade de runas usadas e depois de causado o dano, distribui igualmente a quantidade de dano causado como vida para os aliados dentro da área. O efeito ocorre todo turno. Dura por turnos iguais à MP usada somado à quantidade de runas usadas.
+
+
+Ath nGabla: O usuário declara um alvo para um duelo. Ambos tornam-se intangíveis para qualquer outra pessoa na região e não podem sair até que um dos dois morra. Ambos não podem sair de uma região de 10 quadrados de raio. Custa 5 de mana.
+
+
+Nível 5
+Campo múltiplo: Passivo. Permite ao usuário construir múltiplos campos de uma vez, usando as mesmas runas. Durante a conjuração do campo, multiplica-se o custo de mana desejado pela quantidade de campos(Para fins de cálculo de atributos do campo ainda se usa o custo escolhido, não o multiplicado).
+
+
+________________
+
+
+Escola: Medicina espiritual: Magia baseada em curar o espírito, permite remover efeitos negativos e curar aliados: 3
+
+
+Nível 1
+Curar: Cura um alvo que esteja em alcance corpo a corpo em vida igual à quantidade de acertos em uma rolagem de MP.
+
+
+Nível 2
+Reabastecimento: Pode ser usado em um alvo em distância corpo a corpo do usuário. Durante turnos iguais a MP, rolam-se ½ Magia dados e, para cada acerto, o alvo é curado em 1 de vida.
+
+
+Meditar: Cria uma zona ao redor do usuário de tamanho Magia.  O usuário pode manter a zona por quanto tempo quiser, mas deve pagar ¼ MP por turno. No turno em que é conjurado não cura, após isso, todos dentro da área são curados em vida igual aos acertos de uma rolagem de dados iguais à MP. O usuário precisa se manter Concentrado enquanto usa essa magia.
+
+
+Nível 3
+Cura avançada: Cura um alvo que esteja em alcance corpo a corpo em vida igual à quantidade de acertos em uma rolagem de 2*MP.
+
+
+Tiro de cura: Permite ao usuário usar Curar em 2*Magia de alcance.
+________________
+Escola: Manipulação espacial: Magia baseada em teletransporte, usada para movimentação: 2
+Nível 1
+Piscar: Permite ao usuário se teletransportar curtas distância. Essa magia é usada durante a fase de movimento e custa 1 MP. Quando usada, o usuário pode se teletransportar num alcance igual aos seus pontos de movimento + Magia, gastando pontos de movimento iguais à distância entre os pontos até onde seja possível e, após isso, 1 MP para cada quadrado que exceda essa distância.
+
+
+Nível 2
+Telecinese: Permite ao usuário escolher um objeto ou elemento de cenário dentro de um alcance Magia e movê-lo instantaneamente para um segundo ponto dentro desse mesmo alcance. Custo de MP escala de acordo com o tamanho e peso do objeto.
+
+
+Transportar: Permite ao usuário escolher um aliado dentro de um alcance de Magia e movê-lo instantaneamente para um segundo ponto dentro desse mesmo alcance. Custa 3 MP. O alvo precisa conceder consenso para que essa magia seja executada.
+
+
+Nível 3
+Sequestrar: Permite ao usuário escolher um inimigo dentro de um alcance de Magia e movê-lo instantaneamente para um segundo ponto dentro desse mesmo alcance. Custa 4 MP. O alvo pode resistir.
+
+
+________________
+
+
+Escola: Formalismo: Redução de custo de MP através do uso de mana do ambiente: 1
+
+
+Nível 1
+Aprendiz de formalismo: Permite ao usuário utilizar a mana do local ao invés de seu od interior para a realização de magias. Acumular mana leva tempo, adicionando um tempo de conjuração extra à magia. Utilizar o formalismo deve ser declarado no momento da declaração do uso da magia. Quando usado, a magia gasta menos MP conforme o tempo de conjuração do formalismo. O recuo ainda é aplicado normalmente. Um local tem uma determinada quantidade de mana disponível, assim não é possível extrair mana infinitamente do mesmo local. Permite ao usuário utilizar 1 de mana por turno conjurado. É necessário se manter Concentrado enquanto canaliza e ter a canalização interrompida precocemente faz com que se perca toda a mana acumulada.
+
+
+Nível 2
+Mestre em formalismo: Permite ao usuário utilizar 2 de mana por turno conjurado. Permite usar o formalismo para cobrir ½ do custo de MP na criação de poções.
+
+
+Nível 3
+Ancião em formalismo: Permite ao usuário utilizar 3 de mana por turno conjurado. Permite utilizar o formalismo para preencher ½ da capacidade máxima de gemas.
