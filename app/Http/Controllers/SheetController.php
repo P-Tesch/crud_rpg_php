@@ -7,25 +7,18 @@ use App\Models\Item;
 use App\Models\Stat;
 use App\Models\Blood;
 use App\Models\Sheet;
-use App\Models\Spell;
 use App\Models\Effect;
 use App\Models\School;
-use App\Models\Sonata;
 use App\Models\Miracle;
-use App\Models\Advantage;
-use App\Models\MysticEye;
 use App\Models\Scripture;
 use App\Models\BloodAbility;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use App\Models\SonataAbility;
 use App\Models\ScriptureAbility;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\SheetResource;
 use App\Models\RpgAttribute;
 use App\Models\Skill;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Redirect;
 
 class SheetController extends Controller
 {
@@ -52,6 +45,12 @@ class SheetController extends Controller
         $sheet->organization = $request->input("sheet")["organization"];
 
         $sheet->save();
+
+        if ($sheet->organization) {
+            $item = $this->getOrganizationItem($sheet->organization);
+            $item->sheet_id = $sheet->id;
+            $item->save();
+        }
 
         if ($sheet->alignment) {
             $sheet->schools()->attach(School::where("name", "=", "Fundamentos gerais - " . $this->getAlignmentAlias($sheet->alignment))->where("level", "=", 1)->get());
@@ -230,30 +229,44 @@ class SheetController extends Controller
     }
 
     private function getAlignmentAlias(string $alignment) : string {
-        switch ($alignment) {
-            case "fire":
-                return "Fogo";
+        return match ($alignment) {
+            "fire" => "Fogo",
+            "water" => "Água",
+            "air" => "Ar",
+            "earth" => "Terra",
+            "arcana" => "Arcana",
+            "void" => "Vazio",
+            "ice" => "Gelo",
+            "electricity" => "Eletricidade"
+        };
+    }
 
-            case "water":
-                return "Água";
-
-            case "air":
-                return "Ar";
-
-            case "earth":
-                return "Terra";
-
-            case "arcana":
-                return "Arcana";
-
-            case "void":
-                return "Vazio";
-
-            case "ice":
-                return "Gelo";
-
-            case "electricity":
-                return "Eletricidade";
-        }
+    private function getOrganizationItem(string $organization) : Item {
+        return match ($organization) {
+            "executors" => new Item([
+                "name" => "Chaves negras",
+                "description" => "Chaves negras são milagres que podem ser materializados na forma de espadas curtas, podendo ser utilizadas corpo a corpo ou arremessadas. O usuário pode materializar um número de chaves igual ao seu atributo de Fé, materializá-las ou desmaterializá-las são um ação gratuita. Quando uma chave negra é fincada em um inimigo, o usuário pode optar por mantê-la presa, onde apenas o usuário pode removê-la. Para cada chave fincada no inimigo, ele tem sua Resistência diminuída em 1. Quando fincadas, as chaves negras duram por Fé turnos. As chaves tem 1 de dano bônus em ataques.",
+                "damage" => 1,
+                "strategy" => null
+            ]),
+            "chivalry" => new Item([
+                "name" => "Santa alabarda",
+                "description" => "Ela é uma arma corpo a corpo, com um quadrado extra de alcance e Fé de dano, capaz de causar dano a espíritos e fantasmas, além de duplicar todo o dano contra raças místicas e hereges, porém causa metade de dano contra humanos.",
+                "damage" => 1,
+                "strategy" => null
+            ]),
+            "brotherhood" => new Item([
+                "name" => "Chama sagrada",
+                "description" => "Uma arma que se permite ser materializada em qualquer forma que o usuário desejar, tendo Fé de dano e, no caso de ser uma arma a distância, tem alcance igual a 2*Fé.",
+                "damage" => 1,
+                "strategy" => null
+            ]),
+            "exorcists" => new Item([
+                "name" => "Papéis sentinela",
+                "description" => "Esses papeis podem ser posicionados(no caso de tentar posicioná-los à distância, como arremessando preso a uma adaga é necessário rolar um dado de Combate a distância). Depois de posicionados, eles se ligam formando um campo(um não faz nada, dois forma uma linha, três ou mais formam um plano). Quando o campo é ativado, o usuário declara um tipo de criatura(Morto-vivo, mago, fantasma, etc.) todos do tipo declarado dentro da área perdem em todas as suas rolagens dados iguais a ⅓ Fé. Além disso, o usuário pode pode destruir o campo, assim todos do tipo declarado dentro do campo devem rolar um dado de Tenacidade contra a quantidade de papeis destruídos e os que falharem são Atordoados pela diferença de acertos em turnos.",
+                "damage" => null,
+                "strategy" => null
+            ])
+        };
     }
 }
