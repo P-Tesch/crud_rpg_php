@@ -9,6 +9,17 @@ interface Props {
     sheet: Sheet;
 }
 
+const alignments: AssociativeArray = {
+    "fire": "Fogo",
+    "water": "Água",
+    "air": "Ar",
+    "earth": "Terra",
+    "arcana": "Arcana",
+    "void": "Vazio",
+    "ice": "Gelo",
+    "electricity": "Eletricidade"
+}
+
 const props = defineProps<Props>();
 const modalRef = ref<HTMLDialogElement>();
 const schools = ref<SchoolFromShop[]>([]);
@@ -34,8 +45,9 @@ function getSchools() : void {
     );
 }
 
-function addToSheet(index: number) : void {
+function addToSheet(toAdd: SchoolFromShop) : void {
     modalRef.value?.close();
+
     if (schools.value == null) {
         throw new ToastError("A lista de escolha está vazia");
     }
@@ -44,11 +56,9 @@ function addToSheet(index: number) : void {
         props.sheet.schools = {}
     }
 
-    if (Object.keys(props.sheet.schools).length >= Math.floor(props.sheet.stats["magic"]) + 1) {
+    if (!Object.hasOwn(props.sheet.schools, toAdd.name) && Object.keys(props.sheet.schools).length >= Math.floor(props.sheet.stats["magic"]) + 1) {
         throw new ToastError("O usuário já possui a quantidade máxima de escolas para sua estatística de magia");
     }
-
-    let toAdd: SchoolFromShop = schools.value[index];
 
     let original: School = props.sheet.schools[toAdd.name];
     if (original != null && original.level >= toAdd.level) {
@@ -77,6 +87,25 @@ function addToSheet(index: number) : void {
     }
 }
 
+function getPossibleSchools() : SchoolFromShop[] {
+    let possibleSchools: SchoolFromShop[] = [];
+    schools.value.forEach(school => {
+        if (
+            (
+                Object.hasOwn(props.sheet.schools, school.name) &&
+                school.level <= props.sheet.schools[school.name].level
+            ) ||
+            school.name.startsWith("Fundamentos gerais - ") && !school.name.endsWith(alignments[props.sheet.alignment ?? "fire"])
+        ) {
+            return;
+        }
+
+        possibleSchools.push(school);
+    });
+
+    return possibleSchools;
+}
+
 </script>
 
 <template>
@@ -87,7 +116,7 @@ function addToSheet(index: number) : void {
             </form>
             <h3 class="text-3xl font-bold text-center">Escolas</h3>
             <div class="flex flex-col gap-5">
-                <div class="flex flex-col outline outline-primary p-2 rounded-box" v-for="school, key in schools">
+                <div class="flex flex-col outline outline-primary p-2 rounded-box" v-for="school, key in getPossibleSchools()">
                     <h4 class="text-xl font-semibold">{{ school.name }}</h4>
                     <p>{{ school.description }}</p>
                     <p>Level: {{ school.level }}</p>
@@ -100,7 +129,7 @@ function addToSheet(index: number) : void {
                         </div>
                     </div>
                     <p>Custo: {{ school.cost }}</p>
-                    <button class="btn btn-outline btn-accent btn-md self-end" @click="addToSheet(key)">Adicionar</button>
+                    <button class="btn btn-outline btn-accent btn-md self-end" @click="addToSheet(school)">Adicionar</button>
                 </div>
             </div>
         </div>

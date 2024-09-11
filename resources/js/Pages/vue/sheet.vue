@@ -60,6 +60,7 @@ const statsKey = ref<number>(0);
 const skillsKey = ref<number>(0);
 const miraclesKey = ref<number>(0);
 const schoolsKey = ref<number>(0);
+const schoolShopKey = ref<number>(0);
 const mysticEyesKey = ref<number>(0);
 const advantagesKey = ref<number>(0);
 const scriptureKey = ref<number>(0);
@@ -111,6 +112,7 @@ function persist() : void {
             skillsKey.value++;
             miraclesKey.value++;
             schoolsKey.value++;
+            schoolShopKey.value++;
             mysticEyesKey.value++;
             advantagesKey.value++;
             scriptureKey.value++;
@@ -179,7 +181,7 @@ function endTurn() : void {
         </div>
     </div>
 
-    <Teleport to="body" v-if="props.sheet.classes.isMage" >
+    <Teleport to="body" v-if="props.sheet.classes.isMage" :key="schoolShopKey">
         <SchoolsShop :sheet ref="schoolsModal" />
     </Teleport>
     <Teleport to="body">
