@@ -1,0 +1,160 @@
+Sonata - Salvador: A sonata do salvador busca aproximar os vampiros do seu lado humano, tentando ir contra seus instintos. Não pode ser adquirido junto da sonata do pesadelo.
+
+Andarilho da alvorada: O usuário reduz a penalidade de rolagens enquanto no sol em um para cada nível.
+Custo: 10 Bxp - Qualquer, exceto humano [Máximo 2]
+
+Sangue medicinal: O usuário pode alimentar outra pessoa com seu sangue, usando no tratamento BP com mínimo 1 e máximo Linhagem. O alvo é curado pelo número de acertos de uma rolagem de BP + Linhagem. Só pode ser usado uma vez por pessoa por dia.
+Custo: 15 Bxp - Qualquer - exceto humano
+
+Do pó ao pó: O usuário insere um pouco de seu sangue em uma arma e, caso essa arma cause dano a um morto-vivo de nível baixo nível, rola-se um dado de Linhagem + BP (mínimo de 1 BP) contra a estatística de classe do criador do morto-vivo, ou caso não haja criador, contra a Sobrevivência do morto-vivo. Caso o resultado do usuário seja maior, o morto-vivo é transformado em pó e volta ao mundo dos mortos.
+Custo: 20 Bxp - Qualquer - exceto humano
+
+Hidrófilo: O usuário pode ficar 3x o tempo normal debaixo d’água para cada ponto de dano.
+Custo: 5 Bxp - Qualquer, exceto humano
+
+Antropofóbico: O usuário recebe 3x BP de animais, mas ½ de humanos.
+Custo: 10 Bxp - Apenas animal
+
+Sonata - Pesadelo: A sonata do pesadelo é o exato oposto da sonata do salvador, ela busca aterrorizar e destruir a raça humana. Não pode ser adquirido junto da sonata do salvador.
+
+Insanidade: O usuário ataca a racionalidade de um alvo humano, invadindo sua mente e mostrando visões irracionais e aterrorizantes. O alvo de estar em uma distância de até Linhagem e faz uma rolagem de Tenacidade contra a Linhagem do usuário e, caso perca, ele se torna atordoado por ⅓ BP turnos, além de receber 1 de dano verdadeiro. O usuário só pode invadir uma mente por vez, então essa habilidade só pode ser usada novamente após o fim do atordoamento do alvo e a cada vez que essa habilidade é usada no mesmo alvo, ele recebe 2 dados extras em sua rolagem de tenacidade.
+Custo: 15 Bxp - Humano
+
+Raça superior: O usuário tem uma figura amedrontadora para meros humanos, causando medo simplesmente por estar no mesmo ambiente deles. Todas as rolagens de humanos contra o usuário recebem 1 dado de penalidade.
+Custo: 15 Bxp - Humano
+
+Nutrição: Todos os ataques corpo a corpo do usuário contra humanos curam o usuário em 1 e concedem 1 BP.
+Custo: 10 Bxp - Humano
+
+Abraço: O usuário se prende a um alvo humano em alcance corpo a corpo, a cada turno fazendo uma rolagem de Linhagem + Força contra a Tenacidade do alvo e caso obtenha sucesso se mantendo preso, causando ⅓ Linhagem de dano verdadeiro, curando-se em 1 e recebendo 3 BP a cada turno. Essa rolagem é feita tanto no turno do usuário como do alvo e todos os efeitos se aplicam. Durante o turno de qualquer um dos envolvidos, pode-se realizar uma rolagem de Força contra Força para determinar se o dono do turno pode se mover e, caso possa, ele pode se mover com ½ dos seus pontos de movimento totais.
+Custo: 20 Bxp - Humano
+
+Sonata - Traidor: A sonata do traidor é para aqueles vampiros que buscam se especializar na arte da caça de seus semelhantes.
+
+Aliança: Caso adquirido enquanto o usuário possui a sonata do pesadelo, concede a sonata do sanguinário gratuitamente, sem contar para o limite de sonatas. Caso adquirido enquanto o usuário possui a sonata do salvador, remove o bonûs de dano de armas sagradas contra o usuário e torna membros da igreja menos hostis.
+Custo: 15 Bxp - Vampiro
+
+Canibal: O usuário recebe 2x BP de vampiros.
+Custo: 10 Bxp - Vampiro
+
+Prevenido: Qualquer um que usar uma sonata contra o usuário recebe 3 dados de penalidade.
+Custo: 15 Bxp - Vampiro
+
+Assassino: Reduzir a vida de um vampiro a zero o faz morrer.
+Custo: 20 Bxp - Vampiro
+
+Sonata - Terror: A sonata do terror é para aqueles vampiros que buscam causas quantidades massivas de dano físico a seus inimigos.
+
+Garras: O usuário possui garras afiadas nas mãos, que causam dano extra igual a ½ Linhagem.
+Custo: 10 Bxp - Qualquer, exceto humano
+
+Ira sanguinária: O usuário pode infundir BP até um máximo de Linhagem ao seu corpo, aumentando sua Força por ½ da quantidade infundida, durando por Linhagem turnos.
+Custo: 10 Bxp - Qualquer
+
+Arremessar: Pode ser ativado quando o usuário acerta um ataque físico corpo a corpo em um inimigo. O usuário agarra o inimigo e o arremessa, em uma distância de até 2x Força. Caso o inimigo atinja um objeto, ele recebe dano baseado em uma rolagem de Força + Linhagem. Caso atinja outra pessoa, cada um recebe ½ do dano. Caso ele não atinja um objeto, ele cai no chão, recebendo ½ do dano total. O dano pode ser diminuído a partir de uma rolagem de Resistência do alvo, diminuindo um ponto de dano para cada acerto. Além disso, os alvos precisam realizar uma rolagem de Tenacidade contra o dano recebido para definir se eles continuam de pé. Custa 4 BP para ser ativado.
+Custo: 10 Bxp - Qualquer
+
+Feridas profundas: O usuário infunde seu sangue no próximo ataque, pagando BP até um máximo da sua Linhagem e, caso o HP remanescente do alvo após o ataque seja menor do que a BP + Linhagem, o alvo tem seu HP reduzido a zero. O alvo pode resistir a esse efeito, com uma rolagem de Sobrevivência contra a Linhagem do usuário, caso ele resista, nada acontece.
+Custo: 15 Bxp - Qualquer, exceto animal.
+
+Velocidade sobrenatural: O usuário recebe um ponto bonûs de Agilidade por nível(Esse bonûs pode exceder a quantidade máxima, mas caso exceda ele não aumenta o limite de habilidades associadas à estatística).
+Custo: 15 Bxp - Vampiro [Máximo 2]
+
+Combo: Após o usuário efetuar um ataque de sucesso, ele pode executar um segundo ataque em sequência. Esse segundo ataque tem uma penalidade de dois dados. Custa 2BP e o usuário pode adicionar mais 1 ou 2 BP para diminuir a penalidade do ataque em um e dois dados, respectivamente.
+Custo: 10 Bxp - Qualquer
+
+Sonata - Sanguimancia: Inspirada na magia humana, a sonata da sanguimancia busca chegar a efeitos parecidos àqueles da magia humana, porém usando os poderes do sangue vampírico como catalisador no lugar de energia mágica.
+
+Dardo de sangue: O usuário atira um raio afiado de sangue em alvo até Combate à distância+Destreza de distância, que é capaz de atravessar superfícies finas e causa BP de dano.
+Custo: 10 Bxp - Qualquer
+
+Toque sanguinário: O usuário infunde parte do seu corpo com sangue. O próximo ataque do usuário usando essa parte do corpo causa dano extra igual à BP infundida, com um máximo de Linhagem e, caso o alvo morra, recupera todo o BP infundido mais 1.
+Custo: 5 Bxp - Humano
+
+Sonata - Chama sanguínea: O usuário atira seu sangue em um alvo em até Combate à distância+Destreza de distância e depois o incendeia, causando BP de dano, aplicando Cauterizar por ½ Linhagem turnos e Queimando em 1 por ½ Linhagem+BP turnos.
+Custo: 10 Bxp - Qualquer exceto vampiro
+
+Escudo de sangue: O usuário usa seu sangue para criar um escudo ao redor de si ou de um alvo até ½ Linhagem de distância. Esse escudo dura por BP turnos e absorve completamente a próxima instância de dano que o usuário sofrer e depois desaparece. Só pode haver um Escudo de sangue ativo do mesmo usuário por vez.
+Custo: 10 Bxp - Qualquer
+
+Explosão de sangue: O usuário se Concentra por um turno enquanto acumula uma bolha de sangue, em seguida ele explode a bolha, causando BP de dano a todos dentro de um alcance de até ½ Linhagem.
+Custo: 20 Bxp - Vampiro
+
+Sonata - Resiliência: Focada em manter o usuário vivo, a sonata da resiliência traz habilidades defensivas para o vampiro.
+
+Corpo de sangue: O usuário transforma todo o seu corpo em sangue líquido, fazendo com que ataques e projéteis atravessem seu corpo. Caso um ataque cause Cauterizar, ele ignora e finaliza o efeito de Corpo de sangue. Custa 3 BP para ser ativado e 1 BP por turno para ser mantido. Pode ser ativado e desativado como uma ação gratuita no turno do usuário.
+Custo: 20 Bxp - Qualquer
+
+Transfusão: O usuário morde o alvo, bebendo o sangue do alvo e o absorvendo para si, se curando em Linhagem HP e diminuindo a Força do alvo em 2 por Linhagem turnos. Custa 4 Bxp para ser ativado e só pode ser usado uma vez por alvo por dia.
+Custo: 10 Bxp - Qualquer
+
+Sonata - Lunar: A sonata do lunar é para aqueles vampiros que buscam abraçar seu lado noturno, fortalecendo-os ainda mais enquanto sob a luz da lua.
+
+Luar: O usuário recebe um bônus de dados igual ao nível dessa habilidade em todas as suas rolagens enquanto sob a luz da lua.
+Custo: 10 Bxp - Qualquer [Máximo 3]
+
+Ligação lunar: O usuário recebe um ponto bônus em uma estatística escolhida na hora que essa habilidade é adquirida enquanto sob a luz da lua. Esse efeito é duplicado sob a lua cheia.
+Custo: 10 Bxp - Qualquer
+
+Imortal: O usuário se torna totalmente imortal enquanto sob a luz da lua.
+Custo: 30 Bxp - Vampiro
+
+Lâmina lunar: O usuário cria uma lâmina a partir da luz da lua. Essa lâmina tem ataque Linhagem, dobrado no caso de lua cheia e dura até o amanhecer. Custa 5BP para ser ativado.
+Custo: 10 Bxp - Qualquer
+
+Raio de luar: O usuário absorve a luz da lua e a reflete na forma de um raio, causando dano igual Linhagem, 2*Linhagem caso a lua seja crescente ou minguante e 3*Linhagem no caso de lua cheia. Custa 7BP para ser usado e só pode ser usado novamente após 13: Linhagem turnos.
+Custo: 10 Bxp - Qualquer
+
+Sonata - Bestial: A sonata do bestial permite ao usuário transformar seu corpo em busca daquele que mais lhe atenda.
+
+Transformação parcial: O usuário transforma uma parte do seu corpo em uma parte animal. Efeitos e custo: dependem da transformação.
+Custo: 15 Bxp - Animal
+
+Transformação total: O usuário se transforma completamente em um animal. Efeitos e custo: dependem da transformação.
+Custo: 30 Bxp - Animal
+
+Sonata - Ferraria de sangue: A sonata da ferraria de sangue permite ao usuário imbuir seu sangue em armas para potencializá-las.
+
+Infusão de fogo: Quando aplicado a uma arma, faz com que todos os ataques da mesma causem Cauterizar no alvo por ½ Linhagem turnos e Queimar em 1 por ½ Linhagem turnos. Dura por BP turnos.
+Custo: 10 Bxp - Qualquer exceto vampiro
+
+Infusão de gelo: Quando aplicado a uma arma, faz com que todos os ataques da mesma causem Congelar no alvo por ½ Linhagem turnos, atingir um alvo ja Congelado transforma o efeito em Atordoado de 1 turno. Dura por BP turnos.
+Custo: 10 Bxp - Vampiro
+
+Infusão arcana: Quando aplicado a uma arma, faz com que todos os ataques da mesma causem Predestina por ½ Linhagem turnos. Dura por BP turnos.
+Custo: 10 Bxp - Humano
+
+Infusão de ar: Quando aplicado a uma arma, faz com que todos os ataques da mesma empurrem o alvo 1 quadrado para trás e, caso ele falhe uma checagem de Tenacidade contra Linhagem, ele é Derrubado. Dura por BP turnos.
+Custo: 10 Bxp - Qualquer
+
+Infusão de terra: Quando aplicado a uma armadura ou vestimenta, concede 1 de defesa bônus. Dura por BP turnos.
+Custo: 10 Bxp - Animal
+
+Infusão de eletricidade: Quando aplicado a um arma, faz com que todo o dano dos ataques seja também aplicado a todos os outros personagens dentro de um alcance de 2 quadrados do alvo, exceto o usuário. Dura por BP turnos.
+Custo: 10 Bxp - Qualquer
+
+Sonata - Ilusionista: A sonata do ilusionista é para aqueles vampiros que desejam enganar os sentidos daqueles ao seu redor.
+
+Doppelganger: O usuário cria um clone de si feito de sangue. Esse clone não pode realizar ataques, nem utilizar habilidades. Custa 5 BP para ser ativado a dura Linhagem * 2 turnos ou até sofrer dano.
+Custo: 10 Bxp - Humano
+
+Trocar: O usuário troca de lugar com um de seus Doppelganger. Custa 3 BP para ser ativado e pode ser usado como meia ação.
+Custo: 5 Bxp - Vampiro
+
+Desaparecer: O usuário desaparece na escuridão, tornando-se invisível. Custa 3 BP para ser ativado, pode ser usado como meia ação e dura por Linhagem turnos e é finalizado caso o usuário realize qualquer ação.
+Custo: 10 Bxp - Qualquer exceto humano
+
+Arapuca: O usuário arma uma armadilha em um local, qualquer um que passe em até 1 quadrado de distância do local ativa a armadilha que causa Linhagem de dano a todos no alcance de ativação da armadilha. Custa 2 Bxp.
+Custo: 5 Bxp - Qualquer
+
+Máscara de sangue: O usuário pode trocar sua aparência, usando 2 BP na ativação mais 1 BP para cada minuto transformado após o primeiro.
+Custo: 5 Bxp - Humano
+
+Sonata - Sanguinário: A sonata do sanguinário torna o vampiro muito poderoso, porém com o preço de não discriminar amigos e inimigos.
+
+Avanço feral: O usuário avança até o personagem mais próximo dentro de um alcance de 5 quadrados, causando BP de dano. Caso dois ou mais personagens estejam na mesma distância do usuário, rola-se um dado para cada e ataca-se o que for um acerto. Caso mais de um personagem tenham um acerto, rola-se de novo, até que apenas um seja um acerto.
+Custo: 10 Bxp - Qualquer
+
+Vórtice de garras: O usuário gira, cortando todos em um alcance de um quadrado com suas garras, causando ½ Linhagem + ½ BP de dano e recebendo 1 BP para cada alvo atingido.
+Custo: 10 Bxp - Qualquer
+

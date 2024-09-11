@@ -102,7 +102,7 @@ function persist() : void {
         throw new ToastError("O usuário já possui a quantidade máxima de escolas para sua estatística de magia");
     }
 
-    if (Object.keys(props.sheet.sonatas).length >= Math.ceil(props.sheet.stats["lineage"] / 3)) {
+    if (Object.keys(props.sheet.sonatas).length > Math.ceil(props.sheet.stats["lineage"] / 3)) {
         throw new ToastError("O personagem já possui o número máximo de sonatas");
     }
 

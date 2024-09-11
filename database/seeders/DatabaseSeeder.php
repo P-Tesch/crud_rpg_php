@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\MysticEye;
+use App\Models\Sonata;
+use App\Models\SonataAbility;
 use App\Models\Spell;
 use App\Models\School;
 use DB;
@@ -15,8 +17,72 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->seedSonatasAndSonataAbilities();
         $this->seedMysticEyes();
         $this->seedSchoolsAndSpells();
+    }
+
+    private function seedSonatasAndSonataAbilities() : void {
+        Sonata::truncate();
+        SonataAbility::truncate();
+
+        $lines = file(__DIR__ . "/data/Sonatas.txt");
+
+        $lastSonata = null;
+        $lastAbility = null;
+        foreach ($lines as $line) {
+            $line = str_replace("\n", "", $line);
+
+            switch (true) {
+                case $line == "":
+                    break;
+
+                case str_starts_with($line, "Sonata"):
+                    $lineArray = explode(": ", $line);
+                    $lastSonata = new Sonata([
+                        "name" => explode(" - ", $lineArray[0])[1],
+                        "description" => $lineArray[1]
+                    ]);
+
+                    $lastSonata->save();
+                    break;
+
+                case str_starts_with($line, "Custo"):
+                    $lineArray = explode(": ", $line);
+                    $costAndMax = explode("[", $lineArray[1]);
+
+                    $lastAbility->cost = $costAndMax[0];
+                    $lastAbility->level = 1;
+
+                    $abilities = [];
+                    $abilities[] = $lastAbility;
+
+                    if (array_key_exists(1, $costAndMax)) {
+                        for ($i = 2; $i <= (int) preg_replace("/[^\d]/", "", $costAndMax[1]); $i++) {
+                            $ability = clone $lastAbility;
+                            $ability->level = $i;
+                            $abilities[] = $ability;
+                        }
+                    }
+
+                    foreach ($abilities as $ability) {
+                        $ability->save();
+                    }
+                    break;
+
+                default:
+                    $lineArray = explode(": ", $line);
+
+                    $lastAbility = new SonataAbility([
+                        "name" => $lineArray[0],
+                        "description" => $lineArray[1],
+                        "level" => null,
+                        "cost" => null,
+                        "strategy" => null,
+                        "sonata_id" => $lastSonata->id
+                    ]);
+            }
+        }
     }
 
     private function seedMysticEyes() : void {
