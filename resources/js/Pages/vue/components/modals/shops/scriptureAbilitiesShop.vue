@@ -28,12 +28,13 @@ function getScriptureAbilities() : void {
     );
 }
 
-function addToSheet(index: number) : void {
+function addToSheet(toAdd: ScriptureAbility) : void {
+    modalRef.value?.close();
+
     if (scriptureAbilities.value == null) {
         throw new ToastError("A lista de habilidades de escritura está vazia");
     }
 
-    let toAdd: ScriptureAbility = scriptureAbilities.value[index];
     let original: ScriptureAbility[] = props.sheet.scripture.scriptureAbilities;
 
     original.forEach(
@@ -51,6 +52,22 @@ function addToSheet(index: number) : void {
     props.sheet.scripture.scriptureAbilities.push(toAdd);
 }
 
+function possibleScriptureAbilities() : ScriptureAbility[] {
+    let possibleScriptureAbilities: ScriptureAbility[] = [];
+
+    scriptureAbilities.value.forEach(ability => {
+        let shouldAdd = props.sheet.scripture.scriptureAbilities.every(sheetAbility => {
+            return sheetAbility.name != ability.name || (sheetAbility.name == ability.name && ability.level > sheetAbility.level);
+        });
+
+        if (shouldAdd) {
+            possibleScriptureAbilities.push(ability);
+        }
+    });
+
+    return possibleScriptureAbilities;
+}
+
 </script>
 
 <template>
@@ -61,13 +78,13 @@ function addToSheet(index: number) : void {
             </form>
             <h3 class="text-3xl font-bold text-center">Habilidades de escritura</h3>
             <div class="flex flex-col gap-5">
-                <div class="flex flex-col outline outline-primary p-2 rounded-box" v-for="scriptureAbility, key in scriptureAbilities">
+                <div class="flex flex-col outline outline-primary p-2 rounded-box" v-for="scriptureAbility in possibleScriptureAbilities()">
                     <p class="text-2xl">{{ scriptureAbility.name }}</p>
                     <p class="text-md"> {{ scriptureAbility.description }}</p>
                     <p class="text-md">Level: {{ scriptureAbility.level }}</p>
                     <p class="text-md">Custo: {{ scriptureAbility.cost }}</p>
                     <button class="btn btn-outline btn-accent btn-md self-end"
-                        @click="addToSheet(key)">Adicionar</button>
+                        @click="addToSheet(scriptureAbility)">Adicionar</button>
                 </div>
             </div>
         </div>
