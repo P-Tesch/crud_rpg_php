@@ -1,0 +1,45 @@
+Ataque de fé: Adiciona a Fé do usuário ao dano. Deve ser declarado antes do ataque. (Custo 25)
+
+Curto circuito: Apenas contra magos. O alvo deve rodar um dado de Magia contra a Fé do usuário. Caso o usuário vença, o alvo não pode usar nenhuma magia pela diferença entre os acertos em turnos.(Custo 25)
+
+Penitência: Se o ataque acertar, o alvo recebe uma penalidade de Fé em todas as rolagens. Não acumula. A penalidade diminui em 1 por turno até sumir. (Custo 30 Pontos)
+
+Chave da alma: Se o ataque acertar, o alvo tem sua Resistência diminuída pela Fé do usuário (O alvo continua com um mínimo de 1 de Resistência). O efeito diminui em 1 por turno até sumir. (Custo 20 pontos)
+
+Onda de choque: Caso o ataque acerte, todos em um raio de 10 quadrados devem rolar um dado de esquiva, aqueles que falharem recebem ½ do dano integral do ataque. (Custo 30 Pontos)
+
+Espírito: O usuário gasta todos seus pontos de escritura restantes, concedendo Fé de dano e ignorando armaduras(apenas pode se desviar esquivando). Cada ponto de escritura pode atacar um alvo diferente. (Custo 35 Pontos)
+
+Manifestar:  A escritura é capaz de se manifestar em forma humana. Enquanto manifestada, ela não pode ser usada pelo usuário. Quando manifestada, ela possui uma versão de si mesma como arma. Custa 2 pontos de escritura para se manifestar. Caso morra em forma manifestada, ela retorna a forma de arma, mas não pode ser utilizada, precisando de um dia para se recuperar. A forma manifestada da escritura tem uma ficha de clérigo, com pontos a serem distribuídos igual àqueles gastos na compra dessa habilidade. A escritura não pode ter outra escritura e nem usar chaves negras, chamas sagradas ou papéis sentinelas. (Custo mínimo 100)
+
+Mármore da realidade: A arma tem um mármore da realidade dentro de si. Quando ativado, transforma uma área de 30 quadrados de raio no mármore. Nada pode entrar ou sair enquanto durar o mármore. Enquanto dentro do mármore, o usuário recebe 2 dados a mais em todas as suas rolagens. A forma do mármore deve ser decidida na aquisição da habilidade e não pode ser mudada posteriormente. Ativar a habilidade custa 2 pontos de escritura e dura 2*Fé turnos. (Custo 150 Pontos)
+
+Hino: Gasta 1 ponto de escritura para emitir uma aura de 10 quadrados de raio que fortalece todas as rolagens de aliados em Fé e dura um número de turnos igual ao nível dessa habilidade (Máximo 5) (Custo 10 por nível)
+
+Distorção: Para cada nível dessa habilidade se adiciona 1 dado a rolagens de esquiva do usuário (Máximo 5) (Custo 20 por nível)
+
+Absorção: Para cada nível dessa habilidade o usuário recebe 1 ponto a menos de dano (Máximo 2) (Custo 30 por nível)
+
+Fusão: A escritura se funde ao usuário, concedendo benefícios. A escritura não pode ser usada enquanto fundida. Ativar a habilidade custa 2 pontos de escritura e dura por Fé turnos. O usuário pode ter até 3 benefícios de fusão. (Custo 5)
+Fusão - Bônus de estatística: Aumenta uma estatística do usuário em 3. (Custo 20)
+Fusão - Voo: O usuário recebe Voo. (Custo 25)
+Fusão - Regeneração: O usuário recupera 1 ponto de vida a cada 2 turnos. (Custo 25)
+Fusão - Pele endurecida: O usuário recebe ½ do dano normal. (Custo 25)
+Fusão - Sangue sagrado: Quando o usuário recebe dano, ele causa ½ do dano recebido ao atacante(Com um mínimo de 1). (Custo 30)
+
+Retornar: O usuário pode puxar de volta sua escritura de uma distância de até 8 quadrados. Caso a escritura esteja sendo segurada por outro indivíduo, ele deve rolar um dado de Força contra a Fé do usuário. Caso haja resistência no uso dessa habilidade, ela é considerada uma meia-ação, caso contrário ela é considerada uma ação gratuita. (Custo 25 Pontos)
+
+Aerodinâmica: Apenas para armas corpo a corpo. Permite que armas corpo a corpo possam ser arremessadas com eficiência em um alcance até Combate a distância. Armas arremessadas causam 1 de dano a menos. (Custo 25 Pontos)
+
+Alterar forma: A escritura tem uma forma alternativa além de sua forma base, o usuário pode alternar entre uma e outra como uma ação gratuita.(Custo 50)
+
+Afinidade (Mortos-vivos): Concede 1 de dano a mais e 1 dado a mais de rolagens da arma contra mortos-vivos e vampiros por nível. Só se pode ter uma afinidade. (Máximo 5) (Custo 10 por nível)
+
+Afinidade (Demônios): Concede 1 de dano a mais e 1 dado a mais de rolagens da arma contra demônios e híbridos por nível. Só se pode ter uma afinidade. (Máximo 5) (Custo 10 por nível)
+
+Afinidade (Magos): Concede 1 de dano a mais e 1 dado a mais de rolagens da arma contra magos e magitecks por nível. Só se pode ter uma afinidade. (Máximo 5) (Custo 10 por nível)
+
+Afinidade (Bestas): Concede 1 de dano a mais e 1 dado a mais de rolagens da arma contra bestas por nível. Só se pode ter uma afinidade. (Máximo 5) (Custo 10 por nível)
+
+
+

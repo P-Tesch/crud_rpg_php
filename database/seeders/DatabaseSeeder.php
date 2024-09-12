@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Miracle;
 use App\Models\MysticEye;
+use App\Models\ScriptureAbility;
 use App\Models\Sonata;
 use App\Models\SonataAbility;
 use App\Models\Spell;
@@ -18,10 +19,38 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->seedScriptureAbilities();
         $this->seedMiracles();
         $this->seedSonatasAndSonataAbilities();
         $this->seedMysticEyes();
         $this->seedSchoolsAndSpells();
+    }
+
+    private function seedScriptureAbilities() : void {
+        ScriptureAbility::truncate();
+
+        $lines = file(__DIR__ . "/data/ScriptureAbilities.txt");
+
+        foreach ($lines as $line) {
+            $line = str_replace("\n", "", $line);
+
+            switch (true) {
+                case $line == "":
+                    break;
+
+                default:
+                    preg_match("/(.+(?=:\s)):\s(.+?(?=\(Máximo|\(Custo))(?>.*((?<=\(Máximo\s)\d+)|).*((?<=\(Custo\s|\(Custo\smínimo\s)\d+)/", $line, $matches);
+
+                    for ($i = 1; $i <= ($matches[3] != "" ? $matches[3] : 1); $i++) {
+                        (new ScriptureAbility([
+                            "name" => $matches[1],
+                            "description" => $matches[2],
+                            "level" => $i,
+                            "cost" => $matches[4]
+                        ]))->save();
+                    }
+            }
+        }
     }
 
     private function seedMiracles() : void {
