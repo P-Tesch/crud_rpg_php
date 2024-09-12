@@ -29,6 +29,8 @@ function getSonatas() : void {
 }
 
 function addToSheet(sonata: SonataFromShop) : void {
+    modalRef.value?.close();
+
     if (props.sheet.sonatas.length != undefined) {
         props.sheet.sonatas = {};
     }

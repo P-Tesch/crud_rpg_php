@@ -65,6 +65,7 @@ function getPossibleEyes() : MysticEye[] {
         for (let i = 0; i < props.sheet.mysticEyes.length; i++) {
             return props.sheet.mysticEyes[i].name != eye.name;
         }
+        return true;
     });
 }
 

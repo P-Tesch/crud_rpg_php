@@ -33,6 +33,8 @@ function build(sonataName: string) {
 }
 
 function addToSheet(ability: SonataAbility) : void {
+    modalRef.value?.close();
+
     props.sheet.sonatas[sonataNameRef.value].abilities.forEach((entry, key) => {
         if (entry.name == ability.name) {
             if (entry.level >= ability.level) {
