@@ -1,0 +1,27 @@
+Milagre da santa ressurreição - Quando o usuário morre a primeira vez no dia, ele entra em êxtase por 5 turnos e após isso revive com ½ da vida máxima.(Custo 30 Pontos)
+
+Milagre de João - O usuário ignora qualquer penalidade de ferimentos e ganha 2 pontos extras de vida (Custo 15 Pontos)
+
+Milagre de Pedro -  O usuário consegue sentir a posição de suas chaves negras, assim sabendo onde estão inimigos fugindo ou invisíveis. Além disso, as chaves negras duram 2* o tempo quando fincadas em um inimigo. (Custo 15 Pontos)
+
+Milagre de Lúcifer - Para cada chave negra fincada no inimigo, o inimigo perde 1 dado em todas as suas rolagens. (Custo 15 Pontos)
+
+Milagre de Uriel - O usuário não sofre penalidades contra inimigos atrás de coberturas ou outros tipos de obstrução como névoa. (Custo 10 Pontos)
+
+Milagre de Gabriel - O usuário ganha 2 dados adicionais em rolagens de Diplomacia. Além disso, quando em combate, o usuário pode usar um grito, todos aqueles não preparados(cobrindo os ouvidos) devem rodar um dado de Tenacidade contra um dado de Fé do usuário, todos que falharem são Atordoados pela diferença de acertos em rodadas. Essa ação custa o turno inteiro e só pode ser usada uma vez por dia. (Custo 15 Pontos)
+
+Milagre de Raphael - O usuário pode curar instantaneamente a ele mesmo ou outra pessoa. Essa ação custa o turno inteiro e só pode ser usada uma vez por pessoa por dia. O usuário deve rodar um dado de Medicina usando Fé como a estatística associada, para cada acerto o alvo é curado em 2. (Custo 15 Pontos)
+
+Milagre da força divina - O máximo da estatística de Força do usuário aumenta em 2(Custo 10 Pontos)
+
+Milagre da vontade abençoada - O máximo da estatística de Carisma do usuário aumenta em 2(Custo 10 Pontos)
+
+Milagre da fortitude de mártir - O máximo da estatística de Resistência do usuário aumenta em 2(Custo 10 Pontos)
+
+Milagre da sabedoria de santo - O máximo da estatística de Inteligência do usuário aumenta em 2(Custo 10 Pontos)
+
+Milagre do raio do senhor - O máximo da estatística de Agilidade do usuário aumenta em 2(Custo 10 Pontos)
+
+Milagre da clarividência do profeta - O máximo da estatística de Percepção do usuário aumenta em 2(Custo 10 Pontos)
+
+Milagre da proeza do messias - O máximo da estatística de Destreza do usuário aumenta em 2(Custo 10 Pontos)

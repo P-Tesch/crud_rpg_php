@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Miracle;
 use App\Models\MysticEye;
 use App\Models\Sonata;
 use App\Models\SonataAbility;
@@ -17,9 +18,35 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->seedMiracles();
         $this->seedSonatasAndSonataAbilities();
         $this->seedMysticEyes();
         $this->seedSchoolsAndSpells();
+    }
+
+    private function seedMiracles() : void {
+        Miracle::truncate();
+
+        $lines = file(__DIR__ . "/data/Miracles.txt");
+
+        foreach ($lines as $line) {
+            $line = str_replace("\n", "", $line);
+
+            switch (true) {
+                case $line == "":
+                    break;
+
+                default:
+                    $lineArray = explode(" - ", $line);
+                    $lineArray2 = explode("(Custo ", $lineArray[1]);
+                    (new Miracle([
+                        "name" => $lineArray[0],
+                        "description" => $lineArray2[0],
+                        "cost" => (int) str_replace(")", "", $lineArray2[1]),
+                        "strategy" => null
+                    ]))->save();
+            }
+        }
     }
 
     private function seedSonatasAndSonataAbilities() : void {
