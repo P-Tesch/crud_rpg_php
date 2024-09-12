@@ -72,7 +72,7 @@ function getPossibleSonatas() : SonataFromShop[] {
             </form>
             <h3 class="text-3xl font-bold text-center">Sonatas</h3>
             <div class="flex flex-col gap-5">
-                <div class="flex flex-col outline outline-primary p-2 rounded-box" v-for="sonata, key in getPossibleSonatas()">
+                <div class="flex flex-col outline outline-primary p-2 rounded-box" v-for="sonata in getPossibleSonatas()">
                     <h4 class="text-xl font-semibold">{{ sonata.name }}</h4>
                     <p>{{ sonata.description }}</p>
                     <div v-for="ability in sonata.abilities" class="collapse collapse-arrow bg-base-100">

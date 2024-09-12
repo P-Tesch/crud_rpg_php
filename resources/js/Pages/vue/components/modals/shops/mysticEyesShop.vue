@@ -79,7 +79,7 @@ function getPossibleEyes() : MysticEye[] {
             </form>
             <h3 class="text-3xl font-bold text-center">Olhos místicos</h3>
             <div class="flex flex-col gap-5">
-                <div class="flex flex-col outline outline-primary p-2 rounded-box" v-for="eye, key in getPossibleEyes()">
+                <div class="flex flex-col outline outline-primary p-2 rounded-box" v-for="eye in getPossibleEyes()">
                     <div class="collapse collapse-arrow bg-base-100">
                         <input type="checkbox" name="mystic-eyes-collapse" />
                         <div class="collapse-title text-xl font-medium">{{ eye.name }}</div>

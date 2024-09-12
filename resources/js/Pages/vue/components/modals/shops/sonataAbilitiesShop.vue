@@ -79,7 +79,7 @@ function possibleAbilities() : SonataAbility[] {
             </form>
             <h3 class="text-3xl font-bold text-center">Habilidades de sonata</h3>
             <div class="flex flex-col gap-5">
-                <div class="flex flex-col outline outline-primary p-2 rounded-box" v-for="ability, key in possibleAbilities()">
+                <div class="flex flex-col outline outline-primary p-2 rounded-box" v-for="ability in possibleAbilities()">
                     <h4 class="text-xl font-semibold">{{ ability.name }}</h4>
                     <p>{{ ability.description }}</p>
                     <p>Level: {{ ability.level }}</p>

@@ -116,7 +116,7 @@ function getPossibleSchools() : SchoolFromShop[] {
             </form>
             <h3 class="text-3xl font-bold text-center">Escolas</h3>
             <div class="flex flex-col gap-5">
-                <div class="flex flex-col outline outline-primary p-2 rounded-box" v-for="school, key in getPossibleSchools()">
+                <div class="flex flex-col outline outline-primary p-2 rounded-box" v-for="school in getPossibleSchools()">
                     <h4 class="text-xl font-semibold">{{ school.name }}</h4>
                     <p>{{ school.description }}</p>
                     <p>Level: {{ school.level }}</p>
