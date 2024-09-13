@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Advantage;
 use App\Models\Miracle;
 use App\Models\MysticEye;
 use App\Models\ScriptureAbility;
@@ -19,11 +20,32 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->seedAdvantages();
         $this->seedScriptureAbilities();
         $this->seedMiracles();
         $this->seedSonatasAndSonataAbilities();
         $this->seedMysticEyes();
         $this->seedSchoolsAndSpells();
+    }
+
+    private function seedAdvantages() : void {
+        Advantage::truncate();
+
+        $lines = file(__DIR__ . "/data/Advantages.txt");
+
+        foreach ($lines as $line) {
+            $line = str_replace("\n", "", $line);
+            if (!preg_match("/([A-zÀ-ú ]+)(?=:|(\d):)(?:.*:\s)(.+)\(Custo\s(\d+|-\d+)(?:.*((?<=\()[a-z]+)|).*/", $line, $matches)) {
+                continue;
+            }
+
+            (new Advantage([
+                "name" => $matches[1],
+                "description" => $matches[3],
+                "level" => $matches[2] != "" ? $matches[2] : 1,
+                "cost" => (int) $matches[4]
+            ]))->save();
+        }
     }
 
     private function seedScriptureAbilities() : void {
@@ -33,22 +55,17 @@ class DatabaseSeeder extends Seeder
 
         foreach ($lines as $line) {
             $line = str_replace("\n", "", $line);
+            if (!preg_match("/(.+(?=:\s)):\s(.+?(?=\(Máximo|\(Custo))(?>.*((?<=\(Máximo\s)\d+)|).*((?<=\(Custo\s|\(Custo\smínimo\s)\d+)/", $line, $matches)) {
+                continue;
+            }
 
-            switch (true) {
-                case $line == "":
-                    break;
-
-                default:
-                    preg_match("/(.+(?=:\s)):\s(.+?(?=\(Máximo|\(Custo))(?>.*((?<=\(Máximo\s)\d+)|).*((?<=\(Custo\s|\(Custo\smínimo\s)\d+)/", $line, $matches);
-
-                    for ($i = 1; $i <= ($matches[3] != "" ? $matches[3] : 1); $i++) {
-                        (new ScriptureAbility([
-                            "name" => $matches[1],
-                            "description" => $matches[2],
-                            "level" => $i,
-                            "cost" => $matches[4]
-                        ]))->save();
-                    }
+            for ($i = 1; $i <= ($matches[3] != "" ? $matches[3] : 1); $i++) {
+                (new ScriptureAbility([
+                    "name" => $matches[1],
+                    "description" => $matches[2],
+                    "level" => $i,
+                    "cost" => $matches[4]
+                ]))->save();
             }
         }
     }

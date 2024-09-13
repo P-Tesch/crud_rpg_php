@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer("level");
             $table->string("strategy")->nullable();
             $table->integer("cost");
+            $table->string("class")->nullable();
 
         });
     }

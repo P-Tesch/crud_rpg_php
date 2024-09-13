@@ -16,7 +16,8 @@ class Advantage extends Model
         "name",
         "description",
         "level",
-        "cost"
+        "cost",
+        "class"
     ];
 
     protected $hidden = [
