@@ -43,7 +43,8 @@ class DatabaseSeeder extends Seeder
                 "name" => $matches[1],
                 "description" => $matches[3],
                 "level" => $matches[2] != "" ? $matches[2] : 1,
-                "cost" => (int) $matches[4]
+                "cost" => (int) $matches[4],
+                "class" => $matches[5] ?? null
             ]))->save();
         }
     }
