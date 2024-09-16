@@ -28,7 +28,9 @@ function getSystems() : void {
     );
 }
 
-function addToSheet(index: number) : void {
+function addToSheet(system: SystemFromShop) : void {
+    modalRef.value?.close();
+
     if (props.sheet.systems.length != undefined) {
         props.sheet.systems = {};
     }
@@ -44,8 +46,6 @@ function addToSheet(index: number) : void {
         throw new ToastError("O personagem já possui o número máximo de sistemas e subsistemas");
     }
 
-    const system = systems.value[index];
-
     if (props.sheet.systems.hasOwnProperty(system.name)) {
         throw new ToastError("O personagem já possui esse sistema");
     }
@@ -54,6 +54,18 @@ function addToSheet(index: number) : void {
         id: system.id,
         subsystems: []
     };
+}
+
+function possibleSystems() : SystemFromShop[] {
+    let possibleSystems: SystemFromShop[] = [];
+
+    systems.value.forEach(system => {
+        if (props.sheet.systems[system.name] == undefined) {
+            possibleSystems.push(system);
+        }
+    });
+
+    return possibleSystems;
 }
 
 </script>
@@ -66,7 +78,7 @@ function addToSheet(index: number) : void {
             </form>
             <h3 class="text-3xl font-bold text-center">Sistemas</h3>
             <div class="flex flex-col gap-5">
-                <div class="flex flex-col outline outline-primary p-2 rounded-box" v-for="system, key in systems">
+                <div class="flex flex-col outline outline-primary p-2 rounded-box" v-for="system in possibleSystems()">
                     <h4 class="text-xl font-semibold">{{ system.name }}</h4>
                     <p>{{ system.description }}</p>
                     <div v-for="subsystem in system.subsystems" class="collapse collapse-arrow bg-base-100">
@@ -76,7 +88,7 @@ function addToSheet(index: number) : void {
                             <p>Descrição: {{ subsystem.description }}</p>
                         </div>
                     </div>
-                    <button class="btn btn-outline btn-accent btn-md self-end" @click="addToSheet(key)">Adicionar</button>
+                    <button class="btn btn-outline btn-accent btn-md self-end" @click="addToSheet(system)">Adicionar</button>
                 </div>
             </div>
         </div>
