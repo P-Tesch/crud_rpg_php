@@ -1,0 +1,75 @@
+Contatos: O personagem sempre tem uma pessoa conhecida na área (Custo 6 Pontos)
+
+Treino excessivo 1: Aumenta o máximo de uma estatística geral em um. Só pode ser comprado duas vezes, em estatísticas diferentes (Custo 4 Pontos)
+
+Treino excessivo 2: Aumenta o máximo de uma estatística geral em um. Só pode ser comprado duas vezes, em estatísticas diferentes (Custo 8 Pontos)
+
+Ambidestro: O usuário pode usar duas armas ao mesmo tempo e assim atacar duas vezes no turno, o segundo ataque tem acertos reduzidos em dois. O usuário não pode se mover no turno que atacar duas vezes. (Custo 8 Pontos)
+
+Sutileza: O usuário tem destreza como estatística associada à habilidade de combate corpo a corpo no lugar de força. (Custo 5 Pontos)
+
+Riqueza 0: O personagem não tem nenhuma forma de renda, veículo ou moradia fixa. (Custo 0)
+Riqueza 1: O personagem tem uma renda baixa, uma bicicleta ou scooter e uma casa simples em área suburbana. (Custo 8)
+Riqueza 2: O personagem tem uma renda média, uma moto ou carro popular e uma casa em uma área de padrão médio. (Custo 16)
+Riqueza 3: O personagem tem uma renda média alta, possuindo um carro ou moto de padrão elevado e um bom apartamento ou casa em uma área cobiçada. (Custo 24)
+Riqueza 4: O personagem tem uma renda alta, possuindo um carro ou moto de alta performance ou de luxo e um apartamento ou casa de alto padrão. (Custo 32)
+Riqueza 5: O personagem tem uma renda altíssima, possui múltiplos veículos, podendo ter jatos, iates e helicópteros, mora em uma mansão e possui múltiplos imóveis. (Custo 40)
+
+Glifo 1: Para cada nível, remove o custo de magias até esse custo(o recuo ainda é aplicado normalmente). (Custo 4) (mage)
+
+Glifo 2: Para cada nível, remove o custo de magias até esse custo(o recuo ainda é aplicado normalmente). (Custo 12) (mage)
+
+Glifo 3: Para cada nível, remove o custo de magias até esse custo(o recuo ainda é aplicado normalmente). (Custo 24) (mage)
+
+Linhagem antiga 1: Aumenta os MP em 1 por ponto de Magia por nível (Máximo 5) (Custo 1) (mage)
+
+Linhagem antiga 2: Aumenta os MP em 1 por ponto de Magia por nível (Custo 3) (mage)
+
+Linhagem antiga 3: Aumenta os MP em 1 por ponto de Magia por nível (Custo 6) (mage)
+
+Linhagem antiga 4: Aumenta os MP em 1 por ponto de Magia por nível (Custo 10) (mage)
+
+Linhagem antiga 5: Aumenta os MP em 1 por ponto de Magia por nível (Custo 15) (mage)
+
+Treino físico 1: Adiciona 1 dado por nível no cálculo de recuo (Custo 2) (mage)
+
+Treino físico 2: Adiciona 1 dado por nível no cálculo de recuo (Custo 6) (mage)
+
+Treino físico 3: Adiciona 1 dado por nível no cálculo de recuo (Custo 12) (mage)
+
+Alinhamento duplo: O usuário pode ter dois alinhamentos, mas recebe menos dois dados em todas as rolagens referentes ao uso dos alinhamentos. (Custo 10) (mage)
+
+Linhagem recente 1: Diminui os MP em 1 por ponto de Magia por nível. Incompatível com Linhagem antiga (Custo -2) (mage)
+
+Linhagem recente 2: Diminui os MP em 1 por ponto de Magia por nível. Incompatível com Linhagem antiga (Custo -6) (mage)
+
+Linhagem recente 3: Diminui os MP em 1 por ponto de Magia por nível. Incompatível com Linhagem antiga (Custo -12) (mage)
+
+Linhagem recente 4: Diminui os MP em 1 por ponto de Magia por nível. Incompatível com Linhagem antiga (Custo -20) (mage)
+
+Linhagem recente 5: Diminui os MP em 1 por ponto de Magia por nível. Incompatível com Linhagem antiga (Custo -30) (mage)
+
+Baixa resistência mágica 1: Remove 1 dado por nível no cálculo de recuo. Incompatível com Treino físico (Custo -5) (mage)
+
+Baixa resistência mágica 2: Remove 1 dado por nível no cálculo de recuo. Incompatível com Treino físico (Custo -12) (mage)
+
+Baixa resistência mágica 3: Remove 1 dado por nível no cálculo de recuo. Incompatível com Treino físico (Custo -24) (mage)
+
+Mestre das chaves: O usuário pode invocar o dobro de chaves negras ou papéis sentinela (Custo 4 Pontos) (cleric)
+
+Boa reputação: Mesmo sendo um vampiro, o personagem conquistou uma boa reputação e se mostrou confiável. Ele não será atacado imediatamente pela maioria dos membros da igreja e não será repudiado pela maioria dos humanos. Essa reputação pode ser quebrada pelas ações do personagem. (Custo 10 Pontos) (vampire)
+
+Satisfeito 1: O personagem recebe um BP(ou Bxp) a mais para cada nível dessa habilidade toda vez que se alimenta. Incompatível com Faminto (Custo 3 Pontos) (vampire)
+
+Satisfeito 2: O personagem recebe um BP(ou Bxp) a mais para cada nível dessa habilidade toda vez que se alimenta. Incompatível com Faminto (Custo 9 Pontos) (vampire)
+
+Satisfeito 3: O personagem recebe um BP(ou Bxp) a mais para cada nível dessa habilidade toda vez que se alimenta. Incompatível com Faminto (Custo 18 Pontos) (vampire)
+
+Estudante: O personagem pode ter uma sonata extra. (Custo 15 Pontos) (vampire)
+
+Faminto: O personagem recebe um BP(ou Bxp) a menos para cada nível dessa habilidade toda vez que se alimenta(Recebe um mínimo de 1 BP) Incompatível com Satisfeito. (Custo -5 Pontos) (Não pode ser adquirido junto à vantagem Satisfeito) (vampire)
+
+Faminto: O personagem recebe um BP(ou Bxp) a menos para cada nível dessa habilidade toda vez que se alimenta(Recebe um mínimo de 1 BP) Incompatível com Satisfeito. (Custo -10 Pontos) (Não pode ser adquirido junto à vantagem Satisfeito) (vampire)
+
+Faminto: O personagem recebe um BP(ou Bxp) a menos para cada nível dessa habilidade toda vez que se alimenta(Recebe um mínimo de 1 BP) Incompatível com Satisfeito. (Custo -15 Pontos) (Não pode ser adquirido junto à vantagem Satisfeito) (vampire)
+

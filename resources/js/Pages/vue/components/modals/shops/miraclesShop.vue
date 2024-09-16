@@ -29,12 +29,13 @@ function getMiracles() : void {
     );
 }
 
-function addToSheet(index: number) : void {
+function addToSheet(toAdd: Miracle) : void {
+    modalRef.value?.close();
+
     if (miracles.value == null) {
         throw new ToastError("A lista de milagres está vazia");
     }
 
-    let toAdd: Miracle = miracles.value[index];
     let original: Miracle[] = props.sheet.miracles;
 
     let shouldAdd: boolean = true;
@@ -51,6 +52,22 @@ function addToSheet(index: number) : void {
     }
 }
 
+function possibleMiracles() : Miracle[] {
+    let possibleMiracles: Miracle[] = [];
+
+    miracles.value.forEach(miracle => {
+        let shouldAdd = props.sheet.miracles.every(sheetMiracle => {
+            return sheetMiracle.name != miracle.name;
+        });
+
+        if (shouldAdd) {
+            possibleMiracles.push(miracle);
+        }
+    });
+
+    return possibleMiracles;
+}
+
 </script>
 
 <template>
@@ -61,12 +78,12 @@ function addToSheet(index: number) : void {
             </form>
             <h3 class="text-3xl font-bold text-center">Milagres</h3>
             <div class="flex flex-col gap-5">
-                <div class="flex flex-col outline outline-primary p-2 rounded-box" v-for="miracle, key in miracles">
+                <div class="flex flex-col outline outline-primary p-2 rounded-box" v-for="miracle in possibleMiracles()">
                     <p class="text-2xl">{{ miracle.name }}</p>
                     <p class="text-md"> {{ miracle.description }}</p>
                     <p class="text-md">Custo: {{ miracle.cost }}</p>
                     <button class="btn btn-outline btn-accent btn-md self-end"
-                        @click="addToSheet(key)">Adicionar</button>
+                        @click="addToSheet(miracle)">Adicionar</button>
                 </div>
             </div>
         </div>

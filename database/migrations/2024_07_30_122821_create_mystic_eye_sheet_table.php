@@ -20,7 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger("sheet_id");
             $table->foreign("sheet_id")->references("id")->on("sheets");
 
-            $table->integer("current_cooldown");
+            $table->integer("current_cooldown")->nullable();
         });
     }
 

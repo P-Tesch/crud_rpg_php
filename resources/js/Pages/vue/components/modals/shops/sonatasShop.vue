@@ -28,7 +28,9 @@ function getSonatas() : void {
     );
 }
 
-function addToSheet(index: number) : void {
+function addToSheet(sonata: SonataFromShop) : void {
+    modalRef.value?.close();
+
     if (props.sheet.sonatas.length != undefined) {
         props.sheet.sonatas = {};
     }
@@ -38,8 +40,6 @@ function addToSheet(index: number) : void {
         throw new ToastError("O personagem já possui o número máximo de sonatas");
     }
 
-    const sonata = sonatas.value[index];
-
     if (props.sheet.sonatas.hasOwnProperty(sonata.name)) {
         throw new ToastError("O personagem já possui esssa sonata");
     }
@@ -48,6 +48,18 @@ function addToSheet(index: number) : void {
         id: sonata.id,
         abilities: []
     };
+}
+
+function getPossibleSonatas() : SonataFromShop[] {
+    let possibleSonatas: SonataFromShop[] = [];
+
+    sonatas.value.forEach(sonata => {
+        if (!Object.hasOwn(props.sheet.sonatas, sonata.name)) {
+            possibleSonatas.push(sonata);
+        }
+    });
+
+    return possibleSonatas;
 }
 
 </script>
@@ -60,7 +72,7 @@ function addToSheet(index: number) : void {
             </form>
             <h3 class="text-3xl font-bold text-center">Sonatas</h3>
             <div class="flex flex-col gap-5">
-                <div class="flex flex-col outline outline-primary p-2 rounded-box" v-for="sonata, key in sonatas">
+                <div class="flex flex-col outline outline-primary p-2 rounded-box" v-for="sonata in getPossibleSonatas()">
                     <h4 class="text-xl font-semibold">{{ sonata.name }}</h4>
                     <p>{{ sonata.description }}</p>
                     <div v-for="ability in sonata.abilities" class="collapse collapse-arrow bg-base-100">
@@ -72,7 +84,7 @@ function addToSheet(index: number) : void {
                             <p>Custo: {{ ability.cost }}</p>
                         </div>
                     </div>
-                    <button class="btn btn-outline btn-accent btn-md self-end" @click="addToSheet(key)">Adicionar</button>
+                    <button class="btn btn-outline btn-accent btn-md self-end" @click="addToSheet(sonata)">Adicionar</button>
                 </div>
             </div>
         </div>

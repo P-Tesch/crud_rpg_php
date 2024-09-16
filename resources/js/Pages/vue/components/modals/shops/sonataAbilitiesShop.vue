@@ -32,8 +32,8 @@ function build(sonataName: string) {
 );
 }
 
-function addToSheet(index: number) : void {
-    const ability: SonataAbility = sonataAbilities.value[index];
+function addToSheet(ability: SonataAbility) : void {
+    modalRef.value?.close();
 
     props.sheet.sonatas[sonataNameRef.value].abilities.forEach((entry, key) => {
         if (entry.name == ability.name) {
@@ -48,6 +48,27 @@ function addToSheet(index: number) : void {
     props.sheet.sonatas[sonataNameRef.value].abilities.push(ability);
 }
 
+function possibleAbilities() : SonataAbility[] {
+    let possibleAbilities: SonataAbility[] = [];
+
+    sonataAbilities.value.forEach(ability => {
+        let shouldPush = true;
+
+        Object.values(props.sheet.sonatas).every(sonata => {
+            return sonata.abilities.every(sheetAbility => {
+                shouldPush = sheetAbility.name != ability.name || ability.level > sheetAbility.level;
+                return shouldPush;
+            });
+        });
+
+        if (shouldPush) {
+            possibleAbilities.push(ability);
+        }
+    });
+
+    return possibleAbilities;
+}
+
 </script>
 
 <template>
@@ -58,12 +79,12 @@ function addToSheet(index: number) : void {
             </form>
             <h3 class="text-3xl font-bold text-center">Habilidades de sonata</h3>
             <div class="flex flex-col gap-5">
-                <div class="flex flex-col outline outline-primary p-2 rounded-box" v-for="ability, key in sonataAbilities">
+                <div class="flex flex-col outline outline-primary p-2 rounded-box" v-for="ability in possibleAbilities()">
                     <h4 class="text-xl font-semibold">{{ ability.name }}</h4>
                     <p>{{ ability.description }}</p>
                     <p>Level: {{ ability.level }}</p>
                     <p>Custo: {{ ability.cost }}</p>
-                    <button class="btn btn-outline btn-accent btn-md self-end" @click="addToSheet(key)">Adicionar</button>
+                    <button class="btn btn-outline btn-accent btn-md self-end" @click="addToSheet(ability)">Adicionar</button>
                 </div>
             </div>
         </div>

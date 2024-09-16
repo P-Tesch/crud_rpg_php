@@ -1,0 +1,75 @@
+Sistema - Lâmina magiteck: Uma espada que quando não ativada funciona de forma normal, concedendo +1 ATK. Quando ativada ela concede +2 ATK. Caso o usuário queime um circuito, ela concede +Tech ATK, esse efeito dura por Tech turnos. O usuário pode optar por uma versão de duas mãos que concede 1 de ATK extra em todas as formas.
+
+Fio Elemental(A): Enquanto ativo, quando a Lâmina magiteck causar dano a um alvo, ela aflige o alvo com um dos seguintes efeitos: Cauterizar, Choque ou Congelar. O efeito é escolhido no momento da ativação do Fio Elemental.
+
+Propulsão(B): Quando ativado, esse subsistema propulsiona o usuário em linha reta para desferir um golpe. A distância máxima que pode ser atingida com esse ataque é de Tech. para cada quadrado andado com esse efeito, se adiciona 1 dado à rolagem de ataque do usuário.
+
+Emitir(A): Após ativado, o usuário inicia o carregamento da lâmina, tornando-se Concentrado por 1 turno. Ao fim do efeito Concentrado, o usuário atira uma onda de energia ao alvo, com um alcance de 2*Tech. Causa Tech de dano.
+
+Lâmina afiada(A): Quando o usuário ataca, caso o usuário tenha em sua rolagem uma quantidade de acertos com o número 6 maior do que o alvo teve de acertos totais, a lâmina causa 1 de dano verdadeiro extra.
+
+Balanço ativo(A): Enquanto ativo, os ataques do usuário recebem 2 dados a mais. Caso um circuito seja queimado nessa ativação, durante Tech turnos, ataques recebem Tech dados extras.
+
+Sistema - Corpo: Esse é um sistema que todos os usuários magiteck tem por padrão, a princípio ele não tem efeitos extras, mas pode receber subsistemas.
+
+Placa dérmica(A): Enquanto ativo, o usuário tem sua Resistência aumentada em 2. Caso um circuito seja queimado, o usuário tem sua Resistência aumentada em Tech, durante Tech turnos.
+
+Transplante de força(A): Enquanto ativo, o usuário tem sua Força aumentada em 2. Caso um circuito seja queimado, o usuário tem sua Força aumentada em Tech, durante Tech turnos.
+
+Melhoradores de reflexo(A): Enquanto ativo, o usuário tem sua Agilidade aumentada em 2. Caso um circuito seja queimado, o usuário tem sua Agilidade aumentada em Tech, durante Tech turnos.
+
+Sensores perceptivos(A): Enquanto ativo, o usuário tem sua Percepção aumentada em 2. Caso um circuito seja queimado, o usuário tem sua Percepção aumentada em Tech, durante Tech turnos.
+
+Reforço nervoso(A): Enquanto ativo, o usuário tem sua Destreza aumentada em 2. Caso um circuito seja queimado, o usuário tem sua Destreza aumentada em Tech, durante Tech turnos.
+
+Motor experimental: Funciona passivamente. Toda vez que o usuário queimar um circuito, ele considera sua estatística de Tech como sendo 1.5*Tech, porém toda vez que isso acontecer, o usuário recebe 2 de dano.
+
+Mão endurecida: Funciona passivamente. A mão do usuário recebe dano extra de 1+½Força. Caso esse subsistema seja ativado, o dano aumenta para 1 + Força. Caso um circuito seja queimado, o dano aumenta para 1+Força+Tech por Tech turnos.
+
+Foguetes de calcanhar: Funciona passivamente. O usuário recebe 1 ponto de movimento extra. Caso esse subsistema seja ativado, o usuário recebe 2 pontos de movimento extras. Caso um circuito seja queimado, o usuário recebe Tech pontos extras por Tech turnos.
+
+Reparos de emergência(B): Quando ativado, o usuário queima um circuito e faz uma rolagem de Tech e, para cada acerto ele é curado em 1 HP.
+
+Sistema - Roupa: Uma peça de roupa com tecnologia magiteck. Concede 1 de Resistência passivamente, aumentando para 2 quando ativado. Caso um circuito seja queimado aumenta a Resistência em Tech por Tech turnos.
+
+Chicote(A): Pode desferir um ataque corpo a corpo a partir da peça de roupa, mas usando Tech como a estatística associada de Combate corpo a corpo e causando dano extra de ½ Tech. Quando um circuito é queimado, o ataque atinge todos em alcance corpo a corpo. Incompatível com robô.
+
+Robô(A): Pode desferir um ataque à distância a partir de um robô ligado à peça de roupa, mas usando Tech como a estatística associada de Combate à distância e causando dano extra de ½ Tech e tendo um alcance máximo de 5 quadrados. Quando um circuito é queimado, o usuário pode alvejar até 5 alvos dentro do alcance, mas não pode alvejar o mesmo alvo mais de uma vez. Incompatível com chicote.
+
+Vestimenta defensiva(A): Enquanto ativo, reduz todo o dano recebido em 1. Caso um circuito seja queimado, faz com que o próximo ataque recebido seja completamente anulado.
+
+Planador(A): Enquanto ativo, quando o usuário estiver em queda, ele plana, se mantendo no ar por alguns turnos, de acordo com a altura e, não recebendo dano de queda. Enquanto no ar, o usuário tem 2* Pontos de movimento e deve usar pelo menos ½ Pontos de movimento a cada turno. Quando um circuito é queimado, permite voar partindo do chão por Tech turnos.
+
+Sistema - Escudo : Enquanto na mão concede 1 dado a rolagens de Esquiva, caso ativado concede 2 dados e, caso um circuito seja queimado concede Tech dados por Tech turnos. Não pode ser usado em conjunto com armas de duas mãos.
+
+Campo anti magia(A): Enquanto ativo ignora totalmente magias com custo de MP igual ou menor a 2. Caso um circuito seja queimado, ignora magias com custo de MP igual ou menor a Tech.
+
+Espinho: Adiciona um espinho no escudo que pode ser usado como arma, causando 1+¼Força de dano bônus, podendo ser usado ao mesmo tempo da arma principal com a vantagem Ambidestro. Caso um circuito seja queimado, o espinho é lançado em uma distância de até 6 quadrados, usando Combate a distância(TEC) na rolagem. Caso o usuário tenha sucesso em acertar o projétil, deve ser feita uma rolagem de Resistência do usuário contra o alvo e, quem perder a rolagem é puxado até o outro. O espinho continua preso, impedindo ambos de saírem do alcance corpo a corpo. A cada turno o alvo pode fazer uma rolagem de Força e adicioná-la a um total e, caso esse total seja maior do que a Tech do usuário, o espinho se solta. O usuário também pode optar por soltar o espinho.
+
+Cobertura(A): Enquanto ativado, o usuário designa um alvo ao qual, enquanto estiverem a 1 quadrado de distância, o usuário recebe todos os ataques no lugar do alvo. Caso o alvo se mova, o usuário pode optar por mover-se junto, gastando seus pontos de movimento antecipadamente, tendo esses pontos descontados no seu próximo turno(caso o alvo se mova mais do que o usuário é capaz, a conexão é desfeita).
+
+Refletir(A): Enquanto ativo, o usuário pode refletir ataques a distância(salvo exceções) para a fonte do ataque. O usuário rola um dado de Esquiva(TEC)-2 no lugar da sua rolagem de Esquiva. Caso o usuário tenha sucesso, o ataque é refletido, mas o alvo ainda recebe uma chance de esquivar.
+
+Sistema - Arco magiteck: Um arco com um de dano bônus, caso ativado tem dois de dano bônus e caso um circuito seja queimado, tem dano bônus igual à tech do usuário durante tech turnos. Tem alcance igual à habilidade de combate a distância do usuário.
+
+Arco longo(A): Enquanto ativo, o usuário recebe um bônus de 2 dados quando atirando com o arco. Caso um circuito seja queimado, recebe Tech dados bônus por Tech turnos.
+
+Voleio(B):  Quando um circuito é queimado, o usuário pode atirar uma flecha para cima, que cai em um alcance de até 2*Tech e se divide em múltiplas flechas que caem em uma área de Tech, causando a todos na área um ataque com dano extra de ½ Tech.
+
+Debilitar(A): Enquanto ativo, ataques do usuário causam 1 de Cauterizar. Caso um circuito seja queimado, o próximo ataque causa Tech de Cauterizar.
+
+Aimware.net(A): Enquanto ativo, permite que o usuário acerte inimigos sem ter visão deles e permite à flecha fazer curvas para chegar ao inimigo. Quando um circuito é queimado, o próximo ataque é garantido, mas não ganha dano bônus de acordo com os acertos, visto que não há rolagem.
+
+Recurvo: Aumenta o alcance do arco em Força quadrados.
+
+Sistema - Rifle magiteck: Um rifle com 1 de dano bônus, caso ativado tem 2 de dano bônus e caso um circuito seja queimado, tem Tech de dano bônus durante Tech turnos. Tem alcance igual a 2*Combate à distância.
+
+Projétil explosivo(B): O próximo tiro causa dano em uma área de raio 2. O dano da explosão não pode ser desviado.
+
+Projétil penetrante(B): O próximo tiro tem alcance dobrado e perfura inimigos na mesma linha. Cada inimigo recebe sua própria rolagem de desvio. Só pode ser usado em direções cardeais e colaterais.
+
+Baioneta(A): Enquanto ativado, o rifle pode ser usado como uma arma de combate corpo a corpo, com o mesmo dano da versão à distância, mas aplicando regras de combate corpo a corpo.
+
+Repelir(B): O próximo tiro tem um alcance máximo de 2 quadrados e empurra o alvo em Tech quadrados. Outros inimigos no caminho também são empurrados e recebem 1 de dano verdadeiro.
+
+Balas imbuídas(A): Enquanto ativo, adiciona 2 de dano aos ataques da arma.

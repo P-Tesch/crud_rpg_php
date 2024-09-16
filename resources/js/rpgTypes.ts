@@ -5,6 +5,7 @@ declare module "rpgTypes" {
         description: string;
         level: number;
         cost: number;
+        class: string;
     }
 
     export type Attributes = {
