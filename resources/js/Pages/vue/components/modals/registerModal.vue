@@ -275,6 +275,7 @@ function buildSheet() {
 
 async function register() {
     form.sheet = buildSheet();
+    modalRef.value?.close();
 
     form.submit().then(() => {
             emit("success");
@@ -287,7 +288,7 @@ async function register() {
 </script>
 
 <template>
-    <dialog class="modal" ref="modalRef">
+    <dialog class="modal" ref="modalRef" @keyup.enter="register()">
         <div class="modal-box w-11/12 max-w-5xl outline outline-primary overflow-auto">
             <h1 class="text-center text-2xl font-bold">Registrar</h1>
             <div class="h-5"></div>
