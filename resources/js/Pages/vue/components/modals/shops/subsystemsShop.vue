@@ -34,16 +34,36 @@ function build(systemName: string) {
 );
 }
 
-function addToSheet(index: number) : void {
-    const subsystem: Subsystem = subsystems.value[index];
+function addToSheet(subsystem: Subsystem) : void {
+    modalRef.value?.close();
 
-    props.sheet.systems[systemNameRef.value].subsystems.forEach((entry, key) => {
+    props.sheet.systems[systemNameRef.value].subsystems.forEach((entry) => {
         if (entry.name == subsystem.name) {
             throw new ToastError("O personagem já possui esse subsistema");
         }
     });
 
     props.sheet.systems[systemNameRef.value].subsystems.push(subsystem);
+}
+
+function possibleSubsystems() : Subsystem[] {
+    let possibleSubsystems: Subsystem[] = [];
+
+    subsystems.value.forEach(subsystem => {
+        let shouldAdd: boolean = true;
+
+        props.sheet.systems[systemNameRef.value].subsystems.forEach(sheetSubsystem => {
+            if (sheetSubsystem.name == subsystem.name) {
+                shouldAdd = false;
+            }
+        });
+
+        if (shouldAdd) {
+            possibleSubsystems.push(subsystem);
+        }
+    });
+
+    return possibleSubsystems;
 }
 
 </script>
@@ -56,10 +76,10 @@ function addToSheet(index: number) : void {
             </form>
             <h3 class="text-3xl font-bold text-center">Subsistemas</h3>
             <div class="flex flex-col gap-5">
-                <div class="flex flex-col outline outline-primary p-2 rounded-box" v-for="subsystem, key in subsystems">
+                <div class="flex flex-col outline outline-primary p-2 rounded-box" v-for="subsystem in possibleSubsystems()">
                     <h4 class="text-xl font-semibold">{{ subsystem.name }}</h4>
                     <p>{{ subsystem.description }}</p>
-                    <button class="btn btn-outline btn-accent btn-md self-end" @click="addToSheet(key)">Adicionar</button>
+                    <button class="btn btn-outline btn-accent btn-md self-end" @click="addToSheet(subsystem)">Adicionar</button>
                 </div>
             </div>
         </div>
