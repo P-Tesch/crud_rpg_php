@@ -4,11 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Broadcast;
 
 class LiveController extends Controller {
 
-    public function heartbeat(Request $request) {
+    /**
+     * Registers a heartbeat signal
+     * @param Request $request
+     * @return void
+     */
+    public function heartbeat(Request $request) : void {
         $cached = Cache::get("alive", []);
 
         $heartbeat = json_decode($request->getContent(), true);
@@ -24,7 +28,12 @@ class LiveController extends Controller {
         Cache::put("alive", $cached);
     }
 
-    public function alive(Request $request) {
+    /**
+     * Returns the live connections
+     * @param Request $request
+     * @return array
+     */
+    public function alive(Request $request) : array {
         return Cache::get("alive", []);
     }
 

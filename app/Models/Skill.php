@@ -2,22 +2,22 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Skill extends Model
 {
-    use HasFactory;
-
+    /** @var bool */
     public $timestamps = false;
 
+    /** @var array<int, string> */
     protected $fillable = [
         "key",
         "value",
         "referenced_stat"
     ];
 
+    /** @return BelongsTo<Sheet, Skill> */
     public function sheet() : BelongsTo {
         return $this->belongsTo(Sheet::class);
     }

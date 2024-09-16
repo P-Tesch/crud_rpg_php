@@ -4,52 +4,58 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserRequest;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     */
-    public function index()
+     * List all users
+     * @return Collection<int, User>
+     * */
+    public function index() : Collection
     {
         return User::all();
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Persist a new User
+     * @return void
      */
-    public function store(StoreUserRequest $request, SheetController $sheetController)
+    public function store(StoreUserRequest $request, SheetController $sheetController) : void
     {
         $sheetId = $sheetController->store($request);
         $user = new User();
-        $user->login = $request->get("login");
-        $user->password = $request->get("password");
+        $user->login = $request->input("login");
+        $user->password = $request->input("password");
         $user->sheet_id = $sheetId;
         $user->save();
     }
 
     /**
-     * Display the specified resource.
+     * Show a user by id
+     * @return ?User
      */
-    public function show(int $id)
+    public function show(int $id) : ?User
     {
         return User::find($id);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update a user
+     * @return void
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, User $user) : void
     {
-        //
+        // TODO
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Delete a user by id
+     * @return void
      */
-    public function destroy(int $id)
+    public function destroy(int $id) : void
     {
-        $user = User::find($id);
+        // TODO
     }
 }

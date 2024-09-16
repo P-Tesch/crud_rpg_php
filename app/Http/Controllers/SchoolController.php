@@ -6,50 +6,62 @@ use App\Http\Resources\SchoolResource;
 use App\Models\School;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class SchoolController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * List all schools
+     * @return AnonymousResourceCollection<int, SchoolResource>
      */
-    public function index()
+    public function index() : AnonymousResourceCollection
     {
         return SchoolResource::collection(School::all());
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Persist a new school
+     * @return void
      */
-    public function store(Request $request)
+    public function store(Request $request) : void
     {
-
+        // TODO
     }
 
     /**
-     * Display the specified resource.
+     * Show a school by id
+     * @return ?School
      */
-    public function show(int $id)
+    public function show(int $id) : ?School
     {
         return School::find($id);
     }
 
-    public static function findByNameAndLevel(string $name, int $level) {
+    /**
+     * Show a school by name and level
+     * @param string $name
+     * @param int $level
+     * @return School
+     */
+    public static function findByNameAndLevel(string $name, int $level) : School {
         return School::where("name", $name)->where("level", $level)->firstOrFail();
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update a school
+     * @return void
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, User $user) : void
     {
-        //
+        // TODO
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Delete a school
+     * @return void
      */
-    public function destroy(int $id)
+    public function destroy(int $id) : void
     {
-
+        // TODO
     }
 }

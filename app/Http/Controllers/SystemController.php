@@ -2,53 +2,64 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\SystemResource;
 use App\Models\System;
 use Illuminate\Http\Request;
-use App\Http\Resources\SystemResource;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class SystemController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * List all systems
+     * @return AnonymousResourceCollection<int, SystemResource>
      */
-    public function index()
+    public function index() : AnonymousResourceCollection
     {
         return SystemResource::collection(System::all());
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Persist a new system
+     * @return void
      */
-    public function store(Request $request)
+    public function store(Request $request) : void
     {
-        //
+        // TODO
     }
 
     /**
-     * Display the specified resource.
+     * Show a system by id
+     * @return ?System
      */
-    public function show(int $id)
+    public function show(int $id) : ?System
     {
         return System::find($id);
     }
 
-    public static function findByName(string $name) {
+    /**
+     * Show a system by name
+     * @param string $name
+     * @return System
+     */
+    public static function findByName(string $name) : System {
         return System::where("name", $name)->firstOrFail();
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update a system
+     * @return void
      */
-    public function update(Request $request, System $system)
+    public function update(Request $request, System $advantage) : void
     {
-        //
+        // TODO
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Delete a system by id
+     * @return void
      */
-    public function destroy(System $system)
+    public function destroy(System $advantage) : void
     {
-        //
+        // TODO
     }
 }

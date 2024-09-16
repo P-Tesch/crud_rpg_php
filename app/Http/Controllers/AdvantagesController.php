@@ -5,50 +5,62 @@ namespace App\Http\Controllers;
 use App\Http\Resources\AdvantageResource;
 use App\Models\Advantage;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class AdvantagesController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Lists all advantages
+     * @return AnonymousResourceCollection<int, AdvantageResource>
      */
-    public function index()
+    public function index() : AnonymousResourceCollection
     {
         return AdvantageResource::collection(Advantage::all());
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Persists a new advantage
+     * @return void
      */
-    public function store(Request $request)
+    public function store(Request $request) : void
     {
-        //
+        // TODO
     }
 
     /**
-     * Display the specified resource.
+     * Show a advantage by id
+     * @return ?Advantage
      */
-    public function show(int $id)
+    public function show(int $id) : ?Advantage
     {
         return Advantage::find($id);
     }
 
-    public static function findByNameAndLevel(string $name, int $level) {
+    /**
+     * Show a advantage by name and level
+     * @param string $name
+     * @param int $level
+     * @return Advantage
+     */
+    public static function findByNameAndLevel(string $name, int $level) : Advantage {
         return Advantage::where("name", $name)->where("level", $level)->firstOrFail();
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update a advantage
+     * @return void
      */
-    public function update(Request $request, Advantage $advantage)
+    public function update(Request $request, Advantage $advantage) : void
     {
-        //
+        // TODO
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Delete a advantage
+     * @return void
      */
-    public function destroy(Advantage $advantage)
+    public function destroy(Advantage $advantage) : void
     {
-        //
+        // TODO
     }
 }

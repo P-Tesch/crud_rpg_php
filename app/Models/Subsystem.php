@@ -9,24 +9,30 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Subsystem extends Model
 {
+    /** @use HasFactory<\Database\Factories\SubsystemFactory> */
     use HasFactory;
 
+    /** @var bool */
     public $timestamps = false;
 
+    /** @var array<int, string> */
     protected $fillable = [
         "name",
         "description"
     ];
 
+    /** @var array<int, string> */
     protected $hidden = [
         "strategy",
         "strategy_burn"
     ];
 
+    /** @return BelongsToMany<Sheet> */
     public function sheets() : BelongsToMany {
         return $this->belongsToMany(Sheet::class)->withPivot("burn_duration");
     }
 
+    /** @return BelongsTo<System, Subsystem> */
     public function system() : BelongsTo {
         return $this->belongsTo(System::class);
     }
