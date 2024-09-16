@@ -14,7 +14,7 @@ class LiveController extends Controller {
         $heartbeat = json_decode($request->getContent(), true);
 
         foreach ($cached as $key => $value) {
-            if (($heartbeat["timestamp"] - $value["timestamp"]) > 20000) {
+            if (($heartbeat["timestamp"] - $value["timestamp"]) > 120000) {
                 unset($cached[$key]);
             }
         }
