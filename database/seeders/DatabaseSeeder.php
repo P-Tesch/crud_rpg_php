@@ -10,6 +10,8 @@ use App\Models\Sonata;
 use App\Models\SonataAbility;
 use App\Models\Spell;
 use App\Models\School;
+use App\Models\Subsystem;
+use App\Models\System;
 use DB;
 use Illuminate\Database\Seeder;
 
@@ -20,12 +22,43 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->seedSystemsAndSubystems();
         $this->seedAdvantages();
         $this->seedScriptureAbilities();
         $this->seedMiracles();
         $this->seedSonatasAndSonataAbilities();
         $this->seedMysticEyes();
         $this->seedSchoolsAndSpells();
+    }
+
+    private function seedSystemsAndSubystems() : void {
+        System::truncate();
+        Subsystem::truncate();
+
+        $lines = file(__DIR__ . "/data/Systems.txt");
+        $lastSystem = null;
+
+        foreach ($lines as $line) {
+            $line = str_replace("\n", "", $line);
+            if (!preg_match("/(Sistema\s-\s|)(.+?(?=:\s)):\s(.+)/", $line, $matches)) {
+                continue;
+            }
+
+            if ($matches[1] != "") {
+                $lastSystem = new System([
+                    "name" => $matches[2],
+                    "description" => $matches[3]
+                ]);
+
+                $lastSystem->save();
+            } else {
+                (new Subsystem([
+                    "name" => $matches[2],
+                    "description" => $matches[3],
+                    "system_id" => $lastSystem->id
+                ]))->save();
+            }
+        }
     }
 
     private function seedAdvantages() : void {
