@@ -85,7 +85,7 @@ class SheetEntity {
     /** @var array<string, array<string, mixed>> */
     public array $sonatas;
 
-    /** @var array<string, int | array<string, mixed>> */
+    /** @var array<string, mixed> */
     public array $systems;
 
     /** @var array<string, string> */
@@ -219,7 +219,7 @@ class SheetEntity {
         $this->miracles = $sheet->miracles->toArray();
         $this->scripture = $sheet->scripture;
         if ($this->scripture != null) {
-            $this->scripture->scriptureAbilities = $sheet->scripture->scriptureAbilities->toArray();
+            $this->scripture->scriptureAbilities = !is_array($sheet->scripture->scriptureAbilities) ? $sheet->scripture->scriptureAbilities->toArray() : $sheet->scripture->scriptureAbilities;
         }
         $this->mysticEyes = $sheet->mysticEyes->all();
 

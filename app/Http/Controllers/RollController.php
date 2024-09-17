@@ -6,10 +6,11 @@ use App\Models\Item;
 use App\Enums\SpellTypes;
 use App\Helpers\RollHelper;
 use Illuminate\Http\Request;
-use App\Entities\SheetEntity;
 use App\Entities\RollHistory;
+use App\Entities\SheetEntity;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Broadcast;
+use Symfony\Component\Translation\Exception\NotFoundResourceException;
 
 class RollController extends Controller {
 
@@ -39,7 +40,11 @@ class RollController extends Controller {
         $skill = $request->input("skill");
         $modifiers = (int) $request->input("modifier");
 
-        $sheet = SheetEntity::buildFromModel($sheetController->showAsModel($request));
+        $model = $sheetController->showAsModel($request);
+        if (is_null($model)) {
+            throw new NotFoundResourceException("Ficha não encontrada");
+        }
+        $sheet = SheetEntity::buildFromModel($model);
         $stat = $sheet->skillsRelations[$skill];
 
         $this->broadcastAndStore([
@@ -66,7 +71,12 @@ class RollController extends Controller {
         $spellString = $request->input("spell");
         $schoolString = $request->input("school");
 
-        $sheet = SheetEntity::buildFromModel($sheetController->showAsModel($request));
+        $model = $sheetController->showAsModel($request);
+        if (is_null($model)) {
+            throw new NotFoundResourceException("Ficha não encontrada");
+        }
+
+        $sheet = SheetEntity::buildFromModel($model);
         $recoilRoll = $this->rollRecoil($sheet, $cost);
 
         $spell = $sheet->schools[$schoolString]["spells"][$spellString];
@@ -115,7 +125,16 @@ class RollController extends Controller {
         $itemId = (int) $request->input("item");
 
         $item = Item::find($itemId);
-        $sheet = SheetEntity::buildFromModel($sheetController->showAsModel($request));
+        if (is_null($item)) {
+            throw new NotFoundResourceException("Ficha não encontrada");
+        }
+
+        $model = $sheetController->showAsModel($request);
+        if (is_null($model)) {
+            throw new NotFoundResourceException("Ficha não encontrada");
+        }
+
+        $sheet = SheetEntity::buildFromModel($model);
 
         $roll = $item->strategy != null ? RollHelper::roll([5]) : null; // TODO
 
@@ -142,6 +161,9 @@ class RollController extends Controller {
         $targetId = (int) $request->input("target");
 
         $eye = $mysticEyesController->show($eyeId);
+        if ($eye == null) {
+            return;
+        }
 
         $sheet = SheetEntity::buildFromModel($sheetController->showAsModel($request));
         $target = SheetEntity::buildFromModel($sheetController->showFromId($targetId));

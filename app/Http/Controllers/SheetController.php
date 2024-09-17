@@ -12,6 +12,7 @@ use App\Models\School;
 use App\Models\Miracle;
 use App\Models\Scripture;
 use App\Models\BloodAbility;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\Request;
 use App\Models\ScriptureAbility;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -20,6 +21,7 @@ use App\Http\Resources\SheetResource;
 use App\Models\RpgAttribute;
 use App\Models\Skill;
 use Illuminate\Http\Response;
+use Symfony\Component\Translation\Exception\NotFoundResourceException;
 
 class SheetController extends Controller
 {
@@ -51,8 +53,10 @@ class SheetController extends Controller
 
         if ($sheet->organization) {
             $item = $this->getOrganizationItem($sheet->organization);
-            $item->sheet_id = $sheet->id;
-            $item->save();
+            if ($item != null) {
+                $item->sheet_id = $sheet->id;
+                $item->save();
+            }
         }
 
         if ($sheet->alignment) {
@@ -150,26 +154,36 @@ class SheetController extends Controller
      */
     public function show(Request $request) : SheetResource
     {
-        $id = Auth::user()->sheet_id;
+        $user = Auth::user();
+        if (is_null($user)) {
+            throw new AuthenticationException("Usuário não autenticado");
+        }
+
+        $id = $user->sheet_id;
         return new SheetResource(Sheet::find($id));
     }
 
     /**
      * Show a sheet as model by authenticated user
      * @param Request $request
-     * @return Sheet
+     * @return ?Sheet
      */
-    public function showAsModel(Request $request) : Sheet {
-        $id = Auth::user()->sheet_id;
+    public function showAsModel(Request $request) : ?Sheet {
+        $user = Auth::user();
+        if (is_null($user)) {
+            throw new AuthenticationException("Usuário não autenticado");
+        }
+
+        $id = $user->sheet_id;
         return Sheet::find($id);
     }
 
     /**
      * Show a sheet model by id
      * @param int $id
-     * @return Sheet
+     * @return ?Sheet
      */
-    public function showFromId(int $id) : Sheet {
+    public function showFromId(int $id) : ?Sheet {
         return Sheet::find($id);
     }
 
@@ -179,7 +193,12 @@ class SheetController extends Controller
      * @return SheetEntity
      */
     public function showAsEntity(Request $request) : SheetEntity {
-        return SheetEntity::buildFromModel($this->showAsModel($request));
+        $model = $this->showAsModel($request);
+        if (is_null($model)) {
+            throw new NotFoundResourceException("Ficha não encontrada");
+        }
+
+        return SheetEntity::buildFromModel($model);
     }
 
     /**
@@ -188,7 +207,12 @@ class SheetController extends Controller
      * @return string
      */
     public function showEntityAsJson(Request $request) : string {
-        return json_encode(SheetEntity::buildFromModel($this->showAsModel($request))) ?: "";
+        $model = $this->showAsModel($request);
+        if (is_null($model)) {
+            throw new NotFoundResourceException("Ficha não encontrada");
+        }
+
+        return json_encode(SheetEntity::buildFromModel($model)) ?: "";
     }
 
     /**
@@ -197,8 +221,13 @@ class SheetController extends Controller
      */
     public function update(Request $request) : Response
     {
+        $model = $this->showAsModel($request);
+        if (is_null($model)) {
+            throw new NotFoundResourceException("Ficha não encontrada");
+        }
+
         $sheetEntity = new SheetEntity(json_decode($request->getContent(), true));
-        $sheetEntity->update($this->showAsModel($request));
+        $sheetEntity->update($model);
         return new Response();
     }
 
