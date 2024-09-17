@@ -214,9 +214,9 @@ class SheetController extends Controller
     /**
      * Get alignment alias
      * @param string $alignment
-     * @return string
+     * @return ?string
      */
-    private function getAlignmentAlias(string $alignment) : string {
+    private function getAlignmentAlias(string $alignment) : ?string {
         return match ($alignment) {
             "fire" => "Fogo",
             "water" => "Água",
@@ -225,16 +225,17 @@ class SheetController extends Controller
             "arcana" => "Arcana",
             "void" => "Vazio",
             "ice" => "Gelo",
-            "electricity" => "Eletricidade"
+            "electricity" => "Eletricidade",
+            default => null
         };
     }
 
     /**
      * Get organization initial item
      * @param string $organization
-     * @return Item
+     * @return ?Item
      */
-    private function getOrganizationItem(string $organization) : Item {
+    private function getOrganizationItem(string $organization) : ?Item {
         return match ($organization) {
             "executors" => new Item([
                 "name" => "Chaves negras",
@@ -259,7 +260,8 @@ class SheetController extends Controller
                 "description" => "Esses papeis podem ser posicionados(no caso de tentar posicioná-los à distância, como arremessando preso a uma adaga é necessário rolar um dado de Combate a distância). Depois de posicionados, eles se ligam formando um campo(um não faz nada, dois forma uma linha, três ou mais formam um plano). Quando o campo é ativado, o usuário declara um tipo de criatura(Morto-vivo, mago, fantasma, etc.) todos do tipo declarado dentro da área perdem em todas as suas rolagens dados iguais a ⅓ Fé. Além disso, o usuário pode pode destruir o campo, assim todos do tipo declarado dentro do campo devem rolar um dado de Tenacidade contra a quantidade de papeis destruídos e os que falharem são Atordoados pela diferença de acertos em turnos.",
                 "damage" => null,
                 "strategy" => null
-            ])
+            ]),
+            default => null
         };
     }
 }

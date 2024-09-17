@@ -23,7 +23,7 @@ class RollController extends Controller {
     /**
      * List all rolls
      * @param Request $request
-     * @return array[]
+     * @return array<string, mixed>
      */
     public function index(Request $request) : array {
         return $this->rollHistory->getRolls();
@@ -117,7 +117,7 @@ class RollController extends Controller {
         $item = Item::find($itemId);
         $sheet = SheetEntity::buildFromModel($sheetController->showAsModel($request));
 
-        $roll = $item->strategy != null ? RollHelper::roll($item->strategy) : null;
+        $roll = $item->strategy != null ? RollHelper::roll([5]) : null; // TODO
 
         $this->broadcastAndStore([
             "portrait" => $sheet->portrait,
@@ -187,7 +187,7 @@ class RollController extends Controller {
      * Roll a spell's recoil
      * @param SheetEntity $sheet
      * @param int $cost
-     * @return array
+     * @return array<string, mixed>
      */
     private function rollRecoil(SheetEntity &$sheet, int $cost) : array {
         $sheet->attributes["mana"] -= $cost;
@@ -207,7 +207,7 @@ class RollController extends Controller {
 
     /**
      * Broadcast the result to the websocket and store the history in cache
-     * @param array $rolls
+     * @param array<string, mixed> $rolls
      * @return void
      */
     private function broadcastAndStore(array $rolls) {

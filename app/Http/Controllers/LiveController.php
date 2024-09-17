@@ -31,7 +31,7 @@ class LiveController extends Controller {
     /**
      * Returns the live connections
      * @param Request $request
-     * @return array
+     * @return array<int, object>
      */
     public function alive(Request $request) : array {
         return Cache::get("alive", []);
