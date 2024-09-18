@@ -166,25 +166,36 @@ class SheetController extends Controller
     /**
      * Show a sheet as model by authenticated user
      * @param Request $request
-     * @return ?Sheet
+     * @return Sheet
+     * @throws AuthenticationException | NotFoundResourceException
      */
-    public function showAsModel(Request $request) : ?Sheet {
+    public function showAsModel(Request $request) : Sheet {
         $user = Auth::user();
         if (is_null($user)) {
             throw new AuthenticationException("Usuário não autenticado");
         }
 
-        $id = $user->sheet_id;
-        return Sheet::find($id);
+        $model = Sheet::find($user->sheet_id);
+        if (is_null($model)) {
+            throw new NotFoundResourceException("Ficha não encontrada");
+        }
+
+        return $model;
     }
 
     /**
      * Show a sheet model by id
      * @param int $id
-     * @return ?Sheet
+     * @return Sheet
+     * @throws NotFoundResourceException
      */
-    public function showFromId(int $id) : ?Sheet {
-        return Sheet::find($id);
+    public function showFromId(int $id) : Sheet {
+        $model = Sheet::find($id);
+        if (is_null($model)) {
+            throw new NotFoundResourceException("Ficha não encontrada");
+        }
+
+        return $model;
     }
 
     /**
@@ -193,12 +204,7 @@ class SheetController extends Controller
      * @return SheetEntity
      */
     public function showAsEntity(Request $request) : SheetEntity {
-        $model = $this->showAsModel($request);
-        if (is_null($model)) {
-            throw new NotFoundResourceException("Ficha não encontrada");
-        }
-
-        return SheetEntity::buildFromModel($model);
+        return SheetEntity::buildFromModel($this->showAsModel($request));
     }
 
     /**
@@ -207,12 +213,7 @@ class SheetController extends Controller
      * @return string
      */
     public function showEntityAsJson(Request $request) : string {
-        $model = $this->showAsModel($request);
-        if (is_null($model)) {
-            throw new NotFoundResourceException("Ficha não encontrada");
-        }
-
-        return json_encode(SheetEntity::buildFromModel($model)) ?: "";
+        return json_encode(SheetEntity::buildFromModel($this->showAsModel($request))) ?: "";
     }
 
     /**
@@ -221,13 +222,8 @@ class SheetController extends Controller
      */
     public function update(Request $request) : Response
     {
-        $model = $this->showAsModel($request);
-        if (is_null($model)) {
-            throw new NotFoundResourceException("Ficha não encontrada");
-        }
-
         $sheetEntity = new SheetEntity(json_decode($request->getContent(), true));
-        $sheetEntity->update($model);
+        $sheetEntity->update($this->showAsModel($request));
         return new Response();
     }
 

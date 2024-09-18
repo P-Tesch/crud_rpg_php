@@ -148,7 +148,7 @@ class SheetEntity {
             $spells = [];
             foreach ($schoolModel->spells as $spell) {
                 $spells[$spell->name] = [
-                    "type" => SpellTypes::tryFrom($spell->type),
+                    "type" => SpellTypes::tryFrom($spell->type ?? ""),
                     "description" => $spell->description,
                     "strategy" => $spell->strategy
                 ];
@@ -211,14 +211,14 @@ class SheetEntity {
         $this->description = $sheet->description;
         $this->background = $sheet->background;
         $this->creationPoints = $sheet->creation_points;
-        $this->alignment = Alignment::tryFrom($sheet->alignment);
-        $this->organization = Organization::tryFrom($sheet->organization);
+        $this->alignment = Alignment::tryFrom($sheet->alignment ?? "");
+        $this->organization = Organization::tryFrom($sheet->organization ?? "");
         $this->advantages = $sheet->advantages->toArray();
         $this->blood = $sheet->blood;
         $this->items = $sheet->items->toArray();
         $this->miracles = $sheet->miracles->toArray();
         $this->scripture = $sheet->scripture;
-        if ($this->scripture != null) {
+        if (isset($this->scripture) && isset($sheet->scripture)) {
             $this->scripture->scriptureAbilities = !is_array($sheet->scripture->scriptureAbilities) ? $sheet->scripture->scriptureAbilities->toArray() : $sheet->scripture->scriptureAbilities;
         }
         $this->mysticEyes = $sheet->mysticEyes->all();
@@ -243,7 +243,7 @@ class SheetEntity {
             $spells = [];
             foreach ($school->spells as $spell) {
                 $spells[$spell->name] = [
-                    "type" => SpellTypes::tryFrom($spell->type),
+                    "type" => SpellTypes::tryFrom($spell->type ?? ""),
                     "description" => $spell->description,
                     "strategy" => $spell->strategy
                 ];
@@ -388,7 +388,11 @@ class SheetEntity {
 
         $model->miracles()->sync($miracles, true);
 
-        if ($model->scripture != null) {
+        if (isset($model->scripture)) {
+            if (!isset($this->scripture)) {
+                $this->scripture = new Scripture();
+            }
+
             $model->scripture->name = $this->scripture->name;
             $model->scripture->description = $this->scripture->description;
             $model->scripture->damage = $this->scripture->damage;

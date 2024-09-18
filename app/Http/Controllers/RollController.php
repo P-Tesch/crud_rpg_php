@@ -40,11 +40,7 @@ class RollController extends Controller {
         $skill = $request->input("skill");
         $modifiers = (int) $request->input("modifier");
 
-        $model = $sheetController->showAsModel($request);
-        if (is_null($model)) {
-            throw new NotFoundResourceException("Ficha não encontrada");
-        }
-        $sheet = SheetEntity::buildFromModel($model);
+        $sheet = SheetEntity::buildFromModel($sheetController->showAsModel($request));
         $stat = $sheet->skillsRelations[$skill];
 
         $this->broadcastAndStore([
@@ -71,12 +67,7 @@ class RollController extends Controller {
         $spellString = $request->input("spell");
         $schoolString = $request->input("school");
 
-        $model = $sheetController->showAsModel($request);
-        if (is_null($model)) {
-            throw new NotFoundResourceException("Ficha não encontrada");
-        }
-
-        $sheet = SheetEntity::buildFromModel($model);
+        $sheet = SheetEntity::buildFromModel($sheetController->showAsModel($request));
         $recoilRoll = $this->rollRecoil($sheet, $cost);
 
         $spell = $sheet->schools[$schoolString]["spells"][$spellString];
@@ -129,12 +120,7 @@ class RollController extends Controller {
             throw new NotFoundResourceException("Ficha não encontrada");
         }
 
-        $model = $sheetController->showAsModel($request);
-        if (is_null($model)) {
-            throw new NotFoundResourceException("Ficha não encontrada");
-        }
-
-        $sheet = SheetEntity::buildFromModel($model);
+        $sheet = SheetEntity::buildFromModel($sheetController->showAsModel($request));
 
         $roll = $item->strategy != null ? RollHelper::roll([5]) : null; // TODO
 
