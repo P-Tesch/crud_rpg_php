@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
 {
     /**
      * Seed the application's database.
+     * @return void
      */
     public function run(): void
     {
@@ -31,6 +32,10 @@ class DatabaseSeeder extends Seeder
         $this->seedSchoolsAndSpells();
     }
 
+    /**
+     * Seed the systems and subsystems tables
+     * @return void
+     */
     private function seedSystemsAndSubystems() : void {
         System::truncate();
         Subsystem::truncate();
@@ -61,6 +66,10 @@ class DatabaseSeeder extends Seeder
         }
     }
 
+    /**
+     * Seed the advantages table
+     * @return void
+     */
     private function seedAdvantages() : void {
         Advantage::truncate();
 
@@ -82,6 +91,10 @@ class DatabaseSeeder extends Seeder
         }
     }
 
+    /**
+     * Seed the scripture abilities table
+     * @return void
+     */
     private function seedScriptureAbilities() : void {
         ScriptureAbility::truncate();
 
@@ -104,6 +117,10 @@ class DatabaseSeeder extends Seeder
         }
     }
 
+    /**
+     * Seed the miracles table
+     * @return void
+     */
     private function seedMiracles() : void {
         Miracle::truncate();
 
@@ -129,6 +146,10 @@ class DatabaseSeeder extends Seeder
         }
     }
 
+    /**
+     * Seed the sonatas and sonata_abilities tables
+     * @return void
+     */
     private function seedSonatasAndSonataAbilities() : void {
         Sonata::truncate();
         SonataAbility::truncate();
@@ -192,6 +213,10 @@ class DatabaseSeeder extends Seeder
         }
     }
 
+    /**
+     * Seed the mystic_eyes table
+     * @return void
+     */
     private function seedMysticEyes() : void {
         MysticEye::truncate();
 
@@ -238,6 +263,10 @@ class DatabaseSeeder extends Seeder
         (new MysticEye($eyeArgs))->save();
     }
 
+    /**
+     * Seed the schools and spells tables
+     * @return void
+     */
     private function seedSchoolsAndSpells() : void {
         DB::table("school_spell")->truncate();
         School::truncate();
@@ -308,6 +337,11 @@ class DatabaseSeeder extends Seeder
         $school->spells()->saveMany($spells);
     }
 
+    /**
+     * Support function to get the sum of every integer from 1 up to $number
+     * @param int $number
+     * @return int
+     */
     private function summation(int $number) {
         $total = 0;
         for ($i = 1; $i <= $number; $i++) {
