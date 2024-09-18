@@ -74,8 +74,6 @@ function possibleAdvantages() : Advantage[] {
                 return (sheetAdvantage.name != advantage.name || (sheetAdvantage.name == advantage.name && advantage.level > sheetAdvantage.level));
             })
 
-            console.log(shouldAdd);
-
             if (shouldAdd) {
                 possibleAdvantages.push(advantage);
             }

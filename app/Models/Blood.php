@@ -3,30 +3,31 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Blood extends Model
 {
-    use HasFactory;
-
+    /** @var bool */
     public $timestamps = false;
 
+    /** @var array<int, string> */
     protected $fillable = [
         "name",
         "impulses"
     ];
 
+    /** @return BelongsTo<Sheet, Blood> */
     public function sheet() : BelongsTo {
         return $this->belongsTo(Sheet::class);
     }
 
+    /** @return HasMany<BloodAbility> */
     public function bloodAbilities() : HasMany {
         return $this->hasMany(BloodAbility::class);
     }
 
+    /** @return HasMany<Stat> */
     public function stats() : HasMany {
         return $this->hasMany(Stat::class);
     }

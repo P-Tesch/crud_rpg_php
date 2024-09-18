@@ -2,25 +2,26 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class BloodAbility extends Model
 {
-    use HasFactory;
-
+    /** @var bool */
     public $timestamps = false;
 
+    /** @var array<int,string> */
     protected $fillable = [
         "name",
         "description"
     ];
 
+    /** @var array<int, string> */
     protected $hidden = [
         "strategy"
     ];
 
+    /** @return BelongsTo<Blood, BloodAbility> */
     public function blood() : BelongsTo {
         return $this->belongsTo(Blood::class);
     }

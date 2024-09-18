@@ -8,10 +8,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Advantage extends Model
 {
+    /** @use HasFactory<\Database\Factories\AdvantageFactory> */
     use HasFactory;
 
+    /** @var bool */
     public $timestamps = false;
 
+    /** @var array<int, string> */
     protected $fillable = [
         "name",
         "description",
@@ -20,10 +23,12 @@ class Advantage extends Model
         "class"
     ];
 
+    /** @var array<int, string> */
     protected $hidden = [
         "strategy"
     ];
 
+    /** @return BelongsToMany<Sheet> */
     public function sheet() : BelongsToMany {
         return $this->belongsToMany(Sheet::class);
     }

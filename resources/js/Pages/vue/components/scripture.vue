@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from "vue"
+import { ref, watch, toRaw } from "vue"
 import TextInputModal from '@modals/textInputModal.vue'
 import TextAreaModal from '@modals/textAreaModal.vue'
 import type { Scripture, ScriptureAbility, Sheet } from "rpgTypes";
@@ -19,7 +19,7 @@ const yesNo: {[key: string | number]: string} = {
     1: "Sim"
 }
 
-const originalScripture: Scripture = Object.assign({}, props.sheet.scripture);
+const originalScripture: Scripture = structuredClone(toRaw(props.sheet.scripture));
 
 const nameModal = ref<InstanceType<typeof TextInputModal>>();
 const descriptionModal = ref<InstanceType<typeof TextAreaModal>>();
@@ -93,6 +93,16 @@ function showModal(modal: InstanceType<typeof TextInputModal | typeof TextAreaMo
     }
     modal.modalRef?.showModal();
     modal.input = defaultValue;
+}
+
+function isOriginal(ability: ScriptureAbility) : boolean {
+    return originalScripture.scriptureAbilities.every(original => {
+        return original.name != ability.name;
+    });
+}
+
+function remove(key: number) : void {
+    props.sheet.scripture.scriptureAbilities.splice(key, 1);
 }
 
 </script>
@@ -174,9 +184,10 @@ function showModal(modal: InstanceType<typeof TextInputModal | typeof TextAreaMo
                 </div>
             </div>
 
-            <div v-for="ability in sheet.scripture.scriptureAbilities" class="collapse collapse-arrow bg-base-100">
+            <div v-for="ability, key in sheet.scripture.scriptureAbilities" class="collapse collapse-arrow bg-base-100">
                 <input type="checkbox" name="info-collapse">
                 <div class="collapse-title text-md font-medium flex gap-t">{{ ability.name }}</div>
+                <button v-if="isOriginal(ability)" class="btn btn-sm btn-circle btn-ghost absolute right-10 top-3.5 z-10 overflow-visible" @click="remove(key)">✕</button>
                 <div class="collapse-content overflow-auto flex flex-col gap-3">
                     <p>{{ ability.description }}</p>
                     <div class="flex flex-row">

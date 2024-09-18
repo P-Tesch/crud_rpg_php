@@ -2,50 +2,102 @@
 
 namespace App\Entities;
 
-use App\Http\Controllers\AdvantagesController;
-use App\Http\Controllers\MiraclesController;
-use App\Http\Controllers\MysticEyesController;
-use App\Http\Controllers\SchoolController;
-use App\Http\Controllers\ScriptureAbilitiesController;
-use App\Http\Controllers\SonataAbilitiesController;
-use App\Http\Controllers\SonatasController;
-use App\Http\Controllers\SubsystemController;
-use App\Http\Controllers\SystemController;
 use App\Models\Item;
 use App\Models\Blood;
 use App\Models\Sheet;
+use App\Models\Miracle;
 use App\Enums\Alignment;
 use App\Enums\SpellTypes;
+use App\Models\Advantage;
+use App\Models\MysticEye;
 use App\Models\Scripture;
 use App\Enums\Organization;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\SchoolController;
+use App\Http\Controllers\SystemController;
+use App\Http\Controllers\SonatasController;
+use App\Http\Controllers\MiraclesController;
+use App\Http\Controllers\SubsystemController;
+use App\Http\Controllers\AdvantagesController;
+use App\Http\Controllers\MysticEyesController;
+use App\Http\Controllers\SonataAbilitiesController;
+use App\Http\Controllers\ScriptureAbilitiesController;
 
 class SheetEntity {
 
+    /** @var int */
     public int $id;
+
+    /** @var string */
     public string $name;
-    public ?string $portrait;
+
+    /** @var string */
+    public string $portrait;
+
+    /** @var string */
     public string $description;
+
+    /** @var string */
     public string $background;
+
+    /** @var int */
     public int $creationPoints;
+
+    /** @var ?Alignment */
     public ?Alignment $alignment;
+
+    /** @var ?Organization */
     public ?Organization $organization;
+
+    /** @var array<string, int> */
     public array $stats;
+
+    /** @var array<string, int> */
     public array $attributes;
+
+    /** @var array<string, int> */
     public array $maxAttributes;
+
+    /** @var array<string, int> */
     public array $skills;
+
+    /** @var array<int, Advantage> */
     public array $advantages;
+
+    /** @var array<int, MysticEye> */
     public array $mysticEyes;
+
+    /** @var ?Blood */
     public ?Blood $blood;
+
+    /** @var array<int, Item> */
     public array $items;
+
+    /** @var array<int, Miracle> */
     public array $miracles;
-    public ?array $schools;
+
+    /** @var array<string, array<string, mixed>> */
+    public array $schools;
+
+    /** @var ?Scripture */
     public ?Scripture $scripture;
-    public ?array $sonatas;
-    public ?array $systems;
+
+    /** @var array<string, array<string, mixed>> */
+    public array $sonatas;
+
+    /** @var array<string, mixed> */
+    public array $systems;
+
+    /** @var array<string, string> */
     public array $skillsRelations;
+
+    /** @var array<string, bool> */
     public array $classes;
 
+    /**
+     * @param array<string, mixed> $args
+     * @return void
+     */
     public function __construct(array $args) {
         if (count($args) == 0) {
             return;
@@ -96,7 +148,7 @@ class SheetEntity {
             $spells = [];
             foreach ($schoolModel->spells as $spell) {
                 $spells[$spell->name] = [
-                    "type" => SpellTypes::tryFrom($spell->type),
+                    "type" => SpellTypes::tryFrom($spell->type ?? ""),
                     "description" => $spell->description,
                     "strategy" => $spell->strategy
                 ];
@@ -138,11 +190,20 @@ class SheetEntity {
 
     }
 
+    /**
+     * Build sheet entity from sheet model
+     * @param Sheet $sheet
+     * @return SheetEntity
+     */
     public static function buildFromModel(Sheet $sheet) : SheetEntity {
         $sheetEntity = new SheetEntity([]);
         return $sheetEntity->build($sheet);
     }
 
+    /**
+     * @param Sheet $sheet
+     * @return SheetEntity
+     */
     private function build(Sheet $sheet) : SheetEntity {
         $this->id = $sheet->id;
         $this->name = $sheet->name;
@@ -150,17 +211,17 @@ class SheetEntity {
         $this->description = $sheet->description;
         $this->background = $sheet->background;
         $this->creationPoints = $sheet->creation_points;
-        $this->alignment = Alignment::tryFrom($sheet->alignment);
-        $this->organization = Organization::tryFrom($sheet->organization);
-        $this->advantages = $sheet->advantages?->toArray();
+        $this->alignment = Alignment::tryFrom($sheet->alignment ?? "");
+        $this->organization = Organization::tryFrom($sheet->organization ?? "");
+        $this->advantages = $sheet->advantages->toArray();
         $this->blood = $sheet->blood;
-        $this->items = $sheet->items?->toArray();
-        $this->miracles = $sheet->miracles?->toArray();
+        $this->items = $sheet->items->toArray();
+        $this->miracles = $sheet->miracles->toArray();
         $this->scripture = $sheet->scripture;
-        if ($this->scripture != null) {
-            $this->scripture->scriptureAbilities = $sheet->scripture->scriptureAbilities?->toArray();
+        if (isset($this->scripture) && isset($sheet->scripture)) {
+            $this->scripture->scriptureAbilities = !is_array($sheet->scripture->scriptureAbilities) ? $sheet->scripture->scriptureAbilities->toArray() : $sheet->scripture->scriptureAbilities;
         }
-        $this->mysticEyes = $sheet->mysticEyes?->all();
+        $this->mysticEyes = $sheet->mysticEyes->all();
 
         foreach ($sheet->stats as $stat) {
             $this->stats[$stat->key] = $stat->value;
@@ -182,7 +243,7 @@ class SheetEntity {
             $spells = [];
             foreach ($school->spells as $spell) {
                 $spells[$spell->name] = [
-                    "type" => SpellTypes::tryFrom($spell->type),
+                    "type" => SpellTypes::tryFrom($spell->type ?? ""),
                     "description" => $spell->description,
                     "strategy" => $spell->strategy
                 ];
@@ -226,7 +287,11 @@ class SheetEntity {
         return $this;
     }
 
-    private function calculateMaxAttributes() {
+    /**
+     * Calculate max attributes and populate maxAttributes array
+     * @return void
+     */
+    private function calculateMaxAttributes() : void {
         $this->maxAttributes = [];
         $this->maxAttributes["max_health"] = 2 + 2 * $this->stats["endurance"] + $this->stats["strength"];
         $this->maxAttributes["max_initiative"] = $this->stats["agility"] + $this->stats["perception"];
@@ -252,6 +317,11 @@ class SheetEntity {
         }
     }
 
+    /**
+     * Persist a update to a sheet model using a sheet entity as base
+     * @param Sheet $model
+     * @return void
+     */
     public function update(Sheet $model) {
         $model->name = $this->name;
         $model->description = $this->description;
@@ -299,7 +369,7 @@ class SheetEntity {
 
         $mysticEyes = [];
         foreach ($this->mysticEyes as $mysticEye) {
-            $mysticEyes[$mysticEye->id] = ["current_cooldown" => $mysticEye->pivot?->current_cooldown ?: $mysticEye->cooldown];
+            $mysticEyes[$mysticEye->id] = ["current_cooldown" => $mysticEye->pivot_current_cooldown ?: $mysticEye->cooldown];
         }
 
         $model->mysticEyes()->sync($mysticEyes, true);
@@ -318,7 +388,11 @@ class SheetEntity {
 
         $model->miracles()->sync($miracles, true);
 
-        if ($model->scripture != null) {
+        if (isset($model->scripture)) {
+            if (!isset($this->scripture)) {
+                $this->scripture = new Scripture();
+            }
+
             $model->scripture->name = $this->scripture->name;
             $model->scripture->description = $this->scripture->description;
             $model->scripture->damage = $this->scripture->damage;
@@ -372,7 +446,11 @@ class SheetEntity {
         $model->save();
     }
 
-    private function setClasses() {
+    /**
+     * Populate the classes property array
+     * @return void
+     */
+    private function setClasses() : void {
         $this->classes = [];
         $this->classes["isMage"] = array_key_exists("magic", $this->stats);
         $this->classes["isCleric"] = array_key_exists("faith", $this->stats);

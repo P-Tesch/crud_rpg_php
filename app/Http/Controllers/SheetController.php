@@ -12,26 +12,31 @@ use App\Models\School;
 use App\Models\Miracle;
 use App\Models\Scripture;
 use App\Models\BloodAbility;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\Request;
 use App\Models\ScriptureAbility;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\SheetResource;
 use App\Models\RpgAttribute;
 use App\Models\Skill;
 use Illuminate\Http\Response;
+use Symfony\Component\Translation\Exception\NotFoundResourceException;
 
 class SheetController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * List all sheets
+     * @return AnonymousResourceCollection<int, SheetResource>
      */
-    public function index()
+    public function index() : AnonymousResourceCollection
     {
         return SheetResource::collection(Sheet::all());
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Persist a new sheet
+     * @return int
      */
     public function store(Request $request) : int
     {
@@ -48,8 +53,10 @@ class SheetController extends Controller
 
         if ($sheet->organization) {
             $item = $this->getOrganizationItem($sheet->organization);
-            $item->sheet_id = $sheet->id;
-            $item->save();
+            if ($item != null) {
+                $item->sheet_id = $sheet->id;
+                $item->save();
+            }
         }
 
         if ($sheet->alignment) {
@@ -119,40 +126,6 @@ class SheetController extends Controller
                 $item->strategy = $itemArray["strategy"];
                 $item->sheet_id = $sheet->id;
                 $item->save();
-                foreach ($itemArray["effects"] as $effectArray) {
-                    $effect = new Effect;
-                    $effect->name = $effectArray["name"];
-                    $effect->description = $effectArray["description"];
-                    $effect->remaining_turns = $effectArray["remaining_turns"];
-                    $effect->strategy = $effectArray["strategy"];
-                    $effect->item_id = $item->id;
-                    $effect->save();
-                }
-            }
-        }
-
-        $effects = $request->input("sheet")["effects"];
-        if(isset($effects)) {
-            foreach ($effects as $effectArray) {
-                $effect = new Effect;
-                $effect->name = $effectArray["name"];
-                $effect->description = $effectArray["description"];
-                $effect->remaining_turns = $effectArray["remaining_turns"];
-                $effect->strategy = $effectArray["strategy"];
-                $effect->sheet_id = $sheet->id;
-                $effect->save();
-            }
-        }
-
-        $miracles = $request->input("sheet")["miracles"];
-        if(isset($miracles)) {
-            foreach ($miracles as $miracleArray) {
-                $miracle = new Miracle;
-                $miracle->name = $miracleArray["name"];
-                $miracle->description = $miracleArray["description"];
-                $miracle->strategy = $miracleArray["strategy"];
-                $miracle->sheet_id = $sheet->id;
-                $miracle->save();
             }
         }
 
@@ -170,50 +143,84 @@ class SheetController extends Controller
             $scripture->strategy = $scriptureArray["strategy"];
             $scripture->sheet_id = $sheet->id;
             $scripture->save();
-            foreach ($scriptureArray["scripture_abilities"] as $saArray) {
-                $sa = new ScriptureAbility;
-                $sa->name = $saArray["name"];
-                $sa->description = $saArray["description"];
-                $sa->level = $saArray["level"];
-                $sa->strategy = $saArray["strategy"];
-                $sa->scripture_id = $scripture->id;
-                $sa->save();
-            }
         }
 
         return $sheet->id;
     }
 
     /**
-     * Display the specified resource.
+     * Show a sheet as resource by authenticated user
+     * @return SheetResource
      */
-    public function show(Request $request)
+    public function show(Request $request) : SheetResource
     {
-        $id = Auth::user()->sheet_id;
+        $user = Auth::user();
+        if (is_null($user)) {
+            throw new AuthenticationException("Usuário não autenticado");
+        }
+
+        $id = $user->sheet_id;
         return new SheetResource(Sheet::find($id));
     }
 
+    /**
+     * Show a sheet as model by authenticated user
+     * @param Request $request
+     * @return Sheet
+     * @throws AuthenticationException | NotFoundResourceException
+     */
     public function showAsModel(Request $request) : Sheet {
-        $id = Auth::user()->sheet_id;
-        return Sheet::find($id);
-    }
+        $user = Auth::user();
+        if (is_null($user)) {
+            throw new AuthenticationException("Usuário não autenticado");
+        }
 
-    public function showFromId(int $id) : Sheet {
-        return Sheet::find($id);
-    }
+        $model = Sheet::find($user->sheet_id);
+        if (is_null($model)) {
+            throw new NotFoundResourceException("Ficha não encontrada");
+        }
 
-    public function showAsEntity(Request $request) {
-        return SheetEntity::buildFromModel($this->showAsModel($request));
-    }
-
-    public function showEntityAsJson(Request $request) {
-        return json_encode(SheetEntity::buildFromModel($this->showAsModel($request)));
+        return $model;
     }
 
     /**
-     * Update the specified resource in storage.
+     * Show a sheet model by id
+     * @param int $id
+     * @return Sheet
+     * @throws NotFoundResourceException
      */
-    public function update(Request $request)
+    public function showFromId(int $id) : Sheet {
+        $model = Sheet::find($id);
+        if (is_null($model)) {
+            throw new NotFoundResourceException("Ficha não encontrada");
+        }
+
+        return $model;
+    }
+
+    /**
+     * Show a sheet as entity by authenticated user
+     * @param Request $request
+     * @return SheetEntity
+     */
+    public function showAsEntity(Request $request) : SheetEntity {
+        return SheetEntity::buildFromModel($this->showAsModel($request));
+    }
+
+    /**
+     * Show a sheet entity as JSON by authenticated user
+     * @param Request $request
+     * @return string
+     */
+    public function showEntityAsJson(Request $request) : string {
+        return json_encode(SheetEntity::buildFromModel($this->showAsModel($request))) ?: "";
+    }
+
+    /**
+     * Update a sheet
+     * @return Response
+     */
+    public function update(Request $request) : Response
     {
         $sheetEntity = new SheetEntity(json_decode($request->getContent(), true));
         $sheetEntity->update($this->showAsModel($request));
@@ -221,14 +228,20 @@ class SheetController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Delete a sheet by id
+     * @return int
      */
-    public function destroy(int $id)
+    public function destroy(int $id) : int
     {
         return Sheet::destroy($id);
     }
 
-    private function getAlignmentAlias(string $alignment) : string {
+    /**
+     * Get alignment alias
+     * @param string $alignment
+     * @return ?string
+     */
+    private function getAlignmentAlias(string $alignment) : ?string {
         return match ($alignment) {
             "fire" => "Fogo",
             "water" => "Água",
@@ -237,11 +250,17 @@ class SheetController extends Controller
             "arcana" => "Arcana",
             "void" => "Vazio",
             "ice" => "Gelo",
-            "electricity" => "Eletricidade"
+            "electricity" => "Eletricidade",
+            default => null
         };
     }
 
-    private function getOrganizationItem(string $organization) : Item {
+    /**
+     * Get organization initial item
+     * @param string $organization
+     * @return ?Item
+     */
+    private function getOrganizationItem(string $organization) : ?Item {
         return match ($organization) {
             "executors" => new Item([
                 "name" => "Chaves negras",
@@ -266,7 +285,8 @@ class SheetController extends Controller
                 "description" => "Esses papeis podem ser posicionados(no caso de tentar posicioná-los à distância, como arremessando preso a uma adaga é necessário rolar um dado de Combate a distância). Depois de posicionados, eles se ligam formando um campo(um não faz nada, dois forma uma linha, três ou mais formam um plano). Quando o campo é ativado, o usuário declara um tipo de criatura(Morto-vivo, mago, fantasma, etc.) todos do tipo declarado dentro da área perdem em todas as suas rolagens dados iguais a ⅓ Fé. Além disso, o usuário pode pode destruir o campo, assim todos do tipo declarado dentro do campo devem rolar um dado de Tenacidade contra a quantidade de papeis destruídos e os que falharem são Atordoados pela diferença de acertos em turnos.",
                 "damage" => null,
                 "strategy" => null
-            ])
+            ]),
+            default => null
         };
     }
 }

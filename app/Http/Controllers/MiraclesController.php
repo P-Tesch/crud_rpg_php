@@ -6,50 +6,61 @@ use App\Http\Resources\MiracleResource;
 use App\Models\Advantage;
 use App\Models\Miracle;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class MiraclesController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * List all miracles
+     * @return AnonymousResourceCollection<int, MiracleResource>
      */
-    public function index()
+    public function index() : AnonymousResourceCollection
     {
         return MiracleResource::collection(Miracle::all());
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Persist a new miracle
+     * @return void
      */
-    public function store(Request $request)
+    public function store(Request $request) : void
     {
-        //
+        // TODO
     }
 
     /**
-     * Display the specified resource.
+     * Show a miracle by id
+     * @return ?Miracle
      */
-    public function show(int $id)
+    public function show(int $id) : ?Miracle
     {
         return Miracle::find($id);
     }
 
-    public static function findByName(string $name) {
+    /**
+     * Show a miracle by name
+     * @param string $name
+     * @return Miracle
+     */
+    public static function findByName(string $name) : Miracle {
         return Miracle::where("name", $name)->firstOrFail();
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the miracle
+     * @return void
      */
-    public function update(Request $request, Advantage $advantage)
+    public function update(Request $request, Advantage $advantage) : void
     {
-        //
+        // TODO
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Delete a miracle
+     * @return void
      */
-    public function destroy(Advantage $advantage)
+    public function destroy(Advantage $advantage) : void
     {
-        //
+        // TODO
     }
 }

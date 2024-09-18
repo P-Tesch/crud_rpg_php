@@ -39,7 +39,7 @@ const heartbeat = (): void => {
 
 heartbeat();
 
-setInterval(heartbeat, 10000);
+setInterval(heartbeat, 60000);
 
 function select(key: number) {
     emit("end", key);

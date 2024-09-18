@@ -10,7 +10,6 @@ import MysticEyesTable from '@components/mysticEyes.vue'
 import RollHistory from '@components/rollHistory.vue'
 import CharacterInfo from '@components/info.vue'
 import SchoolsShop from '@shops/schoolsShop.vue'
-import SuccessToast from '@alerts/successToast.vue'
 import MysticEyesShop from '@shops/mysticEyesShop.vue'
 import Advantages from '@components/advantages.vue'
 import AdvantagesShop from '@shops/advantagesShop.vue'
@@ -25,7 +24,7 @@ import Systems from '@components/systems.vue'
 import SystemsShop from '@shops/systemsShop.vue'
 import SubsystemsShop from '@shops/subsystemsShop.vue'
 import TargetSelectModal from '@modals/targetSelectModal.vue'
-import ErrorHandler from '@pages/errorHandler.vue'
+import ToastHandler from '@pages/toastHandler.vue'
 import ToastError from '@scripts/ToastError.ts'
 import { AxiosError } from 'axios'
 import type { AxiosResponse } from 'axios'
@@ -54,7 +53,7 @@ const systemsModal = ref<InstanceType<typeof SystemsShop>>();
 const subsystemsModal = ref<InstanceType<typeof SubsystemsShop>>();
 const targetModal = ref<InstanceType<typeof TargetSelectModal>>();
 
-const successToast = ref<InstanceType<typeof SuccessToast>>();
+const toastHandler = ref<InstanceType<typeof ToastHandler>>();
 
 const statsKey = ref<number>(0);
 const skillsKey = ref<number>(0);
@@ -121,18 +120,7 @@ function persist() : void {
             sonatasKey.value++;
             systemsKey.value++;
 
-            if (successToast.value == undefined) {
-                return;
-            }
-            successToast.value.toastRef = true;
-            setTimeout(() => {
-                    if (successToast.value == undefined) {
-                        return;
-                    }
-                    successToast.value.toastRef = false
-                },
-                2500
-            );
+            toastHandler.value?.showSuccess("Ficha salva com sucesso");
         }
     ).catch((error: AxiosError) => {
             throw new ToastError("Falha ao salvar ficha", error);
@@ -214,6 +202,5 @@ function endTurn() : void {
         <TargetSelectModal :sheet ref="targetModal" @end="(id: number) => mysticEyesTable?.rollMysticEye(id)"/>
     </Teleport>
 
-    <SuccessToast class="z-10" ref="successToast" :message="'Ficha salva com sucesso'" />
-    <ErrorHandler />
+    <ToastHandler ref="toastHandler" />
 </template>

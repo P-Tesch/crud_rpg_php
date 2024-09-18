@@ -6,23 +6,36 @@ use App\Models\Item;
 use App\Enums\SpellTypes;
 use App\Helpers\RollHelper;
 use Illuminate\Http\Request;
-use App\Entities\SheetEntity;
 use App\Entities\RollHistory;
+use App\Entities\SheetEntity;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Broadcast;
+use Symfony\Component\Translation\Exception\NotFoundResourceException;
 
 class RollController extends Controller {
 
+    /** @var RollHistory */
     private $rollHistory;
 
     public function __construct() {
         $this->rollHistory = Cache::get("rollsTable", new RollHistory());
     }
 
-    public function index(Request $request) {
+    /**
+     * List all rolls
+     * @param Request $request
+     * @return array<int, array<string, mixed>>
+     */
+    public function index(Request $request) : array {
         return $this->rollHistory->getRolls();
     }
 
+    /**
+     * Roll a skill
+     * @param Request $request
+     * @param SheetController $sheetController
+     * @return void
+     */
     public function rollSkill(Request $request, SheetController $sheetController) : void {
         $skill = $request->input("skill");
         $modifiers = (int) $request->input("modifier");
@@ -43,6 +56,12 @@ class RollController extends Controller {
         );
     }
 
+    /**
+     * Roll a spell
+     * @param Request $request
+     * @param SheetController $sheetController
+     * @return void
+     */
     public function rollSpell(Request $request, SheetController $sheetController) : void {
         $cost = (int) $request->input("cost");
         $spellString = $request->input("spell");
@@ -87,13 +106,23 @@ class RollController extends Controller {
         );
     }
 
+    /**
+     * Roll an item
+     * @param Request $request
+     * @param SheetController $sheetController
+     * @return void
+     */
     public function rollItem(Request $request, SheetController $sheetController) : void {
         $itemId = (int) $request->input("item");
 
         $item = Item::find($itemId);
+        if (is_null($item)) {
+            throw new NotFoundResourceException("Ficha não encontrada");
+        }
+
         $sheet = SheetEntity::buildFromModel($sheetController->showAsModel($request));
 
-        $roll = $item->strategy != null ? RollHelper::roll($item->strategy) : null;
+        $roll = $item->strategy != null ? RollHelper::roll([5]) : null; // TODO
 
         $this->broadcastAndStore([
             "portrait" => $sheet->portrait,
@@ -106,11 +135,21 @@ class RollController extends Controller {
         );
     }
 
+    /**
+     * Roll a mystic eye
+     * @param Request $request
+     * @param SheetController $sheetController
+     * @param MysticEyesController $mysticEyesController
+     * @return void
+     */
     public function rollMysticEye(Request $request, SheetController $sheetController, MysticEyesController $mysticEyesController) : void {
         $eyeId = (int) $request->input("eye");
         $targetId = (int) $request->input("target");
 
         $eye = $mysticEyesController->show($eyeId);
+        if ($eye == null) {
+            return;
+        }
 
         $sheet = SheetEntity::buildFromModel($sheetController->showAsModel($request));
         $target = SheetEntity::buildFromModel($sheetController->showFromId($targetId));
@@ -132,6 +171,12 @@ class RollController extends Controller {
         );
     }
 
+    /**
+     * Roll from a pre determined number
+     * @param Request $request
+     * @param SheetController $sheetController
+     * @return void
+     */
     public function rollGeneric(Request $request, SheetController $sheetController) : void {
         $modifier = $request->get("modifier");
 
@@ -146,9 +191,16 @@ class RollController extends Controller {
         );
     }
 
+    /**
+     * Roll a spell's recoil
+     * @param SheetEntity $sheet
+     * @param int $cost
+     * @return array<string, mixed>
+     */
     private function rollRecoil(SheetEntity &$sheet, int $cost) : array {
         $sheet->attributes["mana"] -= $cost;
         $recoilRoll = RollHelper::roll([$sheet->skills["tenacity"], $sheet->stats["intelligence"]]);
+        $recoil = 0;
 
         if ($recoilRoll["hits"] < $cost) {
             $recoil = (int) floor(($cost - $recoilRoll["hits"]) / 2);
@@ -161,6 +213,11 @@ class RollController extends Controller {
         ];
     }
 
+    /**
+     * Broadcast the result to the websocket and store the history in cache
+     * @param array<string, mixed> $rolls
+     * @return void
+     */
     private function broadcastAndStore(array $rolls) {
         $this->rollHistory->addRoll($rolls);
 

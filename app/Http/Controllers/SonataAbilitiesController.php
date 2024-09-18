@@ -6,55 +6,72 @@ use App\Http\Resources\SonataAbilityResource;
 use App\Models\Sonata;
 use App\Models\SonataAbility;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class SonataAbilitiesController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * List all sonata abilities
+     * @return AnonymousResourceCollection<int, SonataAbilityResource>
      */
-    public function index()
+    public function index() : AnonymousResourceCollection
     {
         return SonataAbilityResource::collection(SonataAbility::all());
     }
 
-    public function indexBySonata(Request $request) {
+    /**
+     * List all sonata abilities by related sonata
+     * @param Request $request
+     * @return AnonymousResourceCollection<int, SonataAbilityResource>
+     */
+    public function indexBySonata(Request $request) : AnonymousResourceCollection {
         $sonataName = $request->input("sonata_name");
         return SonataAbilityResource::collection(SonataAbility::whereBelongsTo(Sonata::where("name", $sonataName)->firstOrFail(), "sonata")->get());
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Persist a new sonata ability
+     * @return void
      */
-    public function store(Request $request)
+    public function store(Request $request) : void
     {
-        //
+        // TODO
     }
 
     /**
-     * Display the specified resource.
+     * Show a sonata ability by id
+     * @return ?SonataAbility
      */
-    public static function show(int $id)
+    public static function show(int $id) : ?SonataAbility
     {
         return SonataAbility::find($id);
     }
 
-    public static function findByNameAndLevel(string $name, int $level) {
+    /**
+     * Show a sonata ability by name and level
+     * @param string $name
+     * @param int $level
+     * @return SonataAbility
+     */
+    public static function findByNameAndLevel(string $name, int $level) : SonataAbility {
         return SonataAbility::where("name", $name)->where("level", $level)->firstOrFail();
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update a sonata ability
+     * @return void
      */
-    public function update(Request $request, Sonata $sonata)
+    public function update(Request $request, Sonata $sonata) : void
     {
-        //
+        // TODO
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Delete a sonata ability
+     * @return void
      */
-    public function destroy(Sonata $sonata)
+    public function destroy(Sonata $sonata) : void
     {
-        //
+        // TODO
     }
 }

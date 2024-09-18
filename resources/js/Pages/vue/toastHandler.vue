@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import FailToast from '@alerts/failToast.vue';
+import Toasts, { type ToastMessage } from '@alerts/toasts.vue';
 import ToastError from "@scripts/ToastError.ts";
 
-const messages = ref<string[]>([]);
+const messages = ref<ToastMessage[]>([]);
+
+defineExpose({showSuccess});
 
 window.onerror = (msg: string | Event, url: string | undefined, line: number | undefined, col: number | undefined, error: Error | undefined) : boolean => {
     const errorMessage = error?.message;
@@ -37,7 +39,15 @@ window.addEventListener(
 );
 
 function showError(msg: string) : void {
-    messages.value.push(msg);
+    show(msg, true);
+}
+
+function showSuccess(msg: string) : void {
+    show(msg, false);
+}
+
+function show(msg:string, isError: boolean) : void {
+    messages.value.push({message: msg, isError: isError});
 
     setTimeout(
         () : void => {
@@ -52,6 +62,6 @@ function showError(msg: string) : void {
 
 <template>
     <div>
-        <FailToast :messages :visible="true" class="z-50"/>
+        <Toasts :messages :visible="true" class="z-50"/>
     </div>
 </template>

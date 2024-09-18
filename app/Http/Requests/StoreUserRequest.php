@@ -6,7 +6,8 @@ use Illuminate\Validation\Rules\Password;
 
 class StoreUserRequest extends FormRequest {
 
-    public function rules() {
+    /** @return array<string, array<int, mixed>> */
+    public function rules() : array {
         return [
             "login" => [
                 "required",
@@ -23,7 +24,8 @@ class StoreUserRequest extends FormRequest {
         ];
     }
 
-    public function messages() {
+    /** @return array<string, string> */
+    public function messages() : array {
         return [
             "required" => "Campo obrigatório",
             "unique" => "Nome de usuário em uso",
