@@ -4,7 +4,7 @@ namespace App\Entities;
 
 class RollHistory {
 
-    /** @var array<string, mixed> */
+    /** @var array<int, array<string, mixed>> */
     private $rolls;
 
     public function __construct() {
@@ -12,7 +12,7 @@ class RollHistory {
     }
 
     /**
-     * @return array<string, mixed>
+     * @return array<int, array<string, mixed>>
      */
     public function getRolls() : array {
         return $this->rolls;

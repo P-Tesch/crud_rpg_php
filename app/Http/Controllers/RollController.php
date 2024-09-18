@@ -24,7 +24,7 @@ class RollController extends Controller {
     /**
      * List all rolls
      * @param Request $request
-     * @return array<string, mixed>
+     * @return array<int, array<string, mixed>>
      */
     public function index(Request $request) : array {
         return $this->rollHistory->getRolls();
