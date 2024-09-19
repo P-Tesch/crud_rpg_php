@@ -216,6 +216,7 @@ declare module "rpgTypes" {
     }
 
     export type RollAssociative = {
+        amount: number | null;
         portrait: string;
         type: string;
         id: number;

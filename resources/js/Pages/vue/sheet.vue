@@ -26,6 +26,8 @@ import SubsystemsShop from '@shops/subsystemsShop.vue'
 import TargetSelectModal from '@modals/targetSelectModal.vue'
 import ToastHandler from '@pages/toastHandler.vue'
 import ToastError from '@scripts/ToastError.ts'
+import FooterComponent from '@components/footer.vue'
+import NumberInputModal from '@modals/numberInputModal.vue'
 import { AxiosError } from 'axios'
 import type { AxiosResponse } from 'axios'
 import type { Sheet } from 'rpgTypes'
@@ -66,6 +68,8 @@ const advantagesKey = ref<number>(0);
 const scriptureKey = ref<number>(0);
 const sonatasKey = ref<number>(0);
 const systemsKey = ref<number>(0);
+
+const rollModalRef = ref<InstanceType<typeof NumberInputModal>>();
 
 const calculateGridCols = () : void => {
     if (window.innerWidth >= 1400) {
@@ -146,6 +150,23 @@ function endTurn() : void {
     console.log(props.sheet);
 }
 
+function rollModal() : void {
+    rollModalRef.value?.modalRef?.show();
+}
+
+function rollGeneric(value: number) : void {
+    window.axios.get("/api/roll/generic", {
+            params: {
+                modifier: value
+            }
+        }
+    )
+        .catch((error: AxiosError) => {
+            throw new ToastError("Falha ao rolar dados", error);
+        }
+    );
+}
+
 </script>
 
 <template>
@@ -164,12 +185,9 @@ function endTurn() : void {
         <MysticEyesTable :sheet @add="eyesModal?.modalRef?.showModal()" @target="targetModal?.updateCharacters(); targetModal?.modalRef?.showModal()" :key="mysticEyesKey" ref="mysticEyesTable" />
         <Advantages :sheet @add="advantagesModal?.modalRef?.showModal()" :key="advantagesKey" />
         <MiraclesTable :sheet @add="miraclesModal?.modalRef?.showModal()" v-if="sheet.classes['isCleric']" :key="miraclesKey" />
-
-        <div class="fixed bottom-10 right-10 space-x-5 z-10">
-            <button class="btn btn-outline btn-accent" id="save" @click="persist()">Salvar</button>
-            <button class="btn btn-outline btn-secondary" @click="endTurn()">Terminar turno</button>
-        </div>
     </div>
+
+    <FooterComponent @persist="persist()" @end-turn="endTurn" @roll-generic="rollModal()" />
 
     <Teleport to="body">
         <MysticEyesShop :sheet ref="eyesModal" :key="mysticEyesShopKey" />
@@ -200,6 +218,9 @@ function endTurn() : void {
     </Teleport>
     <Teleport to="body">
         <TargetSelectModal :sheet ref="targetModal" @end="(id: number) => mysticEyesTable?.rollMysticEye(id)"/>
+    </Teleport>
+    <Teleport to="body">
+        <NumberInputModal :title="'Insira o número a ser rolado'" @end="value => rollGeneric(value)" ref="rollModalRef"/>
     </Teleport>
 
     <ToastHandler ref="toastHandler" />
