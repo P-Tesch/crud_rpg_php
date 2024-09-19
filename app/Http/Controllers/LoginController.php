@@ -30,4 +30,14 @@ class LoginController extends Controller {
             'login' => 'The provided credentials do not match our records.',
         ])->onlyInput('login');
     }
+
+    /**
+     * Logs out the user and redirects to the login page
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function logout(Request $request) : RedirectResponse {
+        Auth::logout();
+        return redirect("/login");
+    }
 }

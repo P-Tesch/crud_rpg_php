@@ -186,7 +186,10 @@ class RollController extends Controller {
             "portrait" => $sheet->portrait,
             "type" => "generic",
             "name" => $sheet->name,
-            "rolls" => RollHelper::roll([$modifier])
+            "amount" => $modifier,
+            "rolls" => [
+                "success" => RollHelper::roll([$modifier])
+                ]
             ]
         );
     }

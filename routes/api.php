@@ -21,6 +21,7 @@ Route::post("/users", [UserController::class, "store"])->middleware([HandlePreco
 
 Route::group(["middleware" => ["web"]], function () {
     Route::get("/login", [LoginController::class, "authenticate"]);
+    Route::get("/logout", [LoginController::class, "logout"]);
 
     Route::get("/users", [UserController::class, "index"]);
     Route::delete("/users/{id}", [UserController::class, "destroy"]);
