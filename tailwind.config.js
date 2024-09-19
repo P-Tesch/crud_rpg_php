@@ -15,5 +15,8 @@ export default {
   plugins: [
     require("daisyui")
   ],
+  daisyui: {
+    themes: ["light", "dark", "cyberpunk", "retro", "dracula", "emerald", "night", "nord", "pastel", "lofi", "wireframe", "black", "forest"]
+  }
 }
 
