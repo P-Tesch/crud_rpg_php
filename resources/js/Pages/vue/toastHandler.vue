@@ -62,6 +62,6 @@ function show(msg:string, isError: boolean) : void {
 
 <template>
     <div>
-        <Toasts :messages :visible="true" class="z-50"/>
+        <Toasts :messages :visible="true" class="z-50 mb-[4.5%] fixed"/>
     </div>
 </template>
