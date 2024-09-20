@@ -20,7 +20,7 @@ function logout() : void {
                 <div tabindex="0" role="button" class="btn btn-outline btn-accent">
                     Tema
                 </div>
-                <ul tabindex="0" class="dropdown-content bg-base-300 rounded-box z-30">
+                <ul tabindex="0" class="dropdown-content bg-base-300 rounded-box z-30 -left-3.5">
                     <li>
                         <input type="radio" name="theme-dropdown" class="theme-controller btn btn-sm btn-block btn-ghost justify-start" aria-label="Escuro" value="dark" />
                     </li>

@@ -29,7 +29,7 @@ function getClass(toast: ToastMessage) : string {
 </script>
 
 <template>
-    <div v-if="props.visible" class="toast toast-bottom toast-start w-1/5 ml-3">
+    <div v-if="props.visible" class="toast toast-bottom toast-start w-1/5 ml-3 pointer-events-none">
         <div role="alert" :class="getClass(toast)" v-for="toast, key in messages">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
