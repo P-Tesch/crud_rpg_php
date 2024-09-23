@@ -2,21 +2,25 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Tables;
-use App\Models\Spell;
+use App\Filament\Resources\SonataAbilityResource\Pages;
+use App\Filament\Resources\SonataAbilityResource\RelationManagers;
+use App\Models\SonataAbility;
+use Filament\Forms;
 use Filament\Forms\Form;
-use Filament\Tables\Table;
 use Filament\Resources\Resource;
+use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
-use App\Filament\Resources\SpellResource\Pages;
+use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class SpellResource extends Resource
+class SonataAbilityResource extends Resource
 {
-    protected static ?string $model = Spell::class;
+    protected static ?string $model = SonataAbility::class;
 
-    protected static ?string $navigationLabel = 'Magias';
+    protected static ?string $navigationLabel = 'Habilidades de sonata';
 
-    protected static ?string $navigationParentItem = 'Escolas';
+    protected static ?string $navigationParentItem = 'Sonatas';
 
     public static function form(Form $form): Form
     {
@@ -35,36 +39,27 @@ class SpellResource extends Resource
                     ->label("Nome"),
 
                 TextColumn::make("description")
-                    ->wrap()
                     ->alignJustify()
+                    ->wrap()
                     ->label("Descrição"),
 
-                TextColumn::make("type")
+                TextColumn::make("level")
                     ->sortable()
-                    ->placeholder("Outro")
                     ->alignCenter()
-                    ->label("Tipo"),
+                    ->label("Level"),
 
-                TextColumn::make("school_max_name")
-                    ->max("school", "name")
+                TextColumn::make("sonata.name")
                     ->sortable()
                     ->searchable()
-                    ->wrap()
                     ->alignCenter()
-                    ->label("Escola"),
-
-                TextColumn::make("school_min_level")
-                    ->min("school", "level")
-                    ->sortable()
-                    ->alignCenter()
-                    ->label("Level mínimo")
+                    ->label("Sonata")
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make()
-					->hidden(),
+                    ->hidden(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -83,9 +78,9 @@ class SpellResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListSpells::route('/'),
-            'create' => Pages\CreateSpell::route('/create'),
-            'edit' => Pages\EditSpell::route('/{record}/edit'),
+            'index' => Pages\ListSonataAbilities::route('/'),
+            'create' => Pages\CreateSonataAbility::route('/create'),
+            'edit' => Pages\EditSonataAbility::route('/{record}/edit'),
         ];
     }
 }

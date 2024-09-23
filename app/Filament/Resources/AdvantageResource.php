@@ -76,23 +76,28 @@ class AdvantageResource extends Resource
 
                 TextColumn::make("description")
 					->wrap()
+                    ->alignJustify()
+                    ->wrap()
 					->label("Descrição"),
 
                 TextColumn::make("level")
 					->sortable()
+                    ->alignCenter()
 					->label("Level"),
 
                 TextColumn::make("cost")
 					->sortable()
+                    ->alignCenter()
 					->label("Custo"),
 
                 TextColumn::make("class")
 					->sortable()
-					->label("Classe"),
-
-                TextColumn::make("strategy")
-					->wrap()
-					->label("Estratégia")
+                    ->alignCenter()
+                    ->formatStateUsing(
+                        fn (string $state) : string =>
+                            self::formatClassName($state)
+                    )
+					->label("Classe")
             ])
             ->filters([
                 //
@@ -122,5 +127,15 @@ class AdvantageResource extends Resource
             'create' => Pages\CreateAdvantage::route('/create'),
             'edit' => Pages\EditAdvantage::route('/{record}/edit'),
         ];
+    }
+
+    private static function formatClassName(string $className) : string {
+        return match ($className) {
+            "mage" => "Mago",
+            "cleric" => "Clérigo",
+            "vampire" => "Vampiro",
+            "hybrid" => "Híbrido",
+            "magiteck" => "Magiteck"
+        };
     }
 }

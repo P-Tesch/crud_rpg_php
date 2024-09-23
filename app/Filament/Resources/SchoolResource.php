@@ -37,24 +37,27 @@ class SchoolResource extends Resource
 
                 TextColumn::make("description")
                     ->wrap()
+                    ->alignJustify()
                     ->label("Descrição"),
 
                 TextColumn::make("level")
                     ->sortable()
+                    ->alignCenter()
                     ->label("Level"),
 
                 TextColumn::make("cost")
                     ->sortable()
+                    ->alignCenter()
                     ->label("Custo"),
 
                 TextColumn::make("spells.name")
-                    ->wrap()
                     ->formatStateUsing(
                         fn (string $state) : string =>
                             new HtmlString(str_replace(", ", "<br />", $state))
                     )
                     ->html()
                     ->searchable()
+                    ->alignCenter()
                     ->label("Magias")
             ])
             ->filters([

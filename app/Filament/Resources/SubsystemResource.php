@@ -3,20 +3,20 @@
 namespace App\Filament\Resources;
 
 use Filament\Tables;
-use App\Models\Spell;
 use Filament\Forms\Form;
+use App\Models\Subsystem;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Filament\Tables\Columns\TextColumn;
-use App\Filament\Resources\SpellResource\Pages;
+use App\Filament\Resources\SubsystemResource\Pages;
 
-class SpellResource extends Resource
+class SubsystemResource extends Resource
 {
-    protected static ?string $model = Spell::class;
+    protected static ?string $model = Subsystem::class;
 
-    protected static ?string $navigationLabel = 'Magias';
+    protected static ?string $navigationLabel = 'Subsistemas';
 
-    protected static ?string $navigationParentItem = 'Escolas';
+    protected static ?string $navigationParentItem = 'Sistemas';
 
     public static function form(Form $form): Form
     {
@@ -35,36 +35,21 @@ class SpellResource extends Resource
                     ->label("Nome"),
 
                 TextColumn::make("description")
-                    ->wrap()
                     ->alignJustify()
+                    ->wrap()
                     ->label("Descrição"),
 
-                TextColumn::make("type")
-                    ->sortable()
-                    ->placeholder("Outro")
-                    ->alignCenter()
-                    ->label("Tipo"),
-
-                TextColumn::make("school_max_name")
-                    ->max("school", "name")
+                TextColumn::make("system.name")
                     ->sortable()
                     ->searchable()
-                    ->wrap()
                     ->alignCenter()
-                    ->label("Escola"),
-
-                TextColumn::make("school_min_level")
-                    ->min("school", "level")
-                    ->sortable()
-                    ->alignCenter()
-                    ->label("Level mínimo")
+                    ->label("Sistema")
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make()
-					->hidden(),
+                Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -83,9 +68,9 @@ class SpellResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListSpells::route('/'),
-            'create' => Pages\CreateSpell::route('/create'),
-            'edit' => Pages\EditSpell::route('/{record}/edit'),
+            'index' => Pages\ListSubsystems::route('/'),
+            'create' => Pages\CreateSubsystem::route('/create'),
+            'edit' => Pages\EditSubsystem::route('/{record}/edit'),
         ];
     }
 }

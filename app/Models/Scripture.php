@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
@@ -35,8 +36,8 @@ class Scripture extends Model
         return $this->belongsToMany(ScriptureAbility::class);
     }
 
-    /** @return BelongsToMany<Sheet> */
-    public function sheet() : BelongsToMany {
-        return $this->belongsToMany(Sheet::class);
+    /** @return BelongsTo<Sheet> */
+    public function sheet() : BelongsTo {
+        return $this->belongsTo(Sheet::class);
     }
 }

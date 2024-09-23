@@ -2,21 +2,27 @@
 
 namespace App\Filament\Resources;
 
+use Filament\Forms;
 use Filament\Tables;
-use App\Models\Spell;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
+use App\Models\ScriptureAbility;
 use Filament\Resources\Resource;
 use Filament\Tables\Columns\TextColumn;
-use App\Filament\Resources\SpellResource\Pages;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\ScriptureAbilityResource\Pages;
+use App\Filament\Resources\ScriptureAbilityResource\RelationManagers;
 
-class SpellResource extends Resource
+class ScriptureAbilityResource extends Resource
 {
-    protected static ?string $model = Spell::class;
+    protected static ?string $model = ScriptureAbility::class;
 
-    protected static ?string $navigationLabel = 'Magias';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    protected static ?string $navigationParentItem = 'Escolas';
+    protected static ?string $navigationLabel = 'Habilidades de escritura';
+
+    protected static ?string $navigationParentItem = 'Escrituras';
 
     public static function form(Form $form): Form
     {
@@ -39,32 +45,29 @@ class SpellResource extends Resource
                     ->alignJustify()
                     ->label("Descrição"),
 
-                TextColumn::make("type")
-                    ->sortable()
-                    ->placeholder("Outro")
+                TextColumn::make("level")
                     ->alignCenter()
-                    ->label("Tipo"),
+                    ->sortable()
+                    ->label("Level"),
 
-                TextColumn::make("school_max_name")
-                    ->max("school", "name")
+                TextColumn::make("cost")
                     ->sortable()
-                    ->searchable()
-                    ->wrap()
                     ->alignCenter()
-                    ->label("Escola"),
+                    ->label("Custo"),
 
-                TextColumn::make("school_min_level")
-                    ->min("school", "level")
-                    ->sortable()
+                TextColumn::make("scripture_count")
+                    ->counts("scripture")
                     ->alignCenter()
-                    ->label("Level mínimo")
+                    ->sortable()
+                    ->label("Qtd. Escrituras")
+
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make()
-					->hidden(),
+                    ->hidden(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -83,9 +86,9 @@ class SpellResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListSpells::route('/'),
-            'create' => Pages\CreateSpell::route('/create'),
-            'edit' => Pages\EditSpell::route('/{record}/edit'),
+            'index' => Pages\ListScriptureAbilities::route('/'),
+            'create' => Pages\CreateScriptureAbility::route('/create'),
+            'edit' => Pages\EditScriptureAbility::route('/{record}/edit'),
         ];
     }
 }

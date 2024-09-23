@@ -50,15 +50,13 @@ class MiracleResource extends Resource
 
                 TextColumn::make("description")
 				    ->wrap()
+                    ->alignJustify()
 				    ->label("Descrição"),
 
                 TextColumn::make("cost")
 				    ->sortable()
-				    ->label("Custo"),
-
-                TextColumn::make("strategy")
-				    ->wrap()
-				    ->label("Estratégia")
+                    ->alignCenter()
+				    ->label("Custo")
             ])
             ->filters([
                 //
