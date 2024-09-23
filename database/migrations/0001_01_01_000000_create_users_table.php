@@ -15,10 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('login')->unique();
             $table->string('password');
+            $table->boolean('is_admin')->default(false);
             $table->rememberToken();
             $table->timestamps();
 
-            $table->unsignedBigInteger("sheet_id");
+            $table->unsignedBigInteger("sheet_id")->nullable();
             $table->foreign("sheet_id")->references("id")->on("sheets");
         });
 
