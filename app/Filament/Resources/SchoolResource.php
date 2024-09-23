@@ -60,9 +60,6 @@ class SchoolResource extends Resource
                     ->alignCenter()
                     ->label("Magias")
             ])
-            ->filters([
-                //
-            ])
             ->actions([
                 Tables\Actions\EditAction::make()
 					->hidden(),
@@ -73,14 +70,6 @@ class SchoolResource extends Resource
                 ]),
             ]);
     }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
-    }
-
     public static function getPages(): array
     {
         return [

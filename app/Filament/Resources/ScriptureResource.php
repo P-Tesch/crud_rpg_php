@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Forms\Form;
 use App\Models\Scripture;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
@@ -18,14 +17,6 @@ class ScriptureResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-pencil';
 
     protected static ?string $navigationLabel = 'Escrituras';
-
-    public static function form(Form $form): Form
-    {
-        return $form
-            ->schema([
-                //
-            ]);
-    }
 
     public static function table(Table $table): Table
     {
@@ -83,17 +74,7 @@ class ScriptureResource extends Resource
                     )
                     ->html()
                     ->label("Habilidades")
-            ])
-            ->filters([
-                //
-            ]);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
+        ]);
     }
 
     public static function getPages(): array
@@ -101,5 +82,9 @@ class ScriptureResource extends Resource
         return [
             'index' => Pages\ListScriptures::route('/')
         ];
+    }
+
+    public static function canCreate() : bool {
+        return false;
     }
 }

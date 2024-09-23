@@ -23,8 +23,6 @@ class AdvantageResource extends Resource
 
     protected ?string $heading = 'Vantagens';
 
-
-
     public static function form(Form $form): Form
     {
         return $form
@@ -99,9 +97,6 @@ class AdvantageResource extends Resource
                     )
 					->label("Classe")
             ])
-            ->filters([
-                //
-            ])
             ->actions([
                 Tables\Actions\EditAction::make()
 					->hidden(),
@@ -111,13 +106,6 @@ class AdvantageResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
     }
 
     public static function getPages(): array

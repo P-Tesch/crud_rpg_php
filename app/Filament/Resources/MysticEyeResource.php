@@ -57,9 +57,6 @@ class MysticEyeResource extends Resource
                     ->alignCenter()
 					->label("Custo")
             ])
-            ->filters([
-                //
-            ])
             ->actions([
                 Tables\Actions\EditAction::make()
                     ->hidden(),
@@ -69,13 +66,6 @@ class MysticEyeResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
     }
 
     public static function getPages(): array

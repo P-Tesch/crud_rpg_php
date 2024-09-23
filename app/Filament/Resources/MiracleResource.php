@@ -58,9 +58,6 @@ class MiracleResource extends Resource
                     ->alignCenter()
 				    ->label("Custo")
             ])
-            ->filters([
-                //
-            ])
             ->actions([
                 Tables\Actions\EditAction::make()
 				    ->hidden(),
@@ -70,13 +67,6 @@ class MiracleResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
     }
 
     public static function getPages(): array

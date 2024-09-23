@@ -54,9 +54,6 @@ class SonataAbilityResource extends Resource
                     ->alignCenter()
                     ->label("Sonata")
             ])
-            ->filters([
-                //
-            ])
             ->actions([
                 Tables\Actions\EditAction::make()
                     ->hidden(),
@@ -66,13 +63,6 @@ class SonataAbilityResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
     }
 
     public static function getPages(): array

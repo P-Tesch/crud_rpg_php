@@ -2,21 +2,22 @@
 
 namespace App\Filament\Resources;
 
+use App\Models\Item;
 use Filament\Tables;
-use App\Models\Spell;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
+use Illuminate\Support\HtmlString;
 use Filament\Tables\Columns\TextColumn;
-use App\Filament\Resources\SpellResource\Pages;
+use App\Filament\Resources\ItemResource\Pages;
 
-class SpellResource extends Resource
+class ItemResource extends Resource
 {
-    protected static ?string $model = Spell::class;
+    protected static ?string $model = Item::class;
 
-    protected static ?string $navigationLabel = 'Magias';
+    protected static ?string $navigationIcon = 'heroicon-o-archive-box';
 
-    protected static ?string $navigationParentItem = 'Escolas';
+    protected static ?string $navigationLabel = 'Itens';
 
     public static function form(Form $form): Form
     {
@@ -37,31 +38,30 @@ class SpellResource extends Resource
                 TextColumn::make("description")
                     ->wrap()
                     ->alignJustify()
-                    ->label("Descrição"),
+                    ->label("Description"),
 
-                TextColumn::make("type")
-                    ->sortable()
-                    ->placeholder("Outro")
+                TextColumn::make("damage")
                     ->alignCenter()
-                    ->label("Tipo"),
+                    ->label("Dano"),
 
-                TextColumn::make("school_max_name")
-                    ->max("school", "name")
-                    ->sortable()
+                TextColumn::make("sheet.name")
+                    ->alignCenter()
                     ->searchable()
-                    ->wrap()
-                    ->alignCenter()
-                    ->label("Escola"),
-
-                TextColumn::make("school_min_level")
-                    ->min("school", "level")
                     ->sortable()
+                    ->label("Dono"),
+
+                TextColumn::make("effects.name")
                     ->alignCenter()
-                    ->label("Level mínimo")
+                    ->formatStateUsing(
+                        fn (string $state) : string =>
+                            new HtmlString(str_replace(", ", "<br />", $state))
+                    )
+                    ->html()
+                    ->label("Efeitos")
             ])
             ->actions([
                 Tables\Actions\EditAction::make()
-					->hidden(),
+                    ->hidden(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -73,9 +73,9 @@ class SpellResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListSpells::route('/'),
-            'create' => Pages\CreateSpell::route('/create'),
-            'edit' => Pages\EditSpell::route('/{record}/edit'),
+            'index' => Pages\ListItems::route('/'),
+            'create' => Pages\CreateItem::route('/create'),
+            'edit' => Pages\EditItem::route('/{record}/edit'),
         ];
     }
 }

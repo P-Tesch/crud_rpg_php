@@ -3,20 +3,20 @@
 namespace App\Filament\Resources;
 
 use Filament\Tables;
+use App\Models\Effect;
 use Filament\Forms\Form;
-use App\Models\Subsystem;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
-use Filament\Tables\Columns\TextColumn;
-use App\Filament\Resources\SubsystemResource\Pages;
+use App\Filament\Resources\EffectResource\Pages;
 
-class SubsystemResource extends Resource
+class EffectResource extends Resource
 {
-    protected static ?string $model = Subsystem::class;
+    protected static ?string $model = Effect::class;
 
-    protected static ?string $navigationLabel = 'Subsistemas';
+    protected static ?string $navigationIcon = 'heroicon-o-fire';
 
-    protected static ?string $navigationParentItem = 'Sistemas';
+    protected static ?string $navigationLabel = 'Efeitos';
 
     public static function form(Form $form): Form
     {
@@ -39,11 +39,21 @@ class SubsystemResource extends Resource
                     ->wrap()
                     ->label("Descrição"),
 
-                TextColumn::make("system.name")
-                    ->sortable()
-                    ->searchable()
+                TextColumn::make("sheets_count")
+                    ->counts("sheets")
                     ->alignCenter()
-                    ->label("Sistema")
+                    ->label("Qtd. Personagens afetados"),
+
+                TextColumn::make("items_count")
+                    ->counts("items")
+                    ->alignCenter()
+                    ->label("Qtd. Itens afetados"),
+
+                TextColumn::make("systems_count")
+                    ->counts("systems")
+                    ->alignCenter()
+                    ->label("Qtd. Sistemas afetados")
+
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -58,9 +68,9 @@ class SubsystemResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListSubsystems::route('/'),
-            'create' => Pages\CreateSubsystem::route('/create'),
-            'edit' => Pages\EditSubsystem::route('/{record}/edit'),
+            'index' => Pages\ListEffects::route('/'),
+            'create' => Pages\CreateEffect::route('/create'),
+            'edit' => Pages\EditEffect::route('/{record}/edit'),
         ];
     }
 }
