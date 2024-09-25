@@ -5,7 +5,6 @@ namespace App\Filament\Resources;
 use App\Models\Scripture;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
-use Illuminate\Support\HtmlString;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use App\Filament\Resources\ScriptureResource\Pages;
@@ -16,7 +15,13 @@ class ScriptureResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-pencil';
 
-    protected static ?string $navigationLabel = 'Escrituras';
+    protected static ?string $modelLabel = 'escritura';
+
+    protected static ?string $pluralModelLabel = 'escrituras';
+
+    protected static ?string $navigationGroup = 'Clérigos';
+
+    protected static ?int $navigationSort = 2;
 
     public static function table(Table $table): Table
     {
@@ -68,11 +73,7 @@ class ScriptureResource extends Resource
                     ->label("Duplo"),
 
                 TextColumn::make("scriptureAbilities.name")
-                    ->formatStateUsing(
-                        fn (string $state) : string =>
-                            new HtmlString(str_replace(", ", "<br />", $state))
-                    )
-                    ->html()
+                    ->badge()
                     ->label("Habilidades")
         ]);
     }

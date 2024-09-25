@@ -9,7 +9,6 @@ use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Filament\Tables\Columns\TextColumn;
 use App\Filament\Resources\SchoolResource\Pages;
-use Illuminate\Support\HtmlString;
 
 class SchoolResource extends Resource
 {
@@ -17,7 +16,13 @@ class SchoolResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-academic-cap';
 
-    protected static ?string $navigationLabel = 'Escolas';
+    protected static ?string $modelLabel = 'escola';
+
+    protected static ?string $pluralModelLabel = 'escolas';
+
+    protected static ?string $navigationGroup = 'Magos';
+
+    protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
     {
@@ -51,13 +56,9 @@ class SchoolResource extends Resource
                     ->label("Custo"),
 
                 TextColumn::make("spells.name")
-                    ->formatStateUsing(
-                        fn (string $state) : string =>
-                            new HtmlString(str_replace(", ", "<br />", $state))
-                    )
-                    ->html()
                     ->searchable()
                     ->alignCenter()
+                    ->badge()
                     ->label("Magias")
             ])
             ->actions([

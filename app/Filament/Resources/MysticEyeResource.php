@@ -16,7 +16,13 @@ class MysticEyeResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-eye';
 
-    protected static ?string $navigationLabel = 'Olhos místicos';
+    protected static ?string $modelLabel = 'olhos místicos';
+
+    protected static ?string $pluralModelLabel = 'olhos místicos';
+
+    protected static ?string $navigationGroup = 'Geral';
+
+    protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
     {
@@ -48,7 +54,7 @@ class MysticEyeResource extends Resource
 
                 TextColumn::make("cooldown")
 					->sortable()
-                    ->placeholder("0")
+                    ->default("-")
                     ->alignCenter()
 					->label("Cooldown"),
 

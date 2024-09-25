@@ -2,27 +2,27 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Forms;
 use Filament\Tables;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use App\Models\ScriptureAbility;
 use Filament\Resources\Resource;
 use Filament\Tables\Columns\TextColumn;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\ScriptureAbilityResource\Pages;
-use App\Filament\Resources\ScriptureAbilityResource\RelationManagers;
 
 class ScriptureAbilityResource extends Resource
 {
     protected static ?string $model = ScriptureAbility::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-pencil-square';
 
-    protected static ?string $navigationLabel = 'Habilidades de escritura';
+    protected static ?string $modelLabel = 'habilidade de escritura';
 
-    protected static ?string $navigationParentItem = 'Escrituras';
+    protected static ?string $pluralModelLabel = 'habilidades de escritura';
+
+    protected static ?string $navigationGroup = 'Clérigos';
+
+    protected static ?int $navigationSort = 3;
 
     public static function form(Form $form): Form
     {

@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use Filament\Forms\Components\TextInput;
 use Filament\Tables;
 use App\Models\Effect;
 use Filament\Forms\Form;
@@ -16,7 +17,13 @@ class EffectResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-fire';
 
-    protected static ?string $navigationLabel = 'Efeitos';
+    protected static ?string $modelLabel = 'efeito';
+
+    protected static ?string $pluralModelLabel = 'efeitos';
+
+    protected static ?string $navigationGroup = 'Geral';
+
+    protected static ?int $navigationSort = 4;
 
     public static function form(Form $form): Form
     {

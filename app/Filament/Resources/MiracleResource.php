@@ -18,7 +18,13 @@ class MiracleResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-sun';
 
-    protected static ?string $navigationLabel = 'Milagres';
+    protected static ?string $modelLabel = 'milagre';
+
+    protected static ?string $pluralModelLabel = 'milagres';
+
+    protected static ?string $navigationGroup = 'Clérigos';
+
+    protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
     {

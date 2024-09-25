@@ -19,9 +19,13 @@ class AdvantageResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-chevron-double-up';
 
-    protected static ?string $navigationLabel = 'Vantagens';
+    protected static ?string $modelLabel = 'vantagem';
 
-    protected ?string $heading = 'Vantagens';
+    protected static ?string $pluralModelLabel = 'vantagens';
+
+    protected static ?string $navigationGroup = 'Geral';
+
+    protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
     {
@@ -29,34 +33,36 @@ class AdvantageResource extends Resource
             ->schema([
                 TextInput::make("name")
 					->alphaNum()
-					->label("Nome")
-					->maxLength(63),
+					->maxLength(63)
+                    ->required()
+					->label("Nome"),
 
                 Textarea::make("description")
 					->alphaNum()
-					->label("Descrição")
 					->maxLength(511)
-					->rows(5),
+					->rows(5)
+                    ->required()
+					->label("Descrição"),
 
                 TextInput::make("level")
-					->label("Level")
-					->numeric()
-					->minValue(0),
+                    ->numeric()
+                    ->minValue(0)
+                    ->label("Level"),
 
                 TextInput::make("cost")
-					->label("Custo")
-					->numeric(),
+                    ->numeric()
+                    ->required()
+                    ->label("Custo"),
 
                 Select::make("class")
-					->label("Classe")
-					->options([
-                        "null" => "Todos",
+                    ->options([
                         "mage" => "Mago",
                         "cleric" => "Clérigo",
                         "vampire" => "Vampiro",
                         "hybrid" => "Híbrido",
                         "magiteck" => "Magiteck"
-                    ]),
+                    ])
+                    ->label("Classe"),
 
                 Textarea::make("strategy")
 					->label("Estratégia")

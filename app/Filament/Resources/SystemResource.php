@@ -7,7 +7,6 @@ use App\Models\System;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
-use Illuminate\Support\HtmlString;
 use Filament\Tables\Columns\TextColumn;
 use App\Filament\Resources\SystemResource\Pages;
 
@@ -17,7 +16,13 @@ class SystemResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-cpu-chip';
 
-    protected static ?string $navigationLabel = 'Sistemas';
+    protected static ?string $modelLabel = 'sistema';
+
+    protected static ?string $pluralModelLabel = 'sistemas';
+
+    protected static ?string $navigationGroup = 'Magitecks';
+
+    protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
     {
@@ -49,11 +54,7 @@ class SystemResource extends Resource
                 TextColumn::make("subsystems.name")
                     ->searchable()
                     ->alignCenter()
-                    ->formatStateUsing(
-                        fn (string $state) : string =>
-                            new HtmlString(str_replace(", ", "<br />", $state))
-                    )
-                    ->html()
+                    ->badge()
                     ->label("Subsistemas")
 
             ])

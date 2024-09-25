@@ -18,9 +18,15 @@ class SonataAbilityResource extends Resource
 {
     protected static ?string $model = SonataAbility::class;
 
-    protected static ?string $navigationLabel = 'Habilidades de sonata';
+    protected static ?string $navigationIcon = 'heroicon-o-sparkles';
 
-    protected static ?string $navigationParentItem = 'Sonatas';
+    protected static ?string $modelLabel = 'habilidade de sonata';
+
+    protected static ?string $pluralModelLabel = 'habilidades de sontas';
+
+    protected static ?string $navigationGroup = 'Vampiros';
+
+    protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
     {

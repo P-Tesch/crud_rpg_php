@@ -17,7 +17,13 @@ class ItemResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-archive-box';
 
-    protected static ?string $navigationLabel = 'Itens';
+    protected static ?string $modelLabel = 'item';
+
+    protected static ?string $pluralModelLabel = 'items';
+
+    protected static ?string $navigationGroup = 'Geral';
+
+    protected static ?int $navigationSort = 3;
 
     public static function form(Form $form): Form
     {
@@ -52,11 +58,7 @@ class ItemResource extends Resource
 
                 TextColumn::make("effects.name")
                     ->alignCenter()
-                    ->formatStateUsing(
-                        fn (string $state) : string =>
-                            new HtmlString(str_replace(", ", "<br />", $state))
-                    )
-                    ->html()
+                    ->badge()
                     ->label("Efeitos")
             ])
             ->actions([

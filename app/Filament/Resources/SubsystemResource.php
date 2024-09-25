@@ -14,9 +14,15 @@ class SubsystemResource extends Resource
 {
     protected static ?string $model = Subsystem::class;
 
-    protected static ?string $navigationLabel = 'Subsistemas';
+    protected static ?string $navigationIcon = 'heroicon-o-cog-6-tooth';
 
-    protected static ?string $navigationParentItem = 'Sistemas';
+    protected static ?string $modelLabel = 'subsistema';
+
+    protected static ?string $pluralModelLabel = 'subsistemas';
+
+    protected static ?string $navigationGroup = 'Magitecks';
+
+    protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
     {
