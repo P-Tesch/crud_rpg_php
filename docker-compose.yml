@@ -1,0 +1,42 @@
+services:
+    app:
+        container_name: app
+        build:
+            context: .
+            target: development
+            args:
+                # USER_ID and GROUP_ID must be set as
+                # environment variables on the host machine
+                USER_ID: ${UID:-1000}
+                GROUP_ID: ${GID:-1000}
+        volumes:
+            - .:/var/www/html
+        ports:
+            - "8000:8000"
+            - "8880:8880"
+            - ${VITE_PORT:-5173}:${VITE_PORT:-5173}
+        networks:
+            - app_network
+        depends_on:
+            - mysql
+    mysql:
+        container_name: mysql
+        platform: linux/x86_64
+        image: mysql:5.7
+        ports:
+            - "3306:3306"
+        networks:
+            - app_network
+        volumes:
+            - 'mysql:/var/lib/mysql'
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: pricetable_db
+            MYSQL_USER: pricetable_user
+            MYSQL_PASSWORD: pricetable_password
+networks:
+    app_network:
+        driver: bridge
+volumes:
+    mysql:
+        driver: local
