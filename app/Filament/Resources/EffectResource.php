@@ -2,6 +2,10 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Resources\EffectResource\RelationManagers\ItemsRelationManager;
+use App\Filament\Resources\EffectResource\RelationManagers\SheetsRelationManager;
+use App\Filament\Resources\EffectResource\RelationManagers\SystemsRelationManager;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables;
 use App\Models\Effect;
@@ -29,7 +33,13 @@ class EffectResource extends Resource
     {
         return $form
             ->schema([
-                //
+                TextInput::make("name")
+                    ->required()
+                    ->label("Nome"),
+
+                Textarea::make("description")
+                    ->required()
+                    ->label("Descrição")
             ]);
     }
 
@@ -70,6 +80,15 @@ class EffectResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
+    }
+
+    public static function getRelations(): array
+    {
+        return [
+            ItemsRelationManager::class,
+            SheetsRelationManager::class,
+            SystemsRelationManager::class
+        ];
     }
 
     public static function getPages(): array

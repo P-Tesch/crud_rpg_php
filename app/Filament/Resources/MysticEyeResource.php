@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources;
 
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Tables;
 use Filament\Forms\Form;
 use App\Models\MysticEye;
@@ -28,7 +30,26 @@ class MysticEyeResource extends Resource
     {
         return $form
             ->schema([
-                //
+                TextInput::make("name")
+                    ->required()
+                    ->label("Nome"),
+
+                Textarea::make("passive")
+                    ->label("Passivo"),
+
+                Textarea::make("active")
+                    ->label("Ativo"),
+
+                TextInput::make("cooldown")
+                    ->numeric()
+                    ->minValue(0)
+                    ->label("Cooldown"),
+
+                TextInput::make("Cost")
+                    ->numeric()
+                    ->minValue(0)
+                    ->required()
+                    ->label("Custo")
             ]);
     }
 
