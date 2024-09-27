@@ -1,7 +1,7 @@
 ############################################
 # Base Image
 ############################################
-FROM serversideup/php:8.3-fpm-nginx-bookworm AS base
+FROM serversideup/php:8.3-fpm-nginx-alpine AS base
 
 ############################################
 # Development Image
@@ -27,3 +27,20 @@ RUN docker-php-serversideup-set-id www-data $USER_ID:$GROUP_ID && \
     docker-php-serversideup-set-file-permissions --owner $USER_ID:$GROUP_ID --service nginx
 
 USER www-data
+
+RUN composer install
+
+RUN php artisan migrate
+
+RUN php artisan key:generate
+
+RUN php artisan storage:link
+
+RUN php artisan db:seed
+
+RUN npm install
+
+RUN npm run build
+
+RUN npm run dev
+
