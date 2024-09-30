@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources;
 
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Tables;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
@@ -28,7 +30,25 @@ class ScriptureAbilityResource extends Resource
     {
         return $form
             ->schema([
-                //
+                TextInput::make("name")
+                    ->required()
+                    ->label("Nome"),
+
+                Textarea::make("description")
+                    ->required()
+                    ->label("Descrição"),
+
+                TextInput::make("level")
+                    ->numeric()
+                    ->minValue(0)
+                    ->label("Level"),
+
+                TextInput::make("cost")
+                    ->numeric()
+                    ->label("Custo"),
+
+                Textarea::make("strategy")
+                    ->label("Estratégia")
             ]);
     }
 
@@ -87,7 +107,6 @@ class ScriptureAbilityResource extends Resource
     {
         return [
             'index' => Pages\ListScriptureAbilities::route('/'),
-            'create' => Pages\CreateScriptureAbility::route('/create'),
             'edit' => Pages\EditScriptureAbility::route('/{record}/edit'),
         ];
     }

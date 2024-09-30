@@ -32,14 +32,17 @@ class MiracleResource extends Resource
             ->schema([
                 TextInput::make("name")
 				    ->alphaNum()
+                    ->required()
 				    ->label("Nome"),
 
                 Textarea::make("description")
+                    ->required()
 				    ->label("Descrição"),
 
                 TextInput::make("cost")
-				    ->label("Custo")
-				    ->numeric(),
+                    ->required()
+                    ->numeric()
+                    ->label("Custo"),
 
                 Textarea::make("strategy")
 				    ->label("Estratégia")
@@ -79,7 +82,6 @@ class MiracleResource extends Resource
     {
         return [
             'index' => Pages\ListMiracles::route('/'),
-            'create' => Pages\CreateMiracle::route('/create'),
             'edit' => Pages\EditMiracle::route('/{record}/edit'),
         ];
     }

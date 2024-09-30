@@ -2,6 +2,9 @@
 
 namespace App\Filament\Resources;
 
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
+use Filament\Support\Colors\Color;
 use Filament\Tables;
 use App\Models\System;
 use Filament\Forms\Form;
@@ -28,7 +31,27 @@ class SystemResource extends Resource
     {
         return $form
             ->schema([
-                //
+                TextInput::make("name")
+                    ->required()
+                    ->label("Nome"),
+
+                Textarea::make("description")
+                    ->required()
+                    ->label("Descrição"),
+
+                TextInput::make("damage")
+                    ->required()
+                    ->numeric()
+                    ->label("Dano"),
+
+                TextArea::make("strategy_passive")
+                    ->label("Estratégia (Passivo)"),
+
+                TextArea::make("strategy_active")
+                    ->label("Estratégia (Ativo)"),
+
+                TextArea::make("strategy_burn")
+                    ->label("Estratégia (Queimar)")
             ]);
     }
 
@@ -55,6 +78,11 @@ class SystemResource extends Resource
                     ->searchable()
                     ->alignCenter()
                     ->badge()
+                    ->color(fn ($state) => match (true) {
+                        str_contains($state, "(A)") => Color::Yellow,
+                        str_contains($state, "(B)") => Color::Red,
+                        default => Color::Green
+                    })
                     ->label("Subsistemas")
 
             ])
@@ -73,7 +101,6 @@ class SystemResource extends Resource
     {
         return [
             'index' => Pages\ListSystems::route('/'),
-            'create' => Pages\CreateSystem::route('/create'),
             'edit' => Pages\EditSystem::route('/{record}/edit'),
         ];
     }

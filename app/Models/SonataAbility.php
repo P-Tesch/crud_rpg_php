@@ -19,6 +19,9 @@ class SonataAbility extends Model
         "name",
         "description",
         "level",
+        "cost",
+        "sonata_id",
+        "strategy"
     ];
 
     /** @var array<int, string> */

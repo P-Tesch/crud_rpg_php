@@ -3,16 +3,15 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\SonataAbilityResource\Pages;
-use App\Filament\Resources\SonataAbilityResource\RelationManagers;
 use App\Models\SonataAbility;
-use Filament\Forms;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class SonataAbilityResource extends Resource
 {
@@ -32,7 +31,32 @@ class SonataAbilityResource extends Resource
     {
         return $form
             ->schema([
-                //
+                TextInput::make("name")
+                    ->required()
+                    ->label("Nome"),
+
+                Textarea::make("description")
+                    ->required()
+                    ->label("Descrição"),
+
+                TextInput::make("level")
+                    ->required()
+                    ->numeric()
+                    ->minValue(0)
+                    ->label("Level"),
+
+                TextInput::make("cost")
+                ->required()
+                ->label("Custo"),
+
+                Select::make("sonata_id")
+                    ->relationship("sonata", "name")
+                    ->preload()
+                    ->required()
+                    ->label("Sonata"),
+
+                TextArea::make("strategy")
+                    ->label("Estratégia")
             ]);
     }
 
@@ -54,6 +78,10 @@ class SonataAbilityResource extends Resource
                     ->alignCenter()
                     ->label("Level"),
 
+                TextColumn::make("cost")
+                    ->alignCenter()
+                    ->label("Custo"),
+
                 TextColumn::make("sonata.name")
                     ->sortable()
                     ->searchable()
@@ -62,7 +90,8 @@ class SonataAbilityResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make()
-                    ->hidden(),
+                    ->modal()
+                    ->hidden()
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -75,7 +104,6 @@ class SonataAbilityResource extends Resource
     {
         return [
             'index' => Pages\ListSonataAbilities::route('/'),
-            'create' => Pages\CreateSonataAbility::route('/create'),
             'edit' => Pages\EditSonataAbility::route('/{record}/edit'),
         ];
     }

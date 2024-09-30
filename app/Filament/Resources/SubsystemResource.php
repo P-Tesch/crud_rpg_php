@@ -2,6 +2,9 @@
 
 namespace App\Filament\Resources;
 
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Tables;
 use Filament\Forms\Form;
 use App\Models\Subsystem;
@@ -28,7 +31,25 @@ class SubsystemResource extends Resource
     {
         return $form
             ->schema([
-                //
+                TextInput::make("name")
+                    ->required()
+                    ->label("Nome"),
+
+                Textarea::make("description")
+                    ->required()
+                    ->label("Descrição"),
+
+                Select::make("system_id")
+                    ->relationship("system", "name")
+                    ->preload()
+                    ->required()
+                    ->label("Sistema"),
+
+                TextArea::make("strategy")
+                    ->label("Estratégia"),
+
+                TextArea::make("strategy_burn")
+                    ->label("Estratégia (Queimar)")
             ]);
     }
 
@@ -49,10 +70,12 @@ class SubsystemResource extends Resource
                     ->sortable()
                     ->searchable()
                     ->alignCenter()
+                    ->badge()
                     ->label("Sistema")
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                    ->hidden(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -65,7 +88,6 @@ class SubsystemResource extends Resource
     {
         return [
             'index' => Pages\ListSubsystems::route('/'),
-            'create' => Pages\CreateSubsystem::route('/create'),
             'edit' => Pages\EditSubsystem::route('/{record}/edit'),
         ];
     }

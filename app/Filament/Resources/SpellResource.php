@@ -2,6 +2,10 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Resources\SpellResource\RelationManagers\SchoolsRelationManager;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Tables;
 use App\Models\Spell;
 use Filament\Forms\Form;
@@ -28,7 +32,23 @@ class SpellResource extends Resource
     {
         return $form
             ->schema([
-                //
+                TextInput::make("name")
+                    ->required()
+                    ->label("Nome"),
+
+                Textarea::make("description")
+                    ->required()
+                    ->label("Descrição"),
+
+                Select::make("type")
+                    ->options([
+                        "PROEJCTILE",
+                        "DIRECT"
+                    ])
+                    ->label("Tipo"),
+
+                TextInput::make("strategy")
+                        ->label("Estratégia")
             ]);
     }
 
@@ -76,11 +96,16 @@ class SpellResource extends Resource
             ]);
     }
 
+    public static function getRelations(): array {
+        return [
+            SchoolsRelationManager::class
+        ];
+    }
+
     public static function getPages(): array
     {
         return [
             'index' => Pages\ListSpells::route('/'),
-            'create' => Pages\CreateSpell::route('/create'),
             'edit' => Pages\EditSpell::route('/{record}/edit'),
         ];
     }

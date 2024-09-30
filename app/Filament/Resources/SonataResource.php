@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources;
 
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Tables;
 use App\Models\Sonata;
 use Filament\Forms\Form;
@@ -28,7 +30,13 @@ class SonataResource extends Resource
     {
         return $form
             ->schema([
-                //
+                TextInput::make("name")
+                    ->required()
+                    ->label("Nome"),
+
+                Textarea::make("description")
+                    ->required()
+                    ->label("Descrição")
             ]);
     }
 
@@ -67,7 +75,6 @@ class SonataResource extends Resource
     {
         return [
             'index' => Pages\ListSonatas::route('/'),
-            'create' => Pages\CreateSonata::route('/create'),
             'edit' => Pages\EditSonata::route('/{record}/edit'),
         ];
     }
