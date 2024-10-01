@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
@@ -28,8 +29,8 @@ class Item extends Model
         return $this->belongsToMany(Effect::class);
     }
 
-    /** @return HasOne<Sheet> */
-    public function sheet() : HasOne {
-        return $this->hasOne(Sheet::class);
+    /** @return BelongsTo<Sheet> */
+    public function sheet() : BelongsTo {
+        return $this->belongsTo(Sheet::class);
     }
 }
