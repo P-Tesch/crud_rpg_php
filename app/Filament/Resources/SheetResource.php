@@ -7,6 +7,9 @@ use App\Filament\Resources\SheetResource\RelationManagers;
 use App\Models\Sheet;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Infolists\Components\ImageEntry;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
@@ -63,7 +66,8 @@ class SheetResource extends Resource
                     ->default("-")
                     ->formatStateUsing(
                         fn (string $state) : string =>
-                            self::formatAlignment($state))
+                            self::formatAlignment($state)
+                    )
                     ->label("Alinhamento"),
 
                 TextColumn::make("organization")
@@ -79,13 +83,8 @@ class SheetResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make()
-                    ->hidden(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
             ]);
     }
 
@@ -100,9 +99,41 @@ class SheetResource extends Resource
     {
         return [
             'index' => Pages\ListSheets::route('/'),
-            'create' => Pages\CreateSheet::route('/create'),
-            'edit' => Pages\EditSheet::route('/{record}/edit'),
+            'view' => Pages\ViewSheet::route('/{record}')
         ];
+    }
+
+    public static function infoList(Infolist $infolist): Infolist {
+        return $infolist
+            ->schema([
+                TextEntry::make("name")
+                    ->label("name"),
+
+                TextEntry::make("description")
+                    ->label("Descrição"),
+
+                TextEntry::make("background")
+                    ->label("História"),
+
+                TextEntry::make("creation_points")
+                    ->label("Pontos de criação"),
+
+                TextEntry::make("alignment")
+                    ->visible(fn ($state) => !is_null($state))
+                    ->formatStateUsing(
+                        fn (string $state) : string =>
+                            self::formatAlignment($state)
+                    )
+                    ->label("Alinhamento"),
+
+                TextEntry::make("organization")
+                    ->visible(fn ($state) => !is_null($state))
+                    ->formatStateUsing(
+                        fn (string $state) : string =>
+                            self::formatOrganization($state)
+                    )
+                    ->label("Organização")
+            ]);
     }
 
     private static function formatAlignment(string $state) : string {

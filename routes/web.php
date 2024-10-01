@@ -4,7 +4,7 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ViewController;
 
-Route::redirect("/", "/login");
+Route::redirect("/", "/sheet");
 
 Route::get('/login', [ViewController::class, "login"]);
 

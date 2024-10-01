@@ -8,6 +8,7 @@ use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Response;
+use Symfony\Component\Translation\Exception\NotFoundResourceException;
 
 class ViewController extends Controller {
 
@@ -20,6 +21,12 @@ class ViewController extends Controller {
             return redirect("/login");
         }
 
-        return Inertia::render("vue/sheet", ["sheet" => $sheetController->showAsEntity($request)]);
+        try {
+            $sheet = $sheetController->showAsEntity($request);
+            return Inertia::render("vue/sheet", ["sheet" => $sheet]);
+
+        } catch (NotFoundResourceException $exception) {
+            return redirect("/login");
+        }
     }
 }
