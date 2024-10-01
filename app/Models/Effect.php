@@ -17,7 +17,8 @@ class Effect extends Model
     protected $fillable = [
         "name",
         "description",
-        "remaining_duration"
+        "remaining_duration",
+        "strategy"
     ];
 
     /** @var array<int, string> */

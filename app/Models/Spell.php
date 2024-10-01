@@ -18,7 +18,8 @@ class Spell extends Model
     protected $fillable = [
         "name",
         "description",
-        "type"
+        "type",
+        "strategy"
     ];
 
     /** @var array<int, string> */
@@ -27,7 +28,7 @@ class Spell extends Model
     ];
 
     /** @return BelongsToMany<School> */
-    public function school() : BelongsToMany {
+    public function schools() : BelongsToMany {
         return $this->belongsToMany(School::class);
     }
 }

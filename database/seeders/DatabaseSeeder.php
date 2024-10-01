@@ -12,6 +12,7 @@ use App\Models\Spell;
 use App\Models\School;
 use App\Models\Subsystem;
 use App\Models\System;
+use App\Models\User;
 use DB;
 use Illuminate\Database\Seeder;
 
@@ -30,6 +31,7 @@ class DatabaseSeeder extends Seeder
         $this->seedSonatasAndSonataAbilities();
         $this->seedMysticEyes();
         $this->seedSchoolsAndSpells();
+        $this->seedAdminUsers();
     }
 
     /**
@@ -335,6 +337,14 @@ class DatabaseSeeder extends Seeder
 
         $school = $schools[$schoolArgs["name"] . " " . $schoolArgs["level"]];
         $school->spells()->saveMany($spells);
+    }
+
+    private function seedAdminUsers() : void {
+        (new User([
+            "login" => $_ENV["ADMIN_LOGIN"],
+            "password" => $_ENV["ADMIN_PASSWORD"],
+            "is_admin" => true
+        ]))->save();
     }
 
     /**

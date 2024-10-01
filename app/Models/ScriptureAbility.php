@@ -19,7 +19,8 @@ class ScriptureAbility extends Model
         "name",
         "description",
         "level",
-        "cost"
+        "cost",
+        "strategy"
     ];
 
     /** @var array<int, string> */

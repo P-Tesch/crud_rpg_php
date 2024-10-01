@@ -19,7 +19,10 @@ class System extends Model
     protected $fillable = [
         "name",
         "description",
-        "damage"
+        "damage",
+        "strategy_passive",
+        "strategy_active",
+        "strategy_burn"
     ];
 
     /** @var array<int, string> */

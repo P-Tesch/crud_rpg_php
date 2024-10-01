@@ -18,7 +18,10 @@ class Subsystem extends Model
     /** @var array<int, string> */
     protected $fillable = [
         "name",
-        "description"
+        "description",
+        "system_id",
+        "strategy",
+        "strategy_burn"
     ];
 
     /** @var array<int, string> */
