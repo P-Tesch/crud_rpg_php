@@ -14,14 +14,14 @@ class Miracle extends Model
     /** @var bool */
     public $timestamps = false;
 
-    /** @var array<int, string> */
+    /** @var list<string> */
     protected $fillable = [
         "name",
         "description",
         "cost"
     ];
 
-    /** @var array<int, string> */
+    /** @var list<string> */
     protected $hidden = [
         "strategy"
     ];

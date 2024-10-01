@@ -13,7 +13,7 @@ class RpgAttribute extends Model
     /** @var string */
     protected $table = "attributes";
 
-    /** @var array<int, string> */
+    /** @var list<string> */
     protected $fillable = [
         "key",
         "value"

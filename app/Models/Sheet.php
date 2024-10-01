@@ -12,7 +12,7 @@ class Sheet extends Model
     /** @var bool */
     public $timestamps = false;
 
-    /** @var array<int, string> */
+    /** @var list<string> */
     protected $fillable = [
         "name",
         "portrait",

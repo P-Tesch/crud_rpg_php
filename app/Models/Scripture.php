@@ -7,14 +7,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
- * @property \Illuminate\Database\Eloquent\Collection<ScriptureAbility> | array $scriptureAbilities
+ * @property \Illuminate\Database\Eloquent\Collection<int, ScriptureAbility> | array<int, ScriptureAbility> $scriptureAbilities
  */
 class Scripture extends Model
 {
     /** @var bool */
     public $timestamps = false;
 
-    /** @var array<int, string> */
+    /** @var list<string> */
     protected $fillable = [
         "name",
         "creation_points",
@@ -26,7 +26,7 @@ class Scripture extends Model
         "description"
     ];
 
-    /** @var array<int, string> */
+    /** @var list<string> */
     protected $hidden = [
         "strategy"
     ];
@@ -36,7 +36,7 @@ class Scripture extends Model
         return $this->belongsToMany(ScriptureAbility::class);
     }
 
-    /** @return BelongsTo<Sheet> */
+    /** @return BelongsTo<Sheet, Scripture> */
     public function sheet() : BelongsTo {
         return $this->belongsTo(Sheet::class);
     }

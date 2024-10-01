@@ -12,14 +12,14 @@ class Item extends Model
     /** @var bool */
     public $timestamps = false;
 
-    /** @var array<int, string> */
+    /** @var list<string> */
     protected $fillable = [
         "name",
         "description",
         "damage"
     ];
 
-    /** @var array<int, string> */
+    /** @var list<string> */
     protected $hidden = [
         "strategy"
     ];
@@ -29,7 +29,7 @@ class Item extends Model
         return $this->belongsToMany(Effect::class);
     }
 
-    /** @return BelongsTo<Sheet> */
+    /** @return BelongsTo<Sheet, Item> */
     public function sheet() : BelongsTo {
         return $this->belongsTo(Sheet::class);
     }

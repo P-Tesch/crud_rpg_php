@@ -15,12 +15,12 @@ class User extends Authenticatable implements FilamentUser, HasName
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
-    /** @var array<int, string> */
+    /** @var list<string> */
     protected $fillable = [
         'login'
     ];
 
-    /** @var array<int, string> */
+    /** @var list<string> */
     protected $hidden = [
         'password',
         'remember_token',
