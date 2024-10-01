@@ -24,7 +24,9 @@ class MysticEye extends Model
         "active",
         "cooldown",
         "pivot_current_cooldown",
-        "cost"
+        "cost",
+        "active_strategy",
+        "passive_strategy"
     ];
 
     /** @var array<int, string> */

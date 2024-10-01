@@ -49,7 +49,13 @@ class MysticEyeResource extends Resource
                     ->numeric()
                     ->minValue(0)
                     ->required()
-                    ->label("Custo")
+                    ->label("Custo"),
+
+                Textarea::make("passive_strategy")
+                    ->label("Estratégia (Passivo)"),
+
+                Textarea::make("active_strategy")
+                    ->label("Estratégia (Ativo)")
             ]);
     }
 
@@ -99,7 +105,6 @@ class MysticEyeResource extends Resource
     {
         return [
             'index' => Pages\ListMysticEyes::route('/'),
-            'create' => Pages\CreateMysticEye::route('/create'),
             'edit' => Pages\EditMysticEye::route('/{record}/edit'),
         ];
     }

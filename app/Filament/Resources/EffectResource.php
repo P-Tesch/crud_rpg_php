@@ -39,7 +39,10 @@ class EffectResource extends Resource
 
                 Textarea::make("description")
                     ->required()
-                    ->label("Descrição")
+                    ->label("Descrição"),
+
+                Textarea::make("strategy")
+                    ->label("Estratégia")
             ]);
     }
 

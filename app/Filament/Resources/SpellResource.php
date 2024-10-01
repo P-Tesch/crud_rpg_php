@@ -6,6 +6,7 @@ use App\Filament\Resources\SpellResource\RelationManagers\SchoolsRelationManager
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use Filament\Support\Colors\Color;
 use Filament\Tables;
 use App\Models\Spell;
 use Filament\Forms\Form;
@@ -42,8 +43,8 @@ class SpellResource extends Resource
 
                 Select::make("type")
                     ->options([
-                        "PROEJCTILE",
-                        "DIRECT"
+                        "PROJECTILE" => "Projétil",
+                        "DIRECT" => "Direto"
                     ])
                     ->label("Tipo"),
 
@@ -67,20 +68,32 @@ class SpellResource extends Resource
 
                 TextColumn::make("type")
                     ->sortable()
-                    ->placeholder("Outro")
+                    ->default("OTHER")
+                    ->formatStateUsing(fn (string $state) => match ($state) {
+                        "OTHER" => "Outro",
+                        "PROJECTILE" => "Projétil",
+                        "DIRECT" => "Direto"
+                    })
+                    ->color(fn (string $state) => match ($state) {
+                        "OTHER" => Color::Gray,
+                        "PROJECTILE" => Color::Orange,
+                        "DIRECT" => Color::Cyan
+                    })
+                    ->badge()
                     ->alignCenter()
                     ->label("Tipo"),
 
-                TextColumn::make("school_max_name")
-                    ->max("school", "name")
+                TextColumn::make("schools_max_name")
+                    ->max("schools", "name")
                     ->sortable()
                     ->searchable()
                     ->wrap()
                     ->alignCenter()
+                    ->badge()
                     ->label("Escola"),
 
-                TextColumn::make("school_min_level")
-                    ->min("school", "level")
+                TextColumn::make("schools_min_level")
+                    ->min("schools", "level")
                     ->sortable()
                     ->alignCenter()
                     ->label("Level mínimo")
