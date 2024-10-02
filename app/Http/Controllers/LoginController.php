@@ -9,12 +9,12 @@ use Illuminate\Http\RedirectResponse;
 class LoginController extends Controller {
 
     /**
-     * Authenticas a login attempt and redirects to corresponding page
+     * Authenticates a login attempt and redirects to corresponding page
      * @param Request $request
      * @return RedirectResponse
      */
     public function authenticate(Request $request) : RedirectResponse {
-        $credentials = $request->validate([
+        $credentials = Request::validate([
             'login' => ['required'],
             'password' => ['required'],
         ]);

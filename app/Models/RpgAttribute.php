@@ -10,7 +10,7 @@ class RpgAttribute extends Model
     /** @var bool */
     public $timestamps = false;
 
-    /** @var string */
+    /** @var ?string */
     protected $table = "attributes";
 
     /** @var list<string> */

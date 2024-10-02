@@ -103,7 +103,7 @@ class SheetResource extends Resource
         ];
     }
 
-    public static function infoList(Infolist $infolist): Infolist {
+    public static function infolist(Infolist $infolist): Infolist {
         return $infolist
             ->schema([
                 TextEntry::make("name")
