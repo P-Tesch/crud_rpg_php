@@ -99,7 +99,7 @@ class SheetEntity {
      * @return void
      */
     public function __construct(array $args) {
-        if (count($args) == 0) {
+        if (empty($args)) {
             return;
         }
 
@@ -307,7 +307,7 @@ class SheetEntity {
         }
         if (array_key_exists("faith", $this->stats)) {
             $max = (int) floor($this->stats["faith"] / 2);
-            $this->maxAttributes["max_scripture_points"] = $max == 0 ? 1 : $max;
+            $this->maxAttributes["max_scripture_points"] = $max === 0 ? 1 : $max;
         }
         if (array_key_exists("blood_points", $this->attributes)) {
             $this->maxAttributes["max_blood_points"] = 20 * $this->stats["lineage"];
@@ -327,10 +327,10 @@ class SheetEntity {
         $model->description = $this->description;
         $model->background = $this->background;
         $model->creation_points = $this->creationPoints;
-        $model->alignment = $this->alignment == null ? null : $this->alignment->value;
-        $model->organization = $this->organization == null ? null : $this->organization->value;
+        $model->alignment = is_null($this->alignment) ? null : $this->alignment->value;
+        $model->organization = is_null($this->organization) ? null : $this->organization->value;
 
-        if ($this->portrait != $model->portrait) {
+        if ($this->portrait !== $model->portrait) {
             $separated = explode(";base64,", $this->portrait);
             $base64 = $separated[1];
             $extension = explode("image/", $separated[0])[1];
@@ -341,21 +341,21 @@ class SheetEntity {
 
         foreach ($this->stats as $key => $value) {
             foreach ($model->stats as &$stat) {
-                $stat->value = $stat["key"] == $key ? $value : $stat["value"];
+                $stat->value = $stat["key"] === $key ? $value : $stat["value"];
                 $stat->save();
             }
         }
 
         foreach ($this->skills as $key => $value) {
             foreach ($model->skills as &$skill) {
-                $skill->value = $skill["key"] == $key ? $value : $skill["value"];
+                $skill->value = $skill["key"] === $key ? $value : $skill["value"];
                 $skill->save();
             }
         }
 
         foreach ($this->attributes as $key => $value) {
             foreach ($model->rpgAttributes as &$attribute) {
-                $attribute->value = $attribute["key"] == $key ? $value : $attribute["value"];
+                $attribute->value = $attribute["key"] === $key ? $value : $attribute["value"];
                 $attribute->save();
             }
         }
@@ -425,7 +425,7 @@ class SheetEntity {
                 $sonataAbilities[] = $abilityModel->id;
             }
         }
-        $model->SonataAbilities()->sync($sonataAbilities, true);
+        $model->sonataAbilities()->sync($sonataAbilities, true);
 
         $systems = [];
         foreach (array_keys($this->systems) as $systemName) {

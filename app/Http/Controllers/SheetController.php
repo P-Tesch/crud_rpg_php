@@ -51,15 +51,15 @@ class SheetController extends Controller
 
         $sheet->save();
 
-        if ($sheet->organization) {
+        if (isset($sheet->organization)) {
             $item = $this->getOrganizationItem($sheet->organization);
-            if ($item != null) {
+            if (isset($item)) {
                 $item->sheet_id = $sheet->id;
                 $item->save();
             }
         }
 
-        if ($sheet->alignment) {
+        if (isset($sheet->alignment)) {
             $sheet->schools()->attach(School::where("name", "=", "Fundamentos gerais - " . $this->getAlignmentAlias($sheet->alignment))->where("level", "=", 1)->get());
         }
         $sheet->schools()->attach($request->input("sheet")["schools"]);
@@ -213,6 +213,7 @@ class SheetController extends Controller
      * @return string
      */
     public function showEntityAsJson(Request $request) : string {
+        /** @phpstan-ignore-next-line */
         return json_encode(SheetEntity::buildFromModel($this->showAsModel($request))) ?: "";
     }
 

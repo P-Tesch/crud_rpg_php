@@ -15,7 +15,7 @@ class Subsystem extends Model
     /** @var bool */
     public $timestamps = false;
 
-    /** @var array<int, string> */
+    /** @var list<string> */
     protected $fillable = [
         "name",
         "description",
@@ -24,7 +24,7 @@ class Subsystem extends Model
         "strategy_burn"
     ];
 
-    /** @var array<int, string> */
+    /** @var list<string> */
     protected $hidden = [
         "strategy",
         "strategy_burn"

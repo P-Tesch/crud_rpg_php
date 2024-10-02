@@ -129,7 +129,8 @@ class AdvantageResource extends Resource
             "cleric" => "Clérigo",
             "vampire" => "Vampiro",
             "hybrid" => "Híbrido",
-            "magiteck" => "Magiteck"
+            "magiteck" => "Magiteck",
+            default => ""
         };
     }
 }

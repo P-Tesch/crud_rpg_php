@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
@@ -9,7 +10,7 @@ use Illuminate\Http\RedirectResponse;
 class LoginController extends Controller {
 
     /**
-     * Authenticas a login attempt and redirects to corresponding page
+     * Authenticates a login attempt and redirects to corresponding page
      * @param Request $request
      * @return RedirectResponse
      */

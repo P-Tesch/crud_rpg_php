@@ -52,14 +52,18 @@ function removeSubsystem(systemKey: string | number, subsystemKey: number) : voi
                     <div class="collapse-title text-xl font-medium">{{ key }}</div>
                     <div class="collapse-content">
                         <div v-for="subsystem, k in system.subsystems" class="collapse collapse-arrow bg-base-100">
-                            <button class="btn btn-xs btn-outline btn-accent absolute top-5 right-40">Ativar</button>
-                            <button class="btn btn-xs btn-outline btn-error absolute top-5 right-20">Queimar</button>
                             <button v-if="isOriginalSubsystem(key, subsystem)" class="btn btn-sm btn-circle btn-ghost absolute right-10 top-3.5 z-10 overflow-visible" @click="removeSubsystem(key, k)">✕</button>
                             <input type="checkbox" name="subsystems-collapse" />
-                            <div class="collapse-title text-xl font-medium">{{ subsystem.name }}</div>
+                            <span class="collapse-title text-xl font-medium">{{ subsystem.name }}</span>
                             <div class="collapse-content flex flex-col">
                                 <p class="">Descrição: {{ subsystem.description }}</p>
-                                <button class="btn btn-outline btn-secondary btn-sm ml-auto mr-5">Rolar</button>
+                                <div class="flex flex-row-reverse mt-2">
+                                    <div class="flex flex-row-reverse">
+                                        <button class="btn btn-outline btn-secondary btn-sm ml-auto">Rolar</button>
+                                        <button class="btn btn-outline btn-error btn-sm ml-auto mr-3">Queimar</button>
+                                        <button class="btn btn-outline btn-accent btn-sm ml-auto mr-3">Ativar</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="w-full text-center">

@@ -17,7 +17,7 @@ class MysticEye extends Model
     /** @var bool */
     public $timestamps = false;
 
-    /** @var array<int, string> */
+    /** @var list<string> */
     protected $fillable = [
         "name",
         "passive",
@@ -29,7 +29,7 @@ class MysticEye extends Model
         "passive_strategy"
     ];
 
-    /** @var array<int, string> */
+    /** @var list<string> */
     protected $hidden = [
         "active_strategy",
         "passive_strategy"

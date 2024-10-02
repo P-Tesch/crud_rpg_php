@@ -72,12 +72,14 @@ class SpellResource extends Resource
                     ->formatStateUsing(fn (string $state) => match ($state) {
                         "OTHER" => "Outro",
                         "PROJECTILE" => "Projétil",
-                        "DIRECT" => "Direto"
+                        "DIRECT" => "Direto",
+                        default => ""
                     })
                     ->color(fn (string $state) => match ($state) {
                         "OTHER" => Color::Gray,
                         "PROJECTILE" => Color::Orange,
-                        "DIRECT" => Color::Cyan
+                        "DIRECT" => Color::Cyan,
+                        default => ""
                     })
                     ->badge()
                     ->alignCenter()

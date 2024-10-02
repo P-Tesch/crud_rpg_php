@@ -83,7 +83,7 @@ class RollController extends Controller {
                 $spellRoll = null;
         }
 
-        if ($spell["strategy"] != null) {
+        if (isset($spell["strategy"])) {
             $specificRoll = RollHelper::roll(eval($spell->strategy));
         }
 
@@ -122,7 +122,7 @@ class RollController extends Controller {
 
         $sheet = SheetEntity::buildFromModel($sheetController->showAsModel($request));
 
-        $roll = $item->strategy != null ? RollHelper::roll([5]) : null; // TODO
+        $roll = isset($item->strategy) ? RollHelper::roll([5]) : null; // TODO
 
         $this->broadcastAndStore([
             "portrait" => $sheet->portrait,
@@ -147,7 +147,7 @@ class RollController extends Controller {
         $targetId = (int) $request->input("target");
 
         $eye = $mysticEyesController->show($eyeId);
-        if ($eye == null) {
+        if (!isset($eye)) {
             return;
         }
 

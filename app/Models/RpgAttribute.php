@@ -10,10 +10,10 @@ class RpgAttribute extends Model
     /** @var bool */
     public $timestamps = false;
 
-    /** @var string */
+    /** @var ?string */
     protected $table = "attributes";
 
-    /** @var array<int, string> */
+    /** @var list<string> */
     protected $fillable = [
         "key",
         "value"
