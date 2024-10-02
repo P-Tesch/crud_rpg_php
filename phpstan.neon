@@ -13,3 +13,4 @@ parameters:
         - '#Construct empty\(\) is not allowed.*#'
         - '#Short ternary operator is not allowed.*#'
         - '#Call to function base64_decode\(\).*#'
+        - '#Dynamic call to static method Illuminate\\Http\\Request::validate\(\)#'

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
@@ -14,7 +15,7 @@ class LoginController extends Controller {
      * @return RedirectResponse
      */
     public function authenticate(Request $request) : RedirectResponse {
-        $credentials = Request::validate([
+        $credentials = $request->validate([
             'login' => ['required'],
             'password' => ['required'],
         ]);
