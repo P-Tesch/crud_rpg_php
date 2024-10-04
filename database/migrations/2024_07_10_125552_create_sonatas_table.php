@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('sonatas', function (Blueprint $table) {
             $table->id();
             $table->string("name", 63)->unique();
-            $table->string("description", 511);
+            $table->string("description", 2047);
         });
     }
 

@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('miracles', function (Blueprint $table) {
             $table->id();
             $table->string("name", 63);
-            $table->string("description", 511);
-            $table->string("strategy")->nullable();
+            $table->string("description", 2047);
+            $table->string("strategy", 2047)->nullable();
             $table->integer("cost");
         });
     }

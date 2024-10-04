@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->id();
             $table->string("name", 63);
-            $table->string("description", 511);
+            $table->string("description", 2047);
             $table->integer("damage")->nullable();
-            $table->string("strategy")->nullable();
+            $table->string("strategy", 2047)->nullable();
 
             $table->unsignedBigInteger("sheet_id");
             $table->foreign("sheet_id")->references("id")->on("sheets");

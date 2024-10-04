@@ -11,15 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sheets', function (Blueprint $table) {
+        Schema::create('bloods', function (Blueprint $table) {
             $table->id();
             $table->string("name", 63);
-            $table->binary("portrait");
-            $table->string("description", 511);
-            $table->text("background");
-            $table->integer("creation_points");
-            $table->string("alignment")->nullable();
-            $table->string("organization")->nullable();
+            $table->string("impulses", 2047);
+
+            $table->unsignedBigInteger("sheet_id");
+            $table->foreign("sheet_id")->references("id")->on("sheets");
         });
     }
 
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sheets');
+        Schema::dropIfExists('bloods');
     }
 };

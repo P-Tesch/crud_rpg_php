@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('systems', function (Blueprint $table) {
             $table->id();
             $table->string("name", 63);
-            $table->string("description");
-            $table->string("strategy_passive")->nullable();
-            $table->string("strategy_active")->nullable();
-            $table->string("strategy_burn")->nullable();
+            $table->string("description", 2047);
+            $table->string("strategy_passive", 2047)->nullable();
+            $table->string("strategy_active", 2047)->nullable();
+            $table->string("strategy_burn", 2047)->nullable();
             $table->integer("damage")->nullable();
         });
     }
