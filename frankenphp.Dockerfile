@@ -2,6 +2,8 @@ FROM dunglas/frankenphp:php8.3-alpine
 
 ARG USER=www-data
 
+COPY Caddyfile /etc/caddy/Caddyfile
+
 COPY . /var/www
 
 WORKDIR /var/www
