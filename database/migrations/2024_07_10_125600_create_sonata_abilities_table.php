@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('sonata_abilities', function (Blueprint $table) {
             $table->id();
             $table->string("name", 63);
-            $table->string("description", 511);
+            $table->string("description", 2047);
             $table->integer("level");
-            $table->integer("cost");
-            $table->string("strategy")->nullable();
+            $table->string("cost", 63);
+            $table->string("strategy", 2047)->nullable();
             $table->unsignedBigInteger("sonata_id");
         });
     }

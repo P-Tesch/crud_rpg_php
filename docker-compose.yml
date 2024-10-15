@@ -1,40 +1,59 @@
 services:
-    app:
-        container_name: main
+    frankenphp:
+        restart: always
         build:
+            dockerfile: frankenphp.Dockerfile
             context: .
-            target: development
-            args:
-                USER_ID: ${UID:-1000}
-                GROUP_ID: ${GID:-1000}
-        volumes:
-            - .:/var/www/html
         ports:
-            - "8080:8080"
-            - "8880:8880"
-            - ${VITE_PORT:-5173}:${VITE_PORT:-5173}
+            - "8000:8000"
+            - "5173:5173"
         networks:
             - app_network
-    #     depends_on:
-    #         - mysql
-    # mysql:
-    #     container_name: mysql
-    #     platform: linux/x86_64
-    #     image: mysql:5.7
-    #     ports:
-    #         - "3306:3306"
-    #     networks:
-    #         - app_network
-    #     volumes:
-    #         - 'mysql:/var/lib/mysql'
-    #     environment:
-    #         MYSQL_ROOT_PASSWORD: root
-    #         MYSQL_DATABASE: pricetable_db
-    #         MYSQL_USER: pricetable_user
-    #         MYSQL_PASSWORD: pricetable_password
+        env_file:
+            - .env
+        depends_on:
+            - pgsql
+            - redis
+        volumes:
+          - app:/var/www
+    pgsql:
+        container_name: pgsql
+        image: postgres:17-alpine3.20
+        ports:
+            - "5432:5432"
+        networks:
+            - app_network
+        volumes:
+            - 'pgsql:/var/lib/pgsql'
+        environment:
+            POSTGRES_DB: ${DB_DATABASE}
+            POSTGRES_USER: ${DB_USERNAME}
+            POSTGRES_PASSWORD: ${DB_PASSWORD}
+    redis:
+        container_name: redis
+        image: redis:7.4.1-alpine3.20
+        ports:
+            - "6379:6379"
+        networks:
+            - app_network
+    reverb:
+        build:
+            context: .
+            dockerfile: reverb.Dockerfile
+        container_name: reverb
+        ports:
+            - "8880:8880"
+        networks:
+            - app_network
+        depends_on:
+            - frankenphp
+        volumes:
+          - app:/var/www
 networks:
     app_network:
         driver: bridge
-# volumes:
-#     mysql:
-#         driver: local
+volumes:
+    pgsql:
+        driver: local
+    app:
+        driver: local

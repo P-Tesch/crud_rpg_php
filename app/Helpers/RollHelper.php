@@ -15,7 +15,7 @@ class RollHelper {
         $rolls = RollHelper::sumArray($modifiers);
 
         for ($i = 0; $i < $rolls; $i++) {
-            $result = fake()->numberBetween(1, 6);
+            $result = rand(1, 6);
             $results["rolls"][] = $result;
             $hits = $result >= 5 ? ++$hits : $hits;
         }

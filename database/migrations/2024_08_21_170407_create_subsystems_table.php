@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('subsystems', function (Blueprint $table) {
             $table->id();
             $table->string("name");
-            $table->string("description");
-            $table->string("strategy")->nullable();
-            $table->string("strategy_burn")->nullable();
+            $table->string("description", 2047);
+            $table->string("strategy", 2047)->nullable();
+            $table->string("strategy_burn", 2047)->nullable();
 
 
             $table->unsignedBigInteger("system_id");

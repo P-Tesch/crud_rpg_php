@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string("passive", 511)->nullable();
             $table->string("active", 511)->nullable();
             $table->integer("cooldown")->nullable();
-            $table->string("active_strategy")->nullable();
-            $table->string("passive_strategy")->nullable();
+            $table->string("active_strategy", 2047)->nullable();
+            $table->string("passive_strategy", 2047)->nullable();
             $table->integer("cost");
 
         });

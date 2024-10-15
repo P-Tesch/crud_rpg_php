@@ -21,7 +21,7 @@ return new class extends Migration
             $table->integer("sharpness");
             $table->boolean("double");
             $table->string("strategy")->nullable();
-            $table->string("description");
+            $table->string("description", 2047);
 
             $table->unsignedBigInteger("sheet_id");
             $table->foreign("sheet_id")->references("id")->on("sheets");
