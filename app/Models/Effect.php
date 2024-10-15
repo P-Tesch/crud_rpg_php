@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
@@ -17,13 +18,7 @@ class Effect extends Model
     protected $fillable = [
         "name",
         "description",
-        "remaining_duration",
-        "strategy"
-    ];
-
-    /** @var list<string> */
-    protected $hidden = [
-        "strategy"
+        "remaining_duration"
     ];
 
     /** @return BelongsToMany<Item> */
@@ -39,5 +34,10 @@ class Effect extends Model
     /** @return BelongsToMany<System> */
     public function systems() : BelongsToMany {
         return $this->belongsToMany(System::class)->withPivot("remaining_duration");
+    }
+
+    /** @return HasOne<Strategy> */
+    public function strategy() : HasOne {
+        return $this->hasOne(Strategy::class);
     }
 }

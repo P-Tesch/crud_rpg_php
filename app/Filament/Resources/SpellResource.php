@@ -3,6 +3,10 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\SpellResource\RelationManagers\SchoolsRelationManager;
+use App\Models\Effect;
+use Filament\Forms\Components\Builder;
+use Filament\Forms\Components\Builder\Block;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -48,8 +52,125 @@ class SpellResource extends Resource
                     ])
                     ->label("Tipo"),
 
-                TextInput::make("strategy")
-                        ->label("Estratégia")
+                Repeater::make("strategy")
+                    ->schema([
+                        Builder::make("tactic")
+                        ->blocks([
+                            Block::make("target")
+                                ->schema([
+                                    Select::make("type")
+                                        ->options([
+                                            "self" => "Usuário",
+                                            "single" => "Único",
+                                            "multiple" => "AOE"
+                                        ])
+                                        ->required()
+                                        ->label("Tipo de alvo")
+                                ])
+                                ->label("Alvo"),
+
+                            Block::make("effect")
+                                ->schema([
+                                    Select::make("effect")
+                                        ->options(Effect::all()->pluck("name", "id"))
+                                        ->preload()
+                                        ->searchable()
+                                        ->required(true)
+                                        ->label("Efeito"),
+
+                                    TextInput::make("duration")
+                                        ->numeric()
+                                        ->label("Duração")
+
+                                ])
+                                ->label("Efeito"),
+
+                            Block::make("damage")
+                                ->schema([
+                                    TextInput::make("value")
+                                        ->numeric()
+                                        ->required()
+                                        ->label("Valor")
+                                ])
+                                ->label("Dano"),
+
+                            Block::make("heal")
+                                ->schema([
+                                    TextInput::make("value")
+                                        ->numeric()
+                                        ->required()
+                                        ->label("valor")
+                                ])
+                                ->label("Cura"),
+
+                            Block::make("stat")
+                                ->schema([
+                                    Select::make("stat")
+                                        ->options([
+                                            "strength" => "Força",
+                                            "dexterity" => "Destreza",
+                                            "agility" => "Agilidade",
+                                            "endurance" => "Resistência",
+                                            "charisma" => "Carisma",
+                                            "perception" => "Percepção",
+                                            "intelligence" => "Inteligência",
+                                            "magic" => "Magia",
+                                            "tech" => "Tech",
+                                            "lineage" => "Linhagem",
+                                            "blood" => "Sangue",
+                                            "faith" => "Fé"
+                                        ])
+                                        ->required()
+                                        ->label("Estatística")
+                                ])
+                                ->label("Modificador de estatística"),
+
+                            Block::make("skill")
+                                ->schema([
+                                    Select::make("skill")
+                                        ->options([
+                                            "speed" => "Velocidade",
+                                            "acrobatics" => "Acrobacia",
+                                            "melee" => "Combate corpo a corpo",
+                                            "intimidation" => "Intimidação",
+                                            "ranged" => "Combate à distância",
+                                            "stealth" => "Furtividade",
+                                            "conscience" => "Consciência",
+                                            "investigation" => "Investigação",
+                                            "wisdom" => "Sabedoria",
+                                            "knowledge" => "Conhecimento",
+                                            "medicine" => "Medicina",
+                                            "survival" => "Sobrevivência",
+                                            "tenacity" => "Tenacidade",
+                                            "diplomacy" => "Diplomacia",
+                                            "insight" => "Perspicácia"
+                                        ])
+                                        ->required()
+                                        ->label("Habilidade")
+                                ])
+                                ->label("Modificador de habilidade"),
+
+                            Block::make("attribute")
+                                ->schema([
+                                    Select::make("attribute")
+                                        ->options([
+                                            "health" => "Vida",
+                                            "initiative" => "Iniciativa",
+                                            "movement" => "Movimento",
+                                            "mana" => "Mana",
+                                            "blood_points" => "Sangue",
+                                            "blood_xp_animal" => "Bxp (Animal)",
+                                            "blood_xp_human" => "Bxp (Humano)",
+                                            "blood_xp_vampire" => "Bxp (Vampiro)",
+                                            "circuits" => "Circuitos"
+                                        ])
+                                        ->required()
+                                        ->label("Atributo")
+                                ])
+                        ])
+                        ->label("Tática")
+                    ])
+                    ->label("Estratégia")
             ]);
     }
 
