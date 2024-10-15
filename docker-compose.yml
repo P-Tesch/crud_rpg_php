@@ -6,7 +6,6 @@ services:
             context: .
         ports:
             - "8000:8000"
-            - "8880:8880"
             - "5173:5173"
         networks:
             - app_network
@@ -15,6 +14,8 @@ services:
         depends_on:
             - pgsql
             - redis
+        volumes:
+          - app:/var/www
     pgsql:
         container_name: pgsql
         image: postgres:17-alpine3.20
@@ -35,9 +36,24 @@ services:
             - "6379:6379"
         networks:
             - app_network
+    reverb:
+        build:
+            context: .
+            dockerfile: reverb.Dockerfile
+        container_name: reverb
+        ports:
+            - "8880:8880"
+        networks:
+            - app_network
+        depends_on:
+            - frankenphp
+        volumes:
+          - app:/var/www
 networks:
     app_network:
         driver: bridge
 volumes:
     pgsql:
+        driver: local
+    app:
         driver: local

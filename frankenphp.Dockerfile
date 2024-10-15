@@ -17,6 +17,10 @@ RUN apk update \
     libxml2-dev \
     libzip-dev
 
+RUN apk add --no-cache pcre-dev $PHPIZE_DEPS \
+    && pecl install redis \
+    && docker-php-ext-enable redis.so
+
 RUN docker-php-ext-install \
     intl \
     pcntl \
