@@ -321,7 +321,6 @@ class DatabaseSeeder extends Seeder
                         "name" => $lineArray[0],
                         "description" => $lineArray[1],
                         "type" => $lineArray[2] ?? null,
-                        "strategy" => $lineArray[3] ?? null
                     ];
 
                     $spell = new Spell($spellArgs);

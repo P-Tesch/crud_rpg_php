@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Spell extends Model
 {
@@ -18,17 +19,16 @@ class Spell extends Model
     protected $fillable = [
         "name",
         "description",
-        "type",
-        "strategy"
-    ];
-
-    /** @var list<string> */
-    protected $hidden = [
-        "strategy"
+        "type"
     ];
 
     /** @return BelongsToMany<School> */
     public function schools() : BelongsToMany {
         return $this->belongsToMany(School::class);
+    }
+
+    /** @return HasOne<Strategy> */
+    public function strategy() : HasOne {
+        return $this->hasOne(Strategy::class);
     }
 }

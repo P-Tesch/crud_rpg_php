@@ -11,14 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('spells', function (Blueprint $table) {
+        Schema::create('strategies', function (Blueprint $table) {
             $table->id();
-            $table->string("name", 63);
-            $table->string("description", 2047);
-            $table->string("type")->nullable();
-
-            $table->unsignedBigInteger("strategy_id")->nullable();
-            $table->foreign("strategy_id")->references("id")->on("strategies");
+            $table->jsonb("value");
         });
     }
 
@@ -27,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('spells');
+        Schema::dropIfExists('strategies');
     }
 };
