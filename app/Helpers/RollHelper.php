@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Helpers;
+use App\Entities\SheetEntity;
 
 class RollHelper {
 
@@ -23,6 +24,21 @@ class RollHelper {
         $results["hits"] = $hits;
 
         return $results;
+    }
+
+    /**
+     * Applies a $strategy to a $user and it's $targets
+     * @param array<string, mixed> $strategy
+     * @param SheetEntity $user
+     * @param list<SheetEntity> $targets
+     * @param int $modifier
+     * @param int $difficulty
+     * @return void
+     */
+    public static function proccessStrategy(array $strategy, SheetEntity $user, array $targets, int $modifier, int $difficulty) : void {
+        foreach ($strategy as $tactic) {
+
+        }
     }
 
     /**

@@ -4,23 +4,25 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Strategy extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $fillable = [
         "value"
     ];
 
-    /** @return BelongsTo<Spell, Strategy> */
-    public function Spell() : BelongsTo {
-        return $this->belongsTo(Spell::class);
+    /** @return HasOne<Spell, Strategy> */
+    public function Spell() : HasOne {
+        return $this->hasOne(Spell::class);
     }
 
-    /** @return BelongsTo<Effect, Strategy> */
-    public function Effect() : BelongsTo {
-        return $this->belongsTo(Effect::class);
+    /** @return HasOne<Effect, Strategy> */
+    public function Effect() : HasOne {
+        return $this->hasOne(Effect::class);
     }
 }
