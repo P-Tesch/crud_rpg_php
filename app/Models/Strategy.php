@@ -2,14 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Strategy extends Model
 {
-    use HasFactory;
-
     public $timestamps = false;
 
     protected $fillable = [
@@ -23,12 +20,12 @@ class Strategy extends Model
         ];
     }
 
-    /** @return HasOne<Spell, Strategy> */
+    /** @return HasOne<Spell> */
     public function Spell() : HasOne {
         return $this->hasOne(Spell::class);
     }
 
-    /** @return HasOne<Effect, Strategy> */
+    /** @return HasOne<Effect> */
     public function Effect() : HasOne {
         return $this->hasOne(Effect::class);
     }

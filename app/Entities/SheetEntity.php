@@ -14,6 +14,7 @@ use App\Models\MysticEye;
 use App\Models\Scripture;
 use App\Enums\Organization;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\EffectController;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\SystemController;
 use App\Http\Controllers\SonatasController;
@@ -190,6 +191,11 @@ class SheetEntity {
             ];
         }
 
+        $this->effects = [];
+        foreach ($args["effects"] as $effect) {
+            $this->effects[] = EffectController::findByName($effect->name);
+        }
+
         $this->setClasses();
 
     }
@@ -221,6 +227,7 @@ class SheetEntity {
         $this->blood = $sheet->blood;
         $this->items = $sheet->items->toArray();
         $this->miracles = $sheet->miracles->toArray();
+        $this->effects = $sheet->effects->toArray();
         $this->scripture = $sheet->scripture;
         if (isset($this->scripture) && isset($sheet->scripture)) {
             $this->scripture->scriptureAbilities = !is_array($sheet->scripture->scriptureAbilities) ? $sheet->scripture->scriptureAbilities->toArray() : $sheet->scripture->scriptureAbilities;
@@ -363,6 +370,14 @@ class SheetEntity {
                 $attribute->save();
             }
         }
+
+        $effects = [];
+        $pivots = [];
+        foreach ($this->effects as $effect) {
+            $effects[] = $effect->id;
+            $pivots[] = $effect->pivot_remaining_duration;
+        }
+        $model->effects()->syncWithPivotValues($effects, $pivots, true);
 
         $schools = [];
         foreach ($this->schools as $school) {

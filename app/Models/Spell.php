@@ -31,7 +31,7 @@ class Spell extends Model
         return $this->belongsToMany(School::class);
     }
 
-    /** @return BelongsTo<Strategy> */
+    /** @return BelongsTo<Strategy, Spell> */
     public function strategy() : BelongsTo {
         return $this->belongsTo(Strategy::class);
     }

@@ -38,7 +38,7 @@ class StrategyBuilder {
                     Block::make("effect")
                         ->schema([
                             Select::make("effect")
-                                ->options(Effect::all()->pluck("name", "id"))
+                                ->options(Effect::all(["name", "id"]))
                                 ->preload()
                                 ->searchable()
                                 ->required(true)
@@ -56,12 +56,12 @@ class StrategyBuilder {
 
                             TextInput::make("fixedValue")
                                 ->numeric()
-                                ->hidden(fn (Get $get) => $get("effectPowerType") !== "fixed" || $get("effectPowerType") === null)
+                                ->hidden(fn (Get $get) => $get("effectPowerType") !== "fixed")
                                 ->required(fn (Component $component) => !$component->isHidden())
                                 ->label("Valor"),
 
                             Select::make("elementValue")
-                                ->hidden(fn (Get $get) => ($get("effectPowerType") !== "element" && $get("effectPowerType") !== "elementRoll") || $get("effectPowerType") === null)
+                                ->hidden(fn (Get $get) => ($get("effectPowerType") !== "element" && $get("effectPowerType") !== "elementRoll"))
                                 ->required(fn (Component $component) => !$component->isHidden())
                                 ->label("Elemento"),
 
@@ -87,12 +87,12 @@ class StrategyBuilder {
 
                             TextInput::make("fixedValue")
                                 ->numeric()
-                                ->hidden(fn (Get $get) => $get("effectDurationType") !== "fixed" || $get("effectDurationType") === null)
+                                ->hidden(fn (Get $get) => $get("effectDurationType") !== "fixed")
                                 ->required(fn (Component $component) => !$component->isHidden())
                                 ->label("Valor"),
 
                             Select::make("elementValue")
-                                ->hidden(fn (Get $get) => ($get("effectDurationType") !== "element" && $get("effectDurationType") !== "elementRoll") || $get("effectDurationType") === null)
+                                ->hidden(fn (Get $get) => ($get("effectDurationType") !== "element" && $get("effectDurationType") !== "elementRoll"))
                                 ->required(fn (Component $component) => !$component->isHidden())
                                 ->label("Elemento"),
 
@@ -123,12 +123,12 @@ class StrategyBuilder {
 
                             TextInput::make("fixedValue")
                                 ->numeric()
-                                ->hidden(fn (Get $get) => $get("damageType") !== "fixed" || $get("damageType") === null)
+                                ->hidden(fn (Get $get) => $get("damageType") !== "fixed")
                                 ->required(fn (Component $component) => !$component->isHidden())
                                 ->label("Valor"),
 
                             Select::make("elementValue")
-                                ->hidden(fn (Get $get) => ($get("damageType") !== "element" && $get("damageType") !== "elementRoll") || $get("damageType") === null)
+                                ->hidden(fn (Get $get) => ($get("damageType") !== "element" && $get("damageType") !== "elementRoll"))
                                 ->required(fn (Component $component) => !$component->isHidden())
                                 ->label("Elemento"),
 
@@ -158,12 +158,12 @@ class StrategyBuilder {
 
                             TextInput::make("fixedValue")
                                 ->numeric()
-                                ->hidden(fn (Get $get) => $get("healType") !== "fixed" || $get("healType") === null)
+                                ->hidden(fn (Get $get) => $get("healType") !== "fixed")
                                 ->required(fn (Component $component) => !$component->isHidden())
                                 ->label("Valor"),
 
                             Select::make("elementValue")
-                                ->hidden(fn (Get $get) => ($get("healType") !== "element" && $get("healType") !== "elementRoll") || $get("healType") === null)
+                                ->hidden(fn (Get $get) => ($get("healType") !== "element" && $get("healType") !== "elementRoll"))
                                 ->required(fn (Component $component) => !$component->isHidden())
                                 ->label("Elemento"),
 
@@ -228,12 +228,12 @@ class StrategyBuilder {
 
                                     TextInput::make("fixedAmount")
                                         ->numeric()
-                                        ->hidden(fn (Get $get) => $get("amountType") !== "fixed" || $get("amountType") === null)
+                                        ->hidden(fn (Get $get) => $get("amountType") !== "fixed")
                                         ->required(fn (Component $component) => !$component->isHidden())
                                         ->label("Quantidade de dados (Fixo)"),
 
                                     Select::make("targetAmount")
-                                        ->hidden(fn (Get $get) => $get("amountType") !== "target" || $get("amountType") === null)
+                                        ->hidden(fn (Get $get) => $get("amountType") !== "target")
                                         ->required(fn (Component $component) => !$component->isHidden())
                                         ->options([
                                             array_merge(self::getSkills(), self::getStats())
@@ -241,7 +241,7 @@ class StrategyBuilder {
                                         ->label("Alvo"),
 
                                     Select::make("userAmount")
-                                        ->hidden(fn (Get $get) => $get("amountType") !== "user" || $get("amountType") === null)
+                                        ->hidden(fn (Get $get) => $get("amountType") !== "user")
                                         ->required(fn (Component $component) => !$component->isHidden())
                                         ->options([
                                             array_merge(self::getSkills(), self::getStats())
@@ -265,12 +265,12 @@ class StrategyBuilder {
 
                             TextInput::make("fixedTarget")
                                 ->numeric()
-                                ->hidden(fn (Get $get) => $get("targetType") !== "fixed" || $get("targetType") === null)
+                                ->hidden(fn (Get $get) => $get("targetType") !== "fixed")
                                 ->required(fn (Component $component) => !$component->isHidden())
                                 ->label("Quantidade de dados (Fixo)"),
 
                             Select::make("targetTarget")
-                                ->hidden(fn (Get $get) => $get("targetType") !== "target" || $get("targetType") === null)
+                                ->hidden(fn (Get $get) => $get("targetType") !== "target")
                                 ->required(fn (Component $component) => !$component->isHidden())
                                 ->options([
                                     array_merge(self::getSkills(), self::getStats())
@@ -278,7 +278,7 @@ class StrategyBuilder {
                                 ->label("Alvo"),
 
                             Select::make("userTarget")
-                                ->hidden(fn (Get $get) => $get("targetType") !== "user" || $get("targetType") === null)
+                                ->hidden(fn (Get $get) => $get("targetType") !== "user")
                                 ->required(fn (Component $component) => !$component->isHidden())
                                 ->options([
                                     array_merge(self::getSkills(), self::getStats())
@@ -294,6 +294,9 @@ class StrategyBuilder {
             ->label("Estratégia");
     }
 
+    /**
+     * @return array<string, string>
+     */
     private static function getStats() : array {
         return [
             "strength" => "Força",
@@ -311,6 +314,9 @@ class StrategyBuilder {
         ];
     }
 
+    /**
+     * @return array<string, string>
+     */
     private static function getSkills() : array {
         return [
             "speed" => "Velocidade",
@@ -331,6 +337,9 @@ class StrategyBuilder {
         ];
     }
 
+    /**
+     * @return array<string, string>
+     */
     private static function getAttributes() : array {
         return [
             "health" => "Vida",

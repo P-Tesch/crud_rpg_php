@@ -60,8 +60,9 @@ class EditSpell extends EditRecord
     }
 
     protected function handleRecordUpdate(Model $record, array $data): Model {
+        /** @var \App\Models\Spell $record */
         if (isset($record->strategy_id)) {
-            Strategy::find($record->strategy_id)->update([
+            Strategy::findOrFail($record->strategy_id)->update([
                 "value" => json_encode($data["strategy"]["value"])
             ]);
         } else {

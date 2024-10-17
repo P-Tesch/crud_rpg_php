@@ -68,12 +68,13 @@ class RollController extends Controller {
         $schoolString = $request->input("school");
 
         $sheet = SheetEntity::buildFromModel($sheetController->showAsModel($request));
-        //$recoilRoll = $this->rollRecoil($sheet, $cost);
+        $recoilRoll = $this->rollRecoil($sheet, $cost);
 
         $spell = $sheet->schools[$schoolString]["spells"][$spellString];
 
         $targets = [];
-        RollHelper::proccessStrategy($spell["strategy"], $sheet, $targets, $cost, 0, 2);
+        $spellRoll = RollHelper::processStrategy($spell["strategy"], $sheet, $targets, $cost, 0, 2);
+        $specificRoll = null; // TODO
 
         $sheet->update($sheetController->showFromId($sheet->id));
 
@@ -88,7 +89,7 @@ class RollController extends Controller {
             "rolls" => [
                 "recoil" => $recoilRoll["roll"],
                 "success" => $spellRoll,
-                "specific" => $specificRoll ?? null
+                "specific" => $specificRoll
                 ]
             ]
         );
