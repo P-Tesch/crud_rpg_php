@@ -16,6 +16,35 @@ class ListSpells extends ListRecords
     {
         return [
             CreateAction::make()
+                ->mutateFormDataUsing(function (array $data) : array {
+                    $formattedTactics = [];
+
+                    foreach ($data["strategy"]["value"] as $tactic) {
+                    $formattedTactic = [];
+
+                        foreach ($tactic as $block) {
+                            switch ($block["type"]) {
+                                case "target":
+                                    $formattedTactic["target"] = $block["data"]["type"];
+                                    break;
+                                case "check":
+                                    $formattedTactic["check"] = [
+                                        "checkAmount" => $block["data"]["checkAmount"],
+                                        "checkTarget" => $block["data"]["checkTarget"],
+                                    ];
+                                    break;
+                                case "damage":
+                                    $formattedTactic["damage"] = $block["data"];
+                                    break;
+                                case "effect":
+                                    $formattedTactic["effect"] = $block["data"];
+                            }
+                        }
+                        $formattedTactics[] = $formattedTactic;
+                    }
+
+                    return ["tactics" => $formattedTactics];
+                })
                 ->using(function (array $data): Model {
                     $strategy = new Strategy([
                         "value" => json_encode($data["strategy"]["value"])

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Filament\Components;
+
 use App\Models\Effect;
 use Filament\Forms\Get;
 use Filament\Forms\Components\Field;
@@ -17,8 +18,11 @@ class StrategyBuilder {
         return Repeater::make("strategy.value")
             ->schema([
                 Builder::make("tactic")
+                ->blockNumbers(false)
+                ->collapsible()
                 ->blocks([
                     Block::make("target")
+                        ->key("target")
                         ->schema([
                             Select::make("type")
                                 ->options([
@@ -61,12 +65,12 @@ class StrategyBuilder {
                                 ->required(fn (Component $component) => !$component->isHidden())
                                 ->label("Elemento"),
 
-                            TextInput::make("modifierAdd")
+                            TextInput::make("modifierAddPower")
                                 ->numeric()
                                 ->default(0)
                                 ->label("Modificador final (Aditivo)"),
 
-                            TextInput::make("modifierMultiply")
+                            TextInput::make("modifierMultiplyPower")
                                 ->numeric()
                                 ->default(1)
                                 ->label("Modificador final (Multiplicativo)"),
@@ -92,12 +96,12 @@ class StrategyBuilder {
                                 ->required(fn (Component $component) => !$component->isHidden())
                                 ->label("Elemento"),
 
-                            TextInput::make("modifierAdd")
+                            TextInput::make("modifierAddDuration")
                                 ->numeric()
                                 ->default(0)
                                 ->label("Modificador final (Aditivo)"),
 
-                            TextInput::make("modifierMultiply")
+                            TextInput::make("modifierMultiplyDuration")
                                 ->numeric()
                                 ->default(1)
                                 ->label("Modificador final (Multiplicativo)"),
@@ -280,11 +284,10 @@ class StrategyBuilder {
                                     array_merge(self::getSkills(), self::getStats())
                                 ])
                                 ->label("Usuário")
-                                ])
-                                ->label("Alvos de rolagem")
+                            ])
+                            ->label("Alvos de rolagem")
                         ])
                         ->label("Checagem")
-
                 ])
                 ->label("Tática")
             ])

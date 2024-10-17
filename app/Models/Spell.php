@@ -16,19 +16,15 @@ class Spell extends Model
     public $timestamps = false;
 
     /** @var list<string> */
+    protected $with = ["strategy"];
+
+    /** @var list<string> */
     protected $fillable = [
         "name",
         "description",
         "type",
         "strategy_id"
     ];
-
-    /** @return array<string, string> */
-    protected function casts() : array {
-        return [
-            "strategy" => "array"
-        ];
-    }
 
     /** @return BelongsToMany<School> */
     public function schools() : BelongsToMany {

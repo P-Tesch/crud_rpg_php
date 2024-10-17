@@ -68,24 +68,12 @@ class RollController extends Controller {
         $schoolString = $request->input("school");
 
         $sheet = SheetEntity::buildFromModel($sheetController->showAsModel($request));
-        $recoilRoll = $this->rollRecoil($sheet, $cost);
+        //$recoilRoll = $this->rollRecoil($sheet, $cost);
 
         $spell = $sheet->schools[$schoolString]["spells"][$spellString];
 
-        switch ($spell["type"]) {
-            case SpellTypes::PROJECTILE:
-                $spellRoll = RollHelper::roll([$sheet->skills["ranged"], $sheet->stats["magic"]]);
-                break;
-            case SpellTypes::DIRECT:
-                $spellRoll = RollHelper::roll([$sheet->stats["magic"]]);
-                break;
-            default:
-                $spellRoll = null;
-        }
-
-        if (isset($spell["strategy"])) {
-            $specificRoll = RollHelper::roll(eval($spell->strategy));
-        }
+        $targets = [];
+        RollHelper::proccessStrategy($spell["strategy"], $sheet, $targets, $cost, 0, 2);
 
         $sheet->update($sheetController->showFromId($sheet->id));
 

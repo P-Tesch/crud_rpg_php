@@ -19,6 +19,45 @@ class EditSpell extends EditRecord
         ];
     }
 
+    protected function mutateFormDataBeforeSave(array $data): array {
+        $formattedTactics = [];
+
+        foreach ($data["strategy"]["value"] as $tactics) {
+            $formattedTactic = [];
+
+            foreach ($tactics as $tactic) {
+
+                foreach ($tactic as $block) {
+
+                    switch ($block["type"]) {
+                        case "target":
+                            $formattedTactic["target"] = $block["data"]["type"];
+                            break;
+                        case "check":
+                            $formattedTactic["check"] = [
+                                "checkAmount" => $block["data"]["checkAmount"],
+                                "checkTarget" => $block["data"]["checkTarget"],
+                            ];
+                            break;
+                        case "damage":
+                            $formattedTactic["damage"] = $block["data"];
+                            break;
+                        case "effect":
+                            $formattedTactic["effect"] = $block["data"];
+                    }
+                }
+            }
+            $formattedTactics[] = $formattedTactic;
+        }
+
+        return [
+            "strategy" => [
+                "value" => [
+                    "tactics" => $formattedTactics
+                ]
+            ]
+        ];
+    }
 
     protected function handleRecordUpdate(Model $record, array $data): Model {
         if (isset($record->strategy_id)) {

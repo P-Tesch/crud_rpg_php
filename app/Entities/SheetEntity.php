@@ -5,6 +5,7 @@ namespace App\Entities;
 use App\Models\Item;
 use App\Models\Blood;
 use App\Models\Sheet;
+use App\Models\Effect;
 use App\Models\Miracle;
 use App\Enums\Alignment;
 use App\Enums\SpellTypes;
@@ -72,6 +73,9 @@ class SheetEntity {
 
     /** @var array<int, Item> */
     public array $items;
+
+    /** @var array<int, Effect> */
+    public array $effects;
 
     /** @var array<int, Miracle> */
     public array $miracles;
@@ -150,7 +154,7 @@ class SheetEntity {
                 $spells[$spell->name] = [
                     "type" => SpellTypes::tryFrom($spell->type ?? ""),
                     "description" => $spell->description,
-                    "strategy" => $spell->strategy
+                    "strategy" => $spell->strategy?->value
                 ];
             }
             $this->schools[$schoolModel->name] = ["id" => $schoolModel->id, "level" => $schoolModel->level, "cost" => $schoolModel->cost, "spells" => $spells];
@@ -245,7 +249,7 @@ class SheetEntity {
                 $spells[$spell->name] = [
                     "type" => SpellTypes::tryFrom($spell->type ?? ""),
                     "description" => $spell->description,
-                    "strategy" => $spell->strategy
+                    "strategy" => $spell->strategy?->value
                 ];
             }
             $this->schools[$school->name] = ["id" => $school->id, "level" => $school->level, "spells" => $spells, "cost" => $school->cost];

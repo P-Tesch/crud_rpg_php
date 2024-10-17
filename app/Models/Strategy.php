@@ -16,6 +16,13 @@ class Strategy extends Model
         "value"
     ];
 
+    /** @return array<string, string> */
+    protected function casts() : array {
+        return [
+            "value" => "array"
+        ];
+    }
+
     /** @return HasOne<Spell, Strategy> */
     public function Spell() : HasOne {
         return $this->hasOne(Spell::class);
