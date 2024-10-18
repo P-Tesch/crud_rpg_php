@@ -140,11 +140,19 @@ class RollController extends Controller {
             return;
         }
 
-        $sheet = SheetEntity::buildFromModel($sheetController->showAsModel($request));
-        $target = SheetEntity::buildFromModel($sheetController->showFromId($targetId));
+        $userModel = $sheetController->showAsModel($request);
+        $targetModel = $sheetController->showFromId($targetId);
 
-        // TODO: #2 Roll from strategy and apply effects to $target
-        $roll = RollHelper::roll([5]); // Placeholder
+        $sheet = SheetEntity::buildFromModel($userModel);
+        $target = SheetEntity::buildFromModel($targetModel);
+
+        $targets = [&$target];
+
+        $roll = RollHelper::processStrategy(json_decode($eye->active_strategy->value, true), $sheet, $targets);
+        $userRoll = $roll["user"];
+
+        $sheet->update($userModel);
+        $target->update($targetModel);
 
         $this->broadcastAndStore([
             "portrait" => $sheet->portrait,
@@ -154,7 +162,7 @@ class RollController extends Controller {
             "name" => $sheet->name,
             "target" => $target->name,
             "rolls" => [
-                "mystic_eye" => $roll
+                "mystic_eye" => $userRoll
                 ]
             ]
         );

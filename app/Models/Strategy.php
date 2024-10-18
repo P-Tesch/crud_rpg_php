@@ -7,8 +7,10 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Strategy extends Model
 {
+    /** @var bool */
     public $timestamps = false;
 
+    /** @var list<string> */
     protected $fillable = [
         "value"
     ];
@@ -28,5 +30,10 @@ class Strategy extends Model
     /** @return HasOne<Effect> */
     public function Effect() : HasOne {
         return $this->hasOne(Effect::class);
+    }
+
+    /** @return HasOne<MysticEye> */
+    public function MysticEye() : HasOne {
+        return $this->hasOne(MysticEye::class);
     }
 }

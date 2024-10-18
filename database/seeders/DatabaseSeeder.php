@@ -141,8 +141,7 @@ class DatabaseSeeder extends Seeder
                     (new Miracle([
                         "name" => $lineArray[0],
                         "description" => $lineArray2[0],
-                        "cost" => (int) str_replace(")", "", $lineArray2[1]),
-                        "strategy" => null
+                        "cost" => (int) str_replace(")", "", $lineArray2[1])
                     ]))->save();
             }
         }
@@ -208,7 +207,6 @@ class DatabaseSeeder extends Seeder
                         "description" => $lineArray[1],
                         "level" => null,
                         "cost" => null,
-                        "strategy" => null,
                         "sonata_id" => $lastSonata->id
                     ]);
             }

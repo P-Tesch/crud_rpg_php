@@ -19,15 +19,7 @@ class Subsystem extends Model
     protected $fillable = [
         "name",
         "description",
-        "system_id",
-        "strategy",
-        "strategy_burn"
-    ];
-
-    /** @var list<string> */
-    protected $hidden = [
-        "strategy",
-        "strategy_burn"
+        "system_id"
     ];
 
     /** @return BelongsToMany<Sheet> */
@@ -38,5 +30,20 @@ class Subsystem extends Model
     /** @return BelongsTo<System, Subsystem> */
     public function system() : BelongsTo {
         return $this->belongsTo(System::class);
+    }
+
+    /** @return BelongsTo<Strategy, Subsystem> */
+    public function passive_strategy() : BelongsTo {
+        return $this->belongsTo(Strategy::class);
+    }
+
+    /** @return BelongsTo<Strategy, Subsystem> */
+    public function active_strategy() : BelongsTo {
+        return $this->belongsTo(Strategy::class);
+    }
+
+    /** @return BelongsTo<Strategy, Subsystem> */
+    public function burn_strategy() : BelongsTo {
+        return $this->belongsTo(Strategy::class);
     }
 }

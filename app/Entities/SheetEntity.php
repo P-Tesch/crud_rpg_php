@@ -227,7 +227,7 @@ class SheetEntity {
         $this->blood = $sheet->blood;
         $this->items = $sheet->items->toArray();
         $this->miracles = $sheet->miracles->toArray();
-        $this->effects = $sheet->effects->toArray();
+        $this->effects = $sheet->effects->all();
         $this->scripture = $sheet->scripture;
         if (isset($this->scripture) && isset($sheet->scripture)) {
             $this->scripture->scriptureAbilities = !is_array($sheet->scripture->scriptureAbilities) ? $sheet->scripture->scriptureAbilities->toArray() : $sheet->scripture->scriptureAbilities;
@@ -372,12 +372,10 @@ class SheetEntity {
         }
 
         $effects = [];
-        $pivots = [];
         foreach ($this->effects as $effect) {
-            $effects[] = $effect->id;
-            $pivots[] = $effect->pivot_remaining_duration;
+            $effects[$effect->id] = ["remaining_duration" => $effect->pivot_remaining_duration, "power" => $effect->pivot_power];
         }
-        $model->effects()->syncWithPivotValues($effects, $pivots, true);
+        $model->effects()->sync($effects, true);
 
         $schools = [];
         foreach ($this->schools as $school) {

@@ -14,8 +14,8 @@ use Filament\Forms\Components\Builder\Block;
 
 class StrategyBuilder {
 
-    public static function make() : Field {
-        return Repeater::make("strategy.value")
+    public static function make(string $name, string $label) : Field {
+        return Repeater::make($name . ".value")
             ->schema([
                 Builder::make("tactic")
                 ->blockNumbers(false)
@@ -38,7 +38,7 @@ class StrategyBuilder {
                     Block::make("effect")
                         ->schema([
                             Select::make("effect")
-                                ->options(Effect::all(["name", "id"]))
+                                ->options(Effect::pluck("name", "id"))
                                 ->preload()
                                 ->searchable()
                                 ->required(true)
@@ -52,7 +52,7 @@ class StrategyBuilder {
                                     "elementRoll" => "Elemento (Rolagem)",
                                     "modifier" => "Modificador"
                                 ])
-                                ->label("Tipo"),
+                                ->label("Tipo (Força)"),
 
                             TextInput::make("fixedValue")
                                 ->numeric()
@@ -83,7 +83,7 @@ class StrategyBuilder {
                                     "elementRoll" => "Elemento (Rolagem)",
                                     "modifier" => "Modificador"
                                 ])
-                                ->label("Tipo"),
+                                ->label("Tipo (Duração)"),
 
                             TextInput::make("fixedValue")
                                 ->numeric()
@@ -291,7 +291,7 @@ class StrategyBuilder {
                 ])
                 ->label("Tática")
             ])
-            ->label("Estratégia");
+            ->label($label);
     }
 
     /**

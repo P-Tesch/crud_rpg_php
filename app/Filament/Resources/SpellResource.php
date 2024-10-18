@@ -50,7 +50,7 @@ class SpellResource extends Resource
                     ])
                     ->label("Tipo"),
 
-                StrategyBuilder::make()
+                StrategyBuilder::make("strategy", "Estratégia")
             ]);
     }
 

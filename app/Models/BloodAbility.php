@@ -16,13 +16,13 @@ class BloodAbility extends Model
         "description"
     ];
 
-    /** @var list<string> */
-    protected $hidden = [
-        "strategy"
-    ];
-
     /** @return BelongsTo<Blood, BloodAbility> */
     public function blood() : BelongsTo {
         return $this->belongsTo(Blood::class);
+    }
+
+    /** @return BelongsTo<Strategy, BloodAbility> */
+    public function strategy() : BelongsTo {
+        return $this->belongsTo(Strategy::class);
     }
 }

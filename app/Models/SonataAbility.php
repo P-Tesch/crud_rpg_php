@@ -20,17 +20,17 @@ class SonataAbility extends Model
         "description",
         "level",
         "cost",
-        "sonata_id",
-        "strategy"
+        "sonata_id"
     ];
 
-    /** @var list<string> */
-    protected $hidden = [
-        "strategy"
-    ];
 
     /** @return BelongsTo<Sonata, SonataAbility> */
     public function sonata() : BelongsTo {
         return $this->belongsTo(Sonata::class);
+    }
+
+    /** @return BelongsTo<Strategy, SonataAbility> */
+    public function strategy() : BelongsTo {
+        return $this->belongsTo(Strategy::class);
     }
 }

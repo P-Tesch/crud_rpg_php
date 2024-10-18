@@ -2,6 +2,7 @@
 
 namespace App\Helpers;
 use App\Entities\SheetEntity;
+use App\Models\Effect;
 
 class RollHelper {
 
@@ -34,7 +35,7 @@ class RollHelper {
      * @param int $subject
      * @param int $modifier
      * @param int $difficulty
-     * @return array<int | string, mixed>
+     * @return array<string, array<int | string, int>>
      */
     public static function processStrategy(array $strategy, SheetEntity &$user, array &$targets, int $subject = 0, int $modifier = 0, int $difficulty= 0) : array {
         $targets[] = $user;
@@ -61,9 +62,9 @@ class RollHelper {
                 }
 
                 $checkTargetDice += match ($checkTarget["targetType"]) {
-                    "user" => array_key_exists($checkTarget["userAmount"], $user->skills) ? $user->skills[$checkTarget["userAmount"]] : $user->stats[$checkTarget["userAmount"]],
-                    "fixed" => $checkTarget["fixedAmount"],
-                    "target" => array_key_exists($checkTarget["targetAmount"], $target->skills) ? $target->skills[$checkTarget["targetAmount"]] : $target->stats[$checkTarget["targetAmount"]],
+                    "user" => array_key_exists($checkTarget["userTarget"], $user->skills) ? $user->skills[$checkTarget["userTarget"]] : $user->stats[$checkTarget["userTarget"]],
+                    "fixed" => $checkTarget["fixedTarget"],
+                    "target" => array_key_exists($checkTarget["targetTarget"], $target->skills) ? $target->skills[$checkTarget["targetTarget"]] : $target->stats[$checkTarget["targetTarget"]],
                     "difficulty" => $difficulty,
                     default => throw new \InvalidArgumentException("Invalid check type")
                 };
@@ -110,12 +111,28 @@ class RollHelper {
                 }
 
                 if (array_key_exists("effect", $tactic)) {
-                    // TODO
+                    $effect = Effect::findOrFail($tactic["effect"]["effect"]);
+
+                    $effect->pivot_power = (int) floor(match ($tactic["effect"]["effectPowerType"]) {
+                        //TODO
+                        default => 0
+                    } * $tactic["effect"]["modifierMultiplyPower"] + $tactic["effect"]["modifierAddPower"]);
+
+                    $effect->pivot_remaining_duration = (int) floor(match ($tactic["effect"]["effectDurationType"]) {
+                        //TODO
+                        default => 0
+                    } * $tactic["effect"]["modifierMultiplyDuration"] + $tactic["effect"]["modifierAddDuration"]);
+
+                    $effects = array_filter($target->effects, fn (Effect $original) => $original->name === $effect->name && ($original->pivot_power >= $effect->pivot_power || $original->pivot_remaining_duration >= $effect->pivot_remaining_duration));
+
+                    $effects[] = $effect;
+
+                    $target->effects = $effects;
                 }
             }
         }
 
-        return $userRoll;
+        return ["user" => $userRoll, "target" => $targetRoll];
     }
 
     /**

@@ -16,10 +16,11 @@ return new class extends Migration
             $table->string("name", 63);
             $table->string("description", 2047);
             $table->integer("level");
-            $table->string("strategy", 2047)->nullable();
             $table->integer("cost");
             $table->string("class")->nullable();
 
+            $table->unsignedBigInteger("strategy_id")->nullable();
+            $table->foreign("strategy_id")->references("id")->on("strategies");
         });
     }
 
