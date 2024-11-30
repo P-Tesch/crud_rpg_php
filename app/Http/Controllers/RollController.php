@@ -72,20 +72,9 @@ class RollController extends Controller {
 
         $spell = $sheet->schools[$schoolString]["spells"][$spellString];
 
-        switch ($spell["type"]) {
-            case SpellTypes::PROJECTILE:
-                $spellRoll = RollHelper::roll([$sheet->skills["ranged"], $sheet->stats["magic"]]);
-                break;
-            case SpellTypes::DIRECT:
-                $spellRoll = RollHelper::roll([$sheet->stats["magic"]]);
-                break;
-            default:
-                $spellRoll = null;
-        }
-
-        if (isset($spell["strategy"])) {
-            $specificRoll = RollHelper::roll(eval($spell->strategy));
-        }
+        $targets = [];
+        $spellRoll = RollHelper::processStrategy($spell["strategy"], $sheet, $targets, $cost, 0, 2);
+        $specificRoll = null; // TODO
 
         $sheet->update($sheetController->showFromId($sheet->id));
 
@@ -100,7 +89,7 @@ class RollController extends Controller {
             "rolls" => [
                 "recoil" => $recoilRoll["roll"],
                 "success" => $spellRoll,
-                "specific" => $specificRoll ?? null
+                "specific" => $specificRoll
                 ]
             ]
         );
@@ -151,11 +140,19 @@ class RollController extends Controller {
             return;
         }
 
-        $sheet = SheetEntity::buildFromModel($sheetController->showAsModel($request));
-        $target = SheetEntity::buildFromModel($sheetController->showFromId($targetId));
+        $userModel = $sheetController->showAsModel($request);
+        $targetModel = $sheetController->showFromId($targetId);
 
-        // TODO: #2 Roll from strategy and apply effects to $target
-        $roll = RollHelper::roll([5]); // Placeholder
+        $sheet = SheetEntity::buildFromModel($userModel);
+        $target = SheetEntity::buildFromModel($targetModel);
+
+        $targets = [&$target];
+
+        $roll = RollHelper::processStrategy(json_decode($eye->active_strategy->value, true), $sheet, $targets);
+        $userRoll = $roll["user"];
+
+        $sheet->update($userModel);
+        $target->update($targetModel);
 
         $this->broadcastAndStore([
             "portrait" => $sheet->portrait,
@@ -165,7 +162,7 @@ class RollController extends Controller {
             "name" => $sheet->name,
             "target" => $target->name,
             "rolls" => [
-                "mystic_eye" => $roll
+                "mystic_eye" => $userRoll
                 ]
             ]
         );

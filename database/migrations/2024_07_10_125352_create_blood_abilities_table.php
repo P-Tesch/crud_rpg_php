@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string("name", 63);
             $table->text("description");
-            $table->string("strategy", 2047)->nullable();
+
+            $table->unsignedBigInteger("strategy_id")->nullable();
+            $table->foreign("strategy_id")->references("id")->on("strategies");
 
             $table->unsignedBigInteger("blood_id");
             $table->foreign("blood_id")->references("id")->on("bloods");

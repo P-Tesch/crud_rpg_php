@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class System extends Model
 {
@@ -19,17 +20,7 @@ class System extends Model
     protected $fillable = [
         "name",
         "description",
-        "damage",
-        "strategy_passive",
-        "strategy_active",
-        "strategy_burn"
-    ];
-
-    /** @var list<string> */
-    protected $hidden = [
-        "strategy_passive",
-        "strategy_active",
-        "strategy_burn"
+        "damage"
     ];
 
     /** @return BelongsToMany<Sheet> */
@@ -45,5 +36,20 @@ class System extends Model
     /** @return HasMany<Subsystem> */
     public function subsystems() : HasMany {
         return $this->hasMany(Subsystem::class);
+    }
+
+    /** @return BelongsTo<Strategy, System> */
+    public function passive_strategy() : BelongsTo {
+        return $this->belongsTo(Strategy::class);
+    }
+
+    /** @return BelongsTo<Strategy, System> */
+    public function active_strategy() : BelongsTo {
+        return $this->belongsTo(Strategy::class);
+    }
+
+    /** @return BelongsTo<Strategy, System> */
+    public function burn_strategy() : BelongsTo {
+        return $this->belongsTo(Strategy::class);
     }
 }

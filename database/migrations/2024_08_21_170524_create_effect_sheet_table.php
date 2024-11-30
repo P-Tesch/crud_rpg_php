@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('effect_sheet', function (Blueprint $table) {
             $table->id();
-            $table->integer("remaining_duration");
+            $table->integer("remaining_duration")->nullable();
+            $table->integer("power")->nullable();
 
             $table->unsignedBigInteger("effect_id");
             $table->foreign("effect_id")->references("id")->on("effects");

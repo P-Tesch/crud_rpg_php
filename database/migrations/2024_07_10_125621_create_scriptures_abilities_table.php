@@ -17,7 +17,9 @@ return new class extends Migration
             $table->string("description", 2047);
             $table->integer("level");
             $table->integer("cost");
-            $table->string("strategy", 2047)->nullable();
+
+            $table->unsignedBigInteger("strategy_id")->nullable();
+            $table->foreign("strategy_id")->references("id")->on("strategies");
         });
     }
 

@@ -45,4 +45,4 @@ RUN rm -rf /var/cache/apk/* /tmp/* /var/tmp/*
 
 USER ${USER}
 
-ENTRYPOINT ["php", "artisan", "octane:frankenphp", "--workers=2"]
+ENTRYPOINT ["php", "artisan", "octane:frankenphp", "--workers=2", "--watch"]

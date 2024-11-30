@@ -19,11 +19,6 @@ class Item extends Model
         "damage"
     ];
 
-    /** @var list<string> */
-    protected $hidden = [
-        "strategy"
-    ];
-
     /** @return BelongsToMany<Effect> */
     public function effects() : BelongsToMany {
         return $this->belongsToMany(Effect::class);
@@ -32,5 +27,10 @@ class Item extends Model
     /** @return BelongsTo<Sheet, Item> */
     public function sheet() : BelongsTo {
         return $this->belongsTo(Sheet::class);
+    }
+
+    /** @return BelongsTo<Strategy, Item> */
+    public function strategy() : BelongsTo {
+        return $this->belongsTo(Strategy::class);
     }
 }

@@ -15,7 +15,7 @@ services:
             - pgsql
             - redis
         volumes:
-          - app:/var/www
+          - ./:/var/www
     pgsql:
         container_name: pgsql
         image: postgres:17-alpine3.20
@@ -48,7 +48,7 @@ services:
         depends_on:
             - frankenphp
         volumes:
-          - app:/var/www
+          - ./:/var/www
 networks:
     app_network:
         driver: bridge

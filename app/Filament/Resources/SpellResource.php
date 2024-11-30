@@ -3,6 +3,8 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\SpellResource\RelationManagers\SchoolsRelationManager;
+use App\Filament\Components\StrategyBuilder;
+use App\Models\Strategy;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -48,8 +50,7 @@ class SpellResource extends Resource
                     ])
                     ->label("Tipo"),
 
-                TextInput::make("strategy")
-                        ->label("Estratégia")
+                StrategyBuilder::make("strategy", "Estratégia")
             ]);
     }
 

@@ -15,6 +15,9 @@ class School extends Model
     public $timestamps = false;
 
     /** @var list<string> */
+    protected $with = ["spells"];
+
+    /** @var list<string> */
     protected $fillable = [
         "name",
         "description",

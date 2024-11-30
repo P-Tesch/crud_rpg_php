@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Components\StrategyBuilder;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables;
@@ -45,17 +46,15 @@ class MysticEyeResource extends Resource
                     ->minValue(0)
                     ->label("Cooldown"),
 
-                TextInput::make("Cost")
+                TextInput::make("cost")
                     ->numeric()
                     ->minValue(0)
                     ->required()
                     ->label("Custo"),
 
-                Textarea::make("passive_strategy")
-                    ->label("Estratégia (Passivo)"),
+                StrategyBuilder::make("passive_strategy", "Passivo"),
 
-                Textarea::make("active_strategy")
-                    ->label("Estratégia (Ativo)")
+                StrategyBuilder::make("active_strategy", "Ativo")
             ]);
     }
 

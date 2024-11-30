@@ -16,7 +16,9 @@ return new class extends Migration
             $table->string("name", 63);
             $table->string("description", 2047);
             $table->integer("damage")->nullable();
-            $table->string("strategy", 2047)->nullable();
+
+            $table->unsignedBigInteger("strategy_id")->nullable();
+            $table->foreign("strategy_id")->references("id")->on("strategies");
 
             $table->unsignedBigInteger("sheet_id");
             $table->foreign("sheet_id")->references("id")->on("sheets");

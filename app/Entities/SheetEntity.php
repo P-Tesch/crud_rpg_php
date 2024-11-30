@@ -5,6 +5,7 @@ namespace App\Entities;
 use App\Models\Item;
 use App\Models\Blood;
 use App\Models\Sheet;
+use App\Models\Effect;
 use App\Models\Miracle;
 use App\Enums\Alignment;
 use App\Enums\SpellTypes;
@@ -13,6 +14,7 @@ use App\Models\MysticEye;
 use App\Models\Scripture;
 use App\Enums\Organization;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\EffectController;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\SystemController;
 use App\Http\Controllers\SonatasController;
@@ -72,6 +74,9 @@ class SheetEntity {
 
     /** @var array<int, Item> */
     public array $items;
+
+    /** @var array<int, Effect> */
+    public array $effects;
 
     /** @var array<int, Miracle> */
     public array $miracles;
@@ -150,7 +155,7 @@ class SheetEntity {
                 $spells[$spell->name] = [
                     "type" => SpellTypes::tryFrom($spell->type ?? ""),
                     "description" => $spell->description,
-                    "strategy" => $spell->strategy
+                    "strategy" => $spell->strategy?->value
                 ];
             }
             $this->schools[$schoolModel->name] = ["id" => $schoolModel->id, "level" => $schoolModel->level, "cost" => $schoolModel->cost, "spells" => $spells];
@@ -186,6 +191,11 @@ class SheetEntity {
             ];
         }
 
+        $this->effects = [];
+        foreach ($args["effects"] as $effect) {
+            $this->effects[] = EffectController::findByName($effect->name);
+        }
+
         $this->setClasses();
 
     }
@@ -217,6 +227,7 @@ class SheetEntity {
         $this->blood = $sheet->blood;
         $this->items = $sheet->items->toArray();
         $this->miracles = $sheet->miracles->toArray();
+        $this->effects = $sheet->effects->all();
         $this->scripture = $sheet->scripture;
         if (isset($this->scripture) && isset($sheet->scripture)) {
             $this->scripture->scriptureAbilities = !is_array($sheet->scripture->scriptureAbilities) ? $sheet->scripture->scriptureAbilities->toArray() : $sheet->scripture->scriptureAbilities;
@@ -245,7 +256,7 @@ class SheetEntity {
                 $spells[$spell->name] = [
                     "type" => SpellTypes::tryFrom($spell->type ?? ""),
                     "description" => $spell->description,
-                    "strategy" => $spell->strategy
+                    "strategy" => $spell->strategy?->value
                 ];
             }
             $this->schools[$school->name] = ["id" => $school->id, "level" => $school->level, "spells" => $spells, "cost" => $school->cost];
@@ -359,6 +370,12 @@ class SheetEntity {
                 $attribute->save();
             }
         }
+
+        $effects = [];
+        foreach ($this->effects as $effect) {
+            $effects[$effect->id] = ["remaining_duration" => $effect->pivot_remaining_duration, "power" => $effect->pivot_power];
+        }
+        $model->effects()->sync($effects, true);
 
         $schools = [];
         foreach ($this->schools as $school) {

@@ -26,11 +26,6 @@ class Scripture extends Model
         "description"
     ];
 
-    /** @var list<string> */
-    protected $hidden = [
-        "strategy"
-    ];
-
     /** @return BelongsToMany<ScriptureAbility> */
     public function scriptureAbilities() : BelongsToMany {
         return $this->belongsToMany(ScriptureAbility::class);
@@ -39,5 +34,10 @@ class Scripture extends Model
     /** @return BelongsTo<Sheet, Scripture> */
     public function sheet() : BelongsTo {
         return $this->belongsTo(Sheet::class);
+    }
+
+    /** @return BelongsTo<Strategy, Scripture> */
+    public function strategy() : BelongsTo {
+        return $this->belongsTo(Strategy::class);
     }
 }

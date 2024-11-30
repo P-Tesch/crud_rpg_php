@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Advantage extends Model
@@ -23,13 +24,13 @@ class Advantage extends Model
         "class"
     ];
 
-    /** @var list<string> */
-    protected $hidden = [
-        "strategy"
-    ];
-
     /** @return BelongsToMany<Sheet> */
     public function sheet() : BelongsToMany {
         return $this->belongsToMany(Sheet::class);
+    }
+
+    /** @return BelongsTo<Strategy, Advantage> */
+    public function strategy() : BelongsTo {
+        return $this->belongsTo(Strategy::class);
     }
 }
