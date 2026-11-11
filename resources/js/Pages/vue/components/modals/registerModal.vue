@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue"
 import ToastError from "@scripts/ToastError.ts";
-import { useForm, client } from "laravel-precognition-vue";
-import type { AxiosError } from "axios";
+import { useForm, client, axiosAdapter } from "laravel-precognition-vue";
 
 const emit = defineEmits(["success"]);
 
@@ -11,7 +10,7 @@ const charClass = defineModel<string, string>("charClass");
 const alignment = defineModel<string, string>("alignment");
 const organization = defineModel<string, string>("organization");
 
-client.use(window.axios);
+client.useHttpClient(axiosAdapter(window.axios));
 
 const form = useForm("post", "/api/users", {
     login: "",
@@ -280,7 +279,7 @@ async function register() {
     form.submit().then(() => {
             emit("success");
         }
-    ).catch((error: AxiosError) => {
+    ).catch((error) => {
         throw new ToastError("Falha ao registrar usuário", error);
     });
 }
@@ -298,7 +297,7 @@ async function register() {
                     <h1 class="text-center font-semibold text-xl">Usuário</h1>
                     <div>
                         <p v-if="form.errors['login'] != undefined" class=" text-sm text-[#ff0000] absolute -mt-5">{{ form.errors["login"] }}</p>
-                        <label class="input input-bordered input-accent flex items-center gap-2">
+                        <label class="input input-accent flex items-center gap-2">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 16 16"
@@ -312,7 +311,7 @@ async function register() {
                     </div>
                     <div>
                         <p v-if="form.errors['password'] != undefined" class=" text-sm text-[#ff0000] absolute -mt-5">{{ form.errors["password"] }}</p>
-                        <label class="input input-bordered input-accent flex items-center gap-2">
+                        <label class="input input-accent flex items-center gap-2">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 16 16"
@@ -329,83 +328,83 @@ async function register() {
                 </div>
                 <div class="outline outline-primary flex flex-col gap-5 p-5 rounded-xl">
                     <h1 class="text-center font-semibold text-xl">Classe</h1>
-                    <div class="flex flex-row gap-32 justify-center form-control">
+                    <div class="flex flex-row gap-32 justify-center">
                         <label class="label flex flex-col gap-3">
-                            <span class="label-text">Mago</span>
+                            <span class="text-sm text-base-content">Mago</span>
                             <input v-model="charClass" :value="'mage'" type="radio" name="class-radio" class="radio radio-accent" />
                         </label>
                         <label class="label flex flex-col gap-3">
-                            <span class="label-text">Clérigo</span>
+                            <span class="text-sm text-base-content">Clérigo</span>
                             <input v-model="charClass" :value="'cleric'" type="radio" name="class-radio" class="radio radio-accent" />
                         </label>
                         <label class="label flex flex-col gap-3">
-                            <span class="label-text">Vampiro</span>
+                            <span class="text-sm text-base-content">Vampiro</span>
                             <input v-model="charClass" :value="'vampire'" type="radio" name="class-radio" class="radio radio-accent" />
                         </label>
                         <label class="label flex flex-col gap-3">
-                            <span class="label-text">Mestico</span>
+                            <span class="text-sm text-base-content">Mestico</span>
                             <input v-model="charClass" :value="'hybrid'" type="radio" name="class-radio" class="radio radio-accent" />
                         </label>
                         <label class="label flex flex-col gap-3">
-                            <span class="label-text">Magiteck</span>
+                            <span class="text-sm text-base-content">Magiteck</span>
                             <input v-model="charClass" :value="'magiteck'" type="radio" name="class-radio" class="radio radio-accent" />
                         </label>
                     </div>
                 </div>
                 <div v-if="charClass == 'mage'" class="outline outline-primary flex flex-col gap-5 p-5 rounded-xl">
                     <h1 class="text-center font-semibold text-xl">Alinhamento</h1>
-                    <div class="flex flex-row gap-20 justify-center form-control">
+                    <div class="flex flex-row gap-20 justify-center">
                         <label class="label flex flex-col gap-3">
-                            <span class="label-text">Fogo</span>
+                            <span class="text-sm text-base-content">Fogo</span>
                             <input v-model="alignment" :value="'fire'" type="radio" name="alignment-radio" class="radio radio-accent" />
                         </label>
                         <label class="label flex flex-col gap-3">
-                            <span class="label-text">Água</span>
+                            <span class="text-sm text-base-content">Água</span>
                             <input v-model="alignment" :value="'water'" type="radio" name="alignment-radio" class="radio radio-accent" />
                         </label>
                         <label class="label flex flex-col gap-3">
-                            <span class="label-text">Ar</span>
+                            <span class="text-sm text-base-content">Ar</span>
                             <input v-model="alignment" :value="'wind'" type="radio" name="alignment-radio" class="radio radio-accent" />
                         </label>
                         <label class="label flex flex-col gap-3">
-                            <span class="label-text">Terra</span>
+                            <span class="text-sm text-base-content">Terra</span>
                             <input v-model="alignment" :value="'earth'" type="radio" name="alignment-radio" class="radio radio-accent" />
                         </label>
                         <label class="label flex flex-col gap-3">
-                            <span class="label-text">Gelo</span>
+                            <span class="text-sm text-base-content">Gelo</span>
                             <input v-model="alignment" :value="'ice'" type="radio" name="alignment-radio" class="radio radio-accent" />
                         </label>
                         <label class="label flex flex-col gap-3">
-                            <span class="label-text">Eletricidade</span>
+                            <span class="text-sm text-base-content">Eletricidade</span>
                             <input v-model="alignment" :value="'electricity'" type="radio" name="alignment-radio" class="radio radio-accent" />
                         </label>
                         <label class="label flex flex-col gap-3">
-                            <span class="label-text">Vazio</span>
+                            <span class="text-sm text-base-content">Vazio</span>
                             <input v-model="alignment" :value="'void'" type="radio" name="alignment-radio" class="radio radio-accent" />
                         </label>
                         <label class="label flex flex-col gap-3">
-                            <span class="label-text">Arcana</span>
+                            <span class="text-sm text-base-content">Arcana</span>
                             <input v-model="alignment" :value="'arcana'" type="radio" name="alignment-radio" class="radio radio-accent" />
                         </label>
                     </div>
                 </div>
                 <div v-if="charClass == 'cleric'" class="outline outline-primary flex flex-col gap-5 p-5 rounded-xl">
                     <h1 class="text-center font-semibold text-xl">Organização</h1>
-                    <div class="flex flex-row gap-20 justify-center form-control">
+                    <div class="flex flex-row gap-20 justify-center">
                         <label class="label flex flex-col gap-3">
-                            <span class="label-text">Executores</span>
+                            <span class="text-sm text-base-content">Executores</span>
                             <input v-model="organization" :value="'executors'" type="radio" name="alignment-radio" class="radio radio-accent" />
                         </label>
                         <label class="label flex flex-col gap-3">
-                            <span class="label-text">Cavaleiros</span>
+                            <span class="text-sm text-base-content">Cavaleiros</span>
                             <input v-model="organization" :value="'chivalry'" type="radio" name="alignment-radio" class="radio radio-accent" />
                         </label>
                         <label class="label flex flex-col gap-3">
-                            <span class="label-text">Irmandade</span>
+                            <span class="text-sm text-base-content">Irmandade</span>
                             <input v-model="organization" :value="'brotherhood'" type="radio" name="alignment-radio" class="radio radio-accent" />
                         </label>
                         <label class="label flex flex-col gap-3">
-                            <span class="label-text">Exorcistas</span>
+                            <span class="text-sm text-base-content">Exorcistas</span>
                             <input v-model="organization" :value="'exorcists'" type="radio" name="alignment-radio" class="radio radio-accent" />
                         </label>
                     </div>

@@ -5,7 +5,7 @@ import { router } from '@inertiajs/vue3';
 const emit = defineEmits(["persist", "end-turn", "roll-generic"]);
 
 function logout() : void {
-    router.get("api/logout");
+    router.get("/api/logout");
 }
 
 </script>

@@ -1,6 +1,7 @@
 <?php
 
 use Laravel\Octane\Contracts\OperationTerminated;
+use Laravel\Octane\Events\OperationReleased;
 use Laravel\Octane\Events\RequestHandled;
 use Laravel\Octane\Events\RequestReceived;
 use Laravel\Octane\Events\RequestTerminated;
@@ -19,6 +20,7 @@ use Laravel\Octane\Listeners\EnsureUploadedFilesCanBeMoved;
 use Laravel\Octane\Listeners\FlushOnce;
 use Laravel\Octane\Listeners\FlushTemporaryContainerInstances;
 use Laravel\Octane\Listeners\FlushUploadedFiles;
+use Laravel\Octane\Listeners\ReleaseFreedMemory;
 use Laravel\Octane\Listeners\ReportException;
 use Laravel\Octane\Listeners\StopWorkerIfNecessary;
 use Laravel\Octane\Octane;
@@ -38,7 +40,7 @@ return [
     |
     */
 
-    'server' => env('OCTANE_SERVER', 'frankenphp'),
+    'server' => env('OCTANE_SERVER', 'roadrunner'),
 
     /*
     |--------------------------------------------------------------------------
@@ -106,7 +108,11 @@ return [
             FlushOnce::class,
             FlushTemporaryContainerInstances::class,
             // DisconnectFromDatabases::class,
+        ],
+
+        OperationReleased::class => [
             // CollectGarbage::class,
+            // ReleaseFreedMemory::class,
         ],
 
         WorkerErrorOccurred::class => [
@@ -220,5 +226,35 @@ return [
     */
 
     'max_execution_time' => 30,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Octane Server State File
+    |--------------------------------------------------------------------------
+    |
+    | This value determines where Octane stores the state file used to track
+    | the running server's master process ID and admin endpoint, which is
+    | read by various Octane commands. You may tweak this if necessary.
+    |
+    */
+
+    'state_file' => env('OCTANE_STATE_FILE', storage_path('logs/octane-server-state.json')),
+
+    /*
+    |--------------------------------------------------------------------------
+    | RoadRunner Options
+    |--------------------------------------------------------------------------
+    |
+    | The following options are only used when the RoadRunner server is the
+    | server powering your application. You may customize the path to the
+    | worker binary here, which is useful for zero-downtime deployments
+    | where the application is served from a symlinked "current" path.
+    |
+    */
+
+    'roadrunner' => [
+        'command' => env('OCTANE_ROADRUNNER_COMMAND', 'vendor/bin/roadrunner-worker'),
+        'http_middleware' => env('OCTANE_ROADRUNNER_HTTP_MIDDLEWARE', 'static'),
+    ],
 
 ];

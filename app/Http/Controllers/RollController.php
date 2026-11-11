@@ -18,7 +18,7 @@ class RollController extends Controller {
     private $rollHistory;
 
     public function __construct() {
-        $this->rollHistory = Cache::get("rollsTable", new RollHistory());
+        $this->rollHistory = new RollHistory(Cache::get("rollsTable", []));
     }
 
     /**
@@ -229,6 +229,6 @@ class RollController extends Controller {
         ->with($this->rollHistory->getRolls())
         ->sendNow();
 
-        Cache::put("rollsTable", $this->rollHistory);
+        Cache::put("rollsTable", $this->rollHistory->getRolls());
     }
 }

@@ -3,13 +3,12 @@
 namespace App\Entities;
 
 class RollHistory {
-
-    /** @var array<int, array<string, mixed>> */
-    private $rolls;
-
-    public function __construct() {
-        $this->rolls = [];
-    }
+    /**
+     * @param array<int, array<string, mixed>> $rolls
+     */
+    public function __construct(
+        private array $rolls = []
+    ) {}
 
     /**
      * @return array<int, array<string, mixed>>

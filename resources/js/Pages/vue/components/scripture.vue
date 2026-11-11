@@ -139,7 +139,7 @@ function remove(key: number) : void {
 
                     <div class="w-full flex flex-row">
                         <span>Pontos de criação: {{ remainingPoints }} / {{ sheet.scripture.creation_points }}</span>
-                        <div class="flex flex-row gap-1 justify-end flex-grow">
+                        <div class="flex flex-row gap-1 justify-end grow">
                             <button class="btn btn-outline btn-primary btn-xs" v-show="sheet.scripture.creation_points < sheet.stats.faith * 50" @click="sheet.scripture.creation_points += 50">+</button>
                             <button class="btn btn-outline btn-accent btn-xs" v-show="canDecrease('creation_points')" @click="sheet.scripture.creation_points -= 50">-</button>
                             <div v-show="!canDecrease('creation_points')" class="btn-xs btn-square"></div>
@@ -148,7 +148,7 @@ function remove(key: number) : void {
 
                     <div class="w-full flex flex-row">
                         <span>Dano: {{ sheet.scripture.damage }}</span>
-                        <div class="flex flex-row gap-1 justify-end flex-grow">
+                        <div class="flex flex-row gap-1 justify-end grow">
                             <button class="btn btn-outline btn-primary btn-xs" v-if="sheet.scripture.damage < 5" @click="increase('damage')">+</button>
                             <button class="btn btn-outline btn-accent btn-xs" v-if="canDecrease('damage')" @click="decrease('damage')">-</button>
                             <div v-show="!canDecrease('damage')" class="btn-xs btn-square"></div>
@@ -157,7 +157,7 @@ function remove(key: number) : void {
 
                     <div class="w-full flex flex-row">
                         <span>Alcance: {{ sheet.scripture.range }}</span>
-                        <div class="flex flex-row gap-1 justify-end flex-grow">
+                        <div class="flex flex-row gap-1 justify-end grow">
                             <button class="btn btn-outline btn-primary btn-xs" v-if="sheet.scripture.range < 15" @click="increase('range')">+</button>
                             <button class="btn btn-outline btn-accent btn-xs" v-if="canDecrease('range')" @click="decrease('range')">-</button>
                             <div v-show="!canDecrease('range')" class="btn-xs btn-square"></div>
@@ -166,7 +166,7 @@ function remove(key: number) : void {
 
                     <div class="w-full flex flex-row">
                         <span>Afiação: {{ sheet.scripture.sharpness }}</span>
-                        <div class="flex flex-row gap-1 justify-end flex-grow">
+                        <div class="flex flex-row gap-1 justify-end grow">
                             <button class="btn btn-outline btn-primary btn-xs" v-if="sheet.scripture.sharpness < 5" @click="increase('sharpness')">+</button>
                             <button class="btn btn-outline btn-accent btn-xs" v-if="canDecrease('sharpness')" @click="decrease('sharpness')">-</button>
                             <div v-show="!canDecrease('sharpness')" class="btn-xs btn-square"></div>
@@ -175,7 +175,7 @@ function remove(key: number) : void {
 
                     <div class="w-full flex flex-row">
                         <span>Dupla: {{ yesNo[Number(sheet.scripture.double)] }}</span>
-                        <div class="flex flex-row gap-1 justify-end flex-grow">
+                        <div class="flex flex-row gap-1 justify-end grow">
                             <input id="checkbox-double" type="checkbox" class="checkbox checkbox-primary" v-if="!originalScripture.double" @click="invertDouble()"></input>
                             <input id="checkbox-double-disabled" type="checkbox" disabled class="checkbox checkbox-primary" v-if="originalScripture.double"></input>
                             <div class="btn-xs btn-square"></div>

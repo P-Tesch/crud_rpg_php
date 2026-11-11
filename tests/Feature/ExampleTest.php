@@ -1,19 +1,15 @@
 <?php
 
-namespace Tests\Feature;
+test('the root url redirects to the sheet', function () {
+    $this->get('/')->assertRedirect('/sheet');
+});
 
-// use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
+test('guests are sent from the sheet to the login page', function () {
+    $this->get('/sheet')->assertRedirect('/login');
+});
 
-class ExampleTest extends TestCase
-{
-    /**
-     * A basic test example.
-     */
-    public function test_the_application_returns_a_successful_response(): void
-    {
-        $response = $this->get('/');
-
-        $response->assertStatus(200);
-    }
-}
+test('the login page renders the inertia component', function () {
+    $this->get('/login')
+        ->assertOk()
+        ->assertInertia(fn ($page) => $page->component('vue/login'));
+});

@@ -12,8 +12,6 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
  * allow your team to quickly build robust real-time web applications.
  */
 
-import './echo';
-
 window.Pusher = Pusher;
 
 window.Echo = new Echo({
@@ -29,7 +27,7 @@ window.Echo = new Echo({
 declare global {
     interface Window {
         Pusher: any;
-        Echo: Echo;
+        Echo: Echo<'reverb'>;
         axios: AxiosStatic;
     }
 }

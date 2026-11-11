@@ -1,8 +1,9 @@
 services:
-    frankenphp:
+    app:
+        container_name: rpg-app
         restart: always
         build:
-            dockerfile: frankenphp.Dockerfile
+            dockerfile: ./.docker/app/Dockerfile
             context: .
         ports:
             - "8000:8000"
@@ -16,8 +17,9 @@ services:
             - redis
         volumes:
           - app:/var/www
+
     pgsql:
-        container_name: pgsql
+        container_name: rpg-pgsql
         image: postgres:17-alpine3.20
         ports:
             - "5432:5432"
@@ -29,29 +31,33 @@ services:
             POSTGRES_DB: ${DB_DATABASE}
             POSTGRES_USER: ${DB_USERNAME}
             POSTGRES_PASSWORD: ${DB_PASSWORD}
+
     redis:
-        container_name: redis
+        container_name: rpg-redis
         image: redis:7.4.1-alpine3.20
         ports:
             - "6379:6379"
         networks:
             - app_network
+
     reverb:
         build:
             context: .
-            dockerfile: reverb.Dockerfile
-        container_name: reverb
+            dockerfile: ./.docker/reverb/Dockerfile
+        container_name: rpg-reverb
         ports:
             - "8880:8880"
         networks:
             - app_network
         depends_on:
-            - frankenphp
+            - app
         volumes:
           - app:/var/www
+
 networks:
     app_network:
         driver: bridge
+
 volumes:
     pgsql:
         driver: local

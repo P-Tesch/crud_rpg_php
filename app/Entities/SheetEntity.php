@@ -335,7 +335,7 @@ class SheetEntity {
             $base64 = $separated[1];
             $extension = explode("image/", $separated[0])[1];
             $portraitPath = "/portraits/" . time() . "." . $extension;
-            Storage::put("/public" . $portraitPath, base64_decode($base64));
+            Storage::disk("public")->put($portraitPath, base64_decode($base64));
             $model->portrait = "/storage" . $portraitPath;
         }
 

@@ -133,7 +133,7 @@ function persist() : void {
 }
 
 async function updateSheet() : Promise<void> {
-    window.axios.get("api/sheets")
+    window.axios.get("/api/sheets")
         .then((response: AxiosResponse) => {
             const sheet: Sheet = response.data;
             props.sheet.attributes = sheet.attributes;
