@@ -20,7 +20,7 @@ class AdvantageFactory extends Factory
             "name" => fake()->word(),
             "description" => fake()->paragraph(),
             "level" => fake()->numberBetween(1, 5),
-            "cost" => fake()->numberBetween(5, 30)
+            "cost" => fake()->numberBetween(5, 30),
         ];
     }
 }

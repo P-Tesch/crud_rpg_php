@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * @property \Illuminate\Database\Eloquent\Collection<int, ScriptureAbility> | array<int, ScriptureAbility> $scriptureAbilities
+ * @mixin IdeHelperScripture
  */
 class Scripture extends Model
 {
@@ -23,21 +24,27 @@ class Scripture extends Model
         "range",
         "sharpness",
         "double",
-        "description"
+        "description",
     ];
 
     /** @var list<string> */
     protected $hidden = [
-        "strategy"
+        "strategy",
     ];
 
-    /** @return BelongsToMany<ScriptureAbility> */
-    public function scriptureAbilities() : BelongsToMany {
+    /**
+     * @return BelongsToMany<ScriptureAbility, $this>
+     */
+    public function scriptureAbilities(): BelongsToMany
+    {
         return $this->belongsToMany(ScriptureAbility::class);
     }
 
-    /** @return BelongsTo<Sheet, Scripture> */
-    public function sheet() : BelongsTo {
+    /**
+     * @return BelongsTo<Sheet, $this>
+     */
+    public function sheet(): BelongsTo
+    {
         return $this->belongsTo(Sheet::class);
     }
 }

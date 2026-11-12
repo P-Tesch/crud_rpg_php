@@ -7,14 +7,11 @@ use App\Models\Item;
 use App\Models\Stat;
 use App\Models\Blood;
 use App\Models\Sheet;
-use App\Models\Effect;
 use App\Models\School;
-use App\Models\Miracle;
 use App\Models\Scripture;
 use App\Models\BloodAbility;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\Request;
-use App\Models\ScriptureAbility;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\SheetResource;
@@ -29,7 +26,7 @@ class SheetController extends Controller
      * List all sheets
      * @return AnonymousResourceCollection<int, SheetResource>
      */
-    public function index() : AnonymousResourceCollection
+    public function index(): AnonymousResourceCollection
     {
         return SheetResource::collection(Sheet::all());
     }
@@ -38,7 +35,7 @@ class SheetController extends Controller
      * Persist a new sheet
      * @return int
      */
-    public function store(Request $request) : int
+    public function store(Request $request): int
     {
         $sheet = new Sheet();
         $sheet->name = $request->input("sheet")["name"];
@@ -120,7 +117,7 @@ class SheetController extends Controller
         $items = $request->input("sheet")["items"];
         if (isset($items)) {
             foreach ($items as $itemArray) {
-                $item = new Item;
+                $item = new Item();
                 $item->name = $itemArray["name"];
                 $item->description = $itemArray["description"];
                 $item->strategy = $itemArray["strategy"];
@@ -131,7 +128,7 @@ class SheetController extends Controller
 
         $scriptureArray = $request->input("sheet")["scripture"];
         if (isset($scriptureArray)) {
-            $scripture = new Scripture;
+            $scripture = new Scripture();
             $scripture->name = $scriptureArray["name"];
             $scripture->description = $scriptureArray["description"];
             $scripture->creation_points = $scriptureArray["creation_points"];
@@ -152,7 +149,7 @@ class SheetController extends Controller
      * Show a sheet as resource by authenticated user
      * @return SheetResource
      */
-    public function show(Request $request) : SheetResource
+    public function show(Request $request): SheetResource
     {
         $user = Auth::user();
         if (is_null($user)) {
@@ -169,7 +166,8 @@ class SheetController extends Controller
      * @return Sheet
      * @throws AuthenticationException | NotFoundResourceException
      */
-    public function showAsModel(Request $request) : Sheet {
+    public function showAsModel(Request $request): Sheet
+    {
         $user = Auth::user();
         if (is_null($user)) {
             throw new AuthenticationException("Usuário não autenticado");
@@ -189,7 +187,8 @@ class SheetController extends Controller
      * @return Sheet
      * @throws NotFoundResourceException
      */
-    public function showFromId(int $id) : Sheet {
+    public function showFromId(int $id): Sheet
+    {
         $model = Sheet::find($id);
         if (is_null($model)) {
             throw new NotFoundResourceException("Ficha não encontrada");
@@ -203,7 +202,8 @@ class SheetController extends Controller
      * @param Request $request
      * @return SheetEntity
      */
-    public function showAsEntity(Request $request) : SheetEntity {
+    public function showAsEntity(Request $request): SheetEntity
+    {
         return SheetEntity::buildFromModel($this->showAsModel($request));
     }
 
@@ -212,7 +212,8 @@ class SheetController extends Controller
      * @param Request $request
      * @return string
      */
-    public function showEntityAsJson(Request $request) : string {
+    public function showEntityAsJson(Request $request): string
+    {
         /** @phpstan-ignore-next-line */
         return json_encode(SheetEntity::buildFromModel($this->showAsModel($request))) ?: "";
     }
@@ -221,7 +222,7 @@ class SheetController extends Controller
      * Update a sheet
      * @return Response
      */
-    public function update(Request $request) : Response
+    public function update(Request $request): Response
     {
         $sheetEntity = new SheetEntity(json_decode($request->getContent(), true));
         $sheetEntity->update($this->showAsModel($request));
@@ -232,7 +233,7 @@ class SheetController extends Controller
      * Delete a sheet by id
      * @return int
      */
-    public function destroy(int $id) : int
+    public function destroy(int $id): int
     {
         return Sheet::destroy($id);
     }
@@ -242,7 +243,8 @@ class SheetController extends Controller
      * @param string $alignment
      * @return ?string
      */
-    private function getAlignmentAlias(string $alignment) : ?string {
+    private function getAlignmentAlias(string $alignment): ?string
+    {
         return match ($alignment) {
             "fire" => "Fogo",
             "water" => "Água",
@@ -252,7 +254,7 @@ class SheetController extends Controller
             "void" => "Vazio",
             "ice" => "Gelo",
             "electricity" => "Eletricidade",
-            default => null
+            default => null,
         };
     }
 
@@ -261,33 +263,34 @@ class SheetController extends Controller
      * @param string $organization
      * @return ?Item
      */
-    private function getOrganizationItem(string $organization) : ?Item {
+    private function getOrganizationItem(string $organization): ?Item
+    {
         return match ($organization) {
             "executors" => new Item([
                 "name" => "Chaves negras",
                 "description" => "Chaves negras são milagres que podem ser materializados na forma de espadas curtas, podendo ser utilizadas corpo a corpo ou arremessadas. O usuário pode materializar um número de chaves igual ao seu atributo de Fé, materializá-las ou desmaterializá-las são um ação gratuita. Quando uma chave negra é fincada em um inimigo, o usuário pode optar por mantê-la presa, onde apenas o usuário pode removê-la. Para cada chave fincada no inimigo, ele tem sua Resistência diminuída em 1. Quando fincadas, as chaves negras duram por Fé turnos. As chaves tem 1 de dano bônus em ataques.",
                 "damage" => 1,
-                "strategy" => null
+                "strategy" => null,
             ]),
             "chivalry" => new Item([
                 "name" => "Santa alabarda",
                 "description" => "Ela é uma arma corpo a corpo, com um quadrado extra de alcance e Fé de dano, capaz de causar dano a espíritos e fantasmas, além de duplicar todo o dano contra raças místicas e hereges, porém causa metade de dano contra humanos.",
                 "damage" => 1,
-                "strategy" => null
+                "strategy" => null,
             ]),
             "brotherhood" => new Item([
                 "name" => "Chama sagrada",
                 "description" => "Uma arma que se permite ser materializada em qualquer forma que o usuário desejar, tendo Fé de dano e, no caso de ser uma arma a distância, tem alcance igual a 2*Fé.",
                 "damage" => 1,
-                "strategy" => null
+                "strategy" => null,
             ]),
             "exorcists" => new Item([
                 "name" => "Papéis sentinela",
                 "description" => "Esses papeis podem ser posicionados(no caso de tentar posicioná-los à distância, como arremessando preso a uma adaga é necessário rolar um dado de Combate a distância). Depois de posicionados, eles se ligam formando um campo(um não faz nada, dois forma uma linha, três ou mais formam um plano). Quando o campo é ativado, o usuário declara um tipo de criatura(Morto-vivo, mago, fantasma, etc.) todos do tipo declarado dentro da área perdem em todas as suas rolagens dados iguais a ⅓ Fé. Além disso, o usuário pode pode destruir o campo, assim todos do tipo declarado dentro do campo devem rolar um dado de Tenacidade contra a quantidade de papeis destruídos e os que falharem são Atordoados pela diferença de acertos em turnos.",
                 "damage" => null,
-                "strategy" => null
+                "strategy" => null,
             ]),
-            default => null
+            default => null,
         };
     }
 }

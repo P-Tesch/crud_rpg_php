@@ -22,7 +22,7 @@ class SystemFactory extends Factory
             "damage" => fake()->numberBetween(1, 5),
             "strategy_passive" => null,
             "strategy_active" => null,
-            "strategy_burn" => null
+            "strategy_burn" => null,
         ];
     }
 }

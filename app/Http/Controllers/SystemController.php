@@ -13,7 +13,7 @@ class SystemController extends Controller
      * List all systems
      * @return AnonymousResourceCollection<int, SystemResource>
      */
-    public function index() : AnonymousResourceCollection
+    public function index(): AnonymousResourceCollection
     {
         return SystemResource::collection(System::all());
     }
@@ -22,7 +22,7 @@ class SystemController extends Controller
      * Persist a new system
      * @return void
      */
-    public function store(Request $request) : void
+    public function store(Request $request): void
     {
         // TODO
     }
@@ -31,7 +31,7 @@ class SystemController extends Controller
      * Show a system by id
      * @return ?System
      */
-    public function show(int $id) : ?System
+    public function show(int $id): ?System
     {
         return System::find($id);
     }
@@ -41,7 +41,8 @@ class SystemController extends Controller
      * @param string $name
      * @return System
      */
-    public static function findByName(string $name) : System {
+    public static function findByName(string $name): System
+    {
         return System::where("name", $name)->firstOrFail();
     }
 
@@ -49,7 +50,7 @@ class SystemController extends Controller
      * Update a system
      * @return void
      */
-    public function update(Request $request, System $advantage) : void
+    public function update(Request $request, System $advantage): void
     {
         // TODO
     }
@@ -58,7 +59,7 @@ class SystemController extends Controller
      * Delete a system by id
      * @return void
      */
-    public function destroy(System $advantage) : void
+    public function destroy(System $advantage): void
     {
         // TODO
     }

@@ -2,19 +2,20 @@
 
 namespace App\Entities;
 
-class RollHistory {
-
-    /** @var array<int, array<string, mixed>> */
-    private $rolls;
-
-    public function __construct() {
-        $this->rolls = [];
-    }
+class RollHistory
+{
+    /**
+     * @param array<int, array<string, mixed>> $rolls
+     */
+    public function __construct(
+        private array $rolls = [],
+    ) {}
 
     /**
      * @return array<int, array<string, mixed>>
      */
-    public function getRolls() : array {
+    public function getRolls(): array
+    {
         return $this->rolls;
     }
 
@@ -22,7 +23,8 @@ class RollHistory {
      * @param array<string, mixed> $roll
      * @return void
      */
-    public function addRoll(array $roll) : void {
+    public function addRoll(array $roll): void
+    {
         if (count($this->rolls) >= 20) {
             array_shift($this->rolls);
         }

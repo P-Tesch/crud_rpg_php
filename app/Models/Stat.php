@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * @mixin IdeHelperStat
+ */
 class Stat extends Model
 {
     /** @var bool */
@@ -13,16 +16,22 @@ class Stat extends Model
     /** @var list<string> */
     protected $fillable = [
         "key",
-        "value"
+        "value",
     ];
 
-    /** @return BelongsTo<Blood, Stat> */
-    public function blood() : BelongsTo {
+    /**
+     * @return BelongsTo<Blood, $this>
+     */
+    public function blood(): BelongsTo
+    {
         return $this->belongsTo(Blood::class);
     }
 
-    /** @return BelongsTo<Sheet, Stat> */
-    public function sheet() : BelongsTo {
+    /**
+     * @return BelongsTo<Sheet, $this>
+     */
+    public function sheet(): BelongsTo
+    {
         return $this->belongsTo(Sheet::class);
     }
 }

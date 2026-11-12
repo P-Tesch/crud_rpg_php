@@ -9,11 +9,11 @@ use Illuminate\Http\Resources\Json\JsonResource;
 class SubsystemResource extends JsonResource
 {
     /** @return array<string, mixed> */
-    public function toArray(Request $request) : array
+    public function toArray(Request $request): array
     {
         return [
             "name" => $this->name,
-            "description" => $this->description
+            "description" => $this->description,
         ];
     }
 }

@@ -5,24 +5,32 @@
     "keywords": ["laravel", "framework"],
     "license": "MIT",
     "require": {
-        "php": "^8.3",
-        "filament/filament": "^3.2",
-        "inertiajs/inertia-laravel": "^1.3",
-        "laravel/framework": "^11.23.5",
+        "php": "^8.5",
+        "filament/filament": "^5.0",
+        "inertiajs/inertia-laravel": "^3.0",
+        "laravel/framework": "^13",
         "laravel/octane": "^2.5",
-        "laravel/reverb": "@beta",
-        "laravel/tinker": "^2.9"
+        "laravel/reverb": "^1.12",
+        "laravel/tinker": "^3.0"
     },
     "require-dev": {
-        "fakerphp/faker": "^1.23.1",
-        "larastan/larastan": "^2.9",
-        "laravel/pint": "^1.17.3",
+        "barryvdh/laravel-debugbar": "^4.4",
+        "barryvdh/laravel-ide-helper": "^3.8",
+        "fakerphp/faker": "^1.23",
+        "larastan/larastan": "^3.10",
+        "laravel/boost": "^2.10",
+        "laravel/pint": "^1.17",
         "laravel/sail": "^1.32",
-        "mockery/mockery": "^1.6.12",
+        "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.4",
-        "phpstan/phpstan": "^1.12",
-        "phpstan/phpstan-strict-rules": "^1.6",
-        "phpunit/phpunit": "^11.3.5"
+        "pestphp/pest": "^5.3",
+        "pestphp/pest-plugin-browser": "^5.0",
+        "pestphp/pest-plugin-livewire": "^5.0",
+        "pestphp/pest-plugin-phpstan": "^5.0",
+        "pestphp/pest-plugin-type-coverage": "^5.0",
+        "phpstan/phpstan": "^2.3",
+        "phpstan/phpstan-deprecation-rules": "^2.0",
+        "phpstan/phpstan-strict-rules": "^2.0"
     },
     "autoload": {
         "psr-4": {
@@ -37,6 +45,21 @@
         }
     },
     "scripts": {
+        "test": "php -d memory_limit=2G vendor/bin/pest --compact --parallel",
+        "type": "vendor/bin/pest --type-coverage --compact --memory-limit=2G",
+        "coverage": "php -d memory_limit=2G vendor/bin/pest --coverage-html ./tests/coverage",
+        "format": "vendor/bin/pint",
+        "lint": "vendor/bin/phpstan analyse --memory-limit=2G",
+        "ide": "@php artisan ide-helper:models -M -n",
+        "ci": [
+            "@php artisan ide-helper:models -M -n",
+            "@format",
+            "@test-clean",
+            "vendor/bin/phpstan analyse --memory-limit=2G --no-interaction"
+        ],
+        "analyse": [
+            "phpstan analyse --memory-limit=1G"
+        ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi",
@@ -52,6 +75,9 @@
             "@php artisan key:generate --ansi",
             "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
             "@php artisan migrate --graceful --ansi"
+        ],
+        "pre-package-uninstall": [
+            "Illuminate\\Foundation\\ComposerScripts::prePackageUninstall"
         ]
     },
     "extra": {

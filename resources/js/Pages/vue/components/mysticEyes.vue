@@ -15,7 +15,7 @@ const selectedEye = ref<number>();
 
 const rollMysticEye = (target: number) : void => {
     window.axios.get(
-        "api/roll/mystic_eyes", {
+        "/api/roll/mystic_eyes", {
             params: {
                 eye: selectedEye.value,
                 target: target,

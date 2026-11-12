@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * @property int $pivot_remaining_duration
+ * @mixin IdeHelperEffect
  */
 class Effect extends Model
 {
@@ -18,26 +19,35 @@ class Effect extends Model
         "name",
         "description",
         "remaining_duration",
-        "strategy"
+        "strategy",
     ];
 
     /** @var list<string> */
     protected $hidden = [
-        "strategy"
+        "strategy",
     ];
 
-    /** @return BelongsToMany<Item> */
-    public function items() : BelongsToMany {
+    /**
+     * @return BelongsToMany<Item, $this>
+     */
+    public function items(): BelongsToMany
+    {
         return $this->belongsToMany(Item::class)->withPivot("remaining_duration");
     }
 
-    /** @return BelongsToMany<Sheet> */
-    public function sheets() : BelongsToMany {
+    /**
+     * @return BelongsToMany<Sheet, $this>
+     */
+    public function sheets(): BelongsToMany
+    {
         return $this->belongsToMany(Sheet::class)->withPivot("remaining_duration");
     }
 
-    /** @return BelongsToMany<System> */
-    public function systems() : BelongsToMany {
+    /**
+     * @return BelongsToMany<System, $this>
+     */
+    public function systems(): BelongsToMany
+    {
         return $this->belongsToMany(System::class)->withPivot("remaining_duration");
     }
 }

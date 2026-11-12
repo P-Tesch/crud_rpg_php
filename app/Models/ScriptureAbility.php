@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
+/**
+ * @mixin IdeHelperScriptureAbility
+ */
 class ScriptureAbility extends Model
 {
     /** @use HasFactory<\Database\Factories\ScriptureAbilityFactory> */
@@ -20,16 +23,19 @@ class ScriptureAbility extends Model
         "description",
         "level",
         "cost",
-        "strategy"
+        "strategy",
     ];
 
     /** @var list<string> */
     protected $hidden = [
-        "strategy"
+        "strategy",
     ];
 
-    /** @return BelongsToMany<Scripture> */
-    public function scripture() : BelongsToMany {
+    /**
+     * @return BelongsToMany<Scripture, $this>
+     */
+    public function scripture(): BelongsToMany
+    {
         return $this->belongsToMany(Scripture::class);
     }
 }

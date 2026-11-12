@@ -21,7 +21,7 @@ class ScriptureAbilityFactory extends Factory
             "description" => fake()->paragraph(),
             "level" => fake()->numberBetween(1, 3),
             "cost" => fake()->numberBetween(5, 15),
-            "strategy" => null
+            "strategy" => null,
         ];
     }
 }

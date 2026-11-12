@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * @property int $pivot_current_cooldown
+ * @mixin IdeHelperMysticEye
  */
 class MysticEye extends Model
 {
@@ -26,17 +27,20 @@ class MysticEye extends Model
         "pivot_current_cooldown",
         "cost",
         "active_strategy",
-        "passive_strategy"
+        "passive_strategy",
     ];
 
     /** @var list<string> */
     protected $hidden = [
         "active_strategy",
-        "passive_strategy"
+        "passive_strategy",
     ];
 
-    /** @return BelongsToMany<Sheet> */
-    public function sheet() : BelongsToMany {
+    /**
+     * @return BelongsToMany<Sheet, $this>
+     */
+    public function sheet(): BelongsToMany
+    {
         return $this->belongsToMany(Sheet::class)->withPivot("current_cooldown");
     }
 }

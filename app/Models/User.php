@@ -10,6 +10,9 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+/**
+ * @mixin IdeHelperUser
+ */
 class User extends Authenticatable implements FilamentUser, HasName
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
@@ -17,7 +20,7 @@ class User extends Authenticatable implements FilamentUser, HasName
 
     /** @var list<string> */
     protected $fillable = [
-        'login'
+        'login',
     ];
 
     /** @var list<string> */
@@ -25,10 +28,12 @@ class User extends Authenticatable implements FilamentUser, HasName
         'password',
         'remember_token',
         'sheet_id',
-        'is_admin'
+        'is_admin',
     ];
 
-    /** @return array<string, string> */
+    /**
+     * @return array<string, string>
+     */
     protected function casts(): array
     {
         return [
@@ -37,16 +42,21 @@ class User extends Authenticatable implements FilamentUser, HasName
         ];
     }
 
-    /** @return HasOne<Sheet> */
-    public function sheet() : HasOne {
+    /**
+     * @return HasOne<Sheet, $this>
+     */
+    public function sheet(): HasOne
+    {
         return $this->hasOne(Sheet::class);
     }
 
-    public function canAccessPanel(Panel $panel) : bool {
+    public function canAccessPanel(Panel $panel): bool
+    {
         return $this->is_admin;
     }
 
-    public function getFilamentName() : string {
+    public function getFilamentName(): string
+    {
         return "Admin";
     }
 }

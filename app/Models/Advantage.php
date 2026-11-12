@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
+/**
+ * @mixin IdeHelperAdvantage
+ */
 class Advantage extends Model
 {
     /** @use HasFactory<\Database\Factories\AdvantageFactory> */
@@ -20,16 +23,19 @@ class Advantage extends Model
         "description",
         "level",
         "cost",
-        "class"
+        "class",
     ];
 
     /** @var list<string> */
     protected $hidden = [
-        "strategy"
+        "strategy",
     ];
 
-    /** @return BelongsToMany<Sheet> */
-    public function sheet() : BelongsToMany {
+    /**
+     * @return BelongsToMany<Sheet, $this>
+     */
+    public function sheet(): BelongsToMany
+    {
         return $this->belongsToMany(Sheet::class);
     }
 }

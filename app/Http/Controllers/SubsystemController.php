@@ -14,7 +14,7 @@ class SubsystemController extends Controller
      * List all subsystems
      * @return AnonymousResourceCollection<int, SubsystemResource>
      */
-    public function index() : AnonymousResourceCollection
+    public function index(): AnonymousResourceCollection
     {
         return SubsystemResource::collection(Subsystem::all());
     }
@@ -24,7 +24,8 @@ class SubsystemController extends Controller
      * @param Request $request
      * @return AnonymousResourceCollection<int, SubsystemResource>
      */
-    public function indexBySystem(Request $request) : AnonymousResourceCollection {
+    public function indexBySystem(Request $request): AnonymousResourceCollection
+    {
         $systemName = $request->input("system_name");
         return SubsystemResource::collection(Subsystem::whereBelongsTo(System::where("name", $systemName)->firstOrFail(), "system")->get());
     }
@@ -33,7 +34,7 @@ class SubsystemController extends Controller
      * Persist a new subsystem
      * @return void
      */
-    public function store(Request $request) : void
+    public function store(Request $request): void
     {
         // TODO
     }
@@ -42,7 +43,7 @@ class SubsystemController extends Controller
      * Show a subsystem by id
      * @return ?Subsystem
      */
-    public static function show(int $id) : ?Subsystem
+    public static function show(int $id): ?Subsystem
     {
         return Subsystem::find($id);
     }
@@ -52,7 +53,8 @@ class SubsystemController extends Controller
      * @param string $name
      * @return Subsystem
      */
-    public static function findByName(string $name) : Subsystem {
+    public static function findByName(string $name): Subsystem
+    {
         return Subsystem::where("name", $name)->firstOrFail();
     }
 
@@ -60,7 +62,7 @@ class SubsystemController extends Controller
      * Update a subsystem
      * @return void
      */
-    public function update(Request $request, Subsystem $subsystem) : void
+    public function update(Request $request, Subsystem $subsystem): void
     {
         // TODO
     }
@@ -69,7 +71,7 @@ class SubsystemController extends Controller
      * Delete a subsystem
      * @return void
      */
-    public function destroy(Subsystem $subsystem) : void
+    public function destroy(Subsystem $subsystem): void
     {
         // TODO
     }

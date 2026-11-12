@@ -14,7 +14,7 @@ class SonataAbilitiesController extends Controller
      * List all sonata abilities
      * @return AnonymousResourceCollection<int, SonataAbilityResource>
      */
-    public function index() : AnonymousResourceCollection
+    public function index(): AnonymousResourceCollection
     {
         return SonataAbilityResource::collection(SonataAbility::all());
     }
@@ -24,7 +24,8 @@ class SonataAbilitiesController extends Controller
      * @param Request $request
      * @return AnonymousResourceCollection<int, SonataAbilityResource>
      */
-    public function indexBySonata(Request $request) : AnonymousResourceCollection {
+    public function indexBySonata(Request $request): AnonymousResourceCollection
+    {
         $sonataName = $request->input("sonata_name");
         return SonataAbilityResource::collection(SonataAbility::whereBelongsTo(Sonata::where("name", $sonataName)->firstOrFail(), "sonata")->get());
     }
@@ -33,7 +34,7 @@ class SonataAbilitiesController extends Controller
      * Persist a new sonata ability
      * @return void
      */
-    public function store(Request $request) : void
+    public function store(Request $request): void
     {
         // TODO
     }
@@ -42,7 +43,7 @@ class SonataAbilitiesController extends Controller
      * Show a sonata ability by id
      * @return ?SonataAbility
      */
-    public static function show(int $id) : ?SonataAbility
+    public static function show(int $id): ?SonataAbility
     {
         return SonataAbility::find($id);
     }
@@ -53,7 +54,8 @@ class SonataAbilitiesController extends Controller
      * @param int $level
      * @return SonataAbility
      */
-    public static function findByNameAndLevel(string $name, int $level) : SonataAbility {
+    public static function findByNameAndLevel(string $name, int $level): SonataAbility
+    {
         return SonataAbility::where("name", $name)->where("level", $level)->firstOrFail();
     }
 
@@ -61,7 +63,7 @@ class SonataAbilitiesController extends Controller
      * Update a sonata ability
      * @return void
      */
-    public function update(Request $request, Sonata $sonata) : void
+    public function update(Request $request, Sonata $sonata): void
     {
         // TODO
     }
@@ -70,7 +72,7 @@ class SonataAbilitiesController extends Controller
      * Delete a sonata ability
      * @return void
      */
-    public function destroy(Sonata $sonata) : void
+    public function destroy(Sonata $sonata): void
     {
         // TODO
     }

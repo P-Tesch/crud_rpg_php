@@ -20,7 +20,7 @@ class SpellFactory extends Factory
             "name" => fake()->word,
             "description" => fake()->sentence(),
             "type" => ["PROJECTILE", "DIRECT", null][fake()->numberBetween(0, 2)],
-            "strategy" => null
+            "strategy" => null,
         ];
     }
 }

@@ -2,7 +2,8 @@
 
 namespace App\Enums;
 
-enum Organization : string {
+enum Organization: string
+{
     case BROTHERHOOD = "brotherhood";
     case EXECUTORS = "executors";
     case CHIVALRY = "chivalry";

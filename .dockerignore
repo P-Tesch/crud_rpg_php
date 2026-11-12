@@ -1,3 +1,5 @@
 node_modules/
 tests/
 README.md
+vendor/
+public/build/

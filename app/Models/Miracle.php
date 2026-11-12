@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
+/**
+ * @mixin IdeHelperMiracle
+ */
 class Miracle extends Model
 {
     /** @use HasFactory<\Database\Factories\MiracleFactory> */
@@ -18,16 +21,19 @@ class Miracle extends Model
     protected $fillable = [
         "name",
         "description",
-        "cost"
+        "cost",
     ];
 
     /** @var list<string> */
     protected $hidden = [
-        "strategy"
+        "strategy",
     ];
 
-    /** @return BelongsToMany<Sheet> */
-    public function sheet() : BelongsToMany {
+    /**
+     * @return BelongsToMany<Sheet, $this>
+     */
+    public function sheet(): BelongsToMany
+    {
         return $this->belongsToMany(Sheet::class);
     }
 }

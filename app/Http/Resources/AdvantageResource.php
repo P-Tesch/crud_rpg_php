@@ -16,7 +16,7 @@ class AdvantageResource extends JsonResource
             "description" => $this->description,
             "level" => $this->level,
             "cost" => $this->cost,
-            "class" => $this->class
+            "class" => $this->class,
         ];
     }
 }

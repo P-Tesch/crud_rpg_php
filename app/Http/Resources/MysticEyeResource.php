@@ -17,7 +17,7 @@ class MysticEyeResource extends JsonResource
             "active" => $this->active,
             "cooldown" => $this->cooldown,
             "current_cooldown" => $this->pivot_current_cooldown,
-            "cost" => $this->cost
+            "cost" => $this->cost,
         ];
     }
 }

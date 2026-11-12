@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
+/**
+ * @mixin IdeHelperSubsystem
+ */
 class Subsystem extends Model
 {
     /** @use HasFactory<\Database\Factories\SubsystemFactory> */
@@ -21,22 +24,28 @@ class Subsystem extends Model
         "description",
         "system_id",
         "strategy",
-        "strategy_burn"
+        "strategy_burn",
     ];
 
     /** @var list<string> */
     protected $hidden = [
         "strategy",
-        "strategy_burn"
+        "strategy_burn",
     ];
 
-    /** @return BelongsToMany<Sheet> */
-    public function sheets() : BelongsToMany {
+    /**
+     * @return BelongsToMany<Sheet, $this>
+     */
+    public function sheets(): BelongsToMany
+    {
         return $this->belongsToMany(Sheet::class)->withPivot("burn_duration");
     }
 
-    /** @return BelongsTo<System, Subsystem> */
-    public function system() : BelongsTo {
+    /**
+     * @return BelongsTo<System, $this>
+     */
+    public function system(): BelongsTo
+    {
         return $this->belongsTo(System::class);
     }
 }

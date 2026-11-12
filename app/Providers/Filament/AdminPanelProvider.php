@@ -13,7 +13,7 @@ use Filament\Support\Colors\Color;
 use Filament\Widgets;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
-use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
+use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
@@ -30,6 +30,19 @@ class AdminPanelProvider extends PanelProvider
             ->login(AdminLogin::class)
             ->colors([
                 'primary' => Color::Purple,
+                'cyan' => Color::Cyan,
+                'green' => Color::Green,
+                'orange' => Color::Orange,
+                'red' => Color::Red,
+                'yellow' => Color::Yellow,
+            ])
+            ->navigationGroups([
+                'Administrativo',
+                'Geral',
+                'Magos',
+                'Clérigos',
+                'Magitecks',
+                'Vampiros',
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
@@ -47,7 +60,7 @@ class AdminPanelProvider extends PanelProvider
                 StartSession::class,
                 AuthenticateSession::class,
                 ShareErrorsFromSession::class,
-                VerifyCsrfToken::class,
+                PreventRequestForgery::class,
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,

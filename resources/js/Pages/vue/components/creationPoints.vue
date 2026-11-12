@@ -164,7 +164,7 @@ function canDecrease() : boolean {
             <p>Restantes: {{ remainingPoints }}</p>
             <p>Total: {{ sheet.creationPoints }}</p>
         </div>
-        <div class="flex flex-row flex-grow my-auto gap-1 justify-end">
+        <div class="flex flex-row grow my-auto gap-1 justify-end">
             <button class="btn btn-outline btn-primary btn-square btn-xs" @click.exact="increase()" @click.shift.exact="increaseBy10()" @click.alt.exact="increaseBy5">+</button>
             <button v-show="canDecrease()" class="btn btn-outline btn-accent btn-square btn-xs" @click.exact="decrease()" @click.shift.exact="decreaseBy10()" @click.alt.exact="decreaseBy5">-</button>
             <div v-show="!canDecrease()" class="btn-xs btn-square"></div>

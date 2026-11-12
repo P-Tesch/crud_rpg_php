@@ -5,8 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
+/**
+ * @mixin IdeHelperItem
+ */
 class Item extends Model
 {
     /** @var bool */
@@ -16,21 +18,27 @@ class Item extends Model
     protected $fillable = [
         "name",
         "description",
-        "damage"
+        "damage",
     ];
 
     /** @var list<string> */
     protected $hidden = [
-        "strategy"
+        "strategy",
     ];
 
-    /** @return BelongsToMany<Effect> */
-    public function effects() : BelongsToMany {
+    /**
+     * @return BelongsToMany<Effect, $this>
+     */
+    public function effects(): BelongsToMany
+    {
         return $this->belongsToMany(Effect::class);
     }
 
-    /** @return BelongsTo<Sheet, Item> */
-    public function sheet() : BelongsTo {
+    /**
+     * @return BelongsTo<Sheet, $this>
+     */
+    public function sheet(): BelongsTo
+    {
         return $this->belongsTo(Sheet::class);
     }
 }

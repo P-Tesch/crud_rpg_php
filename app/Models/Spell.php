@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
+/**
+ * @mixin IdeHelperSpell
+ */
 class Spell extends Model
 {
     /** @use HasFactory<\Database\Factories\SpellFactory> */
@@ -19,16 +22,19 @@ class Spell extends Model
         "name",
         "description",
         "type",
-        "strategy"
+        "strategy",
     ];
 
     /** @var list<string> */
     protected $hidden = [
-        "strategy"
+        "strategy",
     ];
 
-    /** @return BelongsToMany<School> */
-    public function schools() : BelongsToMany {
+    /**
+     * @return BelongsToMany<School, $this>
+     */
+    public function schools(): BelongsToMany
+    {
         return $this->belongsToMany(School::class);
     }
 }

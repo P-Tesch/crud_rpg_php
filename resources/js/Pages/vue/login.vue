@@ -30,7 +30,7 @@ function success() : void {
             <h1 class="text-xl font-bold text-center mb-4 text-accent">Gerenciador de fichas</h1>
             <form class="flex flex-col gap-4">
                 <div>
-                    <label class="input input-bordered input-accent flex items-center gap-2">
+                    <label class="input input-accent flex items-center gap-2">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 16 16"
@@ -43,7 +43,7 @@ function success() : void {
                     </label>
                 </div>
                 <div>
-                    <label class="input input-bordered input-accent flex items-center gap-2">
+                    <label class="input input-accent flex items-center gap-2">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 16 16"
@@ -59,7 +59,7 @@ function success() : void {
                 </div>
                 <div class="flex flex-row gap-2 items-center">
                     <input  if="form-remember-me" class="checkbox checkbox-accent" type="checkbox" id="remember_me" v-model="form.remember_me">
-                    <label class="label-text" for="remember_me">Lembre-me</label>
+                    <label class="text-sm text-base-content" for="remember_me">Lembre-me</label>
                 </div>
             </form>
             <div class="flex flex-row">

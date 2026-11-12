@@ -1,7 +1,8 @@
-import { AxiosError } from "axios";
+/** Any error carrying an HTTP response (AxiosError, precognition HttpResponseError, ...) */
+type ResponseError = { response?: { data?: unknown } };
 
 export default class ToastError extends Error {
-    constructor(msg: string, axiosError: AxiosError | undefined = undefined) {
+    constructor(msg: string, axiosError: ResponseError | undefined = undefined) {
         super(msg);
 
         if (axiosError != undefined) {

@@ -1,12 +1,12 @@
 services:
-    frankenphp:
+    app:
+        container_name: rpg-app
         restart: always
         build:
-            dockerfile: frankenphp.Dockerfile
+            dockerfile: ./.docker/app/Dockerfile
             context: .
         ports:
             - "8000:8000"
-            - "5173:5173"
         networks:
             - app_network
         env_file:
@@ -15,9 +15,10 @@ services:
             - pgsql
             - redis
         volumes:
-          - app:/var/www
+          - .:/var/www
+
     pgsql:
-        container_name: pgsql
+        container_name: rpg-pgsql
         image: postgres:17-alpine3.20
         ports:
             - "5432:5432"
@@ -29,31 +30,57 @@ services:
             POSTGRES_DB: ${DB_DATABASE}
             POSTGRES_USER: ${DB_USERNAME}
             POSTGRES_PASSWORD: ${DB_PASSWORD}
+
     redis:
-        container_name: redis
+        container_name: rpg-redis
         image: redis:7.4.1-alpine3.20
         ports:
             - "6379:6379"
         networks:
             - app_network
+
     reverb:
         build:
             context: .
-            dockerfile: reverb.Dockerfile
-        container_name: reverb
+            dockerfile: ./.docker/reverb/Dockerfile
+        container_name: rpg-reverb
         ports:
             - "8880:8880"
         networks:
             - app_network
         depends_on:
-            - frankenphp
+            - app
         volumes:
-          - app:/var/www
+          - .:/var/www
+
+    vite:
+        container_name: rpg-vite
+        image: node:26-alpine3.24
+        restart: always
+        working_dir: /app
+        # Same Node image as the asset build stage in .docker/app/Dockerfile.
+        # node_modules lives in its own volume: the host's copy holds macOS binaries
+        # (rolldown, lightningcss, tailwind oxide) that can't run on Linux.
+        command: sh -c "npm install --no-audit --no-fund && exec npm run dev"
+        # Makes laravel-vite-plugin listen on 0.0.0.0:5173 (strict port) and write
+        # http://localhost:5173 to public/hot, so the browser can reach it.
+        environment:
+            LARAVEL_SAIL: 1
+        init: true
+        ports:
+            - "5173:5173"
+        networks:
+            - app_network
+        volumes:
+            - .:/app
+            - node_modules:/app/node_modules
+
 networks:
     app_network:
         driver: bridge
+
 volumes:
     pgsql:
         driver: local
-    app:
+    node_modules:
         driver: local
