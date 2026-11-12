@@ -27,3 +27,7 @@ frankenphp
 frankenphp-worker.php
 
 _ide_helper_models.php
+.mcp.json
+AGENTS.md
+boost.json
+/.claude
