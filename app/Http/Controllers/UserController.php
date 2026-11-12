@@ -13,7 +13,7 @@ class UserController extends Controller
      * List all users
      * @return Collection<int, User>
      * */
-    public function index() : Collection
+    public function index(): Collection
     {
         return User::all();
     }
@@ -22,7 +22,7 @@ class UserController extends Controller
      * Persist a new User
      * @return void
      */
-    public function store(StoreUserRequest $request, SheetController $sheetController) : void
+    public function store(StoreUserRequest $request, SheetController $sheetController): void
     {
         $sheetId = $sheetController->store($request);
         $user = new User();
@@ -36,7 +36,7 @@ class UserController extends Controller
      * Show a user by id
      * @return ?User
      */
-    public function show(int $id) : ?User
+    public function show(int $id): ?User
     {
         return User::find($id);
     }
@@ -45,7 +45,7 @@ class UserController extends Controller
      * Update a user
      * @return void
      */
-    public function update(Request $request, User $user) : void
+    public function update(Request $request, User $user): void
     {
         // TODO
     }
@@ -54,7 +54,7 @@ class UserController extends Controller
      * Delete a user by id
      * @return void
      */
-    public function destroy(int $id) : void
+    public function destroy(int $id): void
     {
         // TODO
     }

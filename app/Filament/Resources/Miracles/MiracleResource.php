@@ -8,7 +8,6 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Schemas\Schema;
 use UnitEnum;
-use App\Filament\Resources\Miracles\Pages;
 use App\Models\Miracle;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -35,13 +34,13 @@ class MiracleResource extends Resource
         return $schema
             ->components([
                 TextInput::make("name")
-				    ->alphaNum()
+                    ->alphaNum()
                     ->required()
-				    ->label("Nome"),
+                    ->label("Nome"),
 
                 Textarea::make("description")
                     ->required()
-				    ->label("Descrição"),
+                    ->label("Descrição"),
 
                 TextInput::make("cost")
                     ->required()
@@ -49,7 +48,7 @@ class MiracleResource extends Resource
                     ->label("Custo"),
 
                 Textarea::make("strategy")
-				    ->label("Estratégia")
+                    ->label("Estratégia"),
             ]);
     }
 
@@ -58,22 +57,22 @@ class MiracleResource extends Resource
         return $table
             ->columns([
                 TextColumn::make("name")
-				    ->searchable()
-				    ->label("Nome"),
+                    ->searchable()
+                    ->label("Nome"),
 
                 TextColumn::make("description")
-				    ->wrap()
+                    ->wrap()
                     ->alignJustify()
-				    ->label("Descrição"),
+                    ->label("Descrição"),
 
                 TextColumn::make("cost")
-				    ->sortable()
+                    ->sortable()
                     ->alignCenter()
-				    ->label("Custo")
+                    ->label("Custo"),
             ])
             ->recordActions([
                 EditAction::make()
-				    ->hidden(),
+                    ->hidden(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

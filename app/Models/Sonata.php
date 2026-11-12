@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * @mixin IdeHelperSonata
+ */
 class Sonata extends Model
 {
     /** @use HasFactory<\Database\Factories\SonataFactory> */
@@ -18,16 +21,22 @@ class Sonata extends Model
     /** @var list<string> */
     protected $fillable = [
         "name",
-        "description"
+        "description",
     ];
 
-    /** @return HasMany<SonataAbility> */
-    public function sonataAbilities() : HasMany {
+    /**
+     * @return HasMany<SonataAbility, $this>
+     */
+    public function sonataAbilities(): HasMany
+    {
         return $this->hasMany(SonataAbility::class);
     }
 
-    /** @return BelongsToMany<Sheet> */
-    public function sheet() : BelongsToMany {
+    /**
+     * @return BelongsToMany<Sheet, $this>
+     */
+    public function sheet(): BelongsToMany
+    {
         return $this->belongsToMany(Sheet::class);
     }
 }

@@ -16,7 +16,6 @@ use App\Models\Spell;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Filament\Tables\Columns\TextColumn;
-use App\Filament\Resources\Spells\Pages;
 
 class SpellResource extends Resource
 {
@@ -47,12 +46,12 @@ class SpellResource extends Resource
                 Select::make("type")
                     ->options([
                         "PROJECTILE" => "Projétil",
-                        "DIRECT" => "Direto"
+                        "DIRECT" => "Direto",
                     ])
                     ->label("Tipo"),
 
                 TextInput::make("strategy")
-                        ->label("Estratégia")
+                        ->label("Estratégia"),
             ]);
     }
 
@@ -76,13 +75,13 @@ class SpellResource extends Resource
                         "OTHER" => "Outro",
                         "PROJECTILE" => "Projétil",
                         "DIRECT" => "Direto",
-                        default => ""
+                        default => "",
                     })
                     ->color(fn (string $state) => match ($state) {
                         "OTHER" => "gray",
                         "PROJECTILE" => "orange",
                         "DIRECT" => "cyan",
-                        default => null
+                        default => null,
                     })
                     ->badge()
                     ->alignCenter()
@@ -101,11 +100,11 @@ class SpellResource extends Resource
                     ->min("schools", "level")
                     ->sortable()
                     ->alignCenter()
-                    ->label("Level mínimo")
+                    ->label("Level mínimo"),
             ])
             ->recordActions([
                 EditAction::make()
-					->hidden(),
+                    ->hidden(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
@@ -114,9 +113,10 @@ class SpellResource extends Resource
             ]);
     }
 
-    public static function getRelations(): array {
+    public static function getRelations(): array
+    {
         return [
-            SchoolsRelationManager::class
+            SchoolsRelationManager::class,
         ];
     }
 

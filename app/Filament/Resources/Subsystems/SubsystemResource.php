@@ -15,7 +15,6 @@ use App\Models\Subsystem;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Filament\Tables\Columns\TextColumn;
-use App\Filament\Resources\Subsystems\Pages;
 
 class SubsystemResource extends Resource
 {
@@ -53,7 +52,7 @@ class SubsystemResource extends Resource
                     ->label("Estratégia"),
 
                 Textarea::make("strategy_burn")
-                    ->label("Estratégia (Queimar)")
+                    ->label("Estratégia (Queimar)"),
             ]);
     }
 
@@ -75,7 +74,7 @@ class SubsystemResource extends Resource
                     ->searchable()
                     ->alignCenter()
                     ->badge()
-                    ->label("Sistema")
+                    ->label("Sistema"),
             ])
             ->recordActions([
                 EditAction::make()

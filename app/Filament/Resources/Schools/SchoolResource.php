@@ -15,7 +15,6 @@ use App\Models\School;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Filament\Tables\Columns\TextColumn;
-use App\Filament\Resources\Schools\Pages;
 
 class SchoolResource extends Resource
 {
@@ -84,11 +83,11 @@ class SchoolResource extends Resource
                     ->searchable()
                     ->alignCenter()
                     ->badge()
-                    ->label("Magias")
+                    ->label("Magias"),
             ])
             ->recordActions([
                 EditAction::make()
-					->hidden(),
+                    ->hidden(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
@@ -97,9 +96,10 @@ class SchoolResource extends Resource
             ]);
     }
 
-    public static function getRelations(): array {
+    public static function getRelations(): array
+    {
         return [
-            SpellsRelationManager::class
+            SpellsRelationManager::class,
         ];
     }
 

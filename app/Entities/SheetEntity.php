@@ -23,8 +23,8 @@ use App\Http\Controllers\MysticEyesController;
 use App\Http\Controllers\SonataAbilitiesController;
 use App\Http\Controllers\ScriptureAbilitiesController;
 
-class SheetEntity {
-
+class SheetEntity
+{
     /** @var int */
     public int $id;
 
@@ -98,7 +98,8 @@ class SheetEntity {
      * @param array<string, mixed> $args
      * @return void
      */
-    public function __construct(array $args) {
+    public function __construct(array $args)
+    {
         if (empty($args)) {
             return;
         }
@@ -150,7 +151,7 @@ class SheetEntity {
                 $spells[$spell->name] = [
                     "type" => SpellTypes::tryFrom($spell->type ?? ""),
                     "description" => $spell->description,
-                    "strategy" => $spell->strategy
+                    "strategy" => $spell->strategy,
                 ];
             }
             $this->schools[$schoolModel->name] = ["id" => $schoolModel->id, "level" => $schoolModel->level, "cost" => $schoolModel->cost, "spells" => $spells];
@@ -173,7 +174,7 @@ class SheetEntity {
             $sonataModel = SonatasController::findByName($name);
             $this->sonatas[$sonataModel->name] = [
                 "id" => $sonataModel->id,
-                "abilities" => $sonata["abilities"]
+                "abilities" => $sonata["abilities"],
             ];
         }
 
@@ -182,7 +183,7 @@ class SheetEntity {
             $systemModel = SystemController::findByName($name);
             $this->systems[$systemModel->name] = [
                 "id" => $systemModel->id,
-                "subsystems" => $system["subsystems"]
+                "subsystems" => $system["subsystems"],
             ];
         }
 
@@ -195,7 +196,8 @@ class SheetEntity {
      * @param Sheet $sheet
      * @return SheetEntity
      */
-    public static function buildFromModel(Sheet $sheet) : SheetEntity {
+    public static function buildFromModel(Sheet $sheet): SheetEntity
+    {
         $sheetEntity = new SheetEntity([]);
         return $sheetEntity->build($sheet);
     }
@@ -204,7 +206,8 @@ class SheetEntity {
      * @param Sheet $sheet
      * @return SheetEntity
      */
-    private function build(Sheet $sheet) : SheetEntity {
+    private function build(Sheet $sheet): SheetEntity
+    {
         $this->id = $sheet->id;
         $this->name = $sheet->name;
         $this->portrait = $sheet->portrait;
@@ -245,7 +248,7 @@ class SheetEntity {
                 $spells[$spell->name] = [
                     "type" => SpellTypes::tryFrom($spell->type ?? ""),
                     "description" => $spell->description,
-                    "strategy" => $spell->strategy
+                    "strategy" => $spell->strategy,
                 ];
             }
             $this->schools[$school->name] = ["id" => $school->id, "level" => $school->level, "spells" => $spells, "cost" => $school->cost];
@@ -258,28 +261,30 @@ class SheetEntity {
 
         $this->sonatas = [];
         foreach ($sheet->sonatas as $sonata) {
-            $this->sonatas[$sonata->name] = [
-                "id" => $sonata->id,
-                "abilities" => []
-            ];
+            $abilities = [];
             foreach ($sonata->sonataAbilities as $ability) {
                 if ($sheet->sonataAbilities->contains($ability)) {
-                    $this->sonatas[$sonata->name]["abilities"][] = $ability;
+                    $abilities[] = $ability;
                 }
             }
+            $this->sonatas[$sonata->name] = [
+                "id" => $sonata->id,
+                "abilities" => $abilities,
+            ];
         }
 
         $this->systems = [];
         foreach ($sheet->systems as $system) {
-            $this->systems[$system->name] = [
-                "id" => $system->id,
-                "subsystems" => []
-            ];
+            $subsystems = [];
             foreach ($system->subsystems as $subsystem) {
                 if ($sheet->subsystems->contains($subsystem)) {
-                    $this->systems[$system->name]["subsystems"][] = $subsystem;
+                    $subsystems[] = $subsystem;
                 }
             }
+            $this->systems[$system->name] = [
+                "id" => $system->id,
+                "subsystems" => $subsystems,
+            ];
         }
 
         $this->setClasses();
@@ -291,7 +296,8 @@ class SheetEntity {
      * Calculate max attributes and populate maxAttributes array
      * @return void
      */
-    private function calculateMaxAttributes() : void {
+    private function calculateMaxAttributes(): void
+    {
         $this->maxAttributes = [];
         $this->maxAttributes["max_health"] = 2 + 2 * $this->stats["endurance"] + $this->stats["strength"];
         $this->maxAttributes["max_initiative"] = $this->stats["agility"] + $this->stats["perception"];
@@ -322,7 +328,8 @@ class SheetEntity {
      * @param Sheet $model
      * @return void
      */
-    public function update(Sheet $model) {
+    public function update(Sheet $model)
+    {
         $model->name = $this->name;
         $model->description = $this->description;
         $model->background = $this->background;
@@ -382,7 +389,7 @@ class SheetEntity {
         $model->advantages()->sync($advantages, true);
 
         $miracles = [];
-        foreach($this->miracles as $miracle) {
+        foreach ($this->miracles as $miracle) {
             $miracles[] = $miracle["id"];
         }
 
@@ -450,7 +457,8 @@ class SheetEntity {
      * Populate the classes property array
      * @return void
      */
-    private function setClasses() : void {
+    private function setClasses(): void
+    {
         $this->classes = [];
         $this->classes["isMage"] = array_key_exists("magic", $this->stats);
         $this->classes["isCleric"] = array_key_exists("faith", $this->stats);

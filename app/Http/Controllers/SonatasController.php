@@ -13,7 +13,7 @@ class SonatasController extends Controller
      * List all sonatas
      * @return AnonymousResourceCollection<int, SonataResource>
      */
-    public function index() : AnonymousResourceCollection
+    public function index(): AnonymousResourceCollection
     {
         return SonataResource::collection(Sonata::all());
     }
@@ -22,7 +22,7 @@ class SonatasController extends Controller
      * Persist a new sonata
      * @return void
      */
-    public function store(Request $request) : void
+    public function store(Request $request): void
     {
         // TODO
     }
@@ -31,7 +31,7 @@ class SonatasController extends Controller
      * Show a sonata by id
      * @return ?Sonata
      */
-    public static function show(int $id) : ?Sonata
+    public static function show(int $id): ?Sonata
     {
         return Sonata::find($id);
     }
@@ -41,7 +41,8 @@ class SonatasController extends Controller
      * @param string $name
      * @return Sonata
      */
-    public static function findByName(string $name) : Sonata {
+    public static function findByName(string $name): Sonata
+    {
         return Sonata::where("name", $name)->firstOrFail();
     }
 
@@ -49,7 +50,7 @@ class SonatasController extends Controller
      * Update a sonata
      * @return void
      */
-    public function update(Request $request, Sonata $sonata) : void
+    public function update(Request $request, Sonata $sonata): void
     {
         // TODO
     }
@@ -58,7 +59,7 @@ class SonatasController extends Controller
      * Delete a sonata
      * @return void
      */
-    public function destroy(Sonata $sonata) : void
+    public function destroy(Sonata $sonata): void
     {
         // TODO
     }

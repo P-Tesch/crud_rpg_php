@@ -13,7 +13,7 @@ class ScriptureAbilitiesController extends Controller
      * List all scripture abilities
      * @return AnonymousResourceCollection<int, ScriptureAbilityResource>
      */
-    public function index() : AnonymousResourceCollection
+    public function index(): AnonymousResourceCollection
     {
         return ScriptureAbilityResource::collection(ScriptureAbility::all());
     }
@@ -22,7 +22,7 @@ class ScriptureAbilitiesController extends Controller
      * Persist a new scripture ability
      * @return void
      */
-    public function store(Request $request) : void
+    public function store(Request $request): void
     {
         // TODO
     }
@@ -31,7 +31,7 @@ class ScriptureAbilitiesController extends Controller
      * Show a scripture ability by id
      * @return ?ScriptureAbility
      */
-    public function show(int $id) : ?ScriptureAbility
+    public function show(int $id): ?ScriptureAbility
     {
         return ScriptureAbility::find($id);
     }
@@ -42,7 +42,8 @@ class ScriptureAbilitiesController extends Controller
      * @param int $level
      * @return ScriptureAbility
      */
-    public static function findByNameAndLevel(string $name, int $level) : ScriptureAbility {
+    public static function findByNameAndLevel(string $name, int $level): ScriptureAbility
+    {
         return ScriptureAbility::where("name", $name)->where("level", $level)->firstOrFail();
     }
 
@@ -50,7 +51,7 @@ class ScriptureAbilitiesController extends Controller
      * Update a scripture ability
      * @return void
      */
-    public function update(Request $request, ScriptureAbility $advantage) : void
+    public function update(Request $request, ScriptureAbility $advantage): void
     {
         // TODO
     }
@@ -59,7 +60,7 @@ class ScriptureAbilitiesController extends Controller
      * Delete a scripture ability
      * @return void
      */
-    public function destroy(ScriptureAbility $advantage) : void
+    public function destroy(ScriptureAbility $advantage): void
     {
         // TODO
     }

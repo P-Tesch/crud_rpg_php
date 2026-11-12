@@ -2,24 +2,24 @@
 
 namespace App\Http\Controllers;
 
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 
-class LoginController extends Controller {
-
+class LoginController extends Controller
+{
     /**
      * Authenticates a login attempt and redirects to corresponding page
      * @param Request $request
      * @return RedirectResponse
      */
-    public function authenticate(Request $request) : RedirectResponse {
+    public function authenticate(Request $request): RedirectResponse
+    {
         $credentials = $request->validate([
             'login' => ['required'],
             'password' => ['required'],
         ]);
-        $rememberMe = $request->get("remember_me");
+        $rememberMe = $request->input("remember_me");
 
         if (Auth::attempt($credentials, $rememberMe)) {
             $request->session()->regenerate();
@@ -37,7 +37,8 @@ class LoginController extends Controller {
      * @param Request $request
      * @return RedirectResponse
      */
-    public function logout(Request $request) : RedirectResponse {
+    public function logout(Request $request): RedirectResponse
+    {
         Auth::logout();
         return redirect("/login");
     }

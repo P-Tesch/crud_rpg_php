@@ -8,7 +8,6 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Schemas\Schema;
 use UnitEnum;
-use App\Filament\Resources\SonataAbilities\Pages;
 use App\Models\SonataAbility;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
@@ -60,7 +59,7 @@ class SonataAbilityResource extends Resource
                     ->label("Sonata"),
 
                 Textarea::make("strategy")
-                    ->label("Estratégia")
+                    ->label("Estratégia"),
             ]);
     }
 
@@ -90,12 +89,12 @@ class SonataAbilityResource extends Resource
                     ->sortable()
                     ->searchable()
                     ->alignCenter()
-                    ->label("Sonata")
+                    ->label("Sonata"),
             ])
             ->recordActions([
                 EditAction::make()
                     ->modal()
-                    ->hidden()
+                    ->hidden(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

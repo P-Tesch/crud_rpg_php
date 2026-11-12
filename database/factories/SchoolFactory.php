@@ -20,7 +20,7 @@ class SchoolFactory extends Factory
             "name" => fake()->word(),
             "description" => fake()->sentence(),
             "level" => fake()->numberBetween(1, 3),
-            "cost" => fake()->numberBetween(5, 30)
+            "cost" => fake()->numberBetween(5, 30),
         ];
     }
 }

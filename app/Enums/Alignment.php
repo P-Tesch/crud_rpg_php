@@ -2,7 +2,8 @@
 
 namespace App\Enums;
 
-enum Alignment : string {
+enum Alignment: string
+{
     case FIRE = "fire";
     case WATER = "water";
     case EARTH = "ëarth";

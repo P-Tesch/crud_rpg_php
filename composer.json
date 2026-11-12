@@ -14,19 +14,22 @@
         "laravel/tinker": "^3.0"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^4.4",
+        "barryvdh/laravel-ide-helper": "^3.8",
         "fakerphp/faker": "^1.23",
         "larastan/larastan": "^3.10",
         "laravel/pint": "^1.17",
         "laravel/sail": "^1.32",
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.4",
-        "phpstan/phpstan": "^2.3",
-        "phpstan/phpstan-strict-rules": "^2.0",
         "pestphp/pest": "^5.3",
         "pestphp/pest-plugin-browser": "^5.0",
         "pestphp/pest-plugin-livewire": "^5.0",
         "pestphp/pest-plugin-phpstan": "^5.0",
-        "pestphp/pest-plugin-type-coverage": "^5.0"
+        "pestphp/pest-plugin-type-coverage": "^5.0",
+        "phpstan/phpstan": "^2.3",
+        "phpstan/phpstan-deprecation-rules": "^2.0",
+        "phpstan/phpstan-strict-rules": "^2.0"
     },
     "autoload": {
         "psr-4": {
@@ -41,9 +44,17 @@
         }
     },
     "scripts": {
-        "test": [
-            "@php artisan config:clear --ansi @no_additional_args",
-            "@php artisan test"
+        "test": "php -d memory_limit=2G vendor/bin/pest --compact --parallel",
+        "type": "vendor/bin/pest --type-coverage --compact --memory-limit=2G",
+        "coverage": "php -d memory_limit=2G vendor/bin/pest --coverage-html ./tests/coverage",
+        "format": "vendor/bin/pint",
+        "lint": "vendor/bin/phpstan analyse --memory-limit=2G",
+        "ide": "@php artisan ide-helper:models -M -n",
+        "ci": [
+            "@php artisan ide-helper:models -M -n",
+            "@format",
+            "@test-clean",
+            "vendor/bin/phpstan analyse --memory-limit=2G --no-interaction"
         ],
         "analyse": [
             "phpstan analyse --memory-limit=1G"

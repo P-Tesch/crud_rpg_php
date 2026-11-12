@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * @mixin IdeHelperBloodAbility
+ */
 class BloodAbility extends Model
 {
     /** @var bool */
@@ -13,16 +16,19 @@ class BloodAbility extends Model
     /** @var list<string> */
     protected $fillable = [
         "name",
-        "description"
+        "description",
     ];
 
     /** @var list<string> */
     protected $hidden = [
-        "strategy"
+        "strategy",
     ];
 
-    /** @return BelongsTo<Blood, BloodAbility> */
-    public function blood() : BelongsTo {
+    /**
+     * @return BelongsTo<Blood, $this>
+     */
+    public function blood(): BelongsTo
+    {
         return $this->belongsTo(Blood::class);
     }
 }

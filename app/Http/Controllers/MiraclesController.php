@@ -14,7 +14,7 @@ class MiraclesController extends Controller
      * List all miracles
      * @return AnonymousResourceCollection<int, MiracleResource>
      */
-    public function index() : AnonymousResourceCollection
+    public function index(): AnonymousResourceCollection
     {
         return MiracleResource::collection(Miracle::all());
     }
@@ -23,7 +23,7 @@ class MiraclesController extends Controller
      * Persist a new miracle
      * @return void
      */
-    public function store(Request $request) : void
+    public function store(Request $request): void
     {
         // TODO
     }
@@ -32,7 +32,7 @@ class MiraclesController extends Controller
      * Show a miracle by id
      * @return ?Miracle
      */
-    public function show(int $id) : ?Miracle
+    public function show(int $id): ?Miracle
     {
         return Miracle::find($id);
     }
@@ -42,7 +42,8 @@ class MiraclesController extends Controller
      * @param string $name
      * @return Miracle
      */
-    public static function findByName(string $name) : Miracle {
+    public static function findByName(string $name): Miracle
+    {
         return Miracle::where("name", $name)->firstOrFail();
     }
 
@@ -50,7 +51,7 @@ class MiraclesController extends Controller
      * Update the miracle
      * @return void
      */
-    public function update(Request $request, Advantage $advantage) : void
+    public function update(Request $request, Advantage $advantage): void
     {
         // TODO
     }
@@ -59,7 +60,7 @@ class MiraclesController extends Controller
      * Delete a miracle
      * @return void
      */
-    public function destroy(Advantage $advantage) : void
+    public function destroy(Advantage $advantage): void
     {
         // TODO
     }

@@ -33,7 +33,7 @@ test('an admin can log in through the custom login field', function () {
 test('every resource index page loads for an admin', function () {
     $this->actingAs(makeAdmin());
 
-    $resources = Filament::getPanel('admin')->getResources();
+    $resources = Filament::getPanel('admin')?->getResources() ?? [];
     expect($resources)->toHaveCount(15);
 
     foreach ($resources as $resource) {
@@ -45,7 +45,7 @@ test('edit and view pages render with seeded data', function () {
     $this->seed();
     $this->actingAs(User::where('is_admin', true)->firstOrFail());
 
-    foreach (Filament::getPanel('admin')->getResources() as $resource) {
+    foreach (Filament::getPanel('admin')?->getResources() ?? [] as $resource) {
         $record = $resource::getModel()::query()->first();
 
         if ($record === null) {

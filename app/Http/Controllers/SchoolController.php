@@ -14,7 +14,7 @@ class SchoolController extends Controller
      * List all schools
      * @return AnonymousResourceCollection<int, SchoolResource>
      */
-    public function index() : AnonymousResourceCollection
+    public function index(): AnonymousResourceCollection
     {
         return SchoolResource::collection(School::all());
     }
@@ -23,7 +23,7 @@ class SchoolController extends Controller
      * Persist a new school
      * @return void
      */
-    public function store(Request $request) : void
+    public function store(Request $request): void
     {
         // TODO
     }
@@ -32,7 +32,7 @@ class SchoolController extends Controller
      * Show a school by id
      * @return ?School
      */
-    public function show(int $id) : ?School
+    public function show(int $id): ?School
     {
         return School::find($id);
     }
@@ -43,7 +43,8 @@ class SchoolController extends Controller
      * @param int $level
      * @return School
      */
-    public static function findByNameAndLevel(string $name, int $level) : School {
+    public static function findByNameAndLevel(string $name, int $level): School
+    {
         return School::where("name", $name)->where("level", $level)->firstOrFail();
     }
 
@@ -51,7 +52,7 @@ class SchoolController extends Controller
      * Update a school
      * @return void
      */
-    public function update(Request $request, User $user) : void
+    public function update(Request $request, User $user): void
     {
         // TODO
     }
@@ -60,7 +61,7 @@ class SchoolController extends Controller
      * Delete a school
      * @return void
      */
-    public function destroy(int $id) : void
+    public function destroy(int $id): void
     {
         // TODO
     }

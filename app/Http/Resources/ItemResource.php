@@ -15,7 +15,7 @@ class ItemResource extends JsonResource
             "name" => $this->name,
             "description" => $this->description,
             "damage" => $this->damage,
-            "effects" => EffectResource::collection($this->effects)
+            "effects" => EffectResource::collection($this->effects),
         ];
     }
 }

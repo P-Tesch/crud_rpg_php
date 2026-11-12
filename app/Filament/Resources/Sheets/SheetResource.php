@@ -5,17 +5,11 @@ namespace App\Filament\Resources\Sheets;
 use BackedEnum;
 use Filament\Schemas\Schema;
 use UnitEnum;
-use App\Filament\Resources\Sheets\Pages;
-use App\Filament\Resources\Sheets\RelationManagers;
 use App\Models\Sheet;
-use Filament\Forms;
-use Filament\Infolists\Components\ImageEntry;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Resources\Resource;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class SheetResource extends Resource
 {
@@ -65,8 +59,8 @@ class SheetResource extends Resource
                     ->alignCenter()
                     ->default("-")
                     ->formatStateUsing(
-                        fn (string $state) : string =>
-                            self::formatAlignment($state)
+                        fn (string $state): string =>
+                            self::formatAlignment($state),
                     )
                     ->label("Alinhamento"),
 
@@ -74,10 +68,10 @@ class SheetResource extends Resource
                     ->alignCenter()
                     ->default("-")
                     ->formatStateUsing(
-                        fn (string $state) : string =>
-                            self::formatOrganization($state)
+                        fn (string $state): string =>
+                            self::formatOrganization($state),
                     )
-                    ->label("Organização")
+                    ->label("Organização"),
             ])
             ->filters([
                 //
@@ -99,11 +93,12 @@ class SheetResource extends Resource
     {
         return [
             'index' => Pages\ListSheets::route('/'),
-            'view' => Pages\ViewSheet::route('/{record}')
+            'view' => Pages\ViewSheet::route('/{record}'),
         ];
     }
 
-    public static function infolist(Schema $schema): Schema {
+    public static function infolist(Schema $schema): Schema
+    {
         return $schema
             ->components([
                 TextEntry::make("name")
@@ -121,22 +116,23 @@ class SheetResource extends Resource
                 TextEntry::make("alignment")
                     ->visible(fn ($state) => !is_null($state))
                     ->formatStateUsing(
-                        fn (string $state) : string =>
-                            self::formatAlignment($state)
+                        fn (string $state): string =>
+                            self::formatAlignment($state),
                     )
                     ->label("Alinhamento"),
 
                 TextEntry::make("organization")
                     ->visible(fn ($state) => !is_null($state))
                     ->formatStateUsing(
-                        fn (string $state) : string =>
-                            self::formatOrganization($state)
+                        fn (string $state): string =>
+                            self::formatOrganization($state),
                     )
-                    ->label("Organização")
+                    ->label("Organização"),
             ]);
     }
 
-    private static function formatAlignment(string $state) : string {
+    private static function formatAlignment(string $state): string
+    {
         return match ($state) {
             "fire" => "Fogo",
             "water" => "Água",
@@ -146,17 +142,18 @@ class SheetResource extends Resource
             "void" => "Vazio",
             "ice" => "Gelo",
             "electricity" => "Eletricidade",
-            default => "-"
+            default => "-",
         };
     }
 
-    private static function formatOrganization(string $state) : string {
+    private static function formatOrganization(string $state): string
+    {
         return match ($state) {
             "executors" => "Executores",
             "brotherhood" => "Irmandade",
             "chivalry" => "Cavaleiros",
             "exorcists" => "Exorcistas",
-            default => "-"
+            default => "-",
         };
     }
 }

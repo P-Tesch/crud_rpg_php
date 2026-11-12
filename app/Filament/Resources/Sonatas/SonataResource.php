@@ -14,7 +14,6 @@ use App\Models\Sonata;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Filament\Tables\Columns\TextColumn;
-use App\Filament\Resources\Sonatas\Pages;
 
 class SonataResource extends Resource
 {
@@ -40,7 +39,7 @@ class SonataResource extends Resource
 
                 Textarea::make("description")
                     ->required()
-                    ->label("Descrição")
+                    ->label("Descrição"),
             ]);
     }
 
@@ -62,7 +61,7 @@ class SonataResource extends Resource
                     ->searchable()
                     ->badge()
                     ->alignCenter()
-                    ->label("Abilidades")
+                    ->label("Abilidades"),
             ])
             ->recordActions([
                 EditAction::make()

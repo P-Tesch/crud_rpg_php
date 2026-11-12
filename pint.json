@@ -1,0 +1,21 @@
+{
+    "preset": "per",
+    "rules": {
+        "method_argument_space": {
+            "on_multiline": "ignore"
+        },
+        "operator_linebreak": {
+            "only_booleans": true
+        },
+        "function_declaration": {
+            "closure_fn_spacing": "one"
+        },
+        "single_import_per_statement": false,
+        "single_trait_insert_per_statement": false,
+        "unary_operator_spaces": true,
+        "phpdoc_align": {
+            "align": "left",
+            "spacing": 1
+        }
+    }
+}

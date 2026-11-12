@@ -14,7 +14,6 @@ use Filament\Tables\Table;
 use App\Models\ScriptureAbility;
 use Filament\Resources\Resource;
 use Filament\Tables\Columns\TextColumn;
-use App\Filament\Resources\ScriptureAbilities\Pages;
 
 class ScriptureAbilityResource extends Resource
 {
@@ -52,7 +51,7 @@ class ScriptureAbilityResource extends Resource
                     ->label("Custo"),
 
                 Textarea::make("strategy")
-                    ->label("Estratégia")
+                    ->label("Estratégia"),
             ]);
     }
 
@@ -83,7 +82,7 @@ class ScriptureAbilityResource extends Resource
                     ->counts("scripture")
                     ->alignCenter()
                     ->sortable()
-                    ->label("Qtd. Escrituras")
+                    ->label("Qtd. Escrituras"),
 
             ])
             ->filters([

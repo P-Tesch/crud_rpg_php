@@ -9,7 +9,6 @@ use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
-use App\Filament\Resources\Scriptures\Pages;
 
 class ScriptureResource extends Resource
 {
@@ -64,30 +63,31 @@ class ScriptureResource extends Resource
 
                 IconColumn::make("double")
                     ->icon(
-                        fn (bool $state) : string =>
-                            $state ? "heroicon-o-check-circle": "heroicon-o-x-circle"
+                        fn (bool $state): string =>
+                            $state ? "heroicon-o-check-circle" : "heroicon-o-x-circle",
                     )
                     ->color(
-                        fn (bool $state) : string =>
-                            $state ? "success" : "danger"
+                        fn (bool $state): string =>
+                            $state ? "success" : "danger",
                     )
                     ->alignCenter()
                     ->label("Duplo"),
 
                 TextColumn::make("scriptureAbilities.name")
                     ->badge()
-                    ->label("Habilidades")
-        ]);
+                    ->label("Habilidades"),
+            ]);
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListScriptures::route('/')
+            'index' => Pages\ListScriptures::route('/'),
         ];
     }
 
-    public static function canCreate() : bool {
+    public static function canCreate(): bool
+    {
         return false;
     }
 }

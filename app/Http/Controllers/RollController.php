@@ -12,12 +12,13 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Broadcast;
 use Symfony\Component\Translation\Exception\NotFoundResourceException;
 
-class RollController extends Controller {
-
+class RollController extends Controller
+{
     /** @var RollHistory */
     private $rollHistory;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->rollHistory = new RollHistory(Cache::get("rollsTable", []));
     }
 
@@ -26,7 +27,8 @@ class RollController extends Controller {
      * @param Request $request
      * @return array<int, array<string, mixed>>
      */
-    public function index(Request $request) : array {
+    public function index(Request $request): array
+    {
         return $this->rollHistory->getRolls();
     }
 
@@ -36,7 +38,8 @@ class RollController extends Controller {
      * @param SheetController $sheetController
      * @return void
      */
-    public function rollSkill(Request $request, SheetController $sheetController) : void {
+    public function rollSkill(Request $request, SheetController $sheetController): void
+    {
         $skill = $request->input("skill");
         $modifiers = (int) $request->input("modifier");
 
@@ -50,9 +53,9 @@ class RollController extends Controller {
             "subject" => $skill,
             "name" => $sheet->name,
             "rolls" => [
-                "skill" => RollHelper::roll([$sheet->skills[$skill], $sheet->stats[$stat], $modifiers])
-                ]
-            ]
+                "skill" => RollHelper::roll([$sheet->skills[$skill], $sheet->stats[$stat], $modifiers]),
+            ],
+        ],
         );
     }
 
@@ -62,7 +65,8 @@ class RollController extends Controller {
      * @param SheetController $sheetController
      * @return void
      */
-    public function rollSpell(Request $request, SheetController $sheetController) : void {
+    public function rollSpell(Request $request, SheetController $sheetController): void
+    {
         $cost = (int) $request->input("cost");
         $spellString = $request->input("spell");
         $schoolString = $request->input("school");
@@ -100,9 +104,9 @@ class RollController extends Controller {
             "rolls" => [
                 "recoil" => $recoilRoll["roll"],
                 "success" => $spellRoll,
-                "specific" => $specificRoll ?? null
-                ]
-            ]
+                "specific" => $specificRoll ?? null,
+            ],
+        ],
         );
     }
 
@@ -112,7 +116,8 @@ class RollController extends Controller {
      * @param SheetController $sheetController
      * @return void
      */
-    public function rollItem(Request $request, SheetController $sheetController) : void {
+    public function rollItem(Request $request, SheetController $sheetController): void
+    {
         $itemId = (int) $request->input("item");
 
         $item = Item::find($itemId);
@@ -130,8 +135,8 @@ class RollController extends Controller {
             "subject" => $item->name,
             "name" => $sheet->name,
             "id" => $sheet->id,
-            "rolls" => $roll
-            ]
+            "rolls" => $roll,
+        ],
         );
     }
 
@@ -142,7 +147,8 @@ class RollController extends Controller {
      * @param MysticEyesController $mysticEyesController
      * @return void
      */
-    public function rollMysticEye(Request $request, SheetController $sheetController, MysticEyesController $mysticEyesController) : void {
+    public function rollMysticEye(Request $request, SheetController $sheetController, MysticEyesController $mysticEyesController): void
+    {
         $eyeId = (int) $request->input("eye");
         $targetId = (int) $request->input("target");
 
@@ -165,9 +171,9 @@ class RollController extends Controller {
             "name" => $sheet->name,
             "target" => $target->name,
             "rolls" => [
-                "mystic_eye" => $roll
-                ]
-            ]
+                "mystic_eye" => $roll,
+            ],
+        ],
         );
     }
 
@@ -177,8 +183,9 @@ class RollController extends Controller {
      * @param SheetController $sheetController
      * @return void
      */
-    public function rollGeneric(Request $request, SheetController $sheetController) : void {
-        $modifier = $request->get("modifier");
+    public function rollGeneric(Request $request, SheetController $sheetController): void
+    {
+        $modifier = $request->input("modifier");
 
         $sheet = SheetEntity::buildFromModel($sheetController->showAsModel($request));
 
@@ -188,9 +195,9 @@ class RollController extends Controller {
             "name" => $sheet->name,
             "amount" => $modifier,
             "rolls" => [
-                "success" => RollHelper::roll([$modifier])
-                ]
-            ]
+                "success" => RollHelper::roll([$modifier]),
+            ],
+        ],
         );
     }
 
@@ -200,7 +207,8 @@ class RollController extends Controller {
      * @param int $cost
      * @return array<string, mixed>
      */
-    private function rollRecoil(SheetEntity &$sheet, int $cost) : array {
+    private function rollRecoil(SheetEntity &$sheet, int $cost): array
+    {
         $sheet->attributes["mana"] -= $cost;
         $recoilRoll = RollHelper::roll([$sheet->skills["tenacity"], $sheet->stats["intelligence"]]);
         $recoil = 0;
@@ -212,7 +220,7 @@ class RollController extends Controller {
 
         return [
             "recoil" => $recoil,
-            "roll" => $recoilRoll
+            "roll" => $recoilRoll,
         ];
     }
 
@@ -221,7 +229,8 @@ class RollController extends Controller {
      * @param array<string, mixed> $rolls
      * @return void
      */
-    private function broadcastAndStore(array $rolls) {
+    private function broadcastAndStore(array $rolls)
+    {
         $this->rollHistory->addRoll($rolls);
 
         Broadcast::on("rolls")

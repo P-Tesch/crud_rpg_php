@@ -14,7 +14,6 @@ use App\Models\System;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Filament\Tables\Columns\TextColumn;
-use App\Filament\Resources\Systems\Pages;
 
 class SystemResource extends Resource
 {
@@ -54,7 +53,7 @@ class SystemResource extends Resource
                     ->label("Estratégia (Ativo)"),
 
                 Textarea::make("strategy_burn")
-                    ->label("Estratégia (Queimar)")
+                    ->label("Estratégia (Queimar)"),
             ]);
     }
 
@@ -84,9 +83,9 @@ class SystemResource extends Resource
                     ->color(fn ($state) => match (true) {
                         str_contains($state, "(A)") => "yellow",
                         str_contains($state, "(B)") => "red",
-                        default => "green"
+                        default => "green",
                     })
-                    ->label("Subsistemas")
+                    ->label("Subsistemas"),
 
             ])
             ->recordActions([

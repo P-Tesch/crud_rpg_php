@@ -7,7 +7,6 @@ services:
             context: .
         ports:
             - "8000:8000"
-            - "5173:5173"
         networks:
             - app_network
         env_file:
@@ -16,7 +15,7 @@ services:
             - pgsql
             - redis
         volumes:
-          - app:/var/www
+          - .:/var/www
 
     pgsql:
         container_name: rpg-pgsql
@@ -52,7 +51,29 @@ services:
         depends_on:
             - app
         volumes:
-          - app:/var/www
+          - .:/var/www
+
+    vite:
+        container_name: rpg-vite
+        image: node:26-alpine3.24
+        restart: always
+        working_dir: /app
+        # Same Node image as the asset build stage in .docker/app/Dockerfile.
+        # node_modules lives in its own volume: the host's copy holds macOS binaries
+        # (rolldown, lightningcss, tailwind oxide) that can't run on Linux.
+        command: sh -c "npm install --no-audit --no-fund && exec npm run dev"
+        # Makes laravel-vite-plugin listen on 0.0.0.0:5173 (strict port) and write
+        # http://localhost:5173 to public/hot, so the browser can reach it.
+        environment:
+            LARAVEL_SAIL: 1
+        init: true
+        ports:
+            - "5173:5173"
+        networks:
+            - app_network
+        volumes:
+            - .:/app
+            - node_modules:/app/node_modules
 
 networks:
     app_network:
@@ -61,5 +82,5 @@ networks:
 volumes:
     pgsql:
         driver: local
-    app:
+    node_modules:
         driver: local

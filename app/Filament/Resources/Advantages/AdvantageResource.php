@@ -15,7 +15,6 @@ use App\Models\Advantage;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Filament\Tables\Columns\TextColumn;
-use App\Filament\Resources\Advantages\Pages;
 
 class AdvantageResource extends Resource
 {
@@ -36,17 +35,17 @@ class AdvantageResource extends Resource
         return $schema
             ->components([
                 TextInput::make("name")
-					->alphaNum()
-					->maxLength(63)
+                    ->alphaNum()
+                    ->maxLength(63)
                     ->required()
-					->label("Nome"),
+                    ->label("Nome"),
 
                 Textarea::make("description")
-					->alphaNum()
-					->maxLength(511)
-					->rows(5)
+                    ->alphaNum()
+                    ->maxLength(511)
+                    ->rows(5)
                     ->required()
-					->label("Descrição"),
+                    ->label("Descrição"),
 
                 TextInput::make("level")
                     ->numeric()
@@ -64,12 +63,12 @@ class AdvantageResource extends Resource
                         "cleric" => "Clérigo",
                         "vampire" => "Vampiro",
                         "hybrid" => "Híbrido",
-                        "magiteck" => "Magiteck"
+                        "magiteck" => "Magiteck",
                     ])
                     ->label("Classe"),
 
                 Textarea::make("strategy")
-					->label("Estratégia")
+                    ->label("Estratégia"),
 
             ]);
     }
@@ -79,37 +78,37 @@ class AdvantageResource extends Resource
         return $table
             ->columns([
                 TextColumn::make("name")
-					->searchable()
-					->label("Nome"),
+                    ->searchable()
+                    ->label("Nome"),
 
                 TextColumn::make("description")
-					->wrap()
+                    ->wrap()
                     ->alignJustify()
                     ->wrap()
-					->label("Descrição"),
+                    ->label("Descrição"),
 
                 TextColumn::make("level")
-					->sortable()
+                    ->sortable()
                     ->alignCenter()
-					->label("Level"),
+                    ->label("Level"),
 
                 TextColumn::make("cost")
-					->sortable()
+                    ->sortable()
                     ->alignCenter()
-					->label("Custo"),
+                    ->label("Custo"),
 
                 TextColumn::make("class")
-					->sortable()
+                    ->sortable()
                     ->alignCenter()
                     ->formatStateUsing(
-                        fn (string $state) : string =>
-                            self::formatClassName($state)
+                        fn (string $state): string =>
+                            self::formatClassName($state),
                     )
-					->label("Classe")
+                    ->label("Classe"),
             ])
             ->recordActions([
                 EditAction::make()
-					->hidden(),
+                    ->hidden(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
@@ -127,14 +126,15 @@ class AdvantageResource extends Resource
         ];
     }
 
-    private static function formatClassName(string $className) : string {
+    private static function formatClassName(string $className): string
+    {
         return match ($className) {
             "mage" => "Mago",
             "cleric" => "Clérigo",
             "vampire" => "Vampiro",
             "hybrid" => "Híbrido",
             "magiteck" => "Magiteck",
-            default => ""
+            default => "",
         };
     }
 }

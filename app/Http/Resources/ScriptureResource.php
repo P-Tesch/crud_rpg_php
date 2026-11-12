@@ -20,7 +20,7 @@ class ScriptureResource extends JsonResource
             "sharpness" => $this->sharpness,
             "double" => $this->double,
             "scripture_abilities" => ScriptureAbilityResource::collection($this->scriptureAbilities),
-            "description" => $this->description
+            "description" => $this->description,
         ];
     }
 }

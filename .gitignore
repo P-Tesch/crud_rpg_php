@@ -25,3 +25,5 @@ Homestead.json
 /caddy
 frankenphp
 frankenphp-worker.php
+
+_ide_helper_models.php

@@ -13,7 +13,7 @@ class AdvantagesController extends Controller
      * Lists all advantages
      * @return AnonymousResourceCollection<int, AdvantageResource>
      */
-    public function index() : AnonymousResourceCollection
+    public function index(): AnonymousResourceCollection
     {
         return AdvantageResource::collection(Advantage::all());
     }
@@ -22,7 +22,7 @@ class AdvantagesController extends Controller
      * Persists a new advantage
      * @return void
      */
-    public function store(Request $request) : void
+    public function store(Request $request): void
     {
         // TODO
     }
@@ -31,7 +31,7 @@ class AdvantagesController extends Controller
      * Show a advantage by id
      * @return ?Advantage
      */
-    public function show(int $id) : ?Advantage
+    public function show(int $id): ?Advantage
     {
         return Advantage::find($id);
     }
@@ -42,7 +42,8 @@ class AdvantagesController extends Controller
      * @param int $level
      * @return Advantage
      */
-    public static function findByNameAndLevel(string $name, int $level) : Advantage {
+    public static function findByNameAndLevel(string $name, int $level): Advantage
+    {
         return Advantage::where("name", $name)->where("level", $level)->firstOrFail();
     }
 
@@ -50,7 +51,7 @@ class AdvantagesController extends Controller
      * Update a advantage
      * @return void
      */
-    public function update(Request $request, Advantage $advantage) : void
+    public function update(Request $request, Advantage $advantage): void
     {
         // TODO
     }
@@ -59,7 +60,7 @@ class AdvantagesController extends Controller
      * Delete a advantage
      * @return void
      */
-    public function destroy(Advantage $advantage) : void
+    public function destroy(Advantage $advantage): void
     {
         // TODO
     }

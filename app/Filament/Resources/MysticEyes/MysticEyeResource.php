@@ -14,7 +14,6 @@ use App\Models\MysticEye;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Filament\Tables\Columns\TextColumn;
-use App\Filament\Resources\MysticEyes\Pages;
 
 class MysticEyeResource extends Resource
 {
@@ -59,7 +58,7 @@ class MysticEyeResource extends Resource
                     ->label("Estratégia (Passivo)"),
 
                 Textarea::make("active_strategy")
-                    ->label("Estratégia (Ativo)")
+                    ->label("Estratégia (Ativo)"),
             ]);
     }
 
@@ -68,31 +67,31 @@ class MysticEyeResource extends Resource
         return $table
             ->columns([
                 TextColumn::make("name")
-					->searchable()
-					->label("Nome"),
+                    ->searchable()
+                    ->label("Nome"),
 
                 TextColumn::make("passive")
-					->wrap()
+                    ->wrap()
                     ->placeholder("Sem efeito passivo")
                     ->alignJustify()
-					->label("Passivo"),
+                    ->label("Passivo"),
 
                 TextColumn::make("active")
-					->wrap()
+                    ->wrap()
                     ->placeholder("Sem efeito ativo")
                     ->alignJustify()
-					->label("Ativo"),
+                    ->label("Ativo"),
 
                 TextColumn::make("cooldown")
-					->sortable()
+                    ->sortable()
                     ->default("-")
                     ->alignCenter()
-					->label("Cooldown"),
+                    ->label("Cooldown"),
 
                 TextColumn::make("cost")
-					->sortable()
+                    ->sortable()
                     ->alignCenter()
-					->label("Custo")
+                    ->label("Custo"),
             ])
             ->recordActions([
                 EditAction::make()

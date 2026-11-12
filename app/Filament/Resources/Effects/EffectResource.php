@@ -17,7 +17,6 @@ use App\Models\Effect;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
-use App\Filament\Resources\Effects\Pages;
 
 class EffectResource extends Resource
 {
@@ -46,7 +45,7 @@ class EffectResource extends Resource
                     ->label("Descrição"),
 
                 Textarea::make("strategy")
-                    ->label("Estratégia")
+                    ->label("Estratégia"),
             ]);
     }
 
@@ -76,7 +75,7 @@ class EffectResource extends Resource
                 TextColumn::make("systems_count")
                     ->counts("systems")
                     ->alignCenter()
-                    ->label("Qtd. Sistemas afetados")
+                    ->label("Qtd. Sistemas afetados"),
 
             ])
             ->recordActions([
@@ -94,7 +93,7 @@ class EffectResource extends Resource
         return [
             ItemsRelationManager::class,
             SheetsRelationManager::class,
-            SystemsRelationManager::class
+            SystemsRelationManager::class,
         ];
     }
 

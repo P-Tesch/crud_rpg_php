@@ -13,7 +13,6 @@ use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
-use App\Filament\Resources\Users\Pages;
 
 class UserResource extends Resource
 {
@@ -47,36 +46,36 @@ class UserResource extends Resource
                 IconColumn::make("sheet_id")
                     ->default(false)
                     ->icon(
-                        fn (bool $state) : string =>
-                            $state ? "heroicon-o-check-circle": "heroicon-o-x-circle"
+                        fn (bool $state): string =>
+                            $state ? "heroicon-o-check-circle" : "heroicon-o-x-circle",
                     )
                     ->color(
-                        fn (bool $state) : string =>
-                            $state ? "success" : "danger"
+                        fn (bool $state): string =>
+                            $state ? "success" : "danger",
                     )
                     ->alignCenter()
                     ->label("Jogador"),
 
                 IconColumn::make("is_master")
                     ->icon(
-                        fn (bool $state) : string =>
-                            $state ? "heroicon-o-check-circle": "heroicon-o-x-circle"
+                        fn (bool $state): string =>
+                            $state ? "heroicon-o-check-circle" : "heroicon-o-x-circle",
                     )
                     ->color(
-                        fn (bool $state) : string =>
-                            $state ? "success" : "danger"
+                        fn (bool $state): string =>
+                            $state ? "success" : "danger",
                     )
                     ->alignCenter()
                     ->label("Mestre"),
 
                 IconColumn::make("is_admin")
                     ->icon(
-                        fn (bool $state) : string =>
-                            $state ? "heroicon-o-check-circle": "heroicon-o-x-circle"
+                        fn (bool $state): string =>
+                            $state ? "heroicon-o-check-circle" : "heroicon-o-x-circle",
                     )
                     ->color(
-                        fn (bool $state) : string =>
-                            $state ? "success" : "danger"
+                        fn (bool $state): string =>
+                            $state ? "success" : "danger",
                     )
                     ->alignCenter()
                     ->label("Admin"),

@@ -9,11 +9,11 @@ use Illuminate\Http\Resources\Json\JsonResource;
 class StatResource extends JsonResource
 {
     /** @return array<string, mixed> */
-    public function toArray(Request $request) : array
+    public function toArray(Request $request): array
     {
         return [
             "key" => $this->key,
-            "value" => $this->value
+            "value" => $this->value,
         ];
     }
 }

@@ -12,7 +12,6 @@ use App\Models\Item;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Filament\Tables\Columns\TextColumn;
-use App\Filament\Resources\Items\Pages;
 
 class ItemResource extends Resource
 {
@@ -62,7 +61,7 @@ class ItemResource extends Resource
                 TextColumn::make("effects.name")
                     ->alignCenter()
                     ->badge()
-                    ->label("Efeitos")
+                    ->label("Efeitos"),
             ])
             ->recordActions([
                 EditAction::make()

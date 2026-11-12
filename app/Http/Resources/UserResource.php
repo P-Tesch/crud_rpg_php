@@ -9,10 +9,10 @@ use Illuminate\Http\Resources\Json\JsonResource;
 class UserResource extends JsonResource
 {
     /** @return array<string, mixed> */
-    public function toArray(Request $request) : array
+    public function toArray(Request $request): array
     {
         return [
-            "login" => $this->login
+            "login" => $this->login,
         ];
     }
 }

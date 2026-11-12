@@ -16,7 +16,7 @@ class SchoolResource extends JsonResource
             "description" => $this->description,
             "level" => $this->level,
             "spells" => SpellResource::collection($this->spells),
-            "cost" => $this->cost
+            "cost" => $this->cost,
         ];
     }
 }

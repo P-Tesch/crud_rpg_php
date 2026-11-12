@@ -13,7 +13,7 @@ class MysticEyesController extends Controller
      * List all mystic eyes
      * @return AnonymousResourceCollection<int, MysticEye>
      */
-    public function index() : AnonymousResourceCollection
+    public function index(): AnonymousResourceCollection
     {
         return MysticEyeResource::collection(MysticEye::all());
     }
@@ -22,7 +22,7 @@ class MysticEyesController extends Controller
      * Persist a new mystic eye
      * @return void
      */
-    public function store(Request $request) : void
+    public function store(Request $request): void
     {
         // TODO
     }
@@ -31,7 +31,7 @@ class MysticEyesController extends Controller
      * Show a mystic eye by id
      * @return ?MysticEye
      */
-    public function show(int $id) : ?MysticEye
+    public function show(int $id): ?MysticEye
     {
         return MysticEye::find($id);
     }
@@ -41,7 +41,8 @@ class MysticEyesController extends Controller
      * @param string $name
      * @return MysticEye
      */
-    public static function findByName(string $name) : MysticEye {
+    public static function findByName(string $name): MysticEye
+    {
         return MysticEye::where("name", $name)->firstOrFail();
     }
 
@@ -49,7 +50,7 @@ class MysticEyesController extends Controller
      * Update a mystic eye
      * @return void
      */
-    public function update(Request $request, MysticEye $mysticEye) : void
+    public function update(Request $request, MysticEye $mysticEye): void
     {
         // TODO
     }
@@ -58,7 +59,7 @@ class MysticEyesController extends Controller
      * Delete a mystic eye
      * @return void
      */
-    public function destroy(MysticEye $mysticEye) : void
+    public function destroy(MysticEye $mysticEye): void
     {
         // TODO
     }

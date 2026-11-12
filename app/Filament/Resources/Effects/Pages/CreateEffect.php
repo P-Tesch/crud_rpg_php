@@ -3,7 +3,6 @@
 namespace App\Filament\Resources\Effects\Pages;
 
 use App\Filament\Resources\Effects\EffectResource;
-use Filament\Actions;
 use Filament\Resources\Pages\CreateRecord;
 
 class CreateEffect extends CreateRecord

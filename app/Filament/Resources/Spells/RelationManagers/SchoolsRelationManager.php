@@ -36,7 +36,7 @@ class SchoolsRelationManager extends RelationManager
 
                 Tables\Columns\TextColumn::make('level')
                     ->alignCenter()
-                    ->label("Level")
+                    ->label("Level"),
             ])
             ->filters([
                 //

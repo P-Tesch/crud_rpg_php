@@ -2,14 +2,15 @@
 
 namespace App\Helpers;
 
-class RollHelper {
-
+class RollHelper
+{
     /**
      * Roll form a array of numbers
      * @param array<int, int> $modifiers
      * @return array<string, mixed>
      */
-    public static function roll(array $modifiers) : array {
+    public static function roll(array $modifiers): array
+    {
         $hits = 0;
         $results = [];
         $rolls = RollHelper::sumArray($modifiers);
@@ -30,7 +31,8 @@ class RollHelper {
      * @param array<int, int> $modifiers
      * @return int
      */
-    private static function sumArray(array $modifiers) : int {
+    private static function sumArray(array $modifiers): int
+    {
         $total = 0;
 
         foreach ($modifiers as $modifier) {

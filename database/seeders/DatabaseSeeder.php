@@ -38,7 +38,8 @@ class DatabaseSeeder extends Seeder
      * Seed the systems and subsystems tables
      * @return void
      */
-    private function seedSystemsAndSubystems() : void {
+    private function seedSystemsAndSubystems(): void
+    {
         System::truncate();
         Subsystem::truncate();
 
@@ -54,7 +55,7 @@ class DatabaseSeeder extends Seeder
             if ($matches[1] != "") {
                 $lastSystem = new System([
                     "name" => $matches[2],
-                    "description" => $matches[3]
+                    "description" => $matches[3],
                 ]);
 
                 $lastSystem->save();
@@ -62,7 +63,7 @@ class DatabaseSeeder extends Seeder
                 (new Subsystem([
                     "name" => $matches[2],
                     "description" => $matches[3],
-                    "system_id" => $lastSystem->id
+                    "system_id" => $lastSystem->id,
                 ]))->save();
             }
         }
@@ -72,7 +73,8 @@ class DatabaseSeeder extends Seeder
      * Seed the advantages table
      * @return void
      */
-    private function seedAdvantages() : void {
+    private function seedAdvantages(): void
+    {
         Advantage::truncate();
 
         $lines = file(__DIR__ . "/data/Advantages.txt");
@@ -88,7 +90,7 @@ class DatabaseSeeder extends Seeder
                 "description" => $matches[3],
                 "level" => $matches[2] != "" ? $matches[2] : 1,
                 "cost" => (int) $matches[4],
-                "class" => $matches[5] ?? null
+                "class" => $matches[5] ?? null,
             ]))->save();
         }
     }
@@ -97,7 +99,8 @@ class DatabaseSeeder extends Seeder
      * Seed the scripture abilities table
      * @return void
      */
-    private function seedScriptureAbilities() : void {
+    private function seedScriptureAbilities(): void
+    {
         ScriptureAbility::truncate();
 
         $lines = file(__DIR__ . "/data/ScriptureAbilities.txt");
@@ -113,7 +116,7 @@ class DatabaseSeeder extends Seeder
                     "name" => $matches[1],
                     "description" => $matches[2],
                     "level" => $i,
-                    "cost" => $matches[4]
+                    "cost" => $matches[4],
                 ]))->save();
             }
         }
@@ -123,7 +126,8 @@ class DatabaseSeeder extends Seeder
      * Seed the miracles table
      * @return void
      */
-    private function seedMiracles() : void {
+    private function seedMiracles(): void
+    {
         Miracle::truncate();
 
         $lines = file(__DIR__ . "/data/Miracles.txt");
@@ -142,7 +146,7 @@ class DatabaseSeeder extends Seeder
                         "name" => $lineArray[0],
                         "description" => $lineArray2[0],
                         "cost" => (int) str_replace(")", "", $lineArray2[1]),
-                        "strategy" => null
+                        "strategy" => null,
                     ]))->save();
             }
         }
@@ -152,7 +156,8 @@ class DatabaseSeeder extends Seeder
      * Seed the sonatas and sonata_abilities tables
      * @return void
      */
-    private function seedSonatasAndSonataAbilities() : void {
+    private function seedSonatasAndSonataAbilities(): void
+    {
         Sonata::truncate();
         SonataAbility::truncate();
 
@@ -171,7 +176,7 @@ class DatabaseSeeder extends Seeder
                     $lineArray = explode(": ", $line);
                     $lastSonata = new Sonata([
                         "name" => explode(" - ", $lineArray[0])[1],
-                        "description" => $lineArray[1]
+                        "description" => $lineArray[1],
                     ]);
 
                     $lastSonata->save();
@@ -209,7 +214,7 @@ class DatabaseSeeder extends Seeder
                         "level" => null,
                         "cost" => null,
                         "strategy" => null,
-                        "sonata_id" => $lastSonata->id
+                        "sonata_id" => $lastSonata->id,
                     ]);
             }
         }
@@ -219,7 +224,8 @@ class DatabaseSeeder extends Seeder
      * Seed the mystic_eyes table
      * @return void
      */
-    private function seedMysticEyes() : void {
+    private function seedMysticEyes(): void
+    {
         MysticEye::truncate();
 
         $lines = file(__DIR__ . "/data/Eyes.txt");
@@ -269,7 +275,8 @@ class DatabaseSeeder extends Seeder
      * Seed the schools and spells tables
      * @return void
      */
-    private function seedSchoolsAndSpells() : void {
+    private function seedSchoolsAndSpells(): void
+    {
         DB::table("school_spell")->truncate();
         School::truncate();
         Spell::truncate();
@@ -294,7 +301,7 @@ class DatabaseSeeder extends Seeder
                     $lineArray = explode(": ", $line);
                     $schoolArgs = [
                         "name" => $lineArray[1],
-                        "description" => $lineArray[2]
+                        "description" => $lineArray[2],
                     ];
                     $baseCost = $lineArray[3];
                     $spells = [];
@@ -321,7 +328,7 @@ class DatabaseSeeder extends Seeder
                         "name" => $lineArray[0],
                         "description" => $lineArray[1],
                         "type" => $lineArray[2] ?? null,
-                        "strategy" => $lineArray[3] ?? null
+                        "strategy" => $lineArray[3] ?? null,
                     ];
 
                     $spell = new Spell($spellArgs);
@@ -339,11 +346,12 @@ class DatabaseSeeder extends Seeder
         $school->spells()->saveMany($spells);
     }
 
-    private function seedAdminUsers() : void {
+    private function seedAdminUsers(): void
+    {
         (new User([
             "login" => $_ENV["ADMIN_LOGIN"],
             "password" => $_ENV["ADMIN_PASSWORD"],
-            "is_admin" => true
+            "is_admin" => true,
         ]))->save();
     }
 
@@ -352,7 +360,8 @@ class DatabaseSeeder extends Seeder
      * @param int $number
      * @return int
      */
-    private function summation(int $number) {
+    private function summation(int $number)
+    {
         $total = 0;
         for ($i = 1; $i <= $number; $i++) {
             $total += $i;

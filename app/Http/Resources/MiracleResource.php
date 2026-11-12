@@ -14,7 +14,7 @@ class MiracleResource extends JsonResource
         return [
             "name" => $this->name,
             "description" => $this->description,
-            "cost" => $this->cost
+            "cost" => $this->cost,
         ];
     }
 }

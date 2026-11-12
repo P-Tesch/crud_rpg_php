@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
+/**
+ * @mixin IdeHelperSchool
+ */
 class School extends Model
 {
     /** @use HasFactory<\Database\Factories\SchoolFactory> */
@@ -19,16 +22,22 @@ class School extends Model
         "name",
         "description",
         "level",
-        "cost"
+        "cost",
     ];
 
-    /** @return BelongsToMany<Sheet> */
-    public function sheet() : BelongsToMany {
+    /**
+     * @return BelongsToMany<Sheet, $this>
+     */
+    public function sheet(): BelongsToMany
+    {
         return $this->belongsToMany(Sheet::class);
     }
 
-    /** @return BelongsToMany<Spell> */
-    public function spells() : BelongsToMany {
+    /**
+     * @return BelongsToMany<Spell, $this>
+     */
+    public function spells(): BelongsToMany
+    {
         return $this->belongsToMany(Spell::class);
     }
 }

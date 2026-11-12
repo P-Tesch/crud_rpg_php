@@ -18,7 +18,7 @@ class SonataFactory extends Factory
     {
         return [
             "name" => fake()->word(),
-            "description" => fake()->paragraph()
+            "description" => fake()->paragraph(),
         ];
     }
 }

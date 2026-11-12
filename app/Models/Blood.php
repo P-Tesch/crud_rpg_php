@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * @mixin IdeHelperBlood
+ */
 class Blood extends Model
 {
     /** @var bool */
@@ -14,21 +17,30 @@ class Blood extends Model
     /** @var list<string> */
     protected $fillable = [
         "name",
-        "impulses"
+        "impulses",
     ];
 
-    /** @return BelongsTo<Sheet, Blood> */
-    public function sheet() : BelongsTo {
+    /**
+     * @return BelongsTo<Sheet, $this>
+     */
+    public function sheet(): BelongsTo
+    {
         return $this->belongsTo(Sheet::class);
     }
 
-    /** @return HasMany<BloodAbility> */
-    public function bloodAbilities() : HasMany {
+    /**
+     * @return HasMany<BloodAbility, $this>
+     */
+    public function bloodAbilities(): HasMany
+    {
         return $this->hasMany(BloodAbility::class);
     }
 
-    /** @return HasMany<Stat> */
-    public function stats() : HasMany {
+    /**
+     * @return HasMany<Stat, $this>
+     */
+    public function stats(): HasMany
+    {
         return $this->hasMany(Stat::class);
     }
 }
