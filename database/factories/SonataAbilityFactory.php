@@ -21,7 +21,6 @@ class SonataAbilityFactory extends Factory
             "description" => fake()->paragraph(),
             "level" => fake()->numberBetween(1, 3),
             "cost" => fake()->numberBetween(5, 20),
-            "strategy" => null,
         ];
     }
 }

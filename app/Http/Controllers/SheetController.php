@@ -108,7 +108,6 @@ class SheetController extends Controller
                 $bloodAbility = new BloodAbility();
                 $bloodAbility->name = $bloodAbilityArray["name"];
                 $bloodAbility->description = $bloodAbilityArray["description"];
-                $bloodAbility->strategy = $bloodAbilityArray["strategy"];
                 $bloodAbility->blood_id = $blood->id;
                 $bloodAbility->save();
             }
@@ -120,7 +119,6 @@ class SheetController extends Controller
                 $item = new Item();
                 $item->name = $itemArray["name"];
                 $item->description = $itemArray["description"];
-                $item->strategy = $itemArray["strategy"];
                 $item->sheet_id = $sheet->id;
                 $item->save();
             }
@@ -137,7 +135,6 @@ class SheetController extends Controller
             $scripture->range = $scriptureArray["range"];
             $scripture->sharpness = $scriptureArray["sharpness"];
             $scripture->double = $scriptureArray["double"];
-            $scripture->strategy = $scriptureArray["strategy"];
             $scripture->sheet_id = $sheet->id;
             $scripture->save();
         }
@@ -270,25 +267,21 @@ class SheetController extends Controller
                 "name" => "Chaves negras",
                 "description" => "Chaves negras são milagres que podem ser materializados na forma de espadas curtas, podendo ser utilizadas corpo a corpo ou arremessadas. O usuário pode materializar um número de chaves igual ao seu atributo de Fé, materializá-las ou desmaterializá-las são um ação gratuita. Quando uma chave negra é fincada em um inimigo, o usuário pode optar por mantê-la presa, onde apenas o usuário pode removê-la. Para cada chave fincada no inimigo, ele tem sua Resistência diminuída em 1. Quando fincadas, as chaves negras duram por Fé turnos. As chaves tem 1 de dano bônus em ataques.",
                 "damage" => 1,
-                "strategy" => null,
             ]),
             "chivalry" => new Item([
                 "name" => "Santa alabarda",
                 "description" => "Ela é uma arma corpo a corpo, com um quadrado extra de alcance e Fé de dano, capaz de causar dano a espíritos e fantasmas, além de duplicar todo o dano contra raças místicas e hereges, porém causa metade de dano contra humanos.",
                 "damage" => 1,
-                "strategy" => null,
             ]),
             "brotherhood" => new Item([
                 "name" => "Chama sagrada",
                 "description" => "Uma arma que se permite ser materializada em qualquer forma que o usuário desejar, tendo Fé de dano e, no caso de ser uma arma a distância, tem alcance igual a 2*Fé.",
                 "damage" => 1,
-                "strategy" => null,
             ]),
             "exorcists" => new Item([
                 "name" => "Papéis sentinela",
                 "description" => "Esses papeis podem ser posicionados(no caso de tentar posicioná-los à distância, como arremessando preso a uma adaga é necessário rolar um dado de Combate a distância). Depois de posicionados, eles se ligam formando um campo(um não faz nada, dois forma uma linha, três ou mais formam um plano). Quando o campo é ativado, o usuário declara um tipo de criatura(Morto-vivo, mago, fantasma, etc.) todos do tipo declarado dentro da área perdem em todas as suas rolagens dados iguais a ⅓ Fé. Além disso, o usuário pode pode destruir o campo, assim todos do tipo declarado dentro do campo devem rolar um dado de Tenacidade contra a quantidade de papeis destruídos e os que falharem são Atordoados pela diferença de acertos em turnos.",
                 "damage" => null,
-                "strategy" => null,
             ]),
             default => null,
         };

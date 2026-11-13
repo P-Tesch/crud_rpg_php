@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Miracles;
 
+use App\Filament\Components\StrategyField;
 use BackedEnum;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
@@ -47,8 +48,7 @@ class MiracleResource extends Resource
                     ->numeric()
                     ->label("Custo"),
 
-                Textarea::make("strategy")
-                    ->label("Estratégia"),
+                StrategyField::make("strategy", "Estratégia"),
             ]);
     }
 

@@ -23,6 +23,7 @@ class Item extends Model
 
     /** @var list<string> */
     protected $hidden = [
+        "strategy_id",
         "strategy",
     ];
 
@@ -31,7 +32,7 @@ class Item extends Model
      */
     public function effects(): BelongsToMany
     {
-        return $this->belongsToMany(Effect::class);
+        return $this->belongsToMany(Effect::class)->withPivot("remaining_duration", "power");
     }
 
     /**
@@ -40,5 +41,15 @@ class Item extends Model
     public function sheet(): BelongsTo
     {
         return $this->belongsTo(Sheet::class);
+    }
+
+    /**
+     * The Lua code run as the action's strategy.
+     *
+     * @return BelongsTo<Strategy, $this>
+     */
+    public function strategy(): BelongsTo
+    {
+        return $this->belongsTo(Strategy::class);
     }
 }

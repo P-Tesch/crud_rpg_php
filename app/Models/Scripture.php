@@ -29,6 +29,7 @@ class Scripture extends Model
 
     /** @var list<string> */
     protected $hidden = [
+        "strategy_id",
         "strategy",
     ];
 
@@ -46,5 +47,15 @@ class Scripture extends Model
     public function sheet(): BelongsTo
     {
         return $this->belongsTo(Sheet::class);
+    }
+
+    /**
+     * The Lua code run as the action's strategy.
+     *
+     * @return BelongsTo<Strategy, $this>
+     */
+    public function strategy(): BelongsTo
+    {
+        return $this->belongsTo(Strategy::class);
     }
 }

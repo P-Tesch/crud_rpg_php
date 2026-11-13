@@ -15,6 +15,7 @@ class EffectResource extends JsonResource
             "name" => $this->name,
             "description" => $this->description,
             "remaining_turns" => $this->pivot_remaining_duration,
+            "power" => $this->pivot_power,
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Items;
 
+use App\Filament\Components\StrategyField;
 use BackedEnum;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
@@ -31,7 +32,7 @@ class ItemResource extends Resource
     {
         return $schema
             ->components([
-                //
+                StrategyField::make("strategy", "Estratégia"),
             ]);
     }
 

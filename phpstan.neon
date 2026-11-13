@@ -13,6 +13,11 @@ parameters:
         - tests/
         - _ide_helper_models.php
 
+    stubFiles:
+        - stubs/LuaSandbox/Exceptions.php
+        - stubs/LuaSandbox/LuaSandbox.php
+        - stubs/LuaSandbox/LuaSandboxFunction.php
+
     level: 8
 
     ignoreErrors:

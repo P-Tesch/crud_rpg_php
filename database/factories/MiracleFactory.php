@@ -20,7 +20,6 @@ class MiracleFactory extends Factory
             "name" => fake()->word(),
             "description" => fake()->paragraph(),
             "cost" => fake()->numberBetween(5, 15),
-            "strategy" => null,
         ];
     }
 }

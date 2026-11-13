@@ -22,8 +22,6 @@ class MysticEyeFactory extends Factory
             "active" => fake()->paragraph(),
             "cooldown" => fake()->numberBetween(1, 20),
             "cost" => fake()->numberBetween(5, 30),
-            "active_strategy" => null,
-            "passive_strategy" => null,
         ];
     }
 }

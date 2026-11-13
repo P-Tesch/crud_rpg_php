@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\MysticEyes;
 
+use App\Filament\Components\StrategyField;
 use BackedEnum;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
@@ -48,17 +49,15 @@ class MysticEyeResource extends Resource
                     ->minValue(0)
                     ->label("Cooldown"),
 
-                TextInput::make("Cost")
+                TextInput::make("cost")
                     ->numeric()
                     ->minValue(0)
                     ->required()
                     ->label("Custo"),
 
-                Textarea::make("passive_strategy")
-                    ->label("Estratégia (Passivo)"),
+                StrategyField::make("passiveStrategy", "Estratégia (Passivo)"),
 
-                Textarea::make("active_strategy")
-                    ->label("Estratégia (Ativo)"),
+                StrategyField::make("activeStrategy", "Estratégia (Ativo)"),
             ]);
     }
 

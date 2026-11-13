@@ -19,8 +19,6 @@ class SubsystemFactory extends Factory
         return [
             "name" => fake()->word(),
             "description" => fake()->paragraph(),
-            "strategy" => null,
-            "strategy_burn" => null,
         ];
     }
 }

@@ -3,11 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Item;
+use App\Models\Sheet;
+use App\Models\Spell;
+use App\Models\Strategy;
 use App\Enums\SpellTypes;
 use App\Helpers\RollHelper;
+use App\Services\Strategy\StrategyEngine;
+use App\Helpers\StrategyException;
 use Illuminate\Http\Request;
 use App\Entities\RollHistory;
 use App\Entities\SheetEntity;
+use App\Entities\StrategyInput;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Broadcast;
 use Symfony\Component\Translation\Exception\NotFoundResourceException;
@@ -63,18 +69,23 @@ class RollController extends Controller
      * Roll a spell
      * @param Request $request
      * @param SheetController $sheetController
+     * @param StrategyEngine $strategyEngine
      * @return void
      */
-    public function rollSpell(Request $request, SheetController $sheetController): void
+    public function rollSpell(Request $request, SheetController $sheetController, StrategyEngine $strategyEngine): void
     {
         $cost = (int) $request->input("cost");
         $spellString = $request->input("spell");
         $schoolString = $request->input("school");
 
-        $sheet = SheetEntity::buildFromModel($sheetController->showAsModel($request));
+        $sheetModel = $sheetController->showAsModel($request);
+        $sheet = SheetEntity::buildFromModel($sheetModel);
         $recoilRoll = $this->rollRecoil($sheet, $cost);
 
         $spell = $sheet->schools[$schoolString]["spells"][$spellString];
+        $spellModel = Spell::where("name", $spellString)
+            ->whereHas("schools", fn ($query) => $query->whereKey($sheet->schools[$schoolString]["id"]))
+            ->first();
 
         switch ($spell["type"]) {
             case SpellTypes::PROJECTILE:
@@ -87,11 +98,11 @@ class RollController extends Controller
                 $spellRoll = null;
         }
 
-        if (isset($spell["strategy"])) {
-            $specificRoll = RollHelper::roll(eval($spell->strategy));
-        }
+        $targets = $this->resolveTargets($request, $sheet, $sheetController);
+        $strategy = $this->runStrategy($strategyEngine, $spellModel?->strategy, $sheet, array_column($targets, "entity"), new StrategyInput(cost: $cost));
 
-        $sheet->update($sheetController->showFromId($sheet->id));
+        $sheet->update($sheetModel);
+        $this->updateTargets($targets);
 
         $this->broadcastAndStore([
             "portrait" => $sheet->portrait,
@@ -104,8 +115,9 @@ class RollController extends Controller
             "rolls" => [
                 "recoil" => $recoilRoll["roll"],
                 "success" => $spellRoll,
-                "specific" => $specificRoll ?? null,
+                "specific" => $strategy["roll"] ?? null,
             ],
+            "strategy" => $strategy["details"] ?? null,
         ],
         );
     }
@@ -114,20 +126,27 @@ class RollController extends Controller
      * Roll an item
      * @param Request $request
      * @param SheetController $sheetController
+     * @param StrategyEngine $strategyEngine
      * @return void
      */
-    public function rollItem(Request $request, SheetController $sheetController): void
+    public function rollItem(Request $request, SheetController $sheetController, StrategyEngine $strategyEngine): void
     {
         $itemId = (int) $request->input("item");
 
-        $item = Item::find($itemId);
+        $sheetModel = $sheetController->showAsModel($request);
+
+        $item = Item::where("sheet_id", $sheetModel->id)->find($itemId);
         if (is_null($item)) {
-            throw new NotFoundResourceException("Ficha não encontrada");
+            throw new NotFoundResourceException("Item não encontrado");
         }
 
-        $sheet = SheetEntity::buildFromModel($sheetController->showAsModel($request));
+        $sheet = SheetEntity::buildFromModel($sheetModel);
 
-        $roll = isset($item->strategy) ? RollHelper::roll([5]) : null; // TODO
+        $targets = $this->resolveTargets($request, $sheet, $sheetController);
+        $strategy = $this->runStrategy($strategyEngine, $item->strategy, $sheet, array_column($targets, "entity"));
+
+        $sheet->update($sheetModel);
+        $this->updateTargets($targets);
 
         $this->broadcastAndStore([
             "portrait" => $sheet->portrait,
@@ -135,7 +154,8 @@ class RollController extends Controller
             "subject" => $item->name,
             "name" => $sheet->name,
             "id" => $sheet->id,
-            "rolls" => $roll,
+            "rolls" => $strategy["roll"] ?? null,
+            "strategy" => $strategy["details"] ?? null,
         ],
         );
     }
@@ -145,23 +165,31 @@ class RollController extends Controller
      * @param Request $request
      * @param SheetController $sheetController
      * @param MysticEyesController $mysticEyesController
+     * @param StrategyEngine $strategyEngine
      * @return void
      */
-    public function rollMysticEye(Request $request, SheetController $sheetController, MysticEyesController $mysticEyesController): void
+    public function rollMysticEye(Request $request, SheetController $sheetController, MysticEyesController $mysticEyesController, StrategyEngine $strategyEngine): void
     {
         $eyeId = (int) $request->input("eye");
-        $targetId = (int) $request->input("target");
 
         $eye = $mysticEyesController->show($eyeId);
         if (!isset($eye)) {
             return;
         }
 
-        $sheet = SheetEntity::buildFromModel($sheetController->showAsModel($request));
-        $target = SheetEntity::buildFromModel($sheetController->showFromId($targetId));
+        $sheetModel = $sheetController->showAsModel($request);
+        if (!$sheetModel->mysticEyes->contains($eye)) {
+            throw new NotFoundResourceException("Olho místico não encontrado");
+        }
 
-        // TODO: #2 Roll from strategy and apply effects to $target
-        $roll = RollHelper::roll([5]); // Placeholder
+        $sheet = SheetEntity::buildFromModel($sheetModel);
+        $targets = $this->resolveTargets($request, $sheet, $sheetController);
+        $target = $targets[0]["entity"] ?? null;
+
+        $strategy = $this->runStrategy($strategyEngine, $eye->activeStrategy, $sheet, array_column($targets, "entity"));
+
+        $sheet->update($sheetModel);
+        $this->updateTargets($targets);
 
         $this->broadcastAndStore([
             "portrait" => $sheet->portrait,
@@ -169,10 +197,11 @@ class RollController extends Controller
             "type" => "mystic_eye",
             "subject" => $eye->name,
             "name" => $sheet->name,
-            "target" => $target->name,
+            "target" => $target?->name,
             "rolls" => [
-                "mystic_eye" => $roll,
+                "mystic_eye" => $strategy["roll"] ?? null,
             ],
+            "strategy" => $strategy["details"] ?? null,
         ],
         );
     }
@@ -199,6 +228,70 @@ class RollController extends Controller
             ],
         ],
         );
+    }
+
+    /**
+     * Build the optional target sheet from the "target" input. Targeting your own sheet reuses the
+     * user's entity, so both are saved as one.
+     * @param Request $request
+     * @param SheetEntity $user
+     * @param SheetController $sheetController
+     * @return list<array{entity: SheetEntity, model: ?Sheet}>
+     */
+    private function resolveTargets(Request $request, SheetEntity $user, SheetController $sheetController): array
+    {
+        $targetId = $request->integer("target");
+        if ($targetId === 0) {
+            return [];
+        }
+
+        if ($targetId === $user->id) {
+            return [["entity" => $user, "model" => null]];
+        }
+
+        $model = $sheetController->showFromId($targetId);
+
+        return [["entity" => SheetEntity::buildFromModel($model), "model" => $model]];
+    }
+
+    /**
+     * Persist target sheets changed by a strategy (the user's own sheet is saved by the caller)
+     * @param list<array{entity: SheetEntity, model: ?Sheet}> $targets
+     * @return void
+     */
+    private function updateTargets(array $targets): void
+    {
+        foreach ($targets as $target) {
+            if ($target["model"] !== null) {
+                $target["entity"]->update($target["model"]);
+            }
+        }
+    }
+
+    /**
+     * Run an action's Lua strategy. A failing strategy changes no sheet and reports its error in the details.
+     * @param StrategyEngine $strategyEngine
+     * @param ?Strategy $strategy
+     * @param SheetEntity $user
+     * @param list<SheetEntity> $targets
+     * @param StrategyInput $input
+     * @return ?array{roll: ?array{rolls: list<int>, hits: int}, details: array<string, mixed>}
+     */
+    private function runStrategy(StrategyEngine $strategyEngine, ?Strategy $strategy, SheetEntity $user, array $targets, StrategyInput $input = new StrategyInput()): ?array
+    {
+        if ($strategy === null) {
+            return null;
+        }
+
+        try {
+            $result = $strategyEngine->run($strategy->code, $user, $targets, $input);
+        } catch (StrategyException $exception) {
+            report($exception);
+
+            return ["roll" => null, "details" => ["error" => $exception->getMessage()]];
+        }
+
+        return ["roll" => $result->getMainRoll(), "details" => $result->toArray()];
     }
 
     /**

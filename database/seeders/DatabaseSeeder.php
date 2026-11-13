@@ -13,6 +13,7 @@ use App\Models\School;
 use App\Models\Subsystem;
 use App\Models\System;
 use App\Models\User;
+use Database\Seeders\Strategy\MagicStrategySeeder;
 use DB;
 use Illuminate\Database\Seeder;
 
@@ -31,6 +32,7 @@ class DatabaseSeeder extends Seeder
         $this->seedSonatasAndSonataAbilities();
         $this->seedMysticEyes();
         $this->seedSchoolsAndSpells();
+        $this->call(MagicStrategySeeder::class);
         $this->seedAdminUsers();
     }
 
@@ -146,7 +148,6 @@ class DatabaseSeeder extends Seeder
                         "name" => $lineArray[0],
                         "description" => $lineArray2[0],
                         "cost" => (int) str_replace(")", "", $lineArray2[1]),
-                        "strategy" => null,
                     ]))->save();
             }
         }
@@ -213,7 +214,6 @@ class DatabaseSeeder extends Seeder
                         "description" => $lineArray[1],
                         "level" => null,
                         "cost" => null,
-                        "strategy" => null,
                         "sonata_id" => $lastSonata->id,
                     ]);
             }
@@ -328,7 +328,6 @@ class DatabaseSeeder extends Seeder
                         "name" => $lineArray[0],
                         "description" => $lineArray[1],
                         "type" => $lineArray[2] ?? null,
-                        "strategy" => $lineArray[3] ?? null,
                     ];
 
                     $spell = new Spell($spellArgs);

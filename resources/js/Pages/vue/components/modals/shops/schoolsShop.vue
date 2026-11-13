@@ -69,8 +69,7 @@ function addToSheet(toAdd: SchoolFromShop) : void {
     toAdd.spells.forEach(spell => {
         spells[spell.name] = {
             "type": spell.type,
-            "description": spell.description,
-            "strategy": null
+            "description": spell.description
         };
     });
     if (original != null) {

@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Spells;
 
+use App\Filament\Components\StrategyField;
 use BackedEnum;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
@@ -50,8 +51,7 @@ class SpellResource extends Resource
                     ])
                     ->label("Tipo"),
 
-                TextInput::make("strategy")
-                        ->label("Estratégia"),
+                StrategyField::make("strategy", "Estratégia"),
             ]);
     }
 

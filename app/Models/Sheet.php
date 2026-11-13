@@ -91,15 +91,15 @@ class Sheet extends Model
     }
 
     /**
-     * @return HasMany<Effect, $this>
+     * @return BelongsToMany<Effect, $this>
      */
-    public function effects(): HasMany
+    public function effects(): BelongsToMany
     {
-        return $this->hasMany(Effect::class);
+        return $this->belongsToMany(Effect::class)->withPivot("remaining_duration", "power");
     }
 
     /**
-     *  @return BelongsToMany<Miracle, $this>
+     * @return BelongsToMany<Miracle, $this>
      */
     public function miracles(): BelongsToMany
     {

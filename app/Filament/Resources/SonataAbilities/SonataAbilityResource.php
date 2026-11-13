@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\SonataAbilities;
 
+use App\Filament\Components\StrategyField;
 use BackedEnum;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
@@ -58,8 +59,7 @@ class SonataAbilityResource extends Resource
                     ->required()
                     ->label("Sonata"),
 
-                Textarea::make("strategy")
-                    ->label("Estratégia"),
+                StrategyField::make("strategy", "Estratégia"),
             ]);
     }
 

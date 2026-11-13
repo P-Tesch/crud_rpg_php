@@ -21,6 +21,7 @@ class BloodAbility extends Model
 
     /** @var list<string> */
     protected $hidden = [
+        "strategy_id",
         "strategy",
     ];
 
@@ -30,5 +31,15 @@ class BloodAbility extends Model
     public function blood(): BelongsTo
     {
         return $this->belongsTo(Blood::class);
+    }
+
+    /**
+     * The Lua code run as the action's strategy.
+     *
+     * @return BelongsTo<Strategy, $this>
+     */
+    public function strategy(): BelongsTo
+    {
+        return $this->belongsTo(Strategy::class);
     }
 }

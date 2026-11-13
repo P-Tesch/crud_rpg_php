@@ -117,7 +117,6 @@ function buildSheet() {
             "range": 0,
             "sharpness": 0,
             "double": false,
-            "strategy": null,
             "description": "Insira a descrição da escritura",
             "scripture_abilities": []
         };

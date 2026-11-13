@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
@@ -26,6 +27,7 @@ class Miracle extends Model
 
     /** @var list<string> */
     protected $hidden = [
+        "strategy_id",
         "strategy",
     ];
 
@@ -35,5 +37,15 @@ class Miracle extends Model
     public function sheet(): BelongsToMany
     {
         return $this->belongsToMany(Sheet::class);
+    }
+
+    /**
+     * The Lua code run as the action's strategy.
+     *
+     * @return BelongsTo<Strategy, $this>
+     */
+    public function strategy(): BelongsTo
+    {
+        return $this->belongsTo(Strategy::class);
     }
 }

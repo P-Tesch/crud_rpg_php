@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Effects;
 
+use App\Filament\Components\StrategyField;
 use BackedEnum;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
@@ -44,8 +45,7 @@ class EffectResource extends Resource
                     ->required()
                     ->label("Descrição"),
 
-                Textarea::make("strategy")
-                    ->label("Estratégia"),
+                StrategyField::make("strategy", "Estratégia"),
             ]);
     }
 

@@ -24,11 +24,11 @@ class SonataAbility extends Model
         "level",
         "cost",
         "sonata_id",
-        "strategy",
     ];
 
     /** @var list<string> */
     protected $hidden = [
+        "strategy_id",
         "strategy",
     ];
 
@@ -38,5 +38,15 @@ class SonataAbility extends Model
     public function sonata(): BelongsTo
     {
         return $this->belongsTo(Sonata::class);
+    }
+
+    /**
+     * The Lua code run as the action's strategy.
+     *
+     * @return BelongsTo<Strategy, $this>
+     */
+    public function strategy(): BelongsTo
+    {
+        return $this->belongsTo(Strategy::class);
     }
 }

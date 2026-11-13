@@ -87,7 +87,6 @@ declare module "rpgTypes" {
 
     export type Spell = {
         description: string;
-        strategy: string | null;
         type: string;
     }
 

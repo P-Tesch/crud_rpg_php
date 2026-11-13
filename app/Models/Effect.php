@@ -3,10 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
- * @property int $pivot_remaining_duration
+ * @property ?int $pivot_remaining_duration
+ * @property ?int $pivot_power
  * @mixin IdeHelperEffect
  */
 class Effect extends Model
@@ -19,11 +21,11 @@ class Effect extends Model
         "name",
         "description",
         "remaining_duration",
-        "strategy",
     ];
 
     /** @var list<string> */
     protected $hidden = [
+        "strategy_id",
         "strategy",
     ];
 
@@ -32,7 +34,7 @@ class Effect extends Model
      */
     public function items(): BelongsToMany
     {
-        return $this->belongsToMany(Item::class)->withPivot("remaining_duration");
+        return $this->belongsToMany(Item::class)->withPivot("remaining_duration", "power");
     }
 
     /**
@@ -40,7 +42,7 @@ class Effect extends Model
      */
     public function sheets(): BelongsToMany
     {
-        return $this->belongsToMany(Sheet::class)->withPivot("remaining_duration");
+        return $this->belongsToMany(Sheet::class)->withPivot("remaining_duration", "power");
     }
 
     /**
@@ -48,6 +50,16 @@ class Effect extends Model
      */
     public function systems(): BelongsToMany
     {
-        return $this->belongsToMany(System::class)->withPivot("remaining_duration");
+        return $this->belongsToMany(System::class)->withPivot("remaining_duration", "power");
+    }
+
+    /**
+     * The Lua code run as the action's strategy.
+     *
+     * @return BelongsTo<Strategy, $this>
+     */
+    public function strategy(): BelongsTo
+    {
+        return $this->belongsTo(Strategy::class);
     }
 }

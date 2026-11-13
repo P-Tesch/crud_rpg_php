@@ -76,6 +76,14 @@ class SheetEntity
     /** @var array<int, Miracle> */
     public array $miracles;
 
+    /**
+     * Active effects keyed by effect id. Null when the entity was built from client input,
+     * so that update() never lets the client add or remove effects.
+     *
+     * @var ?array<int, array{name: string, power: ?int, remaining_duration: ?int}>
+     */
+    public ?array $effects = null;
+
     /** @var array<string, array<string, mixed>> */
     public array $schools;
 
@@ -151,7 +159,6 @@ class SheetEntity
                 $spells[$spell->name] = [
                     "type" => SpellTypes::tryFrom($spell->type ?? ""),
                     "description" => $spell->description,
-                    "strategy" => $spell->strategy,
                 ];
             }
             $this->schools[$schoolModel->name] = ["id" => $schoolModel->id, "level" => $schoolModel->level, "cost" => $schoolModel->cost, "spells" => $spells];
@@ -226,6 +233,15 @@ class SheetEntity
         }
         $this->mysticEyes = $sheet->mysticEyes->all();
 
+        $this->effects = [];
+        foreach ($sheet->effects as $effect) {
+            $this->effects[$effect->id] = [
+                "name" => $effect->name,
+                "power" => $effect->pivot_power,
+                "remaining_duration" => $effect->pivot_remaining_duration,
+            ];
+        }
+
         foreach ($sheet->stats as $stat) {
             $this->stats[$stat->key] = $stat->value;
         }
@@ -248,7 +264,6 @@ class SheetEntity
                 $spells[$spell->name] = [
                     "type" => SpellTypes::tryFrom($spell->type ?? ""),
                     "description" => $spell->description,
-                    "strategy" => $spell->strategy,
                 ];
             }
             $this->schools[$school->name] = ["id" => $school->id, "level" => $school->level, "spells" => $spells, "cost" => $school->cost];
@@ -380,6 +395,15 @@ class SheetEntity
         }
 
         $model->mysticEyes()->sync($mysticEyes, true);
+
+        if ($this->effects !== null) {
+            $effects = [];
+            foreach ($this->effects as $effectId => $effect) {
+                $effects[$effectId] = ["remaining_duration" => $effect["remaining_duration"], "power" => $effect["power"]];
+            }
+
+            $model->effects()->sync($effects, true);
+        }
 
         $advantages = [];
         foreach ($this->advantages as $advantage) {

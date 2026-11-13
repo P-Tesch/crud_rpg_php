@@ -16,9 +16,13 @@ return new class extends Migration {
             $table->string("passive", 511)->nullable();
             $table->string("active", 511)->nullable();
             $table->integer("cooldown")->nullable();
-            $table->string("active_strategy", 2047)->nullable();
-            $table->string("passive_strategy", 2047)->nullable();
             $table->integer("cost");
+
+            $table->unsignedBigInteger("passive_strategy_id")->nullable();
+            $table->foreign("passive_strategy_id")->references("id")->on("strategies")->nullOnDelete();
+
+            $table->unsignedBigInteger("active_strategy_id")->nullable();
+            $table->foreign("active_strategy_id")->references("id")->on("strategies")->nullOnDelete();
 
         });
     }

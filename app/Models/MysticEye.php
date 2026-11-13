@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
@@ -26,14 +27,14 @@ class MysticEye extends Model
         "cooldown",
         "pivot_current_cooldown",
         "cost",
-        "active_strategy",
-        "passive_strategy",
     ];
 
     /** @var list<string> */
     protected $hidden = [
-        "active_strategy",
+        "passive_strategy_id",
         "passive_strategy",
+        "active_strategy_id",
+        "active_strategy",
     ];
 
     /**
@@ -42,5 +43,25 @@ class MysticEye extends Model
     public function sheet(): BelongsToMany
     {
         return $this->belongsToMany(Sheet::class)->withPivot("current_cooldown");
+    }
+
+    /**
+     * The Lua code run as the passive strategy.
+     *
+     * @return BelongsTo<Strategy, $this>
+     */
+    public function passiveStrategy(): BelongsTo
+    {
+        return $this->belongsTo(Strategy::class);
+    }
+
+    /**
+     * The Lua code run as the active strategy.
+     *
+     * @return BelongsTo<Strategy, $this>
+     */
+    public function activeStrategy(): BelongsTo
+    {
+        return $this->belongsTo(Strategy::class);
     }
 }

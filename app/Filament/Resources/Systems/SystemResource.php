@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Systems;
 
+use App\Filament\Components\StrategyField;
 use BackedEnum;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
@@ -46,14 +47,11 @@ class SystemResource extends Resource
                     ->numeric()
                     ->label("Dano"),
 
-                Textarea::make("strategy_passive")
-                    ->label("Estratégia (Passivo)"),
+                StrategyField::make("passiveStrategy", "Estratégia (Passivo)"),
 
-                Textarea::make("strategy_active")
-                    ->label("Estratégia (Ativo)"),
+                StrategyField::make("activeStrategy", "Estratégia (Ativo)"),
 
-                Textarea::make("strategy_burn")
-                    ->label("Estratégia (Queimar)"),
+                StrategyField::make("burnStrategy", "Estratégia (Queimar)"),
             ]);
     }
 

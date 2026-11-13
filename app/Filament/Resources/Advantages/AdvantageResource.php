@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Advantages;
 
+use App\Filament\Components\StrategyField;
 use BackedEnum;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
@@ -67,8 +68,7 @@ class AdvantageResource extends Resource
                     ])
                     ->label("Classe"),
 
-                Textarea::make("strategy")
-                    ->label("Estratégia"),
+                StrategyField::make("strategy", "Estratégia"),
 
             ]);
     }

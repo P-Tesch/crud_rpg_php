@@ -19,7 +19,10 @@ return new class extends Migration {
             $table->integer("range");
             $table->integer("sharpness");
             $table->boolean("double");
-            $table->string("strategy")->nullable();
+
+            $table->unsignedBigInteger("strategy_id")->nullable();
+            $table->foreign("strategy_id")->references("id")->on("strategies")->nullOnDelete();
+
             $table->string("description", 2047);
 
             $table->unsignedBigInteger("sheet_id");

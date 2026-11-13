@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Subsystems;
 
+use App\Filament\Components\StrategyField;
 use BackedEnum;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
@@ -48,11 +49,11 @@ class SubsystemResource extends Resource
                     ->required()
                     ->label("Sistema"),
 
-                Textarea::make("strategy")
-                    ->label("Estratégia"),
+                StrategyField::make("passiveStrategy", "Estratégia (Passivo)"),
 
-                Textarea::make("strategy_burn")
-                    ->label("Estratégia (Queimar)"),
+                StrategyField::make("activeStrategy", "Estratégia (Ativo)"),
+
+                StrategyField::make("burnStrategy", "Estratégia (Queimar)"),
             ]);
     }
 

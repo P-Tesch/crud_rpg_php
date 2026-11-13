@@ -48,8 +48,14 @@ RUN docker-php-ext-install \
     pgsql \
     sockets
 
+COPY --from=ghcr.io/php/pie:bin /pie /usr/bin/pie
+
+RUN apk add --no-cache lua5.1-dev unzip \
+    && pie install wikimedia/luasandbox
+
 RUN setcap CAP_NET_BIND_SERVICE=+eip /usr/local/bin/frankenphp \
 	&& chown -R ${USER}:${USER} /data/caddy && chown -R ${USER}:${USER} /config/caddy \
+    && mkdir -p /config/psysh && chown -R ${USER}:${USER} /config/psysh \
     && chown -R ${USER}:${USER} /var/www/storage
 
 RUN install-php-extensions @composer \
