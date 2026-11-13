@@ -192,6 +192,7 @@ class RollController extends Controller
         $this->broadcastAndStore([
             "portrait" => $sheet->portrait,
             "type" => "generic",
+            "id" => $sheet->id,
             "name" => $sheet->name,
             "amount" => $modifier,
             "rolls" => [
@@ -231,6 +232,8 @@ class RollController extends Controller
      */
     private function broadcastAndStore(array $rolls)
     {
+        $rolls["timestamp"] = now()->getTimestampMs();
+
         $this->rollHistory->addRoll($rolls);
 
         Broadcast::on("rolls")

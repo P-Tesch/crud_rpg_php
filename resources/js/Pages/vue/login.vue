@@ -2,7 +2,10 @@
 import { Head, router } from '@inertiajs/vue3'
 import { ref, reactive } from "vue"
 import RegisterModal from '@modals/registerModal.vue';
-import ToastHandler from '@pages/toastHandler.vue';
+import ToastHandler from '@components/toastHandler.vue';
+import GuestLayout from '@layouts/GuestLayout.vue';
+import BrandMark from '@ui/BrandMark.vue';
+import Icon from '@ui/Icon.vue';
 
 const form = reactive({
     login: null,
@@ -25,49 +28,37 @@ function success() : void {
 
 <template>
     <Head title="Login" />
-    <div class="flex h-screen" @keyup.enter="auth">
-        <div class="flex flex-col border border-1 rounded-md border-primary p-5 w-4/12 h-4/12 m-auto gap-2">
-            <h1 class="text-xl font-bold text-center mb-4 text-accent">Gerenciador de fichas</h1>
-            <form class="flex flex-col gap-4">
-                <div>
-                    <label class="input input-accent flex items-center gap-2">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 16 16"
-                            fill="currentColor"
-                            class="h-4 w-4 opacity-70">
-                            <path
-                            d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
-                        </svg>
-                        <input id="form-user" type="text" class="grow" placeholder="Usuário" v-model="form.login" />
-                    </label>
-                </div>
-                <div>
-                    <label class="input input-accent flex items-center gap-2">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 16 16"
-                            fill="currentColor"
-                            class="h-4 w-4 opacity-70">
-                            <path
-                            fill-rule="evenodd"
-                            d="M14 6a4 4 0 0 1-4.899 3.899l-1.955 1.955a.5.5 0 0 1-.353.146H5v1.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-2.293a.5.5 0 0 1 .146-.353l3.955-3.955A4 4 0 1 1 14 6Zm-4-2a.75.75 0 0 0 0 1.5.5.5 0 0 1 .5.5.75.75 0 0 0 1.5 0 2 2 0 0 0-2-2Z"
-                            clip-rule="evenodd" />
-                        </svg>
-                        <input id="form-password" type="password" class="grow" placeholder="Senha" v-model="form.password" />
-                    </label>
-                </div>
-                <div class="flex flex-row gap-2 items-center">
-                    <input  if="form-remember-me" class="checkbox checkbox-accent" type="checkbox" id="remember_me" v-model="form.remember_me">
-                    <label class="text-sm text-base-content" for="remember_me">Lembre-me</label>
-                </div>
-            </form>
-            <div class="flex flex-row">
-                <button class="btn btn-outline btn-accent mx-auto" @click="auth">Entrar</button>
-                <button class="btn btn-outline btn-secondary mx-auto" @click="registerModal?.modalRef?.showModal()">Registrar</button>
-            </div>
+    <GuestLayout>
+        <div class="flex flex-col items-center gap-3 pb-8 text-center">
+            <BrandMark class="size-14" />
+            <h1 class="font-display text-2xl font-semibold tracking-tight">Gerenciador de fichas</h1>
         </div>
-    </div>
+
+        <section class="hud-frame chamfer p-px">
+            <div class="chamfer bg-base-200/90 p-6 backdrop-blur-sm">
+                <form class="flex flex-col gap-4" @submit.prevent="auth">
+                    <label class="input w-full">
+                        <Icon name="user" class="text-base-content/50" />
+                        <input id="form-user" type="text" class="grow" placeholder="Usuário" autocomplete="username" v-model="form.login" />
+                    </label>
+                    <label class="input w-full">
+                        <Icon name="key" class="text-base-content/50" />
+                        <input id="form-password" type="password" class="grow" placeholder="Senha" autocomplete="current-password" v-model="form.password" />
+                    </label>
+                    <label for="remember_me" class="flex cursor-pointer items-center gap-2 text-sm text-base-content/75">
+                        <input id="remember_me" class="checkbox checkbox-sm checkbox-primary" type="checkbox" v-model="form.remember_me">
+                        Lembre-me
+                    </label>
+                    <button type="submit" class="btn btn-primary mt-2 w-full">Entrar</button>
+                </form>
+            </div>
+        </section>
+
+        <p class="mt-6 text-center text-sm text-base-content/60">
+            Ainda não tem uma conta?
+            <button type="button" class="link font-medium text-secondary link-hover" @click="registerModal?.modalRef?.showModal()">Registrar</button>
+        </p>
+    </GuestLayout>
     <Teleport to="body">
         <RegisterModal @success="success()" ref="registerModal"/>
     </Teleport>

@@ -226,6 +226,7 @@ declare module "rpgTypes" {
         recoilDamage: number | null;
         cost: number | null;
         rolls: Roll;
+        timestamp?: number;
     }
 
     export type AssociativeArray = {
