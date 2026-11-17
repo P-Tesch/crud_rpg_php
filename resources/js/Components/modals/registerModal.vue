@@ -2,7 +2,7 @@
 import { ref } from "vue"
 import ToastError from "@scripts/ToastError.ts";
 import BaseModal from "@ui/BaseModal.vue";
-import Icon from "@ui/Icon.vue";
+import Icon, { type IconName } from "@ui/Icon.vue";
 import { useForm, client, axiosAdapter } from "laravel-precognition-vue";
 
 const emit = defineEmits(["success"]);
@@ -25,32 +25,33 @@ defineExpose({modalRef});
 type RadioOption = {
     value: string;
     label: string;
+    icon: IconName;
 };
 
 const classOptions: RadioOption[] = [
-    { value: "mage", label: "Mago" },
-    { value: "cleric", label: "Clérigo" },
-    { value: "vampire", label: "Vampiro" },
-    { value: "hybrid", label: "Mestiço" },
-    { value: "magiteck", label: "Magiteck" },
+    { value: "mage", label: "Mago", icon: "wand" },
+    { value: "cleric", label: "Clérigo", icon: "cross" },
+    { value: "vampire", label: "Vampiro", icon: "droplet" },
+    { value: "hybrid", label: "Mestiço", icon: "contrast" },
+    { value: "magiteck", label: "Magiteck", icon: "cpu" },
 ];
 
 const alignmentOptions: RadioOption[] = [
-    { value: "fire", label: "Fogo" },
-    { value: "water", label: "Água" },
-    { value: "wind", label: "Ar" },
-    { value: "earth", label: "Terra" },
-    { value: "ice", label: "Gelo" },
-    { value: "electricity", label: "Eletricidade" },
-    { value: "void", label: "Vazio" },
-    { value: "arcana", label: "Arcana" },
+    { value: "fire", label: "Fogo", icon: "flame" },
+    { value: "water", label: "Água", icon: "waves" },
+    { value: "wind", label: "Ar", icon: "wind" },
+    { value: "earth", label: "Terra", icon: "mountain" },
+    { value: "ice", label: "Gelo", icon: "snowflake" },
+    { value: "electricity", label: "Eletricidade", icon: "zap" },
+    { value: "void", label: "Vazio", icon: "void" },
+    { value: "arcana", label: "Arcana", icon: "sparkles" },
 ];
 
 const organizationOptions: RadioOption[] = [
-    { value: "executors", label: "Executores" },
-    { value: "chivalry", label: "Cavaleiros" },
-    { value: "brotherhood", label: "Irmandade" },
-    { value: "exorcists", label: "Exorcistas" },
+    { value: "executors", label: "Executores", icon: "sword" },
+    { value: "chivalry", label: "Cavaleiros", icon: "shield" },
+    { value: "brotherhood", label: "Irmandade", icon: "users" },
+    { value: "exorcists", label: "Exorcistas", icon: "ghost" },
 ];
 
 interface keyValue {
@@ -346,7 +347,10 @@ async function register() {
                     <div class="grid grid-cols-2 gap-2 sm:grid-cols-5">
                         <label v-for="option in classOptions" :key="option.value" class="cursor-pointer">
                             <input v-model="charClass" :value="option.value" type="radio" name="class-radio" class="peer sr-only" />
-                            <span class="block rounded-field border border-base-content/12 px-3 py-2 text-center text-sm transition-colors peer-checked:border-primary peer-checked:bg-primary/10 peer-checked:text-primary peer-focus-visible:outline-2 peer-focus-visible:outline-primary hover:border-base-content/30">{{ option.label }}</span>
+                            <span class="flex items-center justify-center gap-1.5 rounded-field border border-base-content/12 px-2 py-2 text-sm transition-colors peer-checked:border-primary peer-checked:bg-primary/10 peer-checked:text-primary peer-focus-visible:outline-2 peer-focus-visible:outline-primary hover:border-base-content/30">
+                                <Icon :name="option.icon" class="size-4 opacity-80" />
+                                {{ option.label }}
+                            </span>
                         </label>
                     </div>
                 </fieldset>
@@ -356,7 +360,10 @@ async function register() {
                     <div class="grid grid-cols-2 gap-2 sm:grid-cols-4">
                         <label v-for="option in alignmentOptions" :key="option.value" class="cursor-pointer">
                             <input v-model="alignment" :value="option.value" type="radio" name="alignment-radio" class="peer sr-only" />
-                            <span class="block rounded-field border border-base-content/12 px-3 py-2 text-center text-sm transition-colors peer-checked:border-primary peer-checked:bg-primary/10 peer-checked:text-primary peer-focus-visible:outline-2 peer-focus-visible:outline-primary hover:border-base-content/30">{{ option.label }}</span>
+                            <span class="flex items-center justify-center gap-1.5 rounded-field border border-base-content/12 px-2 py-2 text-sm transition-colors peer-checked:border-primary peer-checked:bg-primary/10 peer-checked:text-primary peer-focus-visible:outline-2 peer-focus-visible:outline-primary hover:border-base-content/30">
+                                <Icon :name="option.icon" class="size-4 opacity-80" />
+                                {{ option.label }}
+                            </span>
                         </label>
                     </div>
                 </fieldset>
@@ -366,7 +373,10 @@ async function register() {
                     <div class="grid grid-cols-2 gap-2 sm:grid-cols-4">
                         <label v-for="option in organizationOptions" :key="option.value" class="cursor-pointer">
                             <input v-model="organization" :value="option.value" type="radio" name="organization-radio" class="peer sr-only" />
-                            <span class="block rounded-field border border-base-content/12 px-3 py-2 text-center text-sm transition-colors peer-checked:border-primary peer-checked:bg-primary/10 peer-checked:text-primary peer-focus-visible:outline-2 peer-focus-visible:outline-primary hover:border-base-content/30">{{ option.label }}</span>
+                            <span class="flex items-center justify-center gap-1.5 rounded-field border border-base-content/12 px-2 py-2 text-sm transition-colors peer-checked:border-primary peer-checked:bg-primary/10 peer-checked:text-primary peer-focus-visible:outline-2 peer-focus-visible:outline-primary hover:border-base-content/30">
+                                <Icon :name="option.icon" class="size-4 opacity-80" />
+                                {{ option.label }}
+                            </span>
                         </label>
                     </div>
                 </fieldset>
