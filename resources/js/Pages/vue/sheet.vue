@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Head } from '@inertiajs/vue3'
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
 import SkillsTable from '@components/skills.vue'
 import StatsTable from '@components/stats.vue'
 import SchoolsTable from '@components/schools.vue'
@@ -28,6 +28,7 @@ import ToastHandler from '@components/toastHandler.vue'
 import ToastError from '@scripts/ToastError.ts'
 import AppLayout from '@layouts/AppLayout.vue'
 import Icon, { type IconName } from '@ui/Icon.vue'
+import FlashNumber from '@ui/FlashNumber.vue'
 import NumberInputModal from '@modals/numberInputModal.vue'
 import { AxiosError } from 'axios'
 import type { AxiosResponse } from 'axios'
@@ -68,6 +69,30 @@ const tabCounts = computed<Partial<Record<TabKey, number>>>(() => ({
         + props.sheet.mysticEyes.length,
     items: props.sheet.items.length + props.sheet.advantages.length,
 }));
+
+const remainingPoints = computed<number>(() => header.value?.points?.remainingPoints ?? 0);
+
+/** The compact points readout in the sticky tab bar only shows once the header's readout has scrolled away. */
+const isHeaderPointsVisible = ref<boolean>(true);
+let headerPointsObserver: IntersectionObserver | undefined;
+
+onMounted(() : void => {
+    const headerPointsElement = header.value?.points?.$el;
+    if (!(headerPointsElement instanceof Element)) {
+        return;
+    }
+
+    // Top bar (64px) plus the sticky tab bar (~48px) cover the top of the viewport.
+    headerPointsObserver = new IntersectionObserver(
+        ([entry]) => {
+            isHeaderPointsVisible.value = entry.isIntersecting;
+        },
+        { rootMargin: "-112px 0px 0px 0px" }
+    );
+    headerPointsObserver.observe(headerPointsElement);
+});
+
+onBeforeUnmount(() : void => headerPointsObserver?.disconnect());
 
 function readStoredTab() : TabKey {
     try {
@@ -210,22 +235,37 @@ function rollGeneric(value: number) : void {
         <div class="flex flex-col gap-6">
             <CharacterHeader :sheet ref="header" />
 
-            <nav role="tablist" aria-label="Seções da ficha" class="-mx-4 flex gap-1 overflow-x-auto border-b border-base-content/10 px-4 sm:mx-0 sm:px-0">
-                <button
-                    v-for="tab in tabs"
-                    :key="tab.key"
-                    type="button"
-                    role="tab"
-                    :aria-selected="activeTab === tab.key"
-                    class="relative -mb-px flex shrink-0 items-center gap-2 border-b-2 px-3 py-2.5 font-display text-sm font-medium transition-colors"
-                    :class="activeTab === tab.key ? 'border-primary text-base-content' : 'border-transparent text-base-content/55 hover:text-base-content'"
-                    @click="activeTab = tab.key"
-                >
-                    <Icon :name="tab.icon" class="size-4" :class="activeTab === tab.key ? 'text-primary' : 'text-base-content/40'" />
-                    {{ tab.label }}
-                    <span v-if="tabCounts[tab.key]" class="badge badge-xs badge-ghost font-mono">{{ tabCounts[tab.key] }}</span>
-                </button>
-            </nav>
+            <div class="sticky top-16 z-20 -mx-4 flex items-stretch bg-base-100/85 px-4 backdrop-blur-md sm:-mx-6 sm:px-6">
+                <nav role="tablist" aria-label="Seções da ficha" class="flex min-w-0 flex-1 gap-1 overflow-x-auto border-b border-base-content/10">
+                    <button
+                        v-for="tab in tabs"
+                        :key="tab.key"
+                        type="button"
+                        role="tab"
+                        :aria-selected="activeTab === tab.key"
+                        class="relative -mb-px flex shrink-0 items-center gap-2 border-b-2 px-3 py-2.5 font-display text-sm font-medium transition-colors"
+                        :class="activeTab === tab.key ? 'border-primary text-base-content' : 'border-transparent text-base-content/55 hover:text-base-content'"
+                        @click="activeTab = tab.key"
+                    >
+                        <Icon :name="tab.icon" class="size-4" :class="activeTab === tab.key ? 'text-primary' : 'text-base-content/40'" />
+                        {{ tab.label }}
+                        <span v-if="tabCounts[tab.key]" class="badge badge-xs badge-ghost font-mono">{{ tabCounts[tab.key] }}</span>
+                    </button>
+                </nav>
+                <div class="flex shrink-0 items-center border-b border-base-content/10 pl-4">
+                    <div
+                        class="flex items-center gap-2 transition-opacity duration-200"
+                        :class="isHeaderPointsVisible ? 'pointer-events-none opacity-0' : 'opacity-100'"
+                        :aria-hidden="isHeaderPointsVisible"
+                    >
+                        <span class="label-mono hidden sm:inline">Pontos</span>
+                        <span class="font-mono text-base leading-none font-semibold tabular-nums" :class="{ 'text-error': remainingPoints < 0 }">
+                            <FlashNumber :value="remainingPoints" />
+                        </span>
+                        <span class="font-mono text-xs text-base-content/45 tabular-nums">/ {{ sheet.creationPoints }}</span>
+                    </div>
+                </div>
+            </div>
 
             <div v-show="activeTab === 'sheet'" role="tabpanel" class="grid items-start gap-4 xl:grid-cols-2">
                 <StatsTable :sheet :key="statsKey" />

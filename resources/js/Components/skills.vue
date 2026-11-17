@@ -4,6 +4,7 @@ import { watch } from "vue";
 import ToastError from "@scripts/ToastError.ts";
 import SectionCard from "@ui/SectionCard.vue";
 import Stepper from "@ui/Stepper.vue";
+import PipMeter from "@ui/PipMeter.vue";
 import RollButton from "@ui/RollButton.vue";
 import type { AssociativeArray, Sheet, Skills } from "rpgTypes";
 
@@ -47,8 +48,12 @@ function decrease(key: string | number) : void {
     props.sheet.skills[key]--;
 }
 
+function maxFor(key: string | number) : number {
+    return 2 * props.sheet.stats[props.sheet.skillsRelations[key]];
+}
+
 function canIncrease(key: string | number, value: number) : boolean {
-    return value <= 2 * props.sheet.stats[props.sheet.skillsRelations[key]] - 1;
+    return value < maxFor(key);
 }
 
 function canDecrease(key: string | number, value: number) : boolean {
@@ -74,6 +79,7 @@ async function rollSkill(key: string | number) {
         <ul class="flex flex-col">
             <li v-for="skill, key in sheet.skills" :key="key" class="flex items-center gap-3 rounded-field px-2 py-1.5 hover:bg-base-content/4">
                 <span class="min-w-0 flex-1 truncate text-sm font-medium">{{ skills[key] ?? key }}</span>
+                <PipMeter :value="skill" :max="maxFor(key)" />
                 <span class="w-7 text-right font-mono text-lg font-semibold tabular-nums">{{ skill }}</span>
                 <Stepper
                     :label="skills[key]"

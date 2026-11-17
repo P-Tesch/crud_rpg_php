@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
 import Stepper from "@ui/Stepper.vue";
+import FlashNumber from "@ui/FlashNumber.vue";
 import type { Advantage, Miracle, MysticEye, School, Sheet } from "rpgTypes";
 
 interface Props {
@@ -157,7 +158,7 @@ function canDecrease() : boolean {
         <div>
             <p class="label-mono">Pontos de criação</p>
             <p class="mt-1 font-mono leading-none tabular-nums">
-                <span class="text-3xl font-semibold" :class="remainingPoints < 0 ? 'text-error' : 'text-base-content'">{{ remainingPoints }}</span>
+                <span class="text-3xl font-semibold" :class="remainingPoints < 0 ? 'text-error' : 'text-base-content'"><FlashNumber :value="remainingPoints" /></span>
                 <span class="text-sm text-base-content/45"> / {{ sheet.creationPoints }}</span>
             </p>
         </div>
