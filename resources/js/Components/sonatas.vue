@@ -5,6 +5,7 @@ import CollapseItem from "@ui/CollapseItem.vue";
 import AddButton from "@ui/AddButton.vue";
 import RemoveButton from "@ui/RemoveButton.vue";
 import RollButton from "@ui/RollButton.vue";
+import RichText from "@ui/RichText.vue";
 import type { Sheet, SonataAbility, SonataArray } from 'rpgTypes';
 
 interface Props {
@@ -68,7 +69,7 @@ function removeAbility(sonataKey: string | number, abilityKey: number, ability: 
                         <RollButton @click="rollSonata(key, k)" />
                         <RemoveButton v-if="isOriginalAbility(key, ability)" @click="removeAbility(key, k, ability)" />
                     </template>
-                    <p class="leading-relaxed">{{ ability.description }}</p>
+                    <RichText :text="ability.description" class="leading-relaxed" />
                 </CollapseItem>
                 <AddButton @click="$emit('addAbility', key)">Adicionar habilidade</AddButton>
             </CollapseItem>

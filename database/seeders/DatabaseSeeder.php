@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->call(EffectSeeder::class);
         $this->seedSystemsAndSubystems();
         $this->seedAdvantages();
         $this->seedScriptureAbilities();

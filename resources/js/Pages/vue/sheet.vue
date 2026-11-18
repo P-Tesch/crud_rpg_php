@@ -236,14 +236,14 @@ function rollGeneric(value: number) : void {
             <CharacterHeader :sheet ref="header" />
 
             <div class="sticky top-16 z-20 -mx-4 flex items-stretch bg-base-100/85 px-4 backdrop-blur-md sm:-mx-6 sm:px-6">
-                <nav role="tablist" aria-label="Seções da ficha" class="flex min-w-0 flex-1 gap-1 overflow-x-auto border-b border-base-content/10">
+                <nav role="tablist" aria-label="Seções da ficha" class="flex min-w-0 flex-1 gap-1 overflow-x-auto shadow-[inset_0_-1px_0_0_color-mix(in_oklab,var(--color-base-content)_10%,transparent)] [scrollbar-width:none]">
                     <button
                         v-for="tab in tabs"
                         :key="tab.key"
                         type="button"
                         role="tab"
                         :aria-selected="activeTab === tab.key"
-                        class="relative -mb-px flex shrink-0 items-center gap-2 border-b-2 px-3 py-2.5 font-display text-sm font-medium transition-colors"
+                        class="relative flex shrink-0 items-center gap-2 border-b-2 px-3 py-2.5 font-display text-sm font-medium transition-colors"
                         :class="activeTab === tab.key ? 'border-primary text-base-content' : 'border-transparent text-base-content/55 hover:text-base-content'"
                         @click="activeTab = tab.key"
                     >

@@ -162,6 +162,11 @@ declare module "rpgTypes" {
         [key: string]: System;
     }
 
+    export type GlossaryEffect = {
+        name: string;
+        description: string;
+    }
+
     export type Item = {
         name: string;
         description: string;

@@ -2,6 +2,7 @@
 import SectionCard from "@ui/SectionCard.vue";
 import CollapseItem from "@ui/CollapseItem.vue";
 import RollButton from "@ui/RollButton.vue";
+import RichText from "@ui/RichText.vue";
 import type { Item, Sheet } from 'rpgTypes';
 
 interface Props {
@@ -32,7 +33,7 @@ async function rollItem(item: Item) : Promise<void> {
                 <template #actions>
                     <RollButton @click="rollItem(item)" />
                 </template>
-                <p class="leading-relaxed">{{ item.description }}</p>
+                <RichText :text="item.description" class="leading-relaxed" />
             </CollapseItem>
             <p v-if="sheet.items.length === 0" class="px-2 py-3 text-sm text-base-content/45 italic">Inventário vazio.</p>
         </div>

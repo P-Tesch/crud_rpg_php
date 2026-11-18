@@ -8,7 +8,7 @@ Milagre de Lúcifer - Para cada chave negra fincada no inimigo, o inimigo perde 
 
 Milagre de Uriel - O usuário não sofre penalidades contra inimigos atrás de coberturas ou outros tipos de obstrução como névoa. (Custo 10 Pontos)
 
-Milagre de Gabriel - O usuário ganha 2 dados adicionais em rolagens de Diplomacia. Além disso, quando em combate, o usuário pode usar um grito, todos aqueles não preparados(cobrindo os ouvidos) devem rodar um dado de Tenacidade contra um dado de Fé do usuário, todos que falharem são Atordoados pela diferença de acertos em rodadas. Essa ação custa o turno inteiro e só pode ser usada uma vez por dia. (Custo 15 Pontos)
+Milagre de Gabriel - O usuário ganha 2 dados adicionais em rolagens de Diplomacia. Além disso, quando em combate, o usuário pode usar um grito, todos aqueles não preparados(cobrindo os ouvidos) devem rodar um dado de Tenacidade contra um dado de Fé do usuário, todos que falharem são [[Atordoado|Atordoados]] pela diferença de acertos em rodadas. Essa ação custa o turno inteiro e só pode ser usada uma vez por dia. (Custo 15 Pontos)
 
 Milagre de Raphael - O usuário pode curar instantaneamente a ele mesmo ou outra pessoa. Essa ação custa o turno inteiro e só pode ser usada uma vez por pessoa por dia. O usuário deve rodar um dado de Medicina usando Fé como a estatística associada, para cada acerto o alvo é curado em 2. (Custo 15 Pontos)
 

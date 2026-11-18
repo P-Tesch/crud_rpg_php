@@ -1,0 +1,15 @@
+Cauterizado - Diminui a resistência do personagem afetado, diminuindo em um por turno até acabar.
+Voo - Faz o personagem se tornar imune a ataques corpo a corpo e habilidade ligadas ao solo.
+Espírito - O personagem é imune a ataques físicos, sejam eles corpo a corpo ou a distância (Socos, espadas, flechas, tiros, etc), mas também incapaz de interagir com objetos físicos e causar danos físicos.
+Queimado - O personagem afetado recebe dano a cada turno, até o fim do efeito. Receber [[Congelar|Congelado]] enquanto sob efeito de Queimado transforma-se em [[Molhado]] de duração igual ao [[Congelar|Congelado]].
+Choque - O personagem afetado tem dados a menos em todas as suas rolagens de ataque, diminuindo em um por turno até acabar.
+Congelar - O personagem afetado tem suas rolagens de esquiva reduzidas, diminuindo em um por turno até acabar, além de perder 1 ponto de movimento. Receber [[Queimado]] enquanto sob efeito de Congelado transforma-se em [[Molhado]] de duração igual ao Congelado.
+Caminhar sobre as águas - Caminha sobre as águas, oras bolas.
+Concentrado - Um personagem concentrado não pode se mover ou realizar quaisquer ações ou tem o efeito removido. Receber dano também cancela o efeito.
+Derrubado - O personagem tem seu turno cancelado caso seja derrubado durante seu próprio turno. Personagens derrubados têm sua esquiva diminuída em 1 e, durante seu primeiro turno após serem derrubados não podem se movimentar, pois precisam se levantar, removendo então o efeito.
+Atordoado - O personagem não pode realizar nenhum tipo de ação.
+Preso - O personagem não pode realizar ações de movimentação.
+Predestinado - A próxima vez que o personagem recebe dano do personagem que o aplicou o efeito, o dano é dobrado e o efeito removido. Caso o ataque que consuma o Predestinado também aplique Predestinado, o efeito não é aplicado.
+Banido - O personagem desaparece completamente e ao fim do efeito ele volta no mesmo lugar de onde recebeu o efeito, caso o lugar esteja ocupado, ele volta no local mais próximo possível.
+Molhado - O personagem tem [[Queimado]] removido ao receber esse efeito. O personagem recebe ½ de dano a mais de ataques elétricos e tem ½ a mais de duração em efeitos de [[Congelar|Congelado]] que receber ou possuir(Não pode ser aplicado recursivamente). Receber [[Queimado]] enquanto sob efeito de Molhado diminui a duração do [[Queimado]] pelo restante da duração de Molhado.
+Dormindo - O personagem não pode se movimentar e nem tomar ações e também não tem percepção de coisas ao seu redor. Ele pode, porém acordar com sons altos nas proximidades, ao ser tocado ou ao receber qualquer dano ou efeito.

@@ -3,6 +3,7 @@ import SectionCard from "@ui/SectionCard.vue";
 import CollapseItem from "@ui/CollapseItem.vue";
 import AddButton from "@ui/AddButton.vue";
 import RemoveButton from "@ui/RemoveButton.vue";
+import RichText from "@ui/RichText.vue";
 import type { Sheet, Advantage } from 'rpgTypes';
 
 interface Props {
@@ -56,7 +57,7 @@ function remove(key: number, toRemove: Advantage) : void {
                 <template #actions>
                     <RemoveButton v-if="isOriginal(advantage)" @click="remove(key, advantage)" />
                 </template>
-                <p class="leading-relaxed">{{ advantage.description }}</p>
+                <RichText :text="advantage.description" class="leading-relaxed" />
             </CollapseItem>
             <p v-if="sheet.advantages.length === 0" class="px-2 py-3 text-sm text-base-content/45 italic">Nenhuma vantagem.</p>
         </div>

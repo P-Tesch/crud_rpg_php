@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\MysticEyes;
 
+use App\Rules\KnownGlossaryTerms;
 use BackedEnum;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
@@ -38,9 +39,13 @@ class MysticEyeResource extends Resource
                     ->label("Nome"),
 
                 Textarea::make("passive")
+                    ->rules([new KnownGlossaryTerms()])
+                    ->helperText(KnownGlossaryTerms::HELPER_TEXT)
                     ->label("Passivo"),
 
                 Textarea::make("active")
+                    ->rules([new KnownGlossaryTerms()])
+                    ->helperText(KnownGlossaryTerms::HELPER_TEXT)
                     ->label("Ativo"),
 
                 TextInput::make("cooldown")

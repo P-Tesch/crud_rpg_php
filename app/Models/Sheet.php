@@ -31,7 +31,7 @@ class Sheet extends Model
      */
     public function stats(): HasMany
     {
-        return $this->hasMany(Stat::class);
+        return $this->hasMany(Stat::class)->orderBy("id");
     }
 
     /**
@@ -39,7 +39,7 @@ class Sheet extends Model
      */
     public function skills(): HasMany
     {
-        return $this->hasMany(Skill::class);
+        return $this->hasMany(Skill::class)->orderBy("id");
     }
 
     /**
@@ -47,7 +47,7 @@ class Sheet extends Model
      */
     public function rpgAttributes(): HasMany
     {
-        return $this->hasMany(RpgAttribute::class);
+        return $this->hasMany(RpgAttribute::class)->orderBy("id");
     }
 
     /**
@@ -99,7 +99,7 @@ class Sheet extends Model
     }
 
     /**
-     *  @return BelongsToMany<Miracle, $this>
+     * @return BelongsToMany<Miracle, $this>
      */
     public function miracles(): BelongsToMany
     {

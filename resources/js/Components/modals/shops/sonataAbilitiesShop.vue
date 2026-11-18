@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import BaseModal from "@ui/BaseModal.vue";
 import ShopItemCard from "@ui/ShopItemCard.vue";
+import RichText from "@ui/RichText.vue";
 import { AxiosError } from "axios";
 import ToastError from "@scripts/ToastError.ts";
 import type { Sheet, SonataAbility } from "rpgTypes";
@@ -85,7 +86,7 @@ function possibleAbilities() : SonataAbility[] {
                     :cost="ability.cost"
                     @add="addToSheet(ability)"
                 >
-                    <p class="leading-relaxed">{{ ability.description }}</p>
+                    <RichText :text="ability.description" class="leading-relaxed" />
                 </ShopItemCard>
             </div>
             <p v-if="possibleAbilities().length === 0" class="py-8 text-center text-sm text-base-content/45">Nada disponível no momento.</p>

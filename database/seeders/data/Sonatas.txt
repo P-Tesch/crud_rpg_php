@@ -71,18 +71,18 @@ Custo: 10 Bxp - Qualquer
 Toque sanguinário: O usuário infunde parte do seu corpo com sangue. O próximo ataque do usuário usando essa parte do corpo causa dano extra igual à BP infundida, com um máximo de Linhagem e, caso o alvo morra, recupera todo o BP infundido mais 1.
 Custo: 5 Bxp - Humano
 
-Sonata - Chama sanguínea: O usuário atira seu sangue em um alvo em até Combate à distância+Destreza de distância e depois o incendeia, causando BP de dano, aplicando Cauterizar por ½ Linhagem turnos e Queimando em 1 por ½ Linhagem+BP turnos.
+Sonata - Chama sanguínea: O usuário atira seu sangue em um alvo em até Combate à distância+Destreza de distância e depois o incendeia, causando BP de dano, aplicando [[Cauterizado|Cauterizar]] por ½ Linhagem turnos e [[Queimado|Queimando]] em 1 por ½ Linhagem+BP turnos.
 Custo: 10 Bxp - Qualquer exceto vampiro
 
 Escudo de sangue: O usuário usa seu sangue para criar um escudo ao redor de si ou de um alvo até ½ Linhagem de distância. Esse escudo dura por BP turnos e absorve completamente a próxima instância de dano que o usuário sofrer e depois desaparece. Só pode haver um Escudo de sangue ativo do mesmo usuário por vez.
 Custo: 10 Bxp - Qualquer
 
-Explosão de sangue: O usuário se Concentra por um turno enquanto acumula uma bolha de sangue, em seguida ele explode a bolha, causando BP de dano a todos dentro de um alcance de até ½ Linhagem.
+Explosão de sangue: O usuário se [[Concentrado|Concentra]] por um turno enquanto acumula uma bolha de sangue, em seguida ele explode a bolha, causando BP de dano a todos dentro de um alcance de até ½ Linhagem.
 Custo: 20 Bxp - Vampiro
 
 Sonata - Resiliência: Focada em manter o usuário vivo, a sonata da resiliência traz habilidades defensivas para o vampiro.
 
-Corpo de sangue: O usuário transforma todo o seu corpo em sangue líquido, fazendo com que ataques e projéteis atravessem seu corpo. Caso um ataque cause Cauterizar, ele ignora e finaliza o efeito de Corpo de sangue. Custa 3 BP para ser ativado e 1 BP por turno para ser mantido. Pode ser ativado e desativado como uma ação gratuita no turno do usuário.
+Corpo de sangue: O usuário transforma todo o seu corpo em sangue líquido, fazendo com que ataques e projéteis atravessem seu corpo. Caso um ataque cause [[Cauterizado|Cauterizar]], ele ignora e finaliza o efeito de Corpo de sangue. Custa 3 BP para ser ativado e 1 BP por turno para ser mantido. Pode ser ativado e desativado como uma ação gratuita no turno do usuário.
 Custo: 20 Bxp - Qualquer
 
 Transfusão: O usuário morde o alvo, bebendo o sangue do alvo e o absorvendo para si, se curando em Linhagem HP e diminuindo a Força do alvo em 2 por Linhagem turnos. Custa 4 Bxp para ser ativado e só pode ser usado uma vez por alvo por dia.
@@ -115,16 +115,16 @@ Custo: 30 Bxp - Animal
 
 Sonata - Ferraria de sangue: A sonata da ferraria de sangue permite ao usuário imbuir seu sangue em armas para potencializá-las.
 
-Infusão de fogo: Quando aplicado a uma arma, faz com que todos os ataques da mesma causem Cauterizar no alvo por ½ Linhagem turnos e Queimar em 1 por ½ Linhagem turnos. Dura por BP turnos.
+Infusão de fogo: Quando aplicado a uma arma, faz com que todos os ataques da mesma causem [[Cauterizado|Cauterizar]] no alvo por ½ Linhagem turnos e [[Queimado|Queimar]] em 1 por ½ Linhagem turnos. Dura por BP turnos.
 Custo: 10 Bxp - Qualquer exceto vampiro
 
-Infusão de gelo: Quando aplicado a uma arma, faz com que todos os ataques da mesma causem Congelar no alvo por ½ Linhagem turnos, atingir um alvo ja Congelado transforma o efeito em Atordoado de 1 turno. Dura por BP turnos.
+Infusão de gelo: Quando aplicado a uma arma, faz com que todos os ataques da mesma causem [[Congelar]] no alvo por ½ Linhagem turnos, atingir um alvo ja [[Congelar|Congelado]] transforma o efeito em [[Atordoado]] de 1 turno. Dura por BP turnos.
 Custo: 10 Bxp - Vampiro
 
-Infusão arcana: Quando aplicado a uma arma, faz com que todos os ataques da mesma causem Predestina por ½ Linhagem turnos. Dura por BP turnos.
+Infusão arcana: Quando aplicado a uma arma, faz com que todos os ataques da mesma causem [[Predestinado|Predestina]] por ½ Linhagem turnos. Dura por BP turnos.
 Custo: 10 Bxp - Humano
 
-Infusão de ar: Quando aplicado a uma arma, faz com que todos os ataques da mesma empurrem o alvo 1 quadrado para trás e, caso ele falhe uma checagem de Tenacidade contra Linhagem, ele é Derrubado. Dura por BP turnos.
+Infusão de ar: Quando aplicado a uma arma, faz com que todos os ataques da mesma empurrem o alvo 1 quadrado para trás e, caso ele falhe uma checagem de Tenacidade contra Linhagem, ele é [[Derrubado]]. Dura por BP turnos.
 Custo: 10 Bxp - Qualquer
 
 Infusão de terra: Quando aplicado a uma armadura ou vestimenta, concede 1 de defesa bônus. Dura por BP turnos.

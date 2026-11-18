@@ -3,6 +3,7 @@ import { ref, onBeforeMount } from "vue";
 import BaseModal from "@ui/BaseModal.vue";
 import ShopItemCard from "@ui/ShopItemCard.vue";
 import CollapseItem from "@ui/CollapseItem.vue";
+import RichText from "@ui/RichText.vue";
 import { AxiosError } from "axios";
 import ToastError from "@scripts/ToastError.ts";
 import type { AxiosResponse } from "axios";
@@ -86,11 +87,11 @@ function possibleSystems() : SystemFromShop[] {
                     <template #meta>
                         <span v-if="system.damage != null" class="badge badge-sm badge-ghost font-mono">Dano {{ system.damage }}</span>
                     </template>
-                    <p class="leading-relaxed">{{ system.description }}</p>
+                    <RichText :text="system.description" class="leading-relaxed" />
                     <div v-if="system.subsystems.length" class="flex flex-col gap-1.5">
                         <p class="label-mono">Subsistemas</p>
                         <CollapseItem v-for="subsystem in system.subsystems" :key="subsystem.name" :title="subsystem.name">
-                            <p class="leading-relaxed">{{ subsystem.description }}</p>
+                            <RichText :text="subsystem.description" class="leading-relaxed" />
                         </CollapseItem>
                     </div>
                 </ShopItemCard>

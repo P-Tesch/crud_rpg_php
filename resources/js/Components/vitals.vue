@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import { computed } from 'vue';
 import Stepper from '@ui/Stepper.vue';
-import type { AssociativeArray, Sheet } from 'rpgTypes';
+import { calculateMaxAttributes } from '@scripts/maxAttributes.ts';
+import type { AssociativeArray, Attributes, Sheet } from 'rpgTypes';
 
 interface Props {
     sheet: Sheet;
@@ -34,8 +36,10 @@ function decrease(key: number | string) : void {
   props.sheet.attributes[key]--;
 }
 
+const maxAttributes = computed<Attributes>(() => calculateMaxAttributes(props.sheet));
+
 function getMax(key: string | number) : number | undefined {
-    return props.sheet.maxAttributes["max_" + key];
+    return maxAttributes.value["max_" + key];
 }
 
 function fillPercentage(value: number, max: number | undefined) : string {
@@ -69,7 +73,7 @@ function fillPercentage(value: number, max: number | undefined) : string {
             <div class="mt-1.5 flex items-end justify-between gap-2">
                 <p class="font-mono leading-none tabular-nums">
                     <span class="text-2xl font-semibold">{{ sheet.scripture.remaining_scripture_points }}</span>
-                    <span class="text-sm text-base-content/40"> / {{ sheet.maxAttributes["max_scripture_points"] }}</span>
+                    <span class="text-sm text-base-content/40"> / {{ maxAttributes["max_scripture_points"] }}</span>
                 </p>
                 <Stepper
                     label="pontos de escritura"
@@ -78,7 +82,7 @@ function fillPercentage(value: number, max: number | undefined) : string {
                 />
             </div>
             <div class="mt-2.5 h-1 overflow-hidden rounded-full bg-base-content/10">
-                <div class="h-full rounded-full bg-secondary transition-[width] duration-300" :style="{ width: fillPercentage(sheet.scripture.remaining_scripture_points, sheet.maxAttributes['max_scripture_points']) }"></div>
+                <div class="h-full rounded-full bg-secondary transition-[width] duration-300" :style="{ width: fillPercentage(sheet.scripture.remaining_scripture_points, maxAttributes['max_scripture_points']) }"></div>
             </div>
         </div>
     </div>

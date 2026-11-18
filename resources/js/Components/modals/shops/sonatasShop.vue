@@ -3,6 +3,7 @@ import { ref, onBeforeMount } from "vue";
 import BaseModal from "@ui/BaseModal.vue";
 import ShopItemCard from "@ui/ShopItemCard.vue";
 import CollapseItem from "@ui/CollapseItem.vue";
+import RichText from "@ui/RichText.vue";
 import { AxiosError } from "axios";
 import ToastError from "@scripts/ToastError.ts";
 import type { AxiosResponse } from "axios";
@@ -77,14 +78,14 @@ function getPossibleSonatas() : SonataFromShop[] {
                     :title="sonata.name"
                     @add="addToSheet(sonata)"
                 >
-                    <p class="leading-relaxed">{{ sonata.description }}</p>
+                    <RichText :text="sonata.description" class="leading-relaxed" />
                     <div v-if="sonata.abilities?.length" class="flex flex-col gap-1.5">
                         <p class="label-mono">Habilidades</p>
                         <CollapseItem v-for="ability in sonata.abilities" :key="ability.name + ability.level" :title="ability.name">
                             <template #meta>
                                 <span class="badge badge-xs badge-ghost font-mono">Nv {{ ability.level }} · {{ ability.cost }}</span>
                             </template>
-                            <p class="leading-relaxed">{{ ability.description }}</p>
+                            <RichText :text="ability.description" class="leading-relaxed" />
                         </CollapseItem>
                     </div>
                 </ShopItemCard>

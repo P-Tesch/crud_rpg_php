@@ -2,6 +2,7 @@
 import { ref, onBeforeMount } from "vue"
 import BaseModal from "@ui/BaseModal.vue";
 import ShopItemCard from "@ui/ShopItemCard.vue";
+import RichText from "@ui/RichText.vue";
 import { AxiosError } from "axios";
 import ToastError from "@scripts/ToastError.ts";
 import type { Sheet, MysticEye } from "rpgTypes";
@@ -86,11 +87,11 @@ function getPossibleEyes() : MysticEye[] {
                 >
                     <div v-if="eye.passive != null">
                         <p class="label-mono mb-1">Passivo</p>
-                        <p class="leading-relaxed">{{ eye.passive }}</p>
+                        <RichText :text="eye.passive" class="leading-relaxed" />
                     </div>
                     <div v-if="eye.active != null">
                         <p class="label-mono mb-1">Ativo · recarga {{ eye.cooldown }}</p>
-                        <p class="leading-relaxed">{{ eye.active }}</p>
+                        <RichText :text="eye.active" class="leading-relaxed" />
                     </div>
                 </ShopItemCard>
             </div>

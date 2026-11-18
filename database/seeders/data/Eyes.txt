@@ -3,11 +3,11 @@ Passivo: Permite ver a morte em tudo, seja um ser vivo, um espírito ou um objet
 Ativo: O próximo ataque corpo a corpo do usuário causa dano verdadeiro integral e recebe 1 de dano bônus e, caso esse ataque cause ½ da vida atual do alvo ou mais de dano, o alvo tem sua vida reduzida a 0. O usuário recebe 2 de dano verdadeiro para ativar essa habilidade. (Custo 40)
 
 Olhos místicos de petrificação
-Ativo: O alvo é Atordoado por turnos iguais à diferença na checagem da Tenacidade do alvo contra a Consciência do usuário. Após usado precisa descansar por 10 turnos. (Custo 25)
+Ativo: O alvo é [[Atordoado]] por turnos iguais à diferença na checagem da Tenacidade do alvo contra a Consciência do usuário. Após usado precisa descansar por 10 turnos. (Custo 25)
 Cooldown: 10
 
 Olhos místicos de ligação
-Ativo: O alvo é Preso por turnos iguais à diferença na checagem da Tenacidade do alvo contra a Consciência do usuário. Após usado precisa descansar por 10 turnos. (Custo 15)
+Ativo: O alvo é [[Preso]] por turnos iguais à diferença na checagem da Tenacidade do alvo contra a Consciência do usuário. Após usado precisa descansar por 10 turnos. (Custo 15)
 Cooldown: 10
 
 Olhos místicos de charme

@@ -3,6 +3,7 @@ import { ref, onBeforeMount } from "vue";
 import BaseModal from "@ui/BaseModal.vue";
 import ShopItemCard from "@ui/ShopItemCard.vue";
 import CollapseItem from "@ui/CollapseItem.vue";
+import RichText from "@ui/RichText.vue";
 import { AxiosError } from "axios";
 import ToastError from "@scripts/ToastError.ts";
 import type { Sheet, School, SchoolFromShop, SpellArray, AssociativeArray } from "rpgTypes";
@@ -123,14 +124,14 @@ function getPossibleSchools() : SchoolFromShop[] {
                     :cost="school.cost"
                     @add="addToSheet(school)"
                 >
-                    <p class="leading-relaxed">{{ school.description }}</p>
+                    <RichText :text="school.description" class="leading-relaxed" />
                     <div v-if="school.spells.length" class="flex flex-col gap-1.5">
                         <p class="label-mono">Magias</p>
                         <CollapseItem v-for="spell in school.spells" :key="spell.name" :title="spell.name">
                             <template #meta>
                                 <span class="badge badge-xs badge-ghost">{{ types[spell.type] }}</span>
                             </template>
-                            <p class="leading-relaxed">{{ spell.description }}</p>
+                            <RichText :text="spell.description" class="leading-relaxed" />
                         </CollapseItem>
                     </div>
                 </ShopItemCard>

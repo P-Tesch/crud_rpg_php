@@ -5,6 +5,7 @@ import CollapseItem from "@ui/CollapseItem.vue";
 import AddButton from "@ui/AddButton.vue";
 import RemoveButton from "@ui/RemoveButton.vue";
 import RollButton from "@ui/RollButton.vue";
+import RichText from "@ui/RichText.vue";
 import type { Sheet, SonataAbility, SonataArray, Subsystem, SystemArray } from 'rpgTypes';
 
 interface Props {
@@ -55,7 +56,7 @@ function removeSubsystem(systemKey: string | number, subsystemKey: number) : voi
                     <template #actions>
                         <RemoveButton v-if="isOriginalSubsystem(key, subsystem)" @click="removeSubsystem(key, k)" />
                     </template>
-                    <p class="leading-relaxed">{{ subsystem.description }}</p>
+                    <RichText :text="subsystem.description" class="leading-relaxed" />
                     <div class="flex flex-wrap justify-end gap-1.5">
                         <button type="button" class="btn btn-xs btn-soft btn-accent">Ativar</button>
                         <button type="button" class="btn btn-xs btn-ghost text-error hover:bg-error/10">Queimar</button>

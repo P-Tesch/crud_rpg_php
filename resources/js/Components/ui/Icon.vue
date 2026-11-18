@@ -4,7 +4,7 @@ export type IconName =
     | "plus" | "minus" | "x" | "menu" | "history" | "check" | "check-circle"
     | "alert" | "eye" | "skip" | "camera" | "chevron-right" | "chevron-down" | "ellipsis"
     | "activity" | "sparkles" | "backpack" | "book-open"
-    | "wand" | "cross" | "droplet" | "contrast" | "cpu" | "flame" | "waves" | "wind" | "mountain" | "snowflake" | "zap" | "void" | "sword" | "shield" | "users" | "ghost";
+    | "wand" | "cross" | "droplet" | "contrast" | "cpu" | "flame" | "waves" | "wind" | "mountain" | "snowflake" | "zap" | "void" | "sword" | "shield" | "users" | "ghost" | "pin";
 
 interface Props {
     name: IconName;
@@ -54,7 +54,8 @@ const icons: Record<IconName, string> = {
     "sword": '<path d="M14.5 17.5 3 6V3h3l11.5 11.5M13 19l6-6M16 16l4 4M19 21l2-2"/>',
     "shield": '<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/>',
     "users": '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>',
-    "ghost": '<path d="M9 10h.01M15 10h.01M12 2a8 8 0 0 0-8 8v12l3-3 2.5 2.5L12 19l2.5 2.5L17 19l3 3V10a8 8 0 0 0-8-8z"/>'
+    "ghost": '<path d="M9 10h.01M15 10h.01M12 2a8 8 0 0 0-8 8v12l3-3 2.5 2.5L12 19l2.5 2.5L17 19l3 3V10a8 8 0 0 0-8-8z"/>',
+    "pin": '<path d="M12 17v5"/><path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z"/>',
 };
 </script>
 

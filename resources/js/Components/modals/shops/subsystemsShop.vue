@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import BaseModal from "@ui/BaseModal.vue";
 import ShopItemCard from "@ui/ShopItemCard.vue";
+import RichText from "@ui/RichText.vue";
 import { AxiosError } from "axios";
 import ToastError from "@scripts/ToastError.ts";
 import type { Sheet, Subsystem } from "rpgTypes";
@@ -80,7 +81,7 @@ function possibleSubsystems() : Subsystem[] {
                     :title="subsystem.name"
                     @add="addToSheet(subsystem)"
                 >
-                    <p class="leading-relaxed">{{ subsystem.description }}</p>
+                    <RichText :text="subsystem.description" class="leading-relaxed" />
                 </ShopItemCard>
             </div>
             <p v-if="possibleSubsystems().length === 0" class="py-8 text-center text-sm text-base-content/45">Nada disponível no momento.</p>

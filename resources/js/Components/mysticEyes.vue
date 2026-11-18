@@ -7,6 +7,7 @@ import CollapseItem from "@ui/CollapseItem.vue";
 import AddButton from "@ui/AddButton.vue";
 import RemoveButton from "@ui/RemoveButton.vue";
 import RollButton from "@ui/RollButton.vue";
+import RichText from "@ui/RichText.vue";
 import type { MysticEye, Sheet } from "rpgTypes";
 
 interface Props {
@@ -71,11 +72,11 @@ function isOriginal(eye: MysticEye) : boolean {
                 </template>
                 <div v-if="eye.passive != null">
                     <p class="label-mono mb-1">Passivo</p>
-                    <p class="leading-relaxed">{{ eye.passive }}</p>
+                    <RichText :text="eye.passive" class="leading-relaxed" />
                 </div>
                 <div v-if="eye.active != null">
                     <p class="label-mono mb-1">Ativo</p>
-                    <p class="leading-relaxed">{{ eye.active }}</p>
+                    <RichText :text="eye.active" class="leading-relaxed" />
                     <p class="mt-1 font-mono text-xs text-base-content/55">Recarga: {{ eye.pivot.current_cooldown }} / {{ eye.cooldown }}</p>
                 </div>
             </CollapseItem>

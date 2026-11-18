@@ -2,6 +2,7 @@
 import { ref, onBeforeMount } from "vue"
 import BaseModal from "@ui/BaseModal.vue";
 import ShopItemCard from "@ui/ShopItemCard.vue";
+import RichText from "@ui/RichText.vue";
 import { AxiosError } from "axios";
 import ToastError from "@scripts/ToastError.ts";
 import type { ScriptureAbility, Sheet } from "rpgTypes";
@@ -84,7 +85,7 @@ function possibleScriptureAbilities() : ScriptureAbility[] {
                     :cost="scriptureAbility.cost"
                     @add="addToSheet(scriptureAbility)"
                 >
-                    <p class="leading-relaxed">{{ scriptureAbility.description }}</p>
+                    <RichText :text="scriptureAbility.description" class="leading-relaxed" />
                 </ShopItemCard>
             </div>
             <p v-if="possibleScriptureAbilities().length === 0" class="py-8 text-center text-sm text-base-content/45">Nada disponível no momento.</p>

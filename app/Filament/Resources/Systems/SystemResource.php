@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Systems;
 
+use App\Rules\KnownGlossaryTerms;
 use BackedEnum;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
@@ -38,6 +39,8 @@ class SystemResource extends Resource
                     ->label("Nome"),
 
                 Textarea::make("description")
+                    ->rules([new KnownGlossaryTerms()])
+                    ->helperText(KnownGlossaryTerms::HELPER_TEXT)
                     ->required()
                     ->label("Descrição"),
 

@@ -2,6 +2,7 @@
 import { ref, onBeforeMount } from "vue"
 import BaseModal from "@ui/BaseModal.vue";
 import ShopItemCard from "@ui/ShopItemCard.vue";
+import RichText from "@ui/RichText.vue";
 import { AxiosError } from "axios";
 import ToastError from "@scripts/ToastError.ts";
 import type { Sheet, Miracle } from "rpgTypes";
@@ -83,7 +84,7 @@ function possibleMiracles() : Miracle[] {
                     :cost="miracle.cost"
                     @add="addToSheet(miracle)"
                 >
-                    <p class="leading-relaxed">{{ miracle.description }}</p>
+                    <RichText :text="miracle.description" class="leading-relaxed" />
                 </ShopItemCard>
             </div>
             <p v-if="possibleMiracles().length === 0" class="py-8 text-center text-sm text-base-content/45">Nada disponível no momento.</p>

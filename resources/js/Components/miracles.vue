@@ -3,6 +3,7 @@ import SectionCard from "@ui/SectionCard.vue";
 import CollapseItem from "@ui/CollapseItem.vue";
 import AddButton from "@ui/AddButton.vue";
 import RemoveButton from "@ui/RemoveButton.vue";
+import RichText from "@ui/RichText.vue";
 import type { Miracle, Sheet } from 'rpgTypes';
 
 interface Props {
@@ -38,7 +39,7 @@ function isOriginal(miracle: Miracle) : boolean {
                 <template #actions>
                     <RemoveButton v-if="isOriginal(miracle)" @click="sheet.miracles.splice(key, 1)" />
                 </template>
-                <p class="leading-relaxed">{{ miracle.description }}</p>
+                <RichText :text="miracle.description" class="leading-relaxed" />
             </CollapseItem>
             <p v-if="sheet.miracles.length === 0" class="px-2 py-3 text-sm text-base-content/45 italic">Nenhum milagre.</p>
         </div>

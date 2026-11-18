@@ -8,6 +8,7 @@ import CollapseItem from "@ui/CollapseItem.vue";
 import AddButton from "@ui/AddButton.vue";
 import RemoveButton from "@ui/RemoveButton.vue";
 import RollButton from "@ui/RollButton.vue";
+import RichText from "@ui/RichText.vue";
 import type { AssociativeArray, School, SchoolArray, Sheet } from 'rpgTypes';
 
 interface Props {
@@ -100,7 +101,7 @@ function remove(key: string | number) : void {
                     <template #actions>
                         <RollButton @click="rollSpell(key, k)" />
                     </template>
-                    <p class="leading-relaxed">{{ spell.description }}</p>
+                    <RichText :text="spell.description" class="leading-relaxed" />
                 </CollapseItem>
             </CollapseItem>
             <p v-if="Object.keys(sheet.schools).length === 0" class="px-2 py-3 text-sm text-base-content/45 italic">Nenhuma escola aprendida.</p>

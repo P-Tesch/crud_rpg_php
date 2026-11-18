@@ -9,6 +9,7 @@ import RemoveButton from "@ui/RemoveButton.vue";
 import RollButton from "@ui/RollButton.vue";
 import Stepper from "@ui/Stepper.vue";
 import Icon from "@ui/Icon.vue";
+import RichText from "@ui/RichText.vue";
 import type { Scripture, ScriptureAbility, Sheet } from "rpgTypes";
 import ToastError from "@scripts/ToastError.ts";
 
@@ -187,7 +188,7 @@ function remove(key: number) : void {
                         <RollButton @click="rollScriptureAbility(ability)" />
                         <RemoveButton v-if="isOriginal(ability)" @click="remove(key)" />
                     </template>
-                    <p class="leading-relaxed">{{ ability.description }}</p>
+                    <RichText :text="ability.description" class="leading-relaxed" />
                 </CollapseItem>
             </div>
         </div>
