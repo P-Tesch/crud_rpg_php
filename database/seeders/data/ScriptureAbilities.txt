@@ -22,7 +22,7 @@ Absorção: Para cada nível dessa habilidade o usuário recebe 1 ponto a menos 
 
 Fusão: A escritura se funde ao usuário, concedendo benefícios. A escritura não pode ser usada enquanto fundida. Ativar a habilidade custa 2 pontos de escritura e dura por Fé turnos. O usuário pode ter até 3 benefícios de fusão. (Custo 5)
 Fusão - Bônus de estatística: Aumenta uma estatística do usuário em 3. (Custo 20)
-Fusão - Voo: O usuário recebe Voo. (Custo 25)
+Fusão - Voo: O usuário recebe [[Voo]]. (Custo 25)
 Fusão - Regeneração: O usuário recupera 1 ponto de vida a cada 2 turnos. (Custo 25)
 Fusão - Pele endurecida: O usuário recebe ½ do dano normal. (Custo 25)
 Fusão - Sangue sagrado: Quando o usuário recebe dano, ele causa ½ do dano recebido ao atacante(Com um mínimo de 1). (Custo 30)

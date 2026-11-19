@@ -18,10 +18,12 @@
       "paths": {
         "@scripts/*": ["./resources/js/*"],
         "@pages/*": ["./resources/js/Pages/vue/*"],
-        "@components/*": ["./resources/js/Pages/vue/components/*"],
-        "@modals/*": ["./resources/js/Pages/vue/components/modals/*"],
-        "@shops/*": ["./resources/js/Pages/vue/components/modals/shops/*"],
-        "@alerts/*": ["./resources/js/Pages/vue/components/alerts/*"]
+        "@components/*": ["./resources/js/Components/*"],
+        "@ui/*": ["./resources/js/Components/ui/*"],
+        "@modals/*": ["./resources/js/Components/modals/*"],
+        "@shops/*": ["./resources/js/Components/modals/shops/*"],
+        "@alerts/*": ["./resources/js/Components/alerts/*"],
+        "@layouts/*": ["./resources/js/Layouts/*"]
       }
     },
     "include": [

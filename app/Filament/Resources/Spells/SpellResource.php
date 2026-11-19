@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Spells;
 
+use App\Rules\KnownGlossaryTerms;
 use BackedEnum;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
@@ -40,6 +41,8 @@ class SpellResource extends Resource
                     ->label("Nome"),
 
                 Textarea::make("description")
+                    ->rules([new KnownGlossaryTerms()])
+                    ->helperText(KnownGlossaryTerms::HELPER_TEXT)
                     ->required()
                     ->label("Descrição"),
 

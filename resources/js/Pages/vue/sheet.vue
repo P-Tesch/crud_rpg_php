@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { Head } from '@inertiajs/vue3'
-import { ref, onMounted } from 'vue'
+import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
 import SkillsTable from '@components/skills.vue'
 import StatsTable from '@components/stats.vue'
-import AttributesTable from '@components/attributes.vue'
 import SchoolsTable from '@components/schools.vue'
 import ItemsTable from '@components/items.vue'
 import MysticEyesTable from '@components/mysticEyes.vue'
 import RollHistory from '@components/rollHistory.vue'
 import CharacterInfo from '@components/info.vue'
+import CharacterHeader from '@components/characterHeader.vue'
 import SchoolsShop from '@shops/schoolsShop.vue'
 import MysticEyesShop from '@shops/mysticEyesShop.vue'
 import Advantages from '@components/advantages.vue'
@@ -24,9 +24,11 @@ import Systems from '@components/systems.vue'
 import SystemsShop from '@shops/systemsShop.vue'
 import SubsystemsShop from '@shops/subsystemsShop.vue'
 import TargetSelectModal from '@modals/targetSelectModal.vue'
-import ToastHandler from '@pages/toastHandler.vue'
+import ToastHandler from '@components/toastHandler.vue'
 import ToastError from '@scripts/ToastError.ts'
-import FooterComponent from '@components/footer.vue'
+import AppLayout from '@layouts/AppLayout.vue'
+import Icon, { type IconName } from '@ui/Icon.vue'
+import FlashNumber from '@ui/FlashNumber.vue'
 import NumberInputModal from '@modals/numberInputModal.vue'
 import { AxiosError } from 'axios'
 import type { AxiosResponse } from 'axios'
@@ -38,9 +40,72 @@ interface Props {
 
 const props = defineProps<Props>();
 
-const info = ref<InstanceType<typeof CharacterInfo>>();
+const header = ref<InstanceType<typeof CharacterHeader>>();
 const scripture = ref<InstanceType<typeof Scripture>>();
-const gridClass = ref<string>("p-5 grid grid-cols-3 gap-5");
+
+type TabKey = "sheet" | "powers" | "items" | "profile";
+
+const tabs: { key: TabKey; label: string; icon: IconName }[] = [
+    { key: "sheet", label: "Ficha", icon: "activity" },
+    { key: "powers", label: "Poderes", icon: "sparkles" },
+    { key: "items", label: "Itens & Vantagens", icon: "backpack" },
+    { key: "profile", label: "Perfil", icon: "book-open" },
+];
+
+const activeTab = ref<TabKey>(readStoredTab());
+watch(activeTab, (tab: TabKey) => {
+    try {
+        localStorage.setItem("sheet-tab", tab);
+    } catch (e) {
+        // Storage can be unavailable (private mode); the tab just won't be remembered.
+    }
+});
+
+const tabCounts = computed<Partial<Record<TabKey, number>>>(() => ({
+    powers: Object.keys(props.sheet.schools).length
+        + Object.keys(props.sheet.sonatas).length
+        + Object.keys(props.sheet.systems).length
+        + props.sheet.miracles.length
+        + props.sheet.mysticEyes.length,
+    items: props.sheet.items.length + props.sheet.advantages.length,
+}));
+
+const remainingPoints = computed<number>(() => header.value?.points?.remainingPoints ?? 0);
+
+/** The compact points readout in the sticky tab bar only shows once the header's readout has scrolled away. */
+const isHeaderPointsVisible = ref<boolean>(true);
+let headerPointsObserver: IntersectionObserver | undefined;
+
+onMounted(() : void => {
+    const headerPointsElement = header.value?.points?.$el;
+    if (!(headerPointsElement instanceof Element)) {
+        return;
+    }
+
+    // Top bar (64px) plus the sticky tab bar (~48px) cover the top of the viewport.
+    headerPointsObserver = new IntersectionObserver(
+        ([entry]) => {
+            isHeaderPointsVisible.value = entry.isIntersecting;
+        },
+        { rootMargin: "-112px 0px 0px 0px" }
+    );
+    headerPointsObserver.observe(headerPointsElement);
+});
+
+onBeforeUnmount(() : void => headerPointsObserver?.disconnect());
+
+function readStoredTab() : TabKey {
+    try {
+        const storedTab = localStorage.getItem("sheet-tab");
+        if (tabs.some(tab => tab.key === storedTab)) {
+            return storedTab as TabKey;
+        }
+    } catch (e) {
+        // Fall through to the default tab.
+    }
+
+    return "sheet";
+}
 
 const mysticEyesTable = ref<InstanceType<typeof MysticEyesTable>>();
 
@@ -71,31 +136,10 @@ const systemsKey = ref<number>(0);
 
 const rollModalRef = ref<InstanceType<typeof NumberInputModal>>();
 
-const calculateGridCols = () : void => {
-    if (window.innerWidth >= 1400) {
-        gridClass.value = "p-5 grid grid-cols-3 gap-5";
-        return;
-    }
-
-    if (window.innerWidth >= 910) {
-        gridClass.value = "p-5 grid grid-cols-2 gap-5";
-        return;
-    }
-
-    gridClass.value = "p-5 grid grid-cols-1 gap-5";
-}
-
-onMounted(() : void => {
-    calculateGridCols();
-    window.addEventListener("resize", () => {
-        calculateGridCols();
-    })
-});
-
 function persist() : void {
     if (
-        info.value?.points?.remainingPoints == undefined ||
-        info.value.points.remainingPoints < 0 ||
+        header.value?.points?.remainingPoints == undefined ||
+        header.value.points.remainingPoints < 0 ||
         (scripture != null && scripture.value != undefined && scripture?.value?.remainingPoints < 0)
     ) {
         throw new ToastError("Pontos de criação insuficientes");
@@ -171,23 +215,82 @@ function rollGeneric(value: number) : void {
 
 <template>
     <Head title="Ficha" />
-    <div :class="gridClass">
-        <CharacterInfo :sheet ref="info" />
-        <AttributesTable :sheet />
-        <RollHistory :sheet />
-        <StatsTable :sheet :key="statsKey" />
-        <SkillsTable :sheet :key="skillsKey" />
-        <SchoolsTable :sheet @add="schoolsModal?.modalRef?.showModal()" @sync="updateSheet()" v-if="sheet.classes['isMage']" :key="schoolsKey"/>
-        <SonatasTable :sheet @add="sonatasModal?.modalRef?.showModal()" @addAbility="(sonataId: string) => sonataAbilitiesModal?.build(sonataId)" v-if="sheet.classes['isVampire']" :key="sonatasKey" />
-        <Scripture :sheet :key="scriptureKey" v-if="sheet.classes['isCleric']" @add="scriptureAbilitiesModal?.modalRef?.showModal()" ref="scripture" />
-        <Systems :sheet :key="systemsKey" v-if="sheet.classes['isMagiteck']" @add="systemsModal?.modalRef?.showModal()" @addSubsystem="(systemId: string) => subsystemsModal?.build(systemId)" />
-        <ItemsTable :sheet @sync="updateSheet()" />
-        <MysticEyesTable :sheet @add="eyesModal?.modalRef?.showModal()" @target="targetModal?.updateCharacters(); targetModal?.modalRef?.showModal()" :key="mysticEyesKey" ref="mysticEyesTable" />
-        <Advantages :sheet @add="advantagesModal?.modalRef?.showModal()" :key="advantagesKey" />
-        <MiraclesTable :sheet @add="miraclesModal?.modalRef?.showModal()" v-if="sheet.classes['isCleric']" :key="miraclesKey" />
-    </div>
+    <AppLayout>
+        <template #actions>
+            <button type="button" class="btn btn-ghost btn-sm" title="Rolagem genérica" @click="rollModal()">
+                <Icon name="dice" /><span class="hidden md:inline">Rolar</span>
+            </button>
+            <button type="button" class="btn btn-ghost btn-sm" title="Terminar turno" @click="endTurn()">
+                <Icon name="skip" /><span class="hidden md:inline">Terminar turno</span>
+            </button>
+            <button type="button" class="btn btn-primary btn-sm" title="Salvar ficha" @click="persist()">
+                <Icon name="save" /><span class="hidden sm:inline">Salvar</span>
+            </button>
+        </template>
 
-    <FooterComponent @persist="persist()" @end-turn="endTurn" @roll-generic="rollModal()" />
+        <template #aside>
+            <RollHistory :sheet />
+        </template>
+
+        <div class="flex flex-col gap-6">
+            <CharacterHeader :sheet ref="header" />
+
+            <div class="sticky top-16 z-20 -mx-4 flex items-stretch bg-base-100/85 px-4 backdrop-blur-md sm:-mx-6 sm:px-6">
+                <nav role="tablist" aria-label="Seções da ficha" class="flex min-w-0 flex-1 gap-1 overflow-x-auto shadow-[inset_0_-1px_0_0_color-mix(in_oklab,var(--color-base-content)_10%,transparent)] [scrollbar-width:none]">
+                    <button
+                        v-for="tab in tabs"
+                        :key="tab.key"
+                        type="button"
+                        role="tab"
+                        :aria-selected="activeTab === tab.key"
+                        class="relative flex shrink-0 items-center gap-2 border-b-2 px-3 py-2.5 font-display text-sm font-medium transition-colors"
+                        :class="activeTab === tab.key ? 'border-primary text-base-content' : 'border-transparent text-base-content/55 hover:text-base-content'"
+                        @click="activeTab = tab.key"
+                    >
+                        <Icon :name="tab.icon" class="size-4" :class="activeTab === tab.key ? 'text-primary' : 'text-base-content/40'" />
+                        {{ tab.label }}
+                        <span v-if="tabCounts[tab.key]" class="badge badge-xs badge-ghost font-mono">{{ tabCounts[tab.key] }}</span>
+                    </button>
+                </nav>
+                <div class="flex shrink-0 items-center border-b border-base-content/10 pl-4">
+                    <div
+                        class="flex items-center gap-2 transition-opacity duration-200"
+                        :class="isHeaderPointsVisible ? 'pointer-events-none opacity-0' : 'opacity-100'"
+                        :aria-hidden="isHeaderPointsVisible"
+                    >
+                        <span class="label-mono hidden sm:inline">Pontos</span>
+                        <span class="font-mono text-base leading-none font-semibold tabular-nums" :class="{ 'text-error': remainingPoints < 0 }">
+                            <FlashNumber :value="remainingPoints" />
+                        </span>
+                        <span class="font-mono text-xs text-base-content/45 tabular-nums">/ {{ sheet.creationPoints }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div v-show="activeTab === 'sheet'" role="tabpanel" class="grid items-start gap-4 xl:grid-cols-2">
+                <StatsTable :sheet :key="statsKey" />
+                <SkillsTable :sheet :key="skillsKey" />
+            </div>
+
+            <div v-show="activeTab === 'powers'" role="tabpanel" class="grid items-start gap-4 xl:grid-cols-2">
+                <SchoolsTable :sheet @add="schoolsModal?.modalRef?.showModal()" @sync="updateSheet()" v-if="sheet.classes['isMage']" :key="schoolsKey"/>
+                <SonatasTable :sheet @add="sonatasModal?.modalRef?.showModal()" @addAbility="(sonataId: string) => sonataAbilitiesModal?.build(sonataId)" v-if="sheet.classes['isVampire']" :key="sonatasKey" />
+                <Scripture :sheet :key="scriptureKey" v-if="sheet.classes['isCleric']" @add="scriptureAbilitiesModal?.modalRef?.showModal()" ref="scripture" />
+                <Systems :sheet :key="systemsKey" v-if="sheet.classes['isMagiteck']" @add="systemsModal?.modalRef?.showModal()" @addSubsystem="(systemId: string) => subsystemsModal?.build(systemId)" />
+                <MiraclesTable :sheet @add="miraclesModal?.modalRef?.showModal()" v-if="sheet.classes['isCleric']" :key="miraclesKey" />
+                <MysticEyesTable :sheet @add="eyesModal?.modalRef?.showModal()" @target="targetModal?.updateCharacters(); targetModal?.modalRef?.showModal()" :key="mysticEyesKey" ref="mysticEyesTable" />
+            </div>
+
+            <div v-show="activeTab === 'items'" role="tabpanel" class="grid items-start gap-4 xl:grid-cols-2">
+                <ItemsTable :sheet @sync="updateSheet()" />
+                <Advantages :sheet @add="advantagesModal?.modalRef?.showModal()" :key="advantagesKey" />
+            </div>
+
+            <div v-show="activeTab === 'profile'" role="tabpanel">
+                <CharacterInfo :sheet />
+            </div>
+        </div>
+    </AppLayout>
 
     <Teleport to="body">
         <MysticEyesShop :sheet ref="eyesModal" :key="mysticEyesShopKey" />

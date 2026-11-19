@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Advantages;
 
+use App\Rules\KnownGlossaryTerms;
 use BackedEnum;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
@@ -41,6 +42,8 @@ class AdvantageResource extends Resource
                     ->label("Nome"),
 
                 Textarea::make("description")
+                    ->rules([new KnownGlossaryTerms()])
+                    ->helperText(KnownGlossaryTerms::HELPER_TEXT)
                     ->alphaNum()
                     ->maxLength(511)
                     ->rows(5)

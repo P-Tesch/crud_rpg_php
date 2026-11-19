@@ -162,6 +162,11 @@ declare module "rpgTypes" {
         [key: string]: System;
     }
 
+    export type GlossaryEffect = {
+        name: string;
+        description: string;
+    }
+
     export type Item = {
         name: string;
         description: string;
@@ -226,6 +231,7 @@ declare module "rpgTypes" {
         recoilDamage: number | null;
         cost: number | null;
         rolls: Roll;
+        timestamp?: number;
     }
 
     export type AssociativeArray = {

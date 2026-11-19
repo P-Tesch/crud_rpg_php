@@ -2,31 +2,31 @@
 Escola: Fundamentos gerais - Fogo: Magias generalistas elementais (Dano ao longo do tempo): 3
 
 Nível 1
-Toque flamejante: O usuário infunde uma parte de seu corpo com uma grande quantidade de calor. O próximo ataque do usuário com essa parte do corpo causa MP de dano. Quando esse ataque acerta, ele Cauteriza o inimigo em por MP turnos e deve-se rodar um dado que, caso resulte em um acerto, Queima o inimigo em 1 de dano por MP turnos.
+Toque flamejante: O usuário infunde uma parte de seu corpo com uma grande quantidade de calor. O próximo ataque do usuário com essa parte do corpo causa MP de dano. Quando esse ataque acerta, ele [[Cauterizado|Cauteriza]] o inimigo em por MP turnos e deve-se rodar um dado que, caso resulte em um acerto, [[Queimado|Queima]] o inimigo em 1 de dano por MP turnos.
 
 
 Nível 2
-Dardo de chamas: O usuário atira um projétil de fogo. Esse projétil tem alcance igual à MP+1 e causa MP-2 de dano. Quando esse ataque acerta, ele Cauteriza o inimigo, fazendo com que recebam uma penalidade em sua resistência igual à MP e deve-se rodar um dado que, caso resulte em um acerto, Queima o inimigo em 1 de dano por MP turnos.
+Dardo de chamas: O usuário atira um projétil de fogo. Esse projétil tem alcance igual à MP+1 e causa MP-2 de dano. Quando esse ataque acerta, ele [[Cauterizado|Cauteriza]] o inimigo, fazendo com que recebam uma penalidade em sua resistência igual à MP e deve-se rodar um dado que, caso resulte em um acerto, [[Queimado|Queima]] o inimigo em 1 de dano por MP turnos.
 
 
 Nível 3
-Esfera de fogo: O usuário invoca uma esfera de fogo que pode ser controlada para se mover e atacar. A esfera começa com força igual à MP que diminui em um por turno. A esfera pode ser movida por quadrados iguais à força remanescente e causa MP-1 de dano. Quando esse ataque acerta, ele Cauteriza o inimigo, fazendo com que recebam uma penalidade em sua resistência igual à MP e deve-se rodar um dado que, caso resulte em um acerto, Queima o inimigo em 1 de dano por MP turnos.
+Esfera de fogo: O usuário invoca uma esfera de fogo que pode ser controlada para se mover e atacar. A esfera começa com força igual à MP que diminui em um por turno. A esfera pode ser movida por quadrados iguais à força remanescente e causa MP-1 de dano. Quando esse ataque acerta, ele [[Cauterizado|Cauteriza]] o inimigo, fazendo com que recebam uma penalidade em sua resistência igual à MP e deve-se rodar um dado que, caso resulte em um acerto, [[Queimado|Queima]] o inimigo em 1 de dano por MP turnos.
 
 
 Energia: O usuário infunde seu corpo com energia, fazendo com que seja possível realizar duas ações por turno, durante turnos iguais à MP usada na conjuração. Quando esse efeito chega ao fim, o usuário fica exausto, recebendo uma penalidade de dois dados em todas as suas rolagens até que possa descansar.
 
 
 Nível 4
-Explosão: O usuário lança uma esfera com alcance de dez quadrados, que quando chega ao alvo, explode com raio cinco. Todos pegos na explosão podem rolar sua Acrobacia contra o Combate à distância+MP do usuário e, caso obtenham sucesso, eles desviam completamente da explosão. A explosão causa MP de dano. Quando esse ataque acerta, ele Cauteriza o inimigo, fazendo com que recebam uma penalidade em sua resistência igual à MP e deve-se rodar um dado(cada alvo pego roda seu próprio dado) que, caso resulte em um acerto, Queima o inimigo em 1 de dano por MP turnos.
+Explosão: O usuário lança uma esfera com alcance de dez quadrados, que quando chega ao alvo, explode com raio cinco. Todos pegos na explosão podem rolar sua Acrobacia contra o Combate à distância+MP do usuário e, caso obtenham sucesso, eles desviam completamente da explosão. A explosão causa MP de dano. Quando esse ataque acerta, ele [[Cauterizado|Cauteriza]] o inimigo, fazendo com que recebam uma penalidade em sua resistência igual à MP e deve-se rodar um dado(cada alvo pego roda seu próprio dado) que, caso resulte em um acerto, [[Queimado|Queima]] o inimigo em 1 de dano por MP turnos.
 
 
 Nível 5
-Ragnarok: O usuário incendeia tudo ao seu redor, com um alcance igual à Magia+MP. A cada turno, todos no alcance são Queimados em 1 de dano e Cauterizados em 1 ponto enquanto dentro da área, e recebem MP de dano a cada turno. A área leva um turno para ser formada. Essa magia custa por turno ½ MP inicial e o usuário deve se manter Concentrado para mantê-la.
+Ragnarok: O usuário incendeia tudo ao seu redor, com um alcance igual à Magia+MP. A cada turno, todos no alcance são [[Queimado|Queimados]] em 1 de dano e [[Cauterizado|Cauterizados]] em 1 ponto enquanto dentro da área, e recebem MP de dano a cada turno. A área leva um turno para ser formada. Essa magia custa por turno ½ MP inicial e o usuário deve se manter [[Concentrado]] para mantê-la.
 
 
 Escola: Fundamentos gerais - Água: Magias generalistas elementais (Suporte de cura): 3
 Nível 1
-Toque molhado: O usuário infunde uma parte do seu corpo com água. O próximo ataque do usuário com essa parte aplica Molhado por MP turnos, causa MP de dano e cura o personagem mais próximo do usuário(com um limite de 6 quadrados) em ½ do dano causado.
+Toque molhado: O usuário infunde uma parte do seu corpo com água. O próximo ataque do usuário com essa parte aplica [[Molhado]] por MP turnos, causa MP de dano e cura o personagem mais próximo do usuário(com um limite de 6 quadrados) em ½ do dano causado.
 
 
 Nível 2
@@ -37,19 +37,19 @@ Benção da deusa do lago: Permite ao usuário caminhar sobre as águas. Custa 1
 
 
 Nível 3
-Vida líquida: O usuário atira um orbe de água curativa em um alvo dentro de um alcance de 6 quadrados. Esse alvo é curado em vida igual aos acertos de uma rolagem de ½ MP e depois o orbe rebate para outro alvo em até 1 quadrado de distância, também o curando pela mesma quantidade e depois rebate novamente por vezes indefinidas, com um limite de curar o mesmo personagem 2 vezes. Todos os atingidos são Molhados por 1 turno.
+Vida líquida: O usuário atira um orbe de água curativa em um alvo dentro de um alcance de 6 quadrados. Esse alvo é curado em vida igual aos acertos de uma rolagem de ½ MP e depois o orbe rebate para outro alvo em até 1 quadrado de distância, também o curando pela mesma quantidade e depois rebate novamente por vezes indefinidas, com um limite de curar o mesmo personagem 2 vezes. Todos os atingidos são [[Molhado|Molhados]] por 1 turno.
 
 
 Nível 4
-Onda: Só pode ser usado sobre a água. O usuário lança uma onda de largura igual a MP. Não causa dano, mas todos personagens no caminho da onda são Derrubados, sem chance de desviar, exceto aqueles nas pontas da onda. Todos os atingidos são Molhados por MP turnos. A onda percorre Magia quadrados.
+Onda: Só pode ser usado sobre a água. O usuário lança uma onda de largura igual a MP. Não causa dano, mas todos personagens no caminho da onda são [[Derrubado|Derrubados]], sem chance de desviar, exceto aqueles nas pontas da onda. Todos os atingidos são [[Molhado|Molhados]] por MP turnos. A onda percorre Magia quadrados.
 
 
 Nível 5
-Bolha: O usuário atira uma bolha de água em um alcance de Magia que quando atinge um alvo ela se envolve ao redor dele, tornando-o alvo Atordoado e o tornando intangível por Inteligência turnos, além de Molhado por 2*Inteligência. No momento da conjuração, o usuário deve optar se deseja usar a bolha de forma a causar dano ou de forma a curar o alvo envolto. Caso opte por causar dano, o alvo recebe ½ MP de dano a cada turno dentro da bolha. Caso opte por curar, o alvo recebe vida com base em uma rolagem de ½ MP.
+Bolha: O usuário atira uma bolha de água em um alcance de Magia que quando atinge um alvo ela se envolve ao redor dele, tornando-o alvo [[Atordoado]] e o tornando intangível por Inteligência turnos, além de [[Molhado]] por 2*Inteligência. No momento da conjuração, o usuário deve optar se deseja usar a bolha de forma a causar dano ou de forma a curar o alvo envolto. Caso opte por causar dano, o alvo recebe ½ MP de dano a cada turno dentro da bolha. Caso opte por curar, o alvo recebe vida com base em uma rolagem de ½ MP.
 
 Escola: Fundamentos gerais - Ar: Magias generalistas elementais (Suporte de movimento): 3
 Nível 1
-Toque de vento: O usuário movimenta o ar ao redor de uma parte do seu corpo em alta velocidade, e o libera juntamente ao seu ataque. O próximo ataque do usuário com essa parte do corpo causa MP de dano, empurra o alvo 1 quadrado para trás e caso ele falhe em uma checagem de Tenacidade contra MP, ele é Derrubado.
+Toque de vento: O usuário movimenta o ar ao redor de uma parte do seu corpo em alta velocidade, e o libera juntamente ao seu ataque. O próximo ataque do usuário com essa parte do corpo causa MP de dano, empurra o alvo 1 quadrado para trás e caso ele falhe em uma checagem de Tenacidade contra MP, ele é [[Derrubado]].
 
 
 Nível 2
@@ -60,20 +60,20 @@ Avanço: O usuário remove parte do ar à frente do alvo, diminuindo assim o arr
 
 
 Nível 3
-Voo: Concede ao alvo o efeito Voo. Custa 2 MP por turno. Pode ser usado como ação gratuita a qualquer momento do turno do usuário. mas apenas uma vez por turno e tem alcance de Magia*2 quadrados. Caso o alvo saia do alcance da magia, ele perde o efeito Voo imediatamente.
+Voo: Concede ao alvo o efeito [[Voo]]. Custa 2 MP por turno. Pode ser usado como ação gratuita a qualquer momento do turno do usuário. mas apenas uma vez por turno e tem alcance de Magia*2 quadrados. Caso o alvo saia do alcance da magia, ele perde o efeito [[Voo]] imediatamente.
 
 
 Nível 4
-Ventania: O usuário cria um vento de alta velocidade e o atira em direção a um alvo. Esse alvo é empurrado em MP quadrados e, caso atinja um objeto, ele para no quadrado anterior ao objeto, recebendo ½ MP de dano e sendo Derrubado caso falhe em uma checagem de Tenacidade contra MP. Caso ele atinja outro personagem, ele pode tentar desviar a partir de uma rolagem de Acrobacia contra MP*2-a quantidade de quadrados percorridos até chegar nele e, caso falhe, recebe ½ MP de dano e deve realizar uma checagem de Tenacidade contra MP e, caso falhe, é Derrubado. Essa magia pode ser usada de forma mais controlada, empurrando o alvo sem chance de o derrubar caso o usuário assim deseje.
+Ventania: O usuário cria um vento de alta velocidade e o atira em direção a um alvo. Esse alvo é empurrado em MP quadrados e, caso atinja um objeto, ele para no quadrado anterior ao objeto, recebendo ½ MP de dano e sendo [[Derrubado]] caso falhe em uma checagem de Tenacidade contra MP. Caso ele atinja outro personagem, ele pode tentar desviar a partir de uma rolagem de Acrobacia contra MP*2-a quantidade de quadrados percorridos até chegar nele e, caso falhe, recebe ½ MP de dano e deve realizar uma checagem de Tenacidade contra MP e, caso falhe, é [[Derrubado]]. Essa magia pode ser usada de forma mais controlada, empurrando o alvo sem chance de o derrubar caso o usuário assim deseje.
 
 
 Nível 5
-Singularidade: O usuário canaliza por um turno e então ativa, criando uma singularidade em um ponto dentro de um alcance de 15 quadrados. Todos em um raio de 10 quadrados da singularidade são puxados em direção a ela a uma taxa de 2*MP a cada turno, sendo que podem resistir rolando um dado de Resistência+Força contra a Magia+MP do usuário e, caso obtenham sucesso podem se mover em até ½ dos seus pontos de movimento totais. Quando um personagem chega à singularidade, ele recebe 1 de dano verdadeiro por turno mais 1 para cada outro personagem também na singularidade. O usuário precisa se manter Concentrado para manter essa magia.
+Singularidade: O usuário canaliza por um turno e então ativa, criando uma singularidade em um ponto dentro de um alcance de 15 quadrados. Todos em um raio de 10 quadrados da singularidade são puxados em direção a ela a uma taxa de 2*MP a cada turno, sendo que podem resistir rolando um dado de Resistência+Força contra a Magia+MP do usuário e, caso obtenham sucesso podem se mover em até ½ dos seus pontos de movimento totais. Quando um personagem chega à singularidade, ele recebe 1 de dano verdadeiro por turno mais 1 para cada outro personagem também na singularidade. O usuário precisa se manter [[Concentrado]] para manter essa magia.
 
 
 Escola: Fundamentos gerais - Terra: Magias generalistas elementais (Defesa): 3
 Nível 1
-Duro como pedra: O usuário infunde uma parte do seu corpo com pedra, fazendo com que seu próximo ataque com essa parte cause MP de dano e, caso o usuário tenha o 2* ou mais de acertos do que o alvo, o alvo fica Atordoado por turnos iguais à diferença de acertos que exceda o limiar.
+Duro como pedra: O usuário infunde uma parte do seu corpo com pedra, fazendo com que seu próximo ataque com essa parte cause MP de dano e, caso o usuário tenha o 2* ou mais de acertos do que o alvo, o alvo fica [[Atordoado]] por turnos iguais à diferença de acertos que exceda o limiar.
 
 
 Nível 2
@@ -92,7 +92,7 @@ Terraformar: O usuário pode criar uma parede de comprimento até Magia, essa pa
 
 
 Nível 5
-Tumba: O usuário escolhe um alvo, e rola sua Magia+MP contra Resistência+Força do inimigo. Caso suceda, o inimigo é enterrado no chão, sendo que de acordo com o número de acertos, o inimigo fica mais profundo. Com 1 ou 2 acertos o inimigo tem seus pés enterrados, impossibilitando-o de se mover. Com 3 ou 4 acertos ele tem as pernas enterradas, não podendo se mover e pode apenas usar sua Agilidade para esquivar(sem habilidade de Acrobacia). Com 5 ou 6 o alvo é enterrado até os cotovelos, impedindo de andar e atacar, mas ainda pode desviar de ataques com Agilidade. Com 7 ou 8 o alvo é enterrado até os ombros, impedindo de se mover, atacar ou desviar. Com 9 ou mais acertos o alvo fica completamente submerso no chão, sendo incapaz de se mover, atacar, desviar, falar e, além disso, recebem 1 de dano a cada turno que continuam enterrados. A cada turno o alvo afetado rola um dado de Força e, para cada acerto que tiver, ele remove um acerto do usuário, se liberando aos poucos. O alcance dessa magia é de 6 quadrados. O usuário precisa se manter Concentrado para manter a magia.
+Tumba: O usuário escolhe um alvo, e rola sua Magia+MP contra Resistência+Força do inimigo. Caso suceda, o inimigo é enterrado no chão, sendo que de acordo com o número de acertos, o inimigo fica mais profundo. Com 1 ou 2 acertos o inimigo tem seus pés enterrados, impossibilitando-o de se mover. Com 3 ou 4 acertos ele tem as pernas enterradas, não podendo se mover e pode apenas usar sua Agilidade para esquivar(sem habilidade de Acrobacia). Com 5 ou 6 o alvo é enterrado até os cotovelos, impedindo de andar e atacar, mas ainda pode desviar de ataques com Agilidade. Com 7 ou 8 o alvo é enterrado até os ombros, impedindo de se mover, atacar ou desviar. Com 9 ou mais acertos o alvo fica completamente submerso no chão, sendo incapaz de se mover, atacar, desviar, falar e, além disso, recebem 1 de dano a cada turno que continuam enterrados. A cada turno o alvo afetado rola um dado de Força e, para cada acerto que tiver, ele remove um acerto do usuário, se liberando aos poucos. O alcance dessa magia é de 6 quadrados. O usuário precisa se manter [[Concentrado]] para manter a magia.
 
 
 
@@ -102,26 +102,26 @@ ________________
 
 Escola: Fundamentos gerais - Arcana: Magias generalistas elementais (Dano explosivo): 3
 Nível 1
-Toque arcano: O usuário infunde uma parte de seu corpo com energia mágica concentrada. O próximo ataque do usuário com essa parte do corpo causa MP de dano. Quando esse ataque acerta, o alvo é Predestinado por Magia turnos.
+Toque arcano: O usuário infunde uma parte de seu corpo com energia mágica concentrada. O próximo ataque do usuário com essa parte do corpo causa MP de dano. Quando esse ataque acerta, o alvo é [[Predestinado]] por Magia turnos.
 
 
 Nível 2
-Esfera arcana: O usuário concentra energia mágica em um local num alcance de Magia quadrados, criando uma bola que causa MP-1 de dano. Quando esse ataque acerta, o alvo é Predestinado por Magia turnos. A bola permanece no local por Inteligência turnos e qualquer personagem que esteja no quadrado da bola no início do turno do conjurador recebe o mesmo dano da conjuração.
+Esfera arcana: O usuário concentra energia mágica em um local num alcance de Magia quadrados, criando uma bola que causa MP-1 de dano. Quando esse ataque acerta, o alvo é [[Predestinado]] por Magia turnos. A bola permanece no local por Inteligência turnos e qualquer personagem que esteja no quadrado da bola no início do turno do conjurador recebe o mesmo dano da conjuração.
 
 
 Nível 3
-Manipulação arcana: O usuário manipula uma Esfera arcana previamente criada por ele mesmo, podendo movê-la por até ½ MP quadrados, fazendo com que todos atingidos recebam Magia de dano. Para mover a Esfera arcana, ela deve estar num raio de Magia do usuário e só pode ser movida dentro desse mesmo raio. Quando esse ataque acerta, o alvo é Predestinado por Magia turnos.
+Manipulação arcana: O usuário manipula uma Esfera arcana previamente criada por ele mesmo, podendo movê-la por até ½ MP quadrados, fazendo com que todos atingidos recebam Magia de dano. Para mover a Esfera arcana, ela deve estar num raio de Magia do usuário e só pode ser movida dentro desse mesmo raio. Quando esse ataque acerta, o alvo é [[Predestinado]] por Magia turnos.
 
 
 Nível 4
-Sobrecarga arcana: O usuário sobrecarrega uma Esfera arcana previamente criada por ele mesmo, fazendo com que ela exploda, causando MP de dano num raio igual ao tempo restante da bola em turnos +2. Todos pegos na explosão podem rolar sua Acrobacia contra o Combate à distância+MP do usuário e, caso obtenham sucesso, eles desviam completamente da explosão. Quando esse ataque acerta, o alvo é Predestinado por Magia turnos.
+Sobrecarga arcana: O usuário sobrecarrega uma Esfera arcana previamente criada por ele mesmo, fazendo com que ela exploda, causando MP de dano num raio igual ao tempo restante da bola em turnos +2. Todos pegos na explosão podem rolar sua Acrobacia contra o Combate à distância+MP do usuário e, caso obtenham sucesso, eles desviam completamente da explosão. Quando esse ataque acerta, o alvo é [[Predestinado]] por Magia turnos.
 
 
 Cofre arcano : O usuário pega uma Esfera arcana e a mantém ao redor de si. O usuário também pode criar uma nova Esfera arcana e imediatamente adicioná-la ao Cofre arcano. É possível ter até ⅓ Magia de Esferas arcanas armazenadas ao mesmo tempo. Adicionar uma Esfera arcana ao Cofre arcano não tem custo. Enquanto uma Esfera arcana está armazenada no Cofre arcano, ela tem 2* de sua duração atual. O usuário pode disparar uma ou mais Esferas arcanas de uma só vez. A primeira Esfera arcana causa seu dano integral e cada Esfera arcana no mesmo alvo após a primeira causa apenas ½ do seu dano. Cada Esfera arcana disparada tem um custo de ⅓ do seu próprio MP. Após ser disparada, a Esfera arcana é destruída.
 
 
 Nível 5
-Poder ilimitado: O usuário canaliza por 1 turno, ficando Concentrado, e no turno após a canalização pode realizar ações extras igual a ½ MP. Durante esse turno, quando um alvo com Predestinado receber outro ataque que cause Predestinado, o ataque pode reaplicar o efeito após consumi-lo. Devido à quantidade e velocidade de manipulação de energia mágica durante o uso dessa magia, ela é extremamente desgastante, fazendo com que só possa ser usada ⅓ Magia vezes por dia.
+Poder ilimitado: O usuário canaliza por 1 turno, ficando [[Concentrado]], e no turno após a canalização pode realizar ações extras igual a ½ MP. Durante esse turno, quando um alvo com [[Predestinado]] receber outro ataque que cause [[Predestinado]], o ataque pode reaplicar o efeito após consumi-lo. Devido à quantidade e velocidade de manipulação de energia mágica durante o uso dessa magia, ela é extremamente desgastante, fazendo com que só possa ser usada ⅓ Magia vezes por dia.
 
 
 ________________
@@ -144,7 +144,7 @@ Nível 4
 Último suspiro: O usuário atira um projétil contra um alvo dentro de um alcance de Magia que causa dano igual à vida perdida do usuário como dano verdadeiro e custa MP igual a ½ do dano.
 
 
-Caminho do vazio: O usuário infunde seu corpo inteiro com 「 」, recebendo o efeito Banido até o início do seu próximo turno, mas ainda podendo realizar ações de movimentação normalmente. Quando o efeito Banido chega ao fim, caso o usuário esteja no mesmo quadrado de outro personagem, ele causa MP de dano verdadeiro a esse personagem e o empurra 1 quadrado na direção escolhida pelo usuário, sendo que caso haja uma parede ou similar no segundo quadrado da direção escolhida, o alvo é Atordoado por 1 turno e recebe 1 de dano verdadeiro extra. O dano recebido pelo coice dessa magia é dobrado.
+Caminho do vazio: O usuário infunde seu corpo inteiro com 「 」, recebendo o efeito [[Banido]] até o início do seu próximo turno, mas ainda podendo realizar ações de movimentação normalmente. Quando o efeito [[Banido]] chega ao fim, caso o usuário esteja no mesmo quadrado de outro personagem, ele causa MP de dano verdadeiro a esse personagem e o empurra 1 quadrado na direção escolhida pelo usuário, sendo que caso haja uma parede ou similar no segundo quadrado da direção escolhida, o alvo é [[Atordoado]] por 1 turno e recebe 1 de dano verdadeiro extra. O dano recebido pelo coice dessa magia é dobrado.
 
 
 Nível 5
@@ -173,7 +173,7 @@ Trovoada: O usuário escolhe um quadrado dentro de um alcance de Magia e faz cai
 
 
 Nível 5
-Tempestade: O usuário fica Concentrado por 1 turno enquanto transforma uma grande quantidade de energia mágica em energia elétrica e a acumula. Ao fim desse período, o usuário cria uma tempestade de Inteligência+Magia de área que dura por MP turnos. Magias de eletricidade conjuradas dentro dessa área não tem custo de MP e causam ½ do coice. Além disso, uma vez por turno é jogado um dado e, caso seja um acerto, o usuário pode escolher um alvo dentro da área que recebe um raio que causa MP de dano e pode ricochetear para outros alvos adjacentes, sem limite de ricochetes, porém podendo atingir o mesmo alvo apenas uma vez.
+Tempestade: O usuário fica [[Concentrado]] por 1 turno enquanto transforma uma grande quantidade de energia mágica em energia elétrica e a acumula. Ao fim desse período, o usuário cria uma tempestade de Inteligência+Magia de área que dura por MP turnos. Magias de eletricidade conjuradas dentro dessa área não tem custo de MP e causam ½ do coice. Além disso, uma vez por turno é jogado um dado e, caso seja um acerto, o usuário pode escolher um alvo dentro da área que recebe um raio que causa MP de dano e pode ricochetear para outros alvos adjacentes, sem limite de ricochetes, porém podendo atingir o mesmo alvo apenas uma vez.
 
 
 ________________
@@ -181,26 +181,26 @@ ________________
 
 Escola: Fundamentos gerais - Gelo: Magias generalistas elementais (Suporte debilitante): 3
 Nível 1
-Toque congelante: O usuário infunde uma parte do seu corpo com gelo. O próximo ataque do usuário com essa parte causa MP de dano e Congela o inimigo por MP turnos. Caso esse ataque acerte um inimigo Congelado em 3 ou mais, ele converte o Congelado em Atordoado que dura ⅓ dos turnos restantes do efeito.
+Toque congelante: O usuário infunde uma parte do seu corpo com gelo. O próximo ataque do usuário com essa parte causa MP de dano e [[Congelar|Congela]] o inimigo por MP turnos. Caso esse ataque acerte um inimigo [[Congelar|Congelado]] em 3 ou mais, ele converte o [[Congelar|Congelado]] em [[Atordoado]] que dura ⅓ dos turnos restantes do efeito.
 
 
 Nível 2
-Dardo de gelo: O usuário atira um projétil de gelo com alcance Magia que causa MP de dano e Congela o inimigo em MP. Caso esse ataque acerte um inimigo Congelado em 3 ou mais, ele converte o Congelado em Atordoado que dura ⅓ dos turnos restantes do efeito.
+Dardo de gelo: O usuário atira um projétil de gelo com alcance Magia que causa MP de dano e [[Congelar|Congela]] o inimigo em MP. Caso esse ataque acerte um inimigo [[Congelar|Congelado]] em 3 ou mais, ele converte o [[Congelar|Congelado]] em [[Atordoado]] que dura ⅓ dos turnos restantes do efeito.
 
 
 Nível 3
-Bloco de gelo: O usuário cria um bloco de gelo ao redor de si ou de outro personagem dentro de um alcance de Magia. O alvo fica preso em um bloco de gelo, Atordoado-o por ½ MP turnos e tornando-o intangível.
+Bloco de gelo: O usuário cria um bloco de gelo ao redor de si ou de outro personagem dentro de um alcance de Magia. O alvo fica preso em um bloco de gelo, [[Atordoado]]-o por ½ MP turnos e tornando-o intangível.
 
 
-Piso congelado: O usuário escolhe um ou mais quadrados dentro de um alcance de Magia*2(Múltiplos quadrados devem estar adjacentes e o máximo de quadrados por conjuração é de Magia) onde pode optar por criar uma camada de gelo ou de neve. Uma camada de gelo faz com que qualquer um que se mova sob o quadrado precise rolar um dado e, caso não seja um acerto, ele é Derrubado, mas caso seja, ele reembolsa o ponto de movimento gasto ao passar por esse quadrado. Uma camada de neve faz com que qualquer um que passe sob o quadrado gaste 1 ponto extra de movimento para atravessá-lo. Dura por MP turnos.
+Piso congelado: O usuário escolhe um ou mais quadrados dentro de um alcance de Magia*2(Múltiplos quadrados devem estar adjacentes e o máximo de quadrados por conjuração é de Magia) onde pode optar por criar uma camada de gelo ou de neve. Uma camada de gelo faz com que qualquer um que se mova sob o quadrado precise rolar um dado e, caso não seja um acerto, ele é [[Derrubado]], mas caso seja, ele reembolsa o ponto de movimento gasto ao passar por esse quadrado. Uma camada de neve faz com que qualquer um que passe sob o quadrado gaste 1 ponto extra de movimento para atravessá-lo. Dura por MP turnos.
 
 
 Nível 4
-Nevasca: O usuário cria uma tempestade de gelo ao seu redor de tamanho ½ Magia que o segue, durando por MP turnos e Congelando todos na área em ½ MP. Inimigos já Congelados tem a duração do efeito aumentada para ½ MP(Caso a duração restante seja menor do que esse valor) e recebem 1 de dano verdadeiro.
+Nevasca: O usuário cria uma tempestade de gelo ao seu redor de tamanho ½ Magia que o segue, durando por MP turnos e [[Congelar|Congelando]] todos na área em ½ MP. Inimigos já [[Congelar|Congelados]] tem a duração do efeito aumentada para ½ MP(Caso a duração restante seja menor do que esse valor) e recebem 1 de dano verdadeiro.
 
 
 Nível 5
-Patinação: O usuário cria uma área de raio igual a 2*MP, onde é criada uma camada de gelo no chão. Todos que tentam se mover precisam antes rolar um dado e, caso não seja um acerto, ele escorrega e é Derrubado. Em contrapartida, o usuário e todos aqueles anulados recebem patins de gelo, aumentando seus pontos de movimento em Magia. Além disso, todos na área são Congelados em MP, esse efeito é renovado a cada turno que o personagem se mantém dentro da área. Essa área precisa de 1 turno de canalização onde o usuário deve se manter Concentrado para ser formada e o usuário deve pagar ½ MP a cada turno para mantê-la.
+Patinação: O usuário cria uma área de raio igual a 2*MP, onde é criada uma camada de gelo no chão. Todos que tentam se mover precisam antes rolar um dado e, caso não seja um acerto, ele escorrega e é [[Derrubado]]. Em contrapartida, o usuário e todos aqueles anulados recebem patins de gelo, aumentando seus pontos de movimento em Magia. Além disso, todos na área são [[Congelar|Congelados]] em MP, esse efeito é renovado a cada turno que o personagem se mantém dentro da área. Essa área precisa de 1 turno de canalização onde o usuário deve se manter [[Concentrado]] para ser formada e o usuário deve pagar ½ MP a cada turno para mantê-la.
 ________________
 Escola: Mineralogia: Magia baseada no uso de pedras preciosas para ataques poderosos e armazenamento de MP e magias: 2
 Nível 1
@@ -457,7 +457,7 @@ Reforço elemental de ar:  O usuário reforça seu corpo com ar, tornando-se imu
 Reforço elemental de terra: O usuário reforça seu corpo com terra, fazendo com que todo o dano recebido seja reduzido em ⅓ MP. Todo o dano mitigado por esse efeito é transferido para o chão, causando uma onda de choque de alcance Resistência. O dano causado pela onda de choque é igual ao dano mitigado pelo efeito. O efeito de reforço dura por Magia turnos  *Apenas alinhamento de terra
 
 
-Reforço elemental arcano : O usuário reforça sua arma com energia arcana, fazendo com que todos seus ataques tornem os alvos Predestinados por ½ Magia turnos e causem ⅓ MP de dano adicional. O efeito do reforço dura por Magia turnos. *Apenas alinhamento de arcana
+Reforço elemental arcano : O usuário reforça sua arma com energia arcana, fazendo com que todos seus ataques tornem os alvos [[Predestinado|Predestinados]] por ½ Magia turnos e causem ⅓ MP de dano adicional. O efeito do reforço dura por Magia turnos. *Apenas alinhamento de arcana
 
 
 Reforço elemental vazio: O usuário reforça sua arma com 「        」, fazendo com que todo o dano causado por ela se torne dano verdadeiro, mas causem 1 de dano verdadeiro ao usuário. O efeito do reforço dura por ½ MP turnos. *Apenas alinhamento de vazio
@@ -466,7 +466,7 @@ Reforço elemental vazio: O usuário reforça sua arma com 「        」, fazen
 Reforço elemental elétrico: O usuário reforça sua arma com eletricidade, fazendo com que ataques com essa arma causem 1 de dano a mais e todo o dano é ricocheteado para até ⅓ outros alvos adjacentes, podendo ricochetear de volta no mesmo alvo, mas dando preferência a novos alvos.O efeito do reforço dura por Magia turnos. *Apenas alinhamento de eletricidade
 
 
-Reforço elemental gelo: O usuário reforça sua arma com gelo, fazendo com que ataques com essa arma Congelem o inimigo por ½ MP turnos. Caso esse ataque acerte um inimigo Congelado em 3 ou mais, ele converte o Congelado em Atordoado que dura ⅓ dos turnos restantes do efeito. O efeito do reforço dura por Magia turnos. *Apenas alinhamento de gelo
+Reforço elemental gelo: O usuário reforça sua arma com gelo, fazendo com que ataques com essa arma Congelem o inimigo por ½ MP turnos. Caso esse ataque acerte um inimigo [[Congelar|Congelado]] em 3 ou mais, ele converte o [[Congelar|Congelado]] em [[Atordoado]] que dura ⅓ dos turnos restantes do efeito. O efeito do reforço dura por Magia turnos. *Apenas alinhamento de gelo
 
 
 
@@ -649,7 +649,7 @@ Nível 2
 Reabastecimento: Pode ser usado em um alvo em distância corpo a corpo do usuário. Durante turnos iguais a MP, rolam-se ½ Magia dados e, para cada acerto, o alvo é curado em 1 de vida.
 
 
-Meditar: Cria uma zona ao redor do usuário de tamanho Magia.  O usuário pode manter a zona por quanto tempo quiser, mas deve pagar ¼ MP por turno. No turno em que é conjurado não cura, após isso, todos dentro da área são curados em vida igual aos acertos de uma rolagem de dados iguais à MP. O usuário precisa se manter Concentrado enquanto usa essa magia.
+Meditar: Cria uma zona ao redor do usuário de tamanho Magia.  O usuário pode manter a zona por quanto tempo quiser, mas deve pagar ¼ MP por turno. No turno em que é conjurado não cura, após isso, todos dentro da área são curados em vida igual aos acertos de uma rolagem de dados iguais à MP. O usuário precisa se manter [[Concentrado]] enquanto usa essa magia.
 
 
 Nível 3
@@ -681,7 +681,7 @@ Escola: Formalismo: Redução de custo de MP através do uso de mana do ambiente
 
 
 Nível 1
-Aprendiz de formalismo: Permite ao usuário utilizar a mana do local ao invés de seu od interior para a realização de magias. Acumular mana leva tempo, adicionando um tempo de conjuração extra à magia. Utilizar o formalismo deve ser declarado no momento da declaração do uso da magia. Quando usado, a magia gasta menos MP conforme o tempo de conjuração do formalismo. O recuo ainda é aplicado normalmente. Um local tem uma determinada quantidade de mana disponível, assim não é possível extrair mana infinitamente do mesmo local. Permite ao usuário utilizar 1 de mana por turno conjurado. É necessário se manter Concentrado enquanto canaliza e ter a canalização interrompida precocemente faz com que se perca toda a mana acumulada.
+Aprendiz de formalismo: Permite ao usuário utilizar a mana do local ao invés de seu od interior para a realização de magias. Acumular mana leva tempo, adicionando um tempo de conjuração extra à magia. Utilizar o formalismo deve ser declarado no momento da declaração do uso da magia. Quando usado, a magia gasta menos MP conforme o tempo de conjuração do formalismo. O recuo ainda é aplicado normalmente. Um local tem uma determinada quantidade de mana disponível, assim não é possível extrair mana infinitamente do mesmo local. Permite ao usuário utilizar 1 de mana por turno conjurado. É necessário se manter [[Concentrado]] enquanto canaliza e ter a canalização interrompida precocemente faz com que se perca toda a mana acumulada.
 
 
 Nível 2

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Effect;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
 use Inertia\Inertia;
@@ -25,7 +26,10 @@ class ViewController extends Controller
 
         try {
             $sheet = $sheetController->showAsEntity($request);
-            return Inertia::render("vue/sheet", ["sheet" => $sheet]);
+            return Inertia::render("vue/sheet", [
+                "sheet" => $sheet,
+                "effects" => Inertia::once(fn () => Effect::query()->orderBy("name")->get(["name", "description"])),
+            ]);
 
         } catch (NotFoundResourceException $exception) {
             return redirect("/login");

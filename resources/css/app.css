@@ -1,5 +1,158 @@
 @import "tailwindcss";
 
 @plugin "daisyui" {
-    themes: light --default, dark --prefersdark, cyberpunk, retro, dracula, emerald, night, nord, pastel, lofi, wireframe, black, forest;
+    themes: false;
+}
+
+@plugin "daisyui/theme" {
+    name: "noturno";
+    default: true;
+    prefersdark: true;
+    color-scheme: dark;
+
+    --color-base-100: oklch(16% 0.014 268);
+    --color-base-200: oklch(19.5% 0.017 268);
+    --color-base-300: oklch(24% 0.021 268);
+    --color-base-content: oklch(92% 0.012 280);
+    --color-primary: oklch(63% 0.215 12);
+    --color-primary-content: oklch(98% 0.01 12);
+    --color-secondary: oklch(83% 0.105 212);
+    --color-secondary-content: oklch(21% 0.04 230);
+    --color-accent: oklch(71% 0.17 302);
+    --color-accent-content: oklch(17% 0.04 302);
+    --color-neutral: oklch(28% 0.022 268);
+    --color-neutral-content: oklch(86% 0.012 268);
+    --color-info: oklch(75% 0.12 235);
+    --color-info-content: oklch(20% 0.04 235);
+    --color-success: oklch(78% 0.15 162);
+    --color-success-content: oklch(20% 0.04 162);
+    --color-warning: oklch(83% 0.15 82);
+    --color-warning-content: oklch(22% 0.05 82);
+    --color-error: oklch(69% 0.19 38);
+    --color-error-content: oklch(18% 0.04 38);
+
+    --radius-selector: 0.25rem;
+    --radius-field: 0.2rem;
+    --radius-box: 0.25rem;
+    --size-selector: 0.25rem;
+    --size-field: 0.25rem;
+    --border: 1px;
+    --depth: 0;
+    --noise: 1;
+}
+
+@plugin "daisyui/theme" {
+    name: "aurora";
+    default: false;
+    prefersdark: false;
+    color-scheme: light;
+
+    --color-base-100: oklch(96.5% 0.009 85);
+    --color-base-200: oklch(98.8% 0.005 85);
+    --color-base-300: oklch(90.5% 0.015 85);
+    --color-base-content: oklch(23% 0.022 268);
+    --color-primary: oklch(53% 0.205 12);
+    --color-primary-content: oklch(98% 0.01 12);
+    --color-secondary: oklch(50% 0.115 222);
+    --color-secondary-content: oklch(98% 0.01 222);
+    --color-accent: oklch(50% 0.2 302);
+    --color-accent-content: oklch(98% 0.01 302);
+    --color-neutral: oklch(26% 0.022 268);
+    --color-neutral-content: oklch(95% 0.01 268);
+    --color-info: oklch(55% 0.13 240);
+    --color-info-content: oklch(98% 0.01 240);
+    --color-success: oklch(55% 0.13 162);
+    --color-success-content: oklch(98% 0.01 162);
+    --color-warning: oklch(70% 0.15 70);
+    --color-warning-content: oklch(22% 0.05 70);
+    --color-error: oklch(57% 0.2 35);
+    --color-error-content: oklch(98% 0.01 35);
+
+    --radius-selector: 0.25rem;
+    --radius-field: 0.2rem;
+    --radius-box: 0.25rem;
+    --size-selector: 0.25rem;
+    --size-field: 0.25rem;
+    --border: 1px;
+    --depth: 0;
+    --noise: 1;
+}
+
+@theme {
+    --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+    --font-display: "Space Grotesk", "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+/* Cut top-right corner used by cards and panels. */
+@utility chamfer {
+    clip-path: polygon(0 0, calc(100% - 0.875rem) 0, 100% 0.875rem, 100% 100%, 0 100%);
+}
+
+@utility chamfer-sm {
+    clip-path: polygon(0 0, calc(100% - 0.5rem) 0, 100% 0.5rem, 100% 100%, 0 100%);
+}
+
+/* Hairline frame whose cut corner glows with the primary color; pair with chamfer + p-px. */
+@utility hud-frame {
+    background-image: linear-gradient(
+        225deg,
+        var(--color-primary) 0,
+        color-mix(in oklab, var(--color-primary) 35%, transparent) 1.75rem,
+        color-mix(in oklab, var(--color-base-content) 13%, transparent) 5rem
+    );
+}
+
+/* Small uppercase mono label: "02 / ESTATÍSTICAS". */
+@utility label-mono {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    line-height: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: color-mix(in oklab, var(--color-base-content) 55%, transparent);
+}
+
+@layer base {
+    html {
+        font-family: var(--font-sans);
+        -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+        min-height: 100dvh;
+        background-color: var(--color-base-100);
+        background-image:
+            radial-gradient(60rem 40rem at 100% -10%, color-mix(in oklab, var(--color-primary) 11%, transparent), transparent 70%),
+            radial-gradient(50rem 35rem at -10% 110%, color-mix(in oklab, var(--color-accent) 9%, transparent), transparent 70%),
+            radial-gradient(color-mix(in oklab, var(--color-base-content) 7%, transparent) 1px, transparent 1px);
+        background-size: auto, auto, 1.5rem 1.5rem;
+        background-attachment: fixed;
+    }
+
+    /* Faint "magic circle" drawn behind everything; the mask lets it follow the theme color. */
+    body::before {
+        content: "";
+        position: fixed;
+        z-index: -1;
+        pointer-events: none;
+        width: min(80rem, 110vmin);
+        aspect-ratio: 1;
+        right: max(-30rem, -35vmin);
+        top: 50%;
+        translate: 0 -50%;
+        background-color: var(--color-base-content);
+        opacity: 0.045;
+        mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' fill='none' stroke='black'%3E%3Ccircle cx='100' cy='100' r='98' stroke-width='.6'/%3E%3Ccircle cx='100' cy='100' r='93' stroke-width='2.4' stroke-dasharray='.6 3.2'/%3E%3Ccircle cx='100' cy='100' r='88' stroke-width='.6'/%3E%3Ccircle cx='100' cy='100' r='64' stroke-width='.6'/%3E%3Ccircle cx='100' cy='100' r='58' stroke-width='.4' stroke-dasharray='6 4'/%3E%3Ccircle cx='100' cy='100' r='22' stroke-width='.6'/%3E%3Cpath d='M100 12 176.2 144 23.8 144Z M100 188 23.8 56 176.2 56Z' stroke-width='.6'/%3E%3Cpath d='M100 2v196M2 100h196' stroke-width='.3'/%3E%3C/svg%3E") center / contain no-repeat;
+    }
+
+    /* Default icon size lives in the base layer so size-* utilities can override it. */
+    svg.icon {
+        width: 1rem;
+        height: 1rem;
+    }
+
+    ::selection {
+        background-color: color-mix(in oklab, var(--color-primary) 40%, transparent);
+    }
 }
